@@ -51,9 +51,9 @@ class gPersianDate {
 		add_action( 'bbp_includes', array( & $this, 'bbp_includes' ) ); // BBPress
 	
 		add_action( 'init', array( & $this, 'init' ) );
-		add_action( 'admin_init', array( & $this, 'admin_init' ) );
+		//add_action( 'admin_init', array( & $this, 'admin_init' ) );
 		add_action( 'widgets_init', array( & $this, 'widgets_init' ) );
-		add_action( 'wp_footer', array( & $this, 'wp_footer' ) );
+		//add_action( 'wp_footer', array( & $this, 'wp_footer' ) );
 		
 		add_filter( 'posts_request', array( & $this, 'posts_request' ), 20 );
 		add_filter( 'posts_search', array( & $this, 'posts_request' ), 20 );
@@ -94,17 +94,11 @@ class gPersianDate {
 		
 		add_filter( 'maybe_format_i18n', array( $this, 'replace_numbers' ), 10, 2 );
 		
-		
-		
-		
-		
 		add_filter( 'gmeta_meta', array( $this, 'replace_numbers' ), 12 );
 		add_filter( 'gmeta_lead', array( $this, 'replace_numbers' ), 12 );
 		add_filter( 'geditorial_kses', array( $this, 'replace_numbers' ), 12 );
 		
 		add_filter( 'wp_nav_menu_items', array( & $this, 'wp_nav_menu_items' ), 10, 2 );
-		if ( $this->_adminbar )
-			add_action( 'admin_bar_menu', array( & $this, 'admin_bar_menu' ) );
 		
 		//add_filter( 'the_date', array( & $this, 'the_date' ), 10, 4 );
 		add_filter( 'get_the_date', array( & $this, 'get_the_date' ), 10, 2 ); // must translate
@@ -133,57 +127,88 @@ class gPersianDate {
 			add_filter( 'pre_get_posts', array( & $this, 'pre_get_posts' ) );
 			add_action( 'restrict_manage_posts', array( & $this, 'restrict_manage_posts_mgp' ), 5 );
 			
-			
-			if ( $this->_datepicker ) {
-				add_action( 'restrict_manage_posts', array( & $this, 'restrict_manage_posts_start_end' ) );
-				add_action( 'admin_print_styles', array( & $this, 'admin_print_styles' ) );
-				add_action( 'admin_footer', array( & $this, 'admin_footer' ) );
-			}
+			add_action( 'admin_enqueue_scripts', array( & $this, 'admin_enqueue_scripts' ) );
 			
 			//add_action( 'post_submitbox_misc_actions', array( & $this, 'post_submitbox_misc_actions' ) );
 		} else {
 			// some filters fo non admin area. just to be neat!
 			add_filter( 'list_pages', array( $this, 'replace_numbers' ), 12 ); // page dropdown walker item title
+			
+			add_filter( 'wp_enqueue_scripts', array( & $this, 'wp_enqueue_scripts' ) );
 		}
 		
-	}
-	
-	function init() 
-	{ 
-		load_plugin_textdomain( GPERSIANDATE_TEXTDOMAIN, false, 'gpersiandate/languages' ); 
-		
-		if ( is_admin_bar_showing() && $this->_adminbar && is_user_logged_in() ) { // http://www.jquery4u.com/snippets/create-jquery-digital-clock-jquery4u/
-			wp_register_script( 'gperdiandate-clock',
-				GPERSIANDATE_URL.'assets/js/adminbar.clock.min.js',
-				array( 'jquery' ),
-				GPERSIANDATE_VERSION,
-				true
-			);
-			wp_localize_script( 'gperdiandate-clock',
-				'GPD_clock', array( 
-					'local' => GPERSIANDATE_LOCALE,
-			) );
-		}
-	}
-	
-    function admin_init()
-	{
-        if ( $this->_datepicker && strpos( $_SERVER['REQUEST_URI'], 'edit.php' ) ) {
-			wp_deregister_script( 'jquery-ui-datepicker' );
-			wp_register_script( 'jquery-ui-datepicker', GPERSIANDATE_URL.'assets/libs/datepicker/scripts/jquery.ui.datepicker-cc.all.min.js', array( 'jquery', 'jquery-ui-core' ), GPERSIANDATE_VERSION );
-			//wp_register_script( 'jquery-ui-timepicker', GPERSIANDATE_URL.'assets/libs/timepicker/jquery.ui.timepicker.js', array( 'jquery', 'jquery-ui-core' ), GPERSIANDATE_VERSION );
-			wp_register_script( 'gpersiandate-editdate', GPERSIANDATE_URL.'assets/js/edit.date.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' ), GPERSIANDATE_VERSION, true );
-			wp_localize_script( 'gpersiandate-editdate', 'GPD_Edit', array(
-				'fromButtonImage' => GPERSIANDATE_URL.'assets/images/fugue/calendar-select.png',
-				'toButtonImage' => GPERSIANDATE_URL.'assets/images/fugue/calendar-select-days.png',
-			) );
-        }
 	}
 	
 	public function plugins_loaded()
 	{
 		if ( ! class_exists( 'ExtDateTime' ) )
 			require_once( GPERSIANDATE_DIR.'ExtDateTime/ExtDateTime.php' );
+	}
+	
+	public function init() 
+	{ 
+		load_plugin_textdomain( GPERSIANDATE_TEXTDOMAIN, false, 'gpersiandate/languages' ); 
+		
+		if ( is_admin_bar_showing() && $this->_adminbar && is_user_logged_in() ) {
+		
+			add_action( 'admin_bar_menu', array( & $this, 'admin_bar_menu' ) );
+			
+			// http://www.jquery4u.com/snippets/create-jquery-digital-clock-jquery4u/
+			wp_register_script( 'gperdiandate-clock',
+				GPERSIANDATE_URL.'assets/js/adminbar.clock.min.js',
+				array( 'jquery' ),
+				GPERSIANDATE_VERSION,
+				true
+			);
+			
+			wp_localize_script( 'gperdiandate-clock',
+				'GPD_clock', array( 
+					'local' => GPERSIANDATE_LOCALE,
+			) );
+			
+		} else {
+		
+			$this->_adminbar = false;
+		
+		}		
+	}
+	
+	public function admin_enqueue_scripts()
+	{
+		$screen = get_current_screen();
+		
+		if ( $this->_datepicker && 'edit' == $screen->base ) {
+			
+			wp_deregister_script( 'jquery-ui-datepicker' );
+			wp_register_script( 'jquery-ui-datepicker', GPERSIANDATE_URL.'assets/libs/datepicker/scripts/jquery.ui.datepicker-cc.all.min.js', array( 'jquery', 'jquery-ui-core' ), GPERSIANDATE_VERSION );
+			
+			wp_enqueue_script( 'gpersiandate-editdate', GPERSIANDATE_URL.'assets/js/edit.date.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' ), GPERSIANDATE_VERSION, true );
+			wp_localize_script( 'gpersiandate-editdate', 'GPD_Edit', array(
+				'fromButtonImage' => GPERSIANDATE_URL.'assets/images/fugue/calendar-select.png',
+				'toButtonImage' => GPERSIANDATE_URL.'assets/images/fugue/calendar-select-days.png',
+				'fromButtonText' => _x( 'From', 'Date picker Image Title', GPERSIANDATE_TEXTDOMAIN ),
+				'toButtonText' => _x( 'To', 'Date picker Image Title', GPERSIANDATE_TEXTDOMAIN ),
+			) );
+			
+			add_action( 'admin_print_styles', array( & $this, 'admin_print_styles' ) );
+			add_action( 'restrict_manage_posts', array( & $this, 'restrict_manage_posts_start_end' ) );
+		}
+		
+		if ( $this->_adminbar )
+			wp_enqueue_script( 'gperdiandate-clock' );
+		
+	}
+	
+	public function admin_print_styles()
+	{
+		echo '<link rel="stylesheet" href="'.GPERSIANDATE_URL.'assets/libs/datepicker/styles/jquery-ui-modified.css" type="text/css" />';
+		echo '<link rel="stylesheet" href="'.GPERSIANDATE_URL.'assets/css/edit.css" type="text/css" />';
+	}
+	
+	public function wp_enqueue_scripts() 
+	{
+		if ( $this->_adminbar )			
+            wp_enqueue_script( 'gperdiandate-clock' );
 	}
 	
 	public function bp_include()
@@ -206,30 +231,6 @@ class gPersianDate {
 		unregister_widget( 'WP_Widget_Archives' );
 		register_widget( 'WP_Widget_Persian_Archives' );	
 	}	
-	
-    function wp_footer()
-    {
-		if ( is_admin_bar_showing() && $this->_adminbar && is_user_logged_in() )			
-            wp_print_scripts( 'gperdiandate-clock' );
-    }
-	
-    function admin_footer()
-    {
-        if ( $this->_datepicker && strpos( $_SERVER['REQUEST_URI'], 'edit.php' ) )
-            wp_print_scripts( 'gpersiandate-editdate' );
-		
-		if ( is_admin_bar_showing() && $this->_adminbar )			
-            wp_print_scripts( 'gperdiandate-clock' );
-    }
-	
-	function admin_print_styles() 
-	{
-        if ( $this->_datepicker && strpos( $_SERVER['REQUEST_URI'], 'edit.php' ) ) {
-			echo '<link rel="stylesheet" href="'.GPERSIANDATE_URL.'assets/libs/datepicker/styles/jquery-ui-modified.css" type="text/css" />';
-			echo '<link rel="stylesheet" href="'.GPERSIANDATE_URL.'assets/css/edit'.( is_rtl() ? '-rtl' : '' ).'.css" type="text/css" />';
-			//echo '<link rel="stylesheet" href="'.GPERSIANDATE_URL.'assets/libs/timepicker/jquery.ui.timepicker.css" type="text/css" />';
-        }
-	}
 	
 	function date_i18n( $j, $req_format, $i, $gmt )
 	{
@@ -639,7 +640,8 @@ class gPersianDate {
 		return $translations;
 	}
 
-	// Menu Navigation Date handler : just put {TODAY_DATE} on a menu item text!
+	// Menu Navigation Date handler
+	// just put {TODAY_DATE} on a menu item text!
 	// TODO: disable option, format option
 	function wp_nav_menu_items( $items, $args ) 
 	{
@@ -848,7 +850,6 @@ class gPersianDate {
 	
 	function post_submitbox_misc_actions()
 	{
-		echo 'CDF';
 		return;
 	
 		global $action, $post;

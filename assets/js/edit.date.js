@@ -17,8 +17,10 @@ jQuery(document).ready(function() {
 		dateFormat:'yy/mm/dd',
         regional:'fa',
         showOn: 'button',
+		//buttonText: '<div class="dashicons dashicons-calendar-alt"></div>',
         buttonImage: GPD_Edit['fromButtonImage'],
         buttonImageOnly: true,
+		buttonText: GPD_Edit['fromButtonText'],
         onSelect: function(dateText, inst) {
             jQuery('#end_date_gp').datepicker( 'option', 'minDate', new JalaliDate(inst['selectedYear'], inst['selectedMonth'], inst['selectedDay']));
         }
@@ -28,7 +30,8 @@ jQuery(document).ready(function() {
         regional:'fa',
         showOn: 'button',
         buttonImage: GPD_Edit['toButtonImage'],
-        buttonImageOnly: true
+        buttonImageOnly: true,
+		buttonText: GPD_Edit['toButtonText']
     });
        
 });

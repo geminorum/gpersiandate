@@ -6,8 +6,8 @@ if ( ! class_exists( 'gPersianDateHelper' ) ) { class gPersianDateHelper
     // TODO : Must use the farhadi's
     
     
-    static private $g_days_in_month = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-	static private $j_days_in_month = array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29); 
+	static private $g_days_in_month = array( 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
+	static private $j_days_in_month = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 ); 
 
     function convert_back( $date, $time = '00:00', $time_zone = '', $format = false )
     {
@@ -23,28 +23,12 @@ if ( ! class_exists( 'gPersianDateHelper' ) ) { class gPersianDateHelper
         
         return date( $format, $the_date );
     }
-    
+
     function j_last_day_of_month( $month_number = 1 )
 	{
 		return self::$j_days_in_month[$month_number-1];
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    
     function convert_back_to_OLD( $date, $time = '00:00', $gmt = true )
     {
         //$date = gimporter_con_back_num( $date );

@@ -1,2 +1,5 @@
 .gpersiandate-datepicker .ui-datepicker-trigger { 1float:left; 1margin:8px 2px 0 0; cursor:pointer; vertical-align:center;}
-.gpersiandate-datepicker input { width:85px !important; }
+.gpersiandate-datepicker { margin-left:6px; }
+.gpersiandate-datepicker input { width:85px !important; padding: 2px 4px 2px 2px; line-height: 28px; height: 28px; vertical-align: middle; } 
+.gpersiandate-datepicker img { margin-right:4px; line-height:28px; vertical-align: middle; } 
+
