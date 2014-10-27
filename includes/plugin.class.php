@@ -183,11 +183,12 @@ class gPersianDate {
 			wp_register_script( 'jquery-ui-datepicker', GPERSIANDATE_URL.'assets/libs/datepicker/scripts/jquery.ui.datepicker-cc.all.min.js', array( 'jquery', 'jquery-ui-core' ), GPERSIANDATE_VERSION );
 			
 			wp_enqueue_script( 'gpersiandate-editdate', GPERSIANDATE_URL.'assets/js/edit.date.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' ), GPERSIANDATE_VERSION, true );
-			wp_localize_script( 'gpersiandate-editdate', 'GPD_Edit', array(
-				'fromButtonImage' => GPERSIANDATE_URL.'assets/images/fugue/calendar-select.png',
-				'toButtonImage' => GPERSIANDATE_URL.'assets/images/fugue/calendar-select-days.png',
-				'fromButtonText' => _x( 'From', 'Date picker Image Title', GPERSIANDATE_TEXTDOMAIN ),
-				'toButtonText' => _x( 'To', 'Date picker Image Title', GPERSIANDATE_TEXTDOMAIN ),
+			wp_localize_script( 'gpersiandate-editdate', 
+				'GPD_Edit', array(
+					'fromButtonImage' => GPERSIANDATE_URL.'assets/images/fugue/calendar-select.png',
+					'toButtonImage' => GPERSIANDATE_URL.'assets/images/fugue/calendar-select-days.png',
+					'fromButtonText' => _x( 'From', 'Date picker Image Title', GPERSIANDATE_TEXTDOMAIN ),
+					'toButtonText' => _x( 'To', 'Date picker Image Title', GPERSIANDATE_TEXTDOMAIN ),
 			) );
 			
 			add_action( 'admin_print_styles', array( & $this, 'admin_print_styles' ) );
