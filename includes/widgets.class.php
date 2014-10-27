@@ -1,38 +1,75 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
-// exact copy of wp core 3.5.2
+
+
+// almost exact copy of core 4.1-alpha-20141004
 class WP_Widget_Persian_Archives extends WP_Widget {
 
-	function __construct() {
-		$widget_ops = array('classname' => 'widget_archive', 'description' => __( 'A monthly archive of your site&#8217;s posts') );
+	public function __construct() {
+		$widget_ops = array('classname' => 'widget_archive', 'description' => __( 'A monthly archive of your site&#8217;s Posts.') );
 		parent::__construct('archives', __('Archives'), $widget_ops);
 	}
 
-	function widget( $args, $instance ) {
-		extract($args);
+	public function widget( $args, $instance ) {
 		$c = ! empty( $instance['count'] ) ? '1' : '0';
 		$d = ! empty( $instance['dropdown'] ) ? '1' : '0';
-		$title = apply_filters('widget_title', empty($instance['title']) ? __('Archives') : $instance['title'], $instance, $this->id_base);
 
-		echo $before_widget;
-		if ( $title )
-			echo $before_title . $title . $after_title;
+		/** This filter is documented in wp-includes/default-widgets.php */
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Archives' ) : $instance['title'], $instance, $this->id_base );
+
+		echo $args['before_widget'];
+		if ( $title ) {
+			echo $args['before_title'] . $title . $args['after_title'];
+		}
 
 		if ( $d ) {
 ?>
-		<select name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'> <option value=""><?php echo esc_attr(__('Select Month')); ?></option> <?php gPersianDate::get_archives(apply_filters('widget_archives_dropdown_args', array('type' => 'monthly', 'format' => 'option', 'show_post_count' => $c))); ?> </select>
+		<select name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'>
+			<option value=""><?php echo esc_attr( __( 'Select Month' ) ); ?></option>
+
+			<?php
+			/**
+			 * Filter the arguments for the Archives widget drop-down.
+			 *
+			 * @since 2.8.0
+			 *
+			 * @see wp_get_archives()
+			 *
+			 * @param array $args An array of Archives widget drop-down arguments.
+			 */
+			gPersianDate::get_archives( apply_filters( 'widget_archives_dropdown_args', array(
+				'type'            => 'monthly',
+				'format'          => 'option',
+				'show_post_count' => $c
+			) ) );
+?>
+		</select>
 <?php
 		} else {
 ?>
 		<ul>
-		<?php gPersianDate::get_archives( apply_filters('widget_archives_args', array('type' => 'monthly', 'show_post_count' => $c))); ?>
+<?php
+		/**
+		 * Filter the arguments for the Archives widget.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @see wp_get_archives()
+		 *
+		 * @param array $args An array of Archives option arguments.
+		 */
+		gPersianDate::get_archives( apply_filters( 'widget_archives_args', array(
+			'type'            => 'monthly',
+			'show_post_count' => $c
+		) ) );
+?>
 		</ul>
 <?php
 		}
 
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$new_instance = wp_parse_args( (array) $new_instance, array( 'title' => '', 'count' => 0, 'dropdown' => '') );
 		$instance['title'] = strip_tags($new_instance['title']);
@@ -42,7 +79,7 @@ class WP_Widget_Persian_Archives extends WP_Widget {
 		return $instance;
 	}
 
-	function form( $instance ) {
+	public function form( $instance ) {
 		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 0, 'dropdown' => '') );
 		$title = strip_tags($instance['title']);
 		$count = $instance['count'] ? 'checked="checked"' : '';
