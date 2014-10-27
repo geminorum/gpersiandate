@@ -1,0 +1,622 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: gPersianDate v0.2.17\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-11-16 05:02+0330\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ gpersiandate
+#: gpersiandate.php:266
+msgid "Farvardin"
+msgstr "فروردین"
+
+# @ gpersiandate
+#: gpersiandate.php:267
+msgid "Ordibehesht"
+msgstr "اردیبهشت"
+
+# @ gpersiandate
+#: gpersiandate.php:268
+msgid "Khordad"
+msgstr "خرداد"
+
+# @ gpersiandate
+#: gpersiandate.php:269
+msgid "Tir"
+msgstr "تیر"
+
+# @ gpersiandate
+#: gpersiandate.php:270
+msgid "Mordad"
+msgstr "مرداد"
+
+# @ gpersiandate
+#: gpersiandate.php:271
+msgid "Shahrivar"
+msgstr "شهریور"
+
+# @ gpersiandate
+#: gpersiandate.php:272
+msgid "Mehr"
+msgstr "مهر"
+
+# @ gpersiandate
+#: gpersiandate.php:273
+msgid "Aban"
+msgstr "آبان"
+
+# @ gpersiandate
+#: gpersiandate.php:274
+msgid "Azar"
+msgstr "آذر"
+
+# @ gpersiandate
+#: gpersiandate.php:275
+msgid "Dey"
+msgstr "دی"
+
+# @ gpersiandate
+#: gpersiandate.php:276
+msgid "Bahman"
+msgstr "بهمن"
+
+# @ gpersiandate
+#: gpersiandate.php:277
+msgid "Esfand"
+msgstr "اسفند"
+
+# @ gpersiandate
+#: gpersiandate.php:281
+msgid "Friday"
+msgstr "جمعه"
+
+# @ gpersiandate
+#: gpersiandate.php:281
+msgid "Fri"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:281
+msgid "Saturday"
+msgstr "شنبه"
+
+# @ gpersiandate
+#: gpersiandate.php:281
+msgid "Sat"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:281
+msgid "Sunday"
+msgstr "یک‌شنبه"
+
+# @ gpersiandate
+#: gpersiandate.php:281
+msgid "Sun"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:281
+msgid "Monday"
+msgstr "دوشنبه"
+
+# @ gpersiandate
+#: gpersiandate.php:281
+msgid "Mon"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:282
+msgid "Tuesday"
+msgstr "سه‌شنبه"
+
+# @ gpersiandate
+#: gpersiandate.php:282
+msgid "Tue"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:282
+msgid "Wednesday"
+msgstr "چهارشنبه"
+
+# @ gpersiandate
+#: gpersiandate.php:282
+msgid "Wed"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:282
+msgid "Thursday"
+msgstr "پنج‌شنبه"
+
+# @ gpersiandate
+#: gpersiandate.php:282
+msgid "Thu"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:283
+msgid "August"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:283
+msgid "Aug"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:283
+msgid "September"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:283
+msgid "Sep"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:283
+msgid "October"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:283
+msgid "Oct"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:283
+msgid "November"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:283
+msgid "Nov"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:284
+msgid "December"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:284
+msgid "Dec"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:284
+msgid "January"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:284
+msgid "Jan"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:284
+msgid "February"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:284
+msgid "Feb"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:284
+msgid "March"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:284
+msgid "Mar"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:285
+msgid "April"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:285
+msgid "Apr"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:285
+msgid "May"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:285
+msgid "June"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:285
+msgid "Jun"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:285
+msgid "July"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:285
+msgid "Jul"
+msgstr ""
+
+# @ gpersiandate
+# @ wp-relativedate
+#: gpersiandate.php:285 includes/wp-relativedate.php:53
+#: includes/wp-relativedate.php:91 includes/wp-relativedate.php:159
+msgid "Today"
+msgstr ""
+
+# @ gpersiandate
+# @ wp-relativedate
+#: gpersiandate.php:286 includes/wp-relativedate.php:55
+#: includes/wp-relativedate.php:93 includes/wp-relativedate.php:161
+msgid "Yesterday"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:286
+msgid "Tomorrow"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:286
+msgid "Next"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:286
+msgid "Last"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:286
+msgid "Previous"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:286
+msgid "Year"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:287
+msgid "Month"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:287
+msgid "Week"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:287
+msgid "Day"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:287
+msgid "Hour"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:287
+msgid "Minute"
+msgstr "دقیقه"
+
+# @ gpersiandate
+#: gpersiandate.php:287
+msgid "Second"
+msgstr "ثانیه"
+
+# @ gpersiandate
+#: gpersiandate.php:288
+msgid "st"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:288
+msgid "nd"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:288
+msgid "rd"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:288
+msgid "th"
+msgstr ""
+
+# @ gpersiandate
+#: gpersiandate.php:288
+msgid "am"
+msgstr "قـ.ظـ."
+
+# @ gpersiandate
+#: gpersiandate.php:288
+msgid "AM"
+msgstr "قـ.ظـ."
+
+# @ gpersiandate
+#: gpersiandate.php:288
+msgid "pm"
+msgstr "بـ.ظـ."
+
+# @ gpersiandate
+#: gpersiandate.php:288
+msgid "PM"
+msgstr "بـ.ظـ."
+
+# @ gpersiandate
+#: gpersiandate.php:292
+msgid "1"
+msgstr "یکم"
+
+# @ gpersiandate
+#: gpersiandate.php:293
+msgid "2"
+msgstr "دوم"
+
+# @ gpersiandate
+#: gpersiandate.php:294
+msgid "3"
+msgstr "سوم"
+
+# @ gpersiandate
+#: gpersiandate.php:295
+msgid "4"
+msgstr "چهارم"
+
+# @ gpersiandate
+#: gpersiandate.php:296
+msgid "5"
+msgstr "پنجم"
+
+# @ gpersiandate
+#: gpersiandate.php:297
+msgid "6"
+msgstr "ششم"
+
+# @ gpersiandate
+#: gpersiandate.php:298
+msgid "7"
+msgstr "هفتم"
+
+# @ gpersiandate
+#: gpersiandate.php:299
+msgid "8"
+msgstr "هشتم"
+
+# @ gpersiandate
+#: gpersiandate.php:300
+msgid "9"
+msgstr "نهم"
+
+# @ gpersiandate
+#: gpersiandate.php:301
+msgid "10"
+msgstr "دهم"
+
+# @ gpersiandate
+#: gpersiandate.php:302
+msgid "11"
+msgstr "یازدهم"
+
+# @ gpersiandate
+#: gpersiandate.php:303
+msgid "12"
+msgstr "دوازدهم"
+
+# @ gpersiandate
+#: gpersiandate.php:304
+msgid "13"
+msgstr "سیزدهم"
+
+# @ gpersiandate
+#: gpersiandate.php:305
+msgid "14"
+msgstr "چهاردهم"
+
+# @ gpersiandate
+#: gpersiandate.php:306
+msgid "15"
+msgstr "پانزدهم"
+
+# @ gpersiandate
+#: gpersiandate.php:307
+msgid "16"
+msgstr "شانزدهم"
+
+# @ gpersiandate
+#: gpersiandate.php:308
+msgid "17"
+msgstr "هفدهم"
+
+# @ gpersiandate
+#: gpersiandate.php:309
+msgid "18"
+msgstr "هجدهم"
+
+# @ gpersiandate
+#: gpersiandate.php:310
+msgid "19"
+msgstr "نوزدهم"
+
+# @ gpersiandate
+#: gpersiandate.php:311
+msgid "20"
+msgstr "بیستم"
+
+# @ gpersiandate
+#: gpersiandate.php:312
+msgid "21"
+msgstr "بیست و یکم"
+
+# @ gpersiandate
+#: gpersiandate.php:313
+msgid "22"
+msgstr "بیست و دوم"
+
+# @ gpersiandate
+#: gpersiandate.php:314
+msgid "23"
+msgstr "بیست و سوم"
+
+# @ gpersiandate
+#: gpersiandate.php:315
+msgid "24"
+msgstr "بیست و چهارم"
+
+# @ gpersiandate
+#: gpersiandate.php:316
+msgid "25"
+msgstr "بیست و پنجم"
+
+# @ gpersiandate
+#: gpersiandate.php:317
+msgid "26"
+msgstr "بیست و ششم"
+
+# @ gpersiandate
+#: gpersiandate.php:318
+msgid "27"
+msgstr "بیست و هفتم"
+
+# @ gpersiandate
+#: gpersiandate.php:319
+msgid "28"
+msgstr "بیست و هشتم"
+
+# @ gpersiandate
+#: gpersiandate.php:320
+msgid "29"
+msgstr "بیست و نهم"
+
+# @ gpersiandate
+#: gpersiandate.php:321
+msgid "30"
+msgstr "سی‌ام"
+
+# @ gpersiandate
+#: gpersiandate.php:322
+msgid "31"
+msgstr "سی و یکم"
+
+# @ default
+#: includes/plugin.class.php:220
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+# @ default
+#: includes/date-ranges.php:45
+msgid "Start Date"
+msgstr ""
+
+# @ default
+#: includes/date-ranges.php:45
+msgid "End Date"
+msgstr ""
+
+# @ gpersiandate
+#: includes/plugin.class.php:383
+msgid "Today in Persian ( just to make sure the conversion is intact )"
+msgstr "امروز در تقویم فارسی (برای اطمینان از تبدیل صحیح تاریخ)"
+
+# @ gpersiandate
+#: includes/plugin.class.php:394
+msgid "Now ( just to make sure time zone is correct )"
+msgstr "حالا (برای اطمینان از صحت  منطقهٔ زمانی)"
+
+# @ default
+#: includes/plugin.class.php:410
+msgid "F j, Y"
+msgstr ""
+
+# @ default
+#: includes/plugin.class.php:420
+msgid "g:i a"
+msgstr ""
+
+# @ gpersiandate
+#: includes/plugin.class.php:469
+msgid "Show all dates"
+msgstr "نمایش تمامی ماه‌ها"
+
+# @ wp-relativedate
+#: includes/wp-relativedate.php:58 includes/wp-relativedate.php:60
+#: includes/wp-relativedate.php:96 includes/wp-relativedate.php:98
+#: includes/wp-relativedate.php:164 includes/wp-relativedate.php:166
+#, php-format
+msgid "%s day ago"
+msgid_plural "%s days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ wp-relativedate
+#: includes/wp-relativedate.php:64 includes/wp-relativedate.php:66
+#: includes/wp-relativedate.php:102 includes/wp-relativedate.php:104
+#: includes/wp-relativedate.php:170 includes/wp-relativedate.php:172
+#, php-format
+msgid "%s week ago"
+msgid_plural "%s weeks ago"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ wp-relativedate
+#: includes/wp-relativedate.php:131 includes/wp-relativedate.php:193
+#, php-format
+msgid "%s second ago"
+msgid_plural "%s seconds ago"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ wp-relativedate
+#: includes/wp-relativedate.php:133 includes/wp-relativedate.php:195
+#, php-format
+msgid "%s minute ago"
+msgid_plural "%s minutes ago"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ wp-relativedate
+#: includes/wp-relativedate.php:135 includes/wp-relativedate.php:197
+#, php-format
+msgid "%s hour ago"
+msgid_plural "%s hours ago"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ gpersiandate
+#: includes/plugin.class.php:441
+msgid "From"
+msgstr "از تاریخ"
+
+# @ gpersiandate
+#: includes/plugin.class.php:444
+msgid "To"
+msgstr "تا تاریخ"
