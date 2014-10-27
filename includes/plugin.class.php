@@ -429,8 +429,6 @@ class gPersianDate {
 	// Originally from wp-jalali
 	public static function posts_request( $query ) 
 	{
-		//gnetwork_dump( $query );
-		
 		if ( strstr( $query, 'LIKE' ) ) 
 			if ( strstr( $query, "ی" ) 
 				|| strstr( $query, "ک" ) 
@@ -444,8 +442,6 @@ class gPersianDate {
 				|| strstr( $query, "۶" ) )
 					$query = preg_replace_callback( "/(\([^\)\(]* LIKE '([^']*)'\))/", 
 						array( __CLASS__, 'posts_request_callback' ), $query );
-		
-		//gnetwork_dump( $query ); die();
 		return $query;
 	} 
 
@@ -500,7 +496,7 @@ class gPersianDate {
 	
 	public static function translate_format( $format = '' )
 	{
-		// TODO : add applyfilters
+		// TODO : apply filters
 		
 		if ( 'M j, Y @ G:i' == $format && 'fa_IR' == constant( 'GPERSIANDATE_LOCALE' ) )
 			return 'j M Y @ G:i';
@@ -664,10 +660,8 @@ class gPersianDate {
 			
 		$wp_admin_bar->add_node( array(
 			'id'     => 'gpersiandate',
-			//'title'  => esc_html( date_i18n( get_option( 'date_format', 'j M Y' ) ).' - <span id="gpd-now">'.date_i18n( 'H:i' ).'<span>' ),
 			'title'  => $title,
 			'parent' => 'top-secondary', // Off on the right side
-			//'href'   => admin_url( 'tools.php?page=' . self::PAGE_SLUG ),
 			'href'   => ( current_user_can( 'manage_options' ) ? get_admin_url( null, 'options-general.php' ) : false ),
 		) );
 		
@@ -676,8 +670,7 @@ class gPersianDate {
 		$wp_admin_bar->add_node( array(
 			'id'     => 'gpersiandate-today',
 			'title'  => esc_html( date_i18n( get_option( 'date_format', 'j M Y' ) ) ),
-			'parent' => 'top-secondary', // Off on the right side
-			//'href'   => admin_url( 'tools.php?page=' . self::PAGE_SLUG ),
+			'parent' => 'top-secondary',
 			'href'   => false,
 			'meta'   => array(
 				'title'  => ( is_admin() ? esc_html__( 'Today in Persian ( just to make sure the conversion is intact )', GPERSIANDATE_TEXTDOMAIN ) : esc_html__( 'Today in Persian', GPERSIANDATE_TEXTDOMAIN ) ),
@@ -687,8 +680,7 @@ class gPersianDate {
 		$wp_admin_bar->add_node( array(
 			'id'     => 'gpersiandate-now',
 			'title'  => esc_html( date_i18n( 'H:i' ) ), // get_option( 'time_format', 'g:i A' )
-			'parent' => 'top-secondary', // Off on the right side
-			//'href'   => admin_url( 'tools.php?page=' . self::PAGE_SLUG ),
+			'parent' => 'top-secondary',
 			'href'   => false,
 			'meta'   => array(
 				'title'  => ( is_admin() ? esc_html__( 'Now ( just to make sure time zone is correct )', GPERSIANDATE_TEXTDOMAIN ) : esc_html__( 'Just Now', GPERSIANDATE_TEXTDOMAIN ) ),
@@ -726,12 +718,6 @@ class gPersianDate {
 		return 6;
 	} 
 	
-	function dump( &$var, $htmlSafe = true )
-	{
-		$result = var_export( $var, true );
-		echo '<pre dir="ltr" style="text-align:left;direction:ltr;">'.( $htmlSafe ? htmlspecialchars( $result ) : $result).'</pre>';
-	}
-
 	function restrict_manage_posts_start_end() 
 	{
 		//TODO : set maximum and minimum date based on stored posts
@@ -769,8 +755,6 @@ class gPersianDate {
 			$months = $cache[ $key ];
 		}
 		
-		//self::dump( $months ); die();
-		
 		add_action( 'admin_footer', array( & $this, 'admin_footer_mgp' ) );
 		
 		$month_count = count( $months );
@@ -807,7 +791,6 @@ class gPersianDate {
 		jQuery(document).ready(function(){jQuery('select[name="m"]').hide()});
 		</script><?php
 	}
-	
 
 	function pre_get_posts( $query )
 	{
@@ -819,10 +802,8 @@ class gPersianDate {
 
 			if( isset( $_REQUEST['mgp'] ) && 0 != $_REQUEST['mgp'] )
 				add_filter( 'posts_where', array( & $this, 'posts_where_mgp' ) );
-				
-			// moved to the action
-			//add_action( 'admin_footer', array( & $this, 'admin_footer_mgp' ) );
 		}
+		
 		return $query;
 	}
 	
@@ -1498,9 +1479,6 @@ class gPersianDate {
 			__( '31', GPERSIANDATE_TEXTDOMAIN )
 		);
 	}
-	
-	
-	
 	
 	/**
 		TODO: 

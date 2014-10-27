@@ -15,13 +15,7 @@ Persian Date for WordPress. Using [ExtDateTime](https://github.com/farhadi/ExtDa
 
 PHP 5.2 required.
 
-== Installation ==
-
-== Frequently Asked Questions ==
-
-== Screenshots ==
-
 == Changelog ==
 
 = 0.2.29 =
-* first public release initial release
+* first public release
