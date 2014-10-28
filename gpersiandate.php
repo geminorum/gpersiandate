@@ -1,11 +1,13 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 /*
 Plugin Name: gPersianDate
-Plugin URI: http://geminorum.ir/wordpress/gpersiandate
+Plugin URI: https://github.com/geminorum/gPersianDate
 Description: Persian Date for WordPress. Using <a href="https://github.com/farhadi/ExtDateTime" title="An extented version of php5 DateTime Class that adds some more functionality to it and makes it extensible for other calendar systems.">ExtDateTime</a> by <a href="http://farhadi.ir/">Ali Farhadi</a>. PHP 5.2 required.
 Author: geminorum
-Version: 0.2.30
+Version: 0.2.31
 Author URI: http://geminorum.ir/
+GitHub Plugin URI: https://github.com/geminorum/gPersianDate
+GitHub Branch: master
 */
 
 /**
@@ -26,7 +28,7 @@ Author URI: http://geminorum.ir/
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-define( 'GPERSIANDATE_VERSION', '0.2.30' );
+define( 'GPERSIANDATE_VERSION', '0.2.31' );
 define( 'GPERSIANDATE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GPERSIANDATE_URL', plugin_dir_url( __FILE__ ) );
 define( 'GPERSIANDATE_FILE', __FILE__ );
