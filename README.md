@@ -4,7 +4,7 @@ Contributors: geminorum
 Tags: localization, date, persian, farsi
 Requires at least: 4.0
 Tested up to: 4.0
-Stable tag: 0.2.31
+Stable tag: 0.2.32
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,13 +26,16 @@ Requires PHP 5.2
 * [Custom Calendars](http://hasheminezhad.com/datepicker) for [jQuery UI Datepicker](http://jqueryui.com/datepicker/) by [Mahdi Hasheminezhad](http://hasheminezhad.com/)
 * [Fugue Icons](http://p.yusukekamiyamane.com/) by [Yusuke Kamiyamane](http://yusukekamiyamane.com/)
 
-Please log issues on the Github at (https://github.com/geminorum/gPersianDate/issues)
+Please log issues on the Github at (https://github.com/geminorum/gpersiandate/issues)
 
 ## Installation
 
 See [Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
 
 ## Changelog
+
+### 0.2.32
+* adding [gplugin](https://github.com/geminorum/gplugin) as a dependency
 
 ### 0.2.31
 * support for [GitHub Updater](https://github.com/afragen/github-updater)
