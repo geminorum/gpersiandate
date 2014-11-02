@@ -34,4 +34,4 @@ See [Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Installing_
 
 == Changelog ==
 
-See [README.md](README.md).
+See [CHANGES.md](CHANGES.md).
