@@ -3,7 +3,7 @@
 ## Changelog
 
 ### 0.2.32
-* adding [gplugin](https://github.com/geminorum/gplugin) as a dependency
+* seperating changelog into [CHANGES.md](CHANGES.md)
 
 ### 0.2.31
 * support for [GitHub Updater](https://github.com/afragen/github-updater)
