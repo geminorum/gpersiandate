@@ -1356,7 +1356,7 @@ class gPersianDate {
 		
 	}
 	
-	public static function get_month( $month )
+	public static function get_month( $month, $all = false )
 	{
 		$months = array( 
 			'01' => __( 'Farvardin', GPERSIANDATE_TEXTDOMAIN ),
@@ -1373,21 +1373,28 @@ class gPersianDate {
 			'12' => __( 'Esfand', GPERSIANDATE_TEXTDOMAIN ),
 		);
 		
+		if ( $all )
+			return $months;
+		
 		return $months[zeroise($month, 2)];
 	}
 	
-	public static function get_dayoftheweek( $dayoftheweek )
+	public static function get_dayoftheweek( $dayoftheweek, $all = false )
 	{
 		$week = array(
-			0 => __( 'Saturday', GPERSIANDATE_TEXTDOMAIN ), 
-			1 => __( 'Sunday', GPERSIANDATE_TEXTDOMAIN ),
-			2 => __( 'Monday', GPERSIANDATE_TEXTDOMAIN ), 
-			3 => __( 'Tuesday', GPERSIANDATE_TEXTDOMAIN ), 
-			4 => __( 'Wednesday', GPERSIANDATE_TEXTDOMAIN ), 
-			5 => __( 'Thursday', GPERSIANDATE_TEXTDOMAIN ), 
-			6 => __( 'Friday', GPERSIANDATE_TEXTDOMAIN ), 
+			0 => __( 'Sunday', GPERSIANDATE_TEXTDOMAIN ),
+			1 => __( 'Monday', GPERSIANDATE_TEXTDOMAIN ), 
+			2 => __( 'Tuesday', GPERSIANDATE_TEXTDOMAIN ), 
+			3 => __( 'Wednesday', GPERSIANDATE_TEXTDOMAIN ), 
+			4 => __( 'Thursday', GPERSIANDATE_TEXTDOMAIN ), 
+			5 => __( 'Friday', GPERSIANDATE_TEXTDOMAIN ), 
+			6 => __( 'Saturday', GPERSIANDATE_TEXTDOMAIN ), 
 		);
-		return $week[$dayoftheweek];
+		
+		if ( $all )
+			return $week;
+		
+		return $week[$dayoftheweek-1];
 	}
 	
 	function _strings_for_pot()
@@ -1551,6 +1558,7 @@ class gPersianDate {
 		return $link;
 	}
 	
+	// ISSUE : must convert year/month back from filter args!
 	function month_link( $link, $year, $month ) 
 	{ 
 		$current_time = current_time( 'timestamp' );
@@ -1699,5 +1707,36 @@ class gPersianDate {
 		//return self::translate_numbers( $date->format( self::translate_format( $req_format ) ) );
 		return $date->format( 'Y_m' );
 	}
+	
+	/**
+	 * Transforms the WP_Locale translations for the wp.locale JavaScript class.
+	 *
+	 * Used by P2 and WordPress.com support forums.
+	 *
+	 * @param $locale WP_Locale - A locale object.
+	 * @param $json_encode bool - Whether to encode the result. Default true.
+	 * @return string|array     - The translations object.
+	 */
+	// localized version of P2's get_js_locale()
+	public static function getJSLocale( $locale, $json_encode = true ) 
+	{
+		$months = array_values( self::get_month( null, true ) );
+		
+		$js_locale = array(
+			//'month'         => array_values( $locale->month ),
+			'month'         => $months,
+			//'monthabbrev'   => array_values( $locale->month_abbrev ),
+			'monthabbrev'   => $months,
+			//'weekday'       => array_values( $locale->weekday ),
+			'weekday'       => array_values( self::get_dayoftheweek( null, true ) ),
+			'weekdayabbrev' => array_values( $locale->weekday_abbrev ),
+		);
+
+		if ( $json_encode )
+			return json_encode( $js_locale );
+		else
+			return $js_locale;
+	}
+	
 
 }
