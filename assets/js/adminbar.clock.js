@@ -1,7 +1,8 @@
-function GPDfixNumbers(text, local){
-	if (text == null)
+function GPDfixNumbers(text, local) {
+	if (text === null){
 		return null;
-	if ( local == 'fa_IR' ) {
+		};
+	if ( local === 'fa_IR' ) {
 		text = text.replace(/0/g, '\u06F0');
 		text = text.replace(/1/g, '\u06F1');
 		text = text.replace(/2/g, '\u06F2');
@@ -12,16 +13,17 @@ function GPDfixNumbers(text, local){
 		text = text.replace(/7/g, '\u06F7');
 		text = text.replace(/8/g, '\u06F8');
 		text = text.replace(/9/g, '\u06F9');
-	}
+	};
 	return text;
-}
-function GPDupdateClock(){
+};
+function GPDupdateClock() {
     var currentTime = new Date();
     var currentHours = currentTime.getHours();
     var currentMinutes = currentTime.getMinutes();
     //var currentSeconds = currentTime.getSeconds();
 
     // Pad the minutes and seconds with leading zeros, if required
+    currentHours = ( currentHours < 10 ? "0" : "" ) + currentHours;
     currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
     //currentSeconds = ( currentSeconds < 10 ? "0" : "" ) + currentSeconds;
 
@@ -40,8 +42,8 @@ function GPDupdateClock(){
 	//console.log(currentTimeString);
     //jQuery("#wp-admin-bar-gpersiandate-now div").html(currentTimeString);
     jQuery("#gpd-now").html(currentTimeString);
-}
-jQuery(document).ready(function($){
+};
+jQuery(document).ready(function($) {
 	//setInterval('GPDupdateClock()', 1000); 
 	setInterval('GPDupdateClock()', 60*1000); 
 });
