@@ -10,6 +10,10 @@ Persian Date for WordPress.
 
 Requires PHP 5.2 or later
 
+![Gratipay](http://img.shields.io/gratipay/geminorum.svg) <script data-gratipay-username="geminorum"
+        data-gratipay-widget="button"
+        src="//grtp.co/v1.js"></script>
+
 ### Credits
 * [wp-jalali](https://wordpress.org/plugins/wp-jalali/) by [Persian WordPress Project](http://wp-persian.com/)
 * [ExtDateTime](https://github.com/farhadi/ExtDateTime) by [Ali Farhadi](http://farhadi.ir/)

@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 0.2.33
+* providing localized version of P2's `get_js_locale()` 
+* correct order of day of the week strings
+
 ### 0.2.32
 * seperating changelog into [CHANGES.md](CHANGES.md)
 
