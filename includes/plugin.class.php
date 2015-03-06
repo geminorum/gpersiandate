@@ -52,7 +52,7 @@ class gPersianDate {
 	
 		add_action( 'init', array( & $this, 'init' ) );
 		//add_action( 'admin_init', array( & $this, 'admin_init' ) );
-		add_action( 'widgets_init', array( & $this, 'widgets_init' ) );
+		add_action( 'widgets_init', array( & $this, 'widgets_init' ), 20 );
 		//add_action( 'wp_footer', array( & $this, 'wp_footer' ) );
 		
 		add_filter( 'posts_request', array( & $this, 'posts_request' ), 20 );
@@ -229,8 +229,8 @@ class gPersianDate {
 	
 	function widgets_init()
 	{
-		unregister_widget( 'WP_Widget_Archives' );
-		register_widget( 'WP_Widget_Persian_Archives' );	
+		global $wp_widget_factory;
+		$wp_widget_factory->widgets['WP_Widget_Archives'] = new WP_Widget_Persian_Archives();
 	}	
 	
 	function date_i18n( $j, $req_format, $i, $gmt )
@@ -949,7 +949,7 @@ class gPersianDate {
 		return 'UTC';
 	}
 	
-	function mktime( $hour, $minute, $second, $jmonth, $jday, $jyear ) 
+	public static function mktime( $hour, $minute, $second, $jmonth, $jday, $jyear ) 
 	{
 		$date = ExtDateTime::factory( 'Persian' );
 		list( $year, $month, $day ) = $date->jalaliToGregorian( $jyear, $jmonth, $jday );
@@ -1737,6 +1737,4 @@ class gPersianDate {
 		else
 			return $js_locale;
 	}
-	
-
 }
