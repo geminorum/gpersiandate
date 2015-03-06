@@ -2,5 +2,5 @@
 
 class gPersianDateDate extends gPersianDateModuleCore
 {
-    
+    public function setup_actions() {}
 }

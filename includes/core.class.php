@@ -25,19 +25,27 @@ class gPersianDateCore
 
     private function setup_actions() 
     {
-		//add_action( 'init', array( $this, 'action_init' ) );
+		add_action( 'init', array( $this, 'init' ) );
+        
 		do_action_ref_array( 'gpersiandate_after_setup_actions', array( &$this ) );
 	}
     
     private function setup_modules()
 	{
 		$modules = array(
+			'datetime' => 'gPersianDateDateTime',
 			'date' => 'gPersianDateDate',
+			'cal'  => 'gPersianDateCal',
 		);
 		
 		foreach ( $modules as $module => $class )
             if ( class_exists( $class ) )
                 $this->{$module} = new $class;	
 	}
+    
+    public function init() 
+    {
+        load_plugin_textdomain( GPERSIANDATE_TEXTDOMAIN, false, 'gpersiandate/languages' );
+    }    
     
 }

@@ -41,8 +41,10 @@ function gpersiandate_init(){
 	$includes = array(
 		'core',
 		'modulecore',
+		'datetime',
 		
 		'date',
+		'cal',
 	);
 	
 	foreach ( $includes as $include )
