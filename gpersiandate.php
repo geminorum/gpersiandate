@@ -1,10 +1,11 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+
 /*
 Plugin Name: gPersianDate
 Plugin URI: https://github.com/geminorum/gpersiandate
 Description: Persian Date for WordPress. Using <a href="https://github.com/farhadi/ExtDateTime" title="An extented version of php5 DateTime Class that adds some more functionality to it and makes it extensible for other calendar systems.">ExtDateTime</a> by <a href="http://farhadi.ir/">Ali Farhadi</a>. PHP 5.2 required.
 Author: geminorum
-Version: 0.2.34
+Version: 0.3.0
 Author URI: http://geminorum.ir/
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 GitHub Branch: master
@@ -28,13 +29,38 @@ GitHub Branch: master
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-define( 'GPERSIANDATE_VERSION', '0.2.34' );
+define( 'GPERSIANDATE_VERSION', '0.3.0' );
 define( 'GPERSIANDATE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GPERSIANDATE_URL', plugin_dir_url( __FILE__ ) );
 define( 'GPERSIANDATE_FILE', __FILE__ );
-
+defined( 'DS' ) or define( 'DS', DIRECTORY_SEPARATOR );
 defined( 'GPERSIANDATE_TEXTDOMAIN' ) or define( 'GPERSIANDATE_TEXTDOMAIN', 'gpersiandate' );
 
+function gpersiandate_init(){
+	
+	$includes = array(
+		'core',
+		'modulecore',
+		
+		'date',
+	);
+	
+	foreach ( $includes as $include )
+		if ( file_exists( GPERSIANDATE_DIR.'includes'.DS.$include.'.class.php' ) ) 
+			require_once( GPERSIANDATE_DIR.'includes'.DS.$include.'.class.php' );
+
+	//add_action( 'plugins_loaded', 'gPersianDate' );
+	gPersianDate();
+}
+
+function gPersianDate() {
+	return gPersianDateCore::instance();
+} 
+
+gpersiandate_init();
+
+
+/**
 require_once( GPERSIANDATE_DIR.'includes/widgets.class.php' );
 require_once( GPERSIANDATE_DIR.'includes/settingscore.class.php' );
 require_once( GPERSIANDATE_DIR.'includes/plugin.class.php' );
@@ -48,3 +74,4 @@ if ( ! function_exists( 'the_dashboard_time' ) ) : function the_dashboard_time( 
 if ( ! function_exists( 'the_context_time' ) ) : function the_context_time( $format = 'y/n/j', $echo = true ){ return gPersianDate::the_context( $format, $echo ); } endif;
 	
 $gPersianDate = gPersianDate::getInstance();	
+**/
