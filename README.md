@@ -8,11 +8,11 @@ Persian Date for WordPress.
 * Persian number format support for WordPress, BuddyPress and bbPress
 * and many more little tweaks
 
-[![Requires PHP 5.2 or later](http://img.shields.io/badge/requires_php-5.2_or_later-lightgrey.svg?style=flat)](http://php.net/)
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![GitHub release](https://img.shields.io/github/release/geminorum/gpersiandate.svg?style=flat)](https://github.com/geminorum/gpersiandate/releases)
-[![GitHub Issues](https://img.shields.io/github/issues/geminorum/gpersiandate.svg?style=flat)](https://github.com/geminorum/gpersiandate/issues)
-[![Gratipay](http://img.shields.io/gratipay/geminorum.svg?style=flat)](https://gratipay.com/geminorum/)
+[![Requires PHP 5.2 or later](http://img.shields.io/badge/requires_php-5.2_or_later-lightgrey.svg?style=flat)](http://php.net/) {.badge}
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) {.badge}
+[![GitHub release](https://img.shields.io/github/release/geminorum/gpersiandate.svg?style=flat)](https://github.com/geminorum/gpersiandate/releases){.badge}
+[![GitHub Issues](https://img.shields.io/github/issues/geminorum/gpersiandate.svg?style=flat)](https://github.com/geminorum/gpersiandate/issues){.badge}
+[![Gratipay](http://img.shields.io/gratipay/geminorum.svg?style=flat)](https://gratipay.com/geminorum/){.badge}
 
 ### Credits
 * [wp-jalali](https://wordpress.org/plugins/wp-jalali/) by [Persian WordPress Project](http://wp-persian.com/)
