@@ -9,7 +9,7 @@ Persian Date for WordPress.
 * and many more little tweaks
 
 [![Requires PHP 5.2 or later](http://img.shields.io/badge/requires_php-5.2_or_later-lightgrey.svg?style=flat)](http://php.net/)
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![GitHub release](https://img.shields.io/github/release/geminorum/gpersiandate.svg?style=flat)](https://github.com/geminorum/gpersiandate/releases)
 [![GitHub Issues](https://img.shields.io/github/issues/geminorum/gpersiandate.svg?style=flat)](https://github.com/geminorum/gpersiandate/issues)
 [![Gratipay](http://img.shields.io/gratipay/geminorum.svg?style=flat)](https://gratipay.com/geminorum/)
