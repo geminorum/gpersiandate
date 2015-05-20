@@ -29,4 +29,8 @@ See [Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Installing_
 
 See [CHANGES.md](CHANGES.md).
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 Please log issues at [here](https://github.com/geminorum/gpersiandate/issues)

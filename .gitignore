@@ -1,6 +1,18 @@
+.sass-cache
+
+/assets/vendor
+/assets/bin
+/node_modules
+.env
+
+composer.lock
+
+# Windows
 Thumbs.db
+ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
-
-.sass-cache
-.env
+*.cab
+*.msi
+*.msm
+*.msp

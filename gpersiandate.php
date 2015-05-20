@@ -6,11 +6,12 @@ Description: Persian Date for WordPress. Using <a href="https://github.com/farha
 Author: geminorum
 Version: 0.2.34
 Author URI: http://geminorum.ir/
+Plugin URI: http://geminorum.ir/wordpress/gpersiandate
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 GitHub Branch: master
 */
 
-/**
+/*
 	Copyright 2015 geminorum
 
     This program is free software; you can redistribute it and/or modify
@@ -26,7 +27,7 @@ GitHub Branch: master
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-**/
+*/
 
 define( 'GPERSIANDATE_VERSION', '0.2.34' );
 define( 'GPERSIANDATE_DIR', plugin_dir_path( __FILE__ ) );
@@ -43,8 +44,8 @@ require_once( GPERSIANDATE_DIR.'includes/wiki.class.php' );
 defined( 'GPERSIANDATE_TIMEZONE' ) or define( 'GPERSIANDATE_TIMEZONE', gPersianDate::get_timezone() );
 defined( 'GPERSIANDATE_LOCALE' ) or define( 'GPERSIANDATE_LOCALE', get_locale() );
 defined( 'GPERSIANDATE_FIXNONPERSIAN' ) or define( 'GPERSIANDATE_FIXNONPERSIAN', true );
-	
+
 if ( ! function_exists( 'the_dashboard_time' ) ) : function the_dashboard_time( $year = false, $echo = true, $day_week = false ){ return gPersianDate::the_dashboard( $year, $echo, $day_week ); } endif;
 if ( ! function_exists( 'the_context_time' ) ) : function the_context_time( $format = 'y/n/j', $echo = true ){ return gPersianDate::the_context( $format, $echo ); } endif;
-	
-$gPersianDate = gPersianDate::getInstance();	
+
+$gPersianDate = gPersianDate::getInstance();
