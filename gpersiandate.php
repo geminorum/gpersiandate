@@ -3,10 +3,9 @@
 Plugin Name: gPersianDate
 Plugin URI: https://github.com/geminorum/gpersiandate
 Description: Persian Date for WordPress. Using <a href="https://github.com/farhadi/ExtDateTime" title="An extented version of php5 DateTime Class that adds some more functionality to it and makes it extensible for other calendar systems.">ExtDateTime</a> by <a href="http://farhadi.ir/">Ali Farhadi</a>. PHP 5.2 required.
-Author: geminorum
 Version: 0.2.34
+Author: geminorum
 Author URI: http://geminorum.ir/
-Plugin URI: http://geminorum.ir/wordpress/gpersiandate
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 GitHub Branch: master
 */
