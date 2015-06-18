@@ -72,6 +72,7 @@ class gPersianDate {
 		add_filter( 'get_the_excerpt', array( $this, 'translate_numbers_html' ), 12 );
 		add_filter( 'get_comment_excerpt', array( $this, 'translate_numbers_html' ), 12 );
 		add_filter( 'get_comment_text', array( $this, 'translate_numbers_html' ), 12 );
+		add_filter( 'comments_number', array( $this, 'translate_numbers_html' ), 12 );
 		
 		// NOT WORKING!!!! (probably because of next en chars!)
 		//add_filter( 'wp_list_categories', array( $this, 'replace_numbers' ), 12, 2 );
