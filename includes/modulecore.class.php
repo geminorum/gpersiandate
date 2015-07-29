@@ -2,40 +2,22 @@
 
 class gPersianDateModuleCore
 {
-    
-    var $_ajax        = false;      // load if ajax
-	var $_dev         = null;       // load if dev
-    
-    public function __construct()
+
+	var $_ajax = FALSE;
+
+	public function __construct()
 	{
 		if ( ( ! $this->_ajax && self::isAJAX() )
 			|| ( defined( 'WP_INSTALLING' ) && constant( 'WP_INSTALLING' ) ) )
 			return;
 
-		if ( ! is_null( $this->_dev ) ) {
-			if ( false === $this->_dev && self::isDev() )
-				return;
-			else if ( true === $this->_dev && ! self::isDev() )
-				return;
-		}
-
 		$this->setup_actions();
 	}
 
-    public function setup_actions() {}
-    
-    public static function isAJAX()
-	{
-		return ( defined( 'DOING_AJAX' ) && constant( 'DOING_AJAX' ) ) ? true : false;
-	}
+	protected function setup_actions() {}
 
-    public static function isDev()
+	public static function isAJAX()
 	{
-		if ( defined( 'WP_STAGE' )
-			&& 'development' == constant( 'WP_STAGE' ) )
-				return true;
-		return false;
+		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
-    
-    
 }

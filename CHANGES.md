@@ -1,12 +1,11 @@
-# gPersianDate
-
-## Changelog
+### 0.3.0
+* complete rewrite
 
 ### 0.2.34
 * using localized widget instead of the WP's
 
 ### 0.2.33
-* providing localized version of P2's `get_js_locale()` 
+* providing localized version of P2's `get_js_locale()`
 * correct order of day of the week strings
 
 ### 0.2.32

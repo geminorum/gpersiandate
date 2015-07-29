@@ -1,7 +1,6 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-
-// almost exact copy of core 4.1-alpha-20141004
+// almost exact copy of core 4.3-alpha-32825
 class WP_Widget_Persian_Archives extends WP_Widget {
 
 	public function __construct() {
@@ -9,6 +8,10 @@ class WP_Widget_Persian_Archives extends WP_Widget {
 		parent::__construct('archives', __('Archives'), $widget_ops);
 	}
 
+	/**
+	 * @param array $args
+	 * @param array $instance
+	 */
 	public function widget( $args, $instance ) {
 		$c = ! empty( $instance['count'] ) ? '1' : '0';
 		$d = ! empty( $instance['dropdown'] ) ? '1' : '0';
@@ -22,10 +25,10 @@ class WP_Widget_Persian_Archives extends WP_Widget {
 		}
 
 		if ( $d ) {
+			$dropdown_id = "{$this->id_base}-dropdown-{$this->number}";
 ?>
-		<select name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'>
-			<option value=""><?php echo esc_attr( __( 'Select Month' ) ); ?></option>
-
+		<label class="screen-reader-text" for="<?php echo esc_attr( $dropdown_id ); ?>"><?php echo $title; ?></label>
+		<select id="<?php echo esc_attr( $dropdown_id ); ?>" name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'>
 			<?php
 			/**
 			 * Filter the arguments for the Archives widget drop-down.
@@ -36,12 +39,34 @@ class WP_Widget_Persian_Archives extends WP_Widget {
 			 *
 			 * @param array $args An array of Archives widget drop-down arguments.
 			 */
-			gPersianDate::get_archives( apply_filters( 'widget_archives_dropdown_args', array(
+			$dropdown_args = apply_filters( 'widget_archives_dropdown_args', array(
 				'type'            => 'monthly',
 				'format'          => 'option',
 				'show_post_count' => $c
-			) ) );
-?>
+			) );
+
+			switch ( $dropdown_args['type'] ) {
+				case 'yearly':
+					$label = __( 'Select Year' );
+					break;
+				case 'monthly':
+					$label = __( 'Select Month' );
+					break;
+				case 'daily':
+					$label = __( 'Select Day' );
+					break;
+				case 'weekly':
+					$label = __( 'Select Week' );
+					break;
+				default:
+					$label = __( 'Select Post' );
+					break;
+			}
+			?>
+
+			<option value=""><?php echo esc_attr( $label ); ?></option>
+			<?php gPersianDateArchives::get( $dropdown_args ); ?>
+
 		</select>
 <?php
 		} else {
@@ -57,7 +82,7 @@ class WP_Widget_Persian_Archives extends WP_Widget {
 		 *
 		 * @param array $args An array of Archives option arguments.
 		 */
-		gPersianDate::get_archives( apply_filters( 'widget_archives_args', array(
+		gPersianDateArchives::get( apply_filters( 'widget_archives_args', array(
 			'type'            => 'monthly',
 			'show_post_count' => $c
 		) ) );
@@ -69,6 +94,11 @@ class WP_Widget_Persian_Archives extends WP_Widget {
 		echo $args['after_widget'];
 	}
 
+	/**
+	 * @param array $new_instance
+	 * @param array $old_instance
+	 * @return array
+	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$new_instance = wp_parse_args( (array) $new_instance, array( 'title' => '', 'count' => 0, 'dropdown' => '') );
@@ -79,6 +109,9 @@ class WP_Widget_Persian_Archives extends WP_Widget {
 		return $instance;
 	}
 
+	/**
+	 * @param array $instance
+	 */
 	public function form( $instance ) {
 		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 0, 'dropdown' => '') );
 		$title = strip_tags($instance['title']);
@@ -91,6 +124,57 @@ class WP_Widget_Persian_Archives extends WP_Widget {
 			<br/>
 			<input class="checkbox" type="checkbox" <?php echo $count; ?> id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" /> <label for="<?php echo $this->get_field_id('count'); ?>"><?php _e('Show post counts'); ?></label>
 		</p>
+<?php
+	}
+}
+
+// almost exact copy of core 4.3-alpha-32825
+class WP_Widget_Persian_Calendar extends WP_Widget {
+
+	public function __construct() {
+		$widget_ops = array('classname' => 'widget_calendar', 'description' => __( 'A calendar of your site&#8217;s Posts.') );
+		parent::__construct('calendar', __('Calendar'), $widget_ops);
+	}
+
+	/**
+	 * @param array $args
+	 * @param array $instance
+	 */
+	public function widget( $args, $instance ) {
+		/** This filter is documented in wp-includes/default-widgets.php */
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
+
+		echo $args['before_widget'];
+		if ( $title ) {
+			echo $args['before_title'] . $title . $args['after_title'];
+		}
+		echo '<div id="calendar_wrap">';
+			gPersianDateCalendar::get();
+		echo '</div>';
+		echo $args['after_widget'];
+	}
+
+	/**
+	 * @param array $new_instance
+	 * @param array $old_instance
+	 * @return array
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['title'] = strip_tags($new_instance['title']);
+
+		return $instance;
+	}
+
+	/**
+	 * @param array $instance
+	 */
+	public function form( $instance ) {
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
+		$title = strip_tags($instance['title']);
+?>
+		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
 <?php
 	}
 }

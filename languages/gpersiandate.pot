@@ -1,84 +1,59 @@
-msgid ""
-msgstr ""
-"Project-Id-Version: gPersianDate v0.3.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-07-19 17:07+0430\n"
-"Last-Translator: geminorum <contact@geminorum.ir>\n"
-"Language-Team: geminorum <contact@geminorum.ir>\n"
-"Language: fa_IR\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
-"X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.8.2\n"
-"X-Poedit-SearchPath-0: .\n"
-
 #: includes/admin.class.php:31
 msgid "Adminbar Clock"
-msgstr "ساعت منوی مدیریت"
+msgstr ""
 
 #: includes/admin.class.php:32
 msgid "Month Restrictions"
-msgstr "محدویت بر اساس ماه"
+msgstr ""
 
 #: includes/admin.class.php:33
 msgid "Date Restrictions"
-msgstr "محدودیت در بازه زمانی"
+msgstr ""
 
 #: includes/admin.class.php:58 includes/admin.class.php:70
 #: includes/admin.class.php:82
 msgid "Disabled"
-msgstr "غیرفعال"
+msgstr ""
 
 #: includes/admin.class.php:59 includes/admin.class.php:71
 msgid "Enabled"
-msgstr "فعال"
+msgstr ""
 
 #: includes/admin.class.php:83
 msgid "Gregorian"
-msgstr "میلادی"
+msgstr ""
 
 #: includes/admin.class.php:84
 msgid "Jalali"
-msgstr "شمسی"
+msgstr ""
 
-# @ gpersiandate
 #: includes/admin.class.php:205
 msgid "Show all dates"
-msgstr "نمایش تمامی ماه‌ها"
+msgstr ""
 
-# @ gpersiandate
 #: includes/admin.class.php:235
 msgid "From"
-msgstr "از تاریخ"
+msgstr ""
 
-# @ gpersiandate
 #: includes/admin.class.php:238
 msgid "To"
-msgstr "تا تاریخ"
+msgstr ""
 
-# @ gpersiandate
 #: includes/adminbar.class.php:66
 msgid "Today in Persian ( just to make sure the conversion is intact )"
-msgstr "امروز در تقویم فارسی (برای اطمینان از تبدیل صحیح تاریخ)"
+msgstr ""
 
 #: includes/adminbar.class.php:66
 msgid "Today in Persian"
-msgstr "تاریخ امروز"
+msgstr ""
 
-# @ gpersiandate
 #: includes/adminbar.class.php:76
 msgid "Now ( just to make sure time zone is correct )"
-msgstr "حالا (برای اطمینان از صحت  منطقهٔ زمانی)"
+msgstr ""
 
 #: includes/adminbar.class.php:76
 msgid "Just Now"
-msgstr "همین حالا"
+msgstr ""
 
 #: includes/archives.class.php:84
 msgctxt "wp_get_archives monthly"
@@ -112,7 +87,7 @@ msgstr ""
 
 #: includes/archives.class.php:287
 msgid "Archives are empty."
-msgstr "بایگانی خالی‌ست."
+msgstr ""
 
 #. translators: Calendar caption: 1: month name, 2: 4-digit year
 #: includes/calendar.class.php:54
@@ -120,235 +95,214 @@ msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr ""
 
-# @ default
 #. translators: 1: relative date, 2: time, 3: post edit link, 4: post title
 #: includes/format.class.php:108
 msgid "F j, Y"
 msgstr ""
 
-# @ default
 #: includes/format.class.php:117
 msgid "g:i a"
 msgstr ""
 
 #: includes/strings.class.php:18
 msgid "January"
-msgstr "ژانویه"
+msgstr ""
 
 #: includes/strings.class.php:19
 msgid "February"
-msgstr "فوریه"
+msgstr ""
 
 #: includes/strings.class.php:20
 msgid "March"
-msgstr "مارس"
+msgstr ""
 
 #: includes/strings.class.php:21
 msgid "April"
-msgstr "آوریل"
+msgstr ""
 
 #: includes/strings.class.php:22
 msgid "May"
-msgstr "می"
+msgstr ""
 
 #: includes/strings.class.php:23
 msgid "June"
-msgstr "ژوئن"
+msgstr ""
 
 #: includes/strings.class.php:24
 msgid "July"
-msgstr "جولای"
+msgstr ""
 
 #: includes/strings.class.php:25
 msgid "August"
-msgstr "آگوست"
+msgstr ""
 
 #: includes/strings.class.php:26
 msgid "September"
-msgstr "سپتامبر"
+msgstr ""
 
 #: includes/strings.class.php:27
 msgid "October"
-msgstr "اکتبر"
+msgstr ""
 
 #: includes/strings.class.php:28
 msgid "November"
-msgstr "نوامبر"
+msgstr ""
 
 #: includes/strings.class.php:29
 msgid "December"
-msgstr "دسامبر"
+msgstr ""
 
 #: includes/strings.class.php:36
 msgid "Muharram"
-msgstr "محرم"
+msgstr ""
 
 #: includes/strings.class.php:37
 msgid "Safar"
-msgstr "صفر"
+msgstr ""
 
 #: includes/strings.class.php:38
 msgid "Rabi I"
-msgstr "ربیع الأول"
+msgstr ""
 
 #: includes/strings.class.php:39
 msgid "Rabi II"
-msgstr "ربیع الثانی"
+msgstr ""
 
 #: includes/strings.class.php:40
 msgid "Jumada I"
-msgstr "جمادی الأول"
+msgstr ""
 
 #: includes/strings.class.php:41
 msgid "Jumada II"
-msgstr "جمادی الثانی"
+msgstr ""
 
 #: includes/strings.class.php:42
 msgid "Rajab"
-msgstr "رجب"
+msgstr ""
 
 #: includes/strings.class.php:43
 msgid "Shaaban"
-msgstr "شعبان"
+msgstr ""
 
 #: includes/strings.class.php:44
 msgid "Ramadan"
-msgstr "رمضان"
+msgstr ""
 
 #: includes/strings.class.php:45
 msgid "Shawwal"
-msgstr "شوال"
+msgstr ""
 
 #: includes/strings.class.php:46
 msgid "Dhu al-Qidah"
-msgstr "ذو القعده"
+msgstr ""
 
 #: includes/strings.class.php:47
 msgid "Dhu al-Hijjah"
-msgstr "ذی الحجه"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:55
 msgid "Farvardin"
-msgstr "فروردین"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:56
 msgid "Ordibehesht"
-msgstr "اردیبهشت"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:57
 msgid "Khordad"
-msgstr "خرداد"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:58
 msgid "Tir"
-msgstr "تیر"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:59
 msgid "Mordad"
-msgstr "مرداد"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:60
 msgid "Shahrivar"
-msgstr "شهریور"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:61
 msgid "Mehr"
-msgstr "مهر"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:62
 msgid "Aban"
-msgstr "آبان"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:63
 msgid "Azar"
-msgstr "آذر"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:64
 msgid "Dey"
-msgstr "دی"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:65
 msgid "Bahman"
-msgstr "بهمن"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:66
 msgid "Esfand"
-msgstr "اسفند"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:86 includes/strings.class.php:132
 msgid "Saturday"
-msgstr "شنبه"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:87 includes/strings.class.php:126
 msgid "Sunday"
-msgstr "یک‌شنبه"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:88 includes/strings.class.php:127
 msgid "Monday"
-msgstr "دوشنبه"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:89 includes/strings.class.php:128
 msgid "Tuesday"
-msgstr "سه‌شنبه"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:90 includes/strings.class.php:129
 msgid "Wednesday"
-msgstr "چهارشنبه"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:91 includes/strings.class.php:130
 msgid "Thursday"
-msgstr "پنج‌شنبه"
+msgstr ""
 
-# @ gpersiandate
 #: includes/strings.class.php:92 includes/strings.class.php:131
 msgid "Friday"
-msgstr "جمعه"
+msgstr ""
 
 #: includes/strings.class.php:104
 msgid "Shanbeh"
-msgstr "شنبه"
+msgstr ""
 
 #: includes/strings.class.php:105
 msgid "YekShanbeh"
-msgstr "یک‌شنبه"
+msgstr ""
 
 #: includes/strings.class.php:106
 msgid "DoShanbeh"
-msgstr "دو‌شنبه"
+msgstr ""
 
 #: includes/strings.class.php:107
 msgid "SeShanbeh"
-msgstr "سه‌شنبه"
+msgstr ""
 
 #: includes/strings.class.php:108
 msgid "ChaharShanbeh"
-msgstr "چهارشنبه"
+msgstr ""
 
 #: includes/strings.class.php:109
 msgid "PanjShanbeh"
-msgstr "پنج‌شنبه"
+msgstr ""
 
 #: includes/strings.class.php:110
 msgid "Jom'eh"
-msgstr "جمعه"
+msgstr ""
 
 #: includes/widgets.class.php:7
 msgid "A monthly archive of your site&#8217;s Posts."
@@ -356,7 +310,7 @@ msgstr ""
 
 #: includes/widgets.class.php:8 includes/widgets.class.php:20
 msgid "Archives"
-msgstr "بایگانی"
+msgstr ""
 
 #: includes/widgets.class.php:50
 msgid "Select Year"
@@ -396,160 +350,4 @@ msgstr ""
 
 #: includes/widgets.class.php:136
 msgid "Calendar"
-msgstr "تقویم"
-
-#~ msgctxt "Date picker Image Title"
-#~ msgid "From"
-#~ msgstr "از"
-
-#~ msgctxt "Date picker Image Title"
-#~ msgid "To"
-#~ msgstr "تا"
-
-# @ gpersiandate
-#~ msgid "Minute"
-#~ msgstr "دقیقه"
-
-# @ gpersiandate
-#~ msgid "Second"
-#~ msgstr "ثانیه"
-
-# @ gpersiandate
-#~ msgid "am"
-#~ msgstr "قـ.ظـ."
-
-# @ gpersiandate
-#~ msgid "AM"
-#~ msgstr "قـ.ظـ."
-
-# @ gpersiandate
-#~ msgid "pm"
-#~ msgstr "بـ.ظـ."
-
-# @ gpersiandate
-#~ msgid "PM"
-#~ msgstr "بـ.ظـ."
-
-# @ gpersiandate
-#~ msgid "1"
-#~ msgstr "یکم"
-
-# @ gpersiandate
-#~ msgid "2"
-#~ msgstr "دوم"
-
-# @ gpersiandate
-#~ msgid "3"
-#~ msgstr "سوم"
-
-# @ gpersiandate
-#~ msgid "4"
-#~ msgstr "چهارم"
-
-# @ gpersiandate
-#~ msgid "5"
-#~ msgstr "پنجم"
-
-# @ gpersiandate
-#~ msgid "6"
-#~ msgstr "ششم"
-
-# @ gpersiandate
-#~ msgid "7"
-#~ msgstr "هفتم"
-
-# @ gpersiandate
-#~ msgid "8"
-#~ msgstr "هشتم"
-
-# @ gpersiandate
-#~ msgid "9"
-#~ msgstr "نهم"
-
-# @ gpersiandate
-#~ msgid "10"
-#~ msgstr "دهم"
-
-# @ gpersiandate
-#~ msgid "11"
-#~ msgstr "یازدهم"
-
-# @ gpersiandate
-#~ msgid "12"
-#~ msgstr "دوازدهم"
-
-# @ gpersiandate
-#~ msgid "13"
-#~ msgstr "سیزدهم"
-
-# @ gpersiandate
-#~ msgid "14"
-#~ msgstr "چهاردهم"
-
-# @ gpersiandate
-#~ msgid "15"
-#~ msgstr "پانزدهم"
-
-# @ gpersiandate
-#~ msgid "16"
-#~ msgstr "شانزدهم"
-
-# @ gpersiandate
-#~ msgid "17"
-#~ msgstr "هفدهم"
-
-# @ gpersiandate
-#~ msgid "18"
-#~ msgstr "هجدهم"
-
-# @ gpersiandate
-#~ msgid "19"
-#~ msgstr "نوزدهم"
-
-# @ gpersiandate
-#~ msgid "20"
-#~ msgstr "بیستم"
-
-# @ gpersiandate
-#~ msgid "21"
-#~ msgstr "بیست و یکم"
-
-# @ gpersiandate
-#~ msgid "22"
-#~ msgstr "بیست و دوم"
-
-# @ gpersiandate
-#~ msgid "23"
-#~ msgstr "بیست و سوم"
-
-# @ gpersiandate
-#~ msgid "24"
-#~ msgstr "بیست و چهارم"
-
-# @ gpersiandate
-#~ msgid "25"
-#~ msgstr "بیست و پنجم"
-
-# @ gpersiandate
-#~ msgid "26"
-#~ msgstr "بیست و ششم"
-
-# @ gpersiandate
-#~ msgid "27"
-#~ msgstr "بیست و هفتم"
-
-# @ gpersiandate
-#~ msgid "28"
-#~ msgstr "بیست و هشتم"
-
-# @ gpersiandate
-#~ msgid "29"
-#~ msgstr "بیست و نهم"
-
-# @ gpersiandate
-#~ msgid "30"
-#~ msgstr "سی‌ام"
-
-# @ gpersiandate
-#~ msgid "31"
-#~ msgstr "سی و یکم"
+msgstr ""
