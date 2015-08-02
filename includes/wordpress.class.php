@@ -2,7 +2,7 @@
 
 class gPersianDateWordPress extends gPersianDateModuleCore
 {
-	
+
 	var $_ajax = TRUE;
 
 	protected function setup_actions()
@@ -29,7 +29,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		add_filter( 'pre_term_description', array( 'gPersianDateTranslate', 'html' ) );
 
 		add_filter( 'gmeta_meta', array( 'gPersianDateTranslate', 'numbers' ), 12 );
-		add_filter( 'gmeta_lead', array( 'gPersianDateTranslate', 'numbers' ), 12 );
+		add_filter( 'gmeta_lead', array( 'gPersianDateTranslate', 'html' ), 12 );
 		add_filter( 'geditorial_kses', array( 'gPersianDateTranslate', 'numbers' ), 12 );
 
 		add_filter( 'list_pages', array( 'gPersianDateTranslate', 'numbers' ), 12 ); // page dropdown walker item title
