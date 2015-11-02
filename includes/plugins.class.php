@@ -9,7 +9,7 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 		add_filter( 'gshop_stats_current_month', array( &$this, 'gshop_stats_current_month' ), 10, 3 );
 
 		// gEditorial::Alphabets
-		add_filter( 'geditorial_alphabets_strings', array( &$this, 'geditorial_alphabets_strings' ), 8 );
+		add_filter( 'geditorial_alphabet_strings', array( &$this, 'geditorial_alphabet_strings' ), 8 );
 	}
 
 	public function gshop_stats_current_month( $month, $current, $force_iso )
@@ -17,7 +17,7 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 		return gPersianDateDate::to( 'Y_m', current_time( 'mysql' ) );
 	}
 
-	public function geditorial_alphabets_strings( $strings )
+	public function geditorial_alphabet_strings( $strings )
 	{
 		$new = array(
 			'alphabet_fa_alef'  => 'ا',
@@ -55,7 +55,7 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 		);
 
 		// we do not need the english!!
-		$strings['terms']['alphabets_tax'] = $new;
+		$strings['terms']['alphabet_tax'] = $new;
 		return  $strings;
 	}
 }
