@@ -63,7 +63,6 @@ function gpersiandate_init(){
 		if ( file_exists( GPERSIANDATE_DIR.'includes'.DS.$include.'.class.php' ) )
 			require_once( GPERSIANDATE_DIR.'includes'.DS.$include.'.class.php' );
 
-	// MAYBE: DEPRECATE these!
 	defined( 'GPERSIANDATE_TIMEZONE' ) or define( 'GPERSIANDATE_TIMEZONE', gPersianDateTimeZone::current() );
 	defined( 'GPERSIANDATE_LOCALE' ) or define( 'GPERSIANDATE_LOCALE', get_locale() );
 	defined( 'GPERSIANDATE_FIXNONPERSIAN' ) or define( 'GPERSIANDATE_FIXNONPERSIAN', TRUE );

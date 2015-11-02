@@ -3,11 +3,11 @@
 class gPersianDateAdminBar extends gPersianDateModuleCore
 {
 
-	var $_adminbar = FALSE;
+	private $adminbar = FALSE;
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( &$this, 'init' ) );
+		add_action( 'init', array( $this, 'init' ) );
 	}
 
 	public function init()
@@ -15,12 +15,12 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 		if ( is_admin_bar_showing() && is_user_logged_in() ) {
 
 			$this->_options = gPersianDate()->options();
-			$this->_adminbar = isset( $this->_options['adminbar_clock'] ) && $this->_options['adminbar_clock'];
+			$this->adminbar = isset( $this->_options['adminbar_clock'] ) && $this->_options['adminbar_clock'];
 
-			if ( ! $this->_adminbar )
+			if ( ! $this->adminbar )
 				return;
 
-			add_action( 'admin_bar_menu', array( &$this, 'admin_bar_menu' ) );
+			add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu' ) );
 
 			// http://www.jquery4u.com/snippets/create-jquery-digital-clock-jquery4u/
 			wp_register_script( 'gperdiandate-clock',

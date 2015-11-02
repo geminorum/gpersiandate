@@ -17,13 +17,13 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		if ( is_admin() ) {
 			
 			// FIXME: must be admin?
-			add_filter( 'gettext', array( &$this, 'gettext' ), 10, 3 );
-			// add_filter( 'gettext_with_context', array( &$this, 'gettext_with_context' ), 10, 4 ); // no need for now
+			add_filter( 'gettext', array( $this, 'gettext' ), 10, 3 );
+			// add_filter( 'gettext_with_context', array( $this, 'gettext_with_context' ), 10, 4 ); // no need for now
 
-			add_filter( 'date_formats', array( &$this, 'date_formats' ) );
-			add_filter( 'time_formats', array( &$this, 'time_formats' ) );
-			add_filter( 'pre_option_start_of_week', array( &$this, 'pre_option_start_of_week' ) );
-			add_filter( 'default_option_start_of_week', array( &$this, 'pre_option_start_of_week' ) );
+			add_filter( 'date_formats', array( $this, 'date_formats' ) );
+			add_filter( 'time_formats', array( $this, 'time_formats' ) );
+			add_filter( 'pre_option_start_of_week', array( $this, 'pre_option_start_of_week' ) );
+			add_filter( 'default_option_start_of_week', array( $this, 'pre_option_start_of_week' ) );
 		}
 	}
 

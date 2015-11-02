@@ -2,7 +2,7 @@
 
 class gPersianDateStrings extends gPersianDateModuleCore
 {
-	// before: get_month()
+	// OLD: get_month()
 	// http://www.wikiwand.com/en/Month
 	public static function month( $month, $all = FALSE, $calendar = NULL )
 	{

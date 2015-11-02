@@ -44,6 +44,6 @@ function GPDupdateClock() {
 	jQuery("#gpd-now").html(currentTimeString);
 };
 jQuery(document).ready(function($) {
-	//setInterval('GPDupdateClock()', 1000); 
-	setInterval('GPDupdateClock()', 60*1000); 
+	//setInterval('GPDupdateClock()', 1000);
+	setInterval('GPDupdateClock()', 60*1000);
 });

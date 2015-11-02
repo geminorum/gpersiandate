@@ -9,8 +9,8 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 		// error_log( print_r( compact( 'm', 'monthnum', 'year' ), TRUE ) );
 
-		$current_time = current_time( 'mysql' );
-		$week_begins = '6'; // week start on Saturday
+		$current_time       = current_time( 'mysql' );
+		$week_begins        = '6'; // week start on Saturday
 		$ak_title_separator = ', ';
 
 		$jcurrent_year  = $jthisyear  = gPersianDateDate::to( 'Y', $current_time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
@@ -93,7 +93,6 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 		$calendar_output .= '</tr></tfoot><tbody><tr>';
 
-
 		$daywithpost = array();
 
 		// Get days with posts
@@ -152,7 +151,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 			if ( isset( $newrow ) && $newrow )
 				$calendar_output .= "\n\t</tr>\n\t<tr>\n\t\t";
-			$newrow = false;
+			$newrow = FALSE;
 
 			if ( $jday == $jcurrent_day
 				&& $jthismonth == $jcurrent_month
@@ -176,12 +175,13 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			$calendar_output .= '</td>';
 
 			if ( 6 == self::week_mod( date( 'w', gPersianDateDate::make( 0, 0 , 0, $jthismonth, $jday, $jthisyear ) ) - $week_begins ) )
-				$newrow = true;
+				$newrow = TRUE;
 		}
 
 		$pad = 7 - self::week_mod( date('w', gPersianDateDate::make( 0, 0 , 0, $jthismonth, $jday, $jthisyear ) ) - $week_begins );
+
 		if ( $pad != 0 && $pad != 7 )
-			$calendar_output .= "\n\t\t".'<td class="pad" colspan="'. esc_attr($pad) .'">&nbsp;</td>';
+			$calendar_output .= "\n\t\t".'<td class="pad" colspan="'.esc_attr( $pad ).'">&nbsp;</td>';
 
 
 		$calendar_output .= "\n\t</tr>\n\t</tbody>\n\t</table>";
@@ -215,7 +215,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		if ( !is_array($cache) )
 			$cache = array();
 
-		// Quick check. If we have no posts at all, abort!
+		// quick check: if we have no posts at all, abort!
 		if ( !$posts ) {
 			$gotsome = $wpdb->get_var("SELECT 1 as test FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' LIMIT 1");
 			if ( !$gotsome ) {

@@ -3,11 +3,11 @@
 class gPersianDateModuleCore
 {
 
-	var $_ajax = FALSE;
+	protected $ajax = FALSE;
 
 	public function __construct()
 	{
-		if ( ( ! $this->_ajax && self::isAJAX() )
+		if ( ( ! $this->ajax && self::isAJAX() )
 			|| ( defined( 'WP_INSTALLING' ) && constant( 'WP_INSTALLING' ) ) )
 			return;
 

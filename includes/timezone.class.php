@@ -56,8 +56,8 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 
 	// NOT USED YET
 	// Originally from : http://wordpress.org/plugins/easy-digital-downloads/
-	// using like : date_default_timezone_set( get_timezone_id() );
-	public static function get_timezone_id()
+	// USAGE: date_default_timezone_set( gPersianDateTimeZone::getID() );
+	public static function getID()
 	{
 		// if site timezone string exists, return it
 		if ( $timezone = get_option( 'timezone_string' ) )
@@ -71,16 +71,15 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 		$timezone = timezone_name_from_abbr( '', $utc_offset );
 
 		// last try, guess timezone string manually
-		if ( $timezone === false ) {
+		if ( $timezone === FALSE ) {
 
-			$is_dst = date('I');
+			$is_dst = date( 'I' );
 
-			foreach ( timezone_abbreviations_list() as $abbr ) {
-				foreach ( $abbr as $city ) {
-					if ( $city['dst'] == $is_dst &&  $city['offset'] == $utc_offset )
-						return $city['timezone_id'];
-				}
-			}
+			foreach ( timezone_abbreviations_list() as $abbr )
+				foreach ( $abbr as $city )
+					if ( $city['dst'] == $is_dst &&
+						$city['offset'] == $utc_offset )
+							return $city['timezone_id'];
 		}
 
 		// fallback

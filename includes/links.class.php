@@ -3,22 +3,22 @@
 class gPersianDateLinks extends gPersianDateModuleCore
 {
 
-	var $_ajax = TRUE;
+	protected $ajax = TRUE;
 
 	protected function setup_actions()
 	{
 		if ( is_admin() )
 			return;
 
-		add_filter( 'posts_where', array( &$this, 'posts_where' ), 20 );
+		add_filter( 'posts_where', array( $this, 'posts_where' ), 20 );
 
-		add_filter( 'post_link', array( &$this, 'post_link' ), 10, 3 );
-		add_filter( 'day_link', array( &$this, 'day_link' ), 10, 4 );
-		add_filter( 'month_link', array( &$this, 'month_link' ), 10, 3 );
-		add_filter( 'year_link', array( &$this, 'year_link' ), 10, 2 );
+		add_filter( 'post_link', array( $this, 'post_link' ), 10, 3 );
+		add_filter( 'day_link', array( $this, 'day_link' ), 10, 4 );
+		add_filter( 'month_link', array( $this, 'month_link' ), 10, 3 );
+		add_filter( 'year_link', array( $this, 'year_link' ), 10, 2 );
 
 		// NOTE: wp_title deprecated as WP v4.4.0 / no need further
-		add_filter( 'wp_title_parts', array( &$this, 'wp_title_parts' ) );
+		add_filter( 'wp_title_parts', array( $this, 'wp_title_parts' ) );
 	}
 
 	// Originally from wp-jalali
@@ -29,7 +29,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( is_admin() || ! $wp_query->is_main_query() )
 			return $where;
 
-		$conversion = false;
+		$conversion    = FALSE;
 		$days_in_month = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
 		$start = $end = array(
 			'year'     => 1,

@@ -3,7 +3,7 @@
 class gPersianDateCore
 {
 
-	var $_options = FALSE;
+	private $options = FALSE;
 
 	private static $instance;
 
@@ -28,7 +28,7 @@ class gPersianDateCore
 
 	private function setup_actions()
 	{
-		add_action( 'init', array( &$this, 'init' ) );
+		add_action( 'init', array( $this, 'init' ) );
 
 		do_action_ref_array( 'gpersiandate_after_setup_actions', array( &$this ) );
 	}
@@ -56,8 +56,8 @@ class gPersianDateCore
 			if ( class_exists( $class ) )
 				$this->{$module} = new $class;
 
-		add_action( 'bp_include', array( &$this, 'bp_include' ) );
-		add_action( 'bbp_includes', array( &$this, 'bbp_includes' ) );
+		add_action( 'bp_include', array( $this, 'bp_include' ) );
+		add_action( 'bbp_includes', array( $this, 'bbp_includes' ) );
 	}
 
 	public function bp_include()
@@ -76,12 +76,12 @@ class gPersianDateCore
 	{
 		load_plugin_textdomain( GPERSIANDATE_TEXTDOMAIN, FALSE, 'gpersiandate/languages' );
 	}
-	
+
 	public function options()
 	{
-		if ( FALSE === $this->_options )
-			$this->_options = get_option( 'gpersiandate', array() );
-			
-		return $this->_options;
+		if ( FALSE === $this->options )
+			$this->options = get_option( 'gpersiandate', array() );
+
+		return $this->options;
 	}
 }

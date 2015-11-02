@@ -18,7 +18,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 		return $string;
 	}
-	
+
 	public static function toHijri( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = 'ar', $translate = TRUE )
 	{
 		if ( is_null( $time ) )
@@ -33,7 +33,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 			return gPersianDateTranslate::numbers( $string, $locale );
 
 		return $string;
-	}	
+	}
 
 	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear )
 	{

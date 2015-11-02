@@ -2,6 +2,7 @@
 
 class gPersianDateArchives extends gPersianDateModuleCore
 {
+	// FIXME: REWRITE THIS
 	public static function get( $r = '' )
 	{
 		global $wpdb, $wp_locale;
@@ -42,9 +43,6 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 		if ( ! $archive_date_format_over_ride )
 			$archive_day_date_format = $archive_week_start_date_format = $archive_week_end_date_format = get_option( 'date_format' );
-
-
-
 
 		$where = apply_filters( 'getarchives_where', "WHERE post_type = 'post' AND post_status = 'publish'", $args );
 		$join  = apply_filters( 'getarchives_join', '', $args );
@@ -239,35 +237,36 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 	}
 
-	/*
-		TODO:
-		args
-		styles
-		cache
-		shortcode
-		widget
-	*/
+	// FIXME: REWRITE THIS
+	// TODO: args / styles / cache / shortcode / widget
 	public static function get_compact( $r = '' )
 	{
 		global $wpdb;
-		$args = array();
-		$output = '';
+
+		$args          = array();
+		$output        = '';
 		$days_in_month = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
-		$where = apply_filters( 'getarchives_where', "WHERE post_type = 'post' AND post_status = 'publish'", $args );
-		$join = apply_filters( 'getarchives_join', '', $args );
-		$where = self::strip_date_clauses( $where ); // just in case!
+		$where         = apply_filters( 'getarchives_where', "WHERE post_type = 'post' AND post_status = 'publish'", $args );
+		$join          = apply_filters( 'getarchives_join', '', $args );
+		$where         = self::strip_date_clauses( $where ); // just in case!
 
 		$first = $wpdb->get_results("SELECT post_date AS date FROM $wpdb->posts $where AND post_password='' $join ORDER BY post_date ASC LIMIT 1");
+
 		if ( $first ) {
+
 			$last = $wpdb->get_results("SELECT post_date AS date FROM $wpdb->posts $where AND post_password='' $join ORDER BY post_date DESC LIMIT 1");
-			//$the_year = gPersianDateDate::to( 'Y', current_time( 'timestamp' ), GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+			// $the_year = gPersianDateDate::to( 'Y', current_time( 'timestamp' ), GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
 			$the_year = gPersianDateDate::to( 'Y', strtotime( $last[0]->date ), GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
 			$year = gPersianDateDate::to( 'Y', strtotime( $first[0]->date ), GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-			//echo $results[0]->date.'<br />';
-			//echo 't:'.$the_year.'<br />';
-			//echo 'y:'.$year.'<br />';
+
+			// echo $results[0]->date.'<br />';
+			// echo 't:'.$the_year.'<br />';
+			// echo 'y:'.$year.'<br />';
+
 			while ( $the_year >= $year ) {
+
 				$output .= '<div dir="ltr"><a href="'.get_year_link( $year ).'">'.gPersianDateTranslate::numbers( $year ).'</a> : ';
+
 				for ( $month = 1; $month <= 12; $month += 1) {
 					$first_day = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $month, 1, $year ) );
 					$last_day = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $month, $days_in_month[$month-1], $year ) );
@@ -280,14 +279,15 @@ class gPersianDateArchives extends gPersianDateModuleCore
 					else
 						$output .= '<span class="empty" style="opacity:0.4;">'.$text.'</span>&nbsp;';
 				}
+
 				$output .= '</div>';
 				$year++;
 			}
+
 		} else {
 			$output = __( 'Archives are empty.', GPERSIANDATE_TEXTDOMAIN );
 		}
 
 		return $output;
-
 	}
 }

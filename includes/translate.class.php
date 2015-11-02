@@ -3,17 +3,17 @@
 class gPersianDateTranslate extends gPersianDateModuleCore
 {
 
-	var $_ajax = TRUE;
+	protected $ajax = TRUE;
 
 	protected function setup_actions()
 	{
-		add_filter( 'number_format_i18n', array( &$this, 'format_i18n' ), 10, 2 );
-		add_filter( 'bb_number_format_i18n', array( &$this, 'format_i18n' ), 10, 1 );
+		add_filter( 'number_format_i18n', array( $this, 'format_i18n' ), 10, 2 );
+		add_filter( 'bb_number_format_i18n', array( $this, 'format_i18n' ), 10, 1 );
 
 		// our filters!
-		add_filter( 'number_format_i18n_back', array( &$this, 'number_format_i18n_back' ) );
-		add_filter( 'string_format_i18n', array( &$this, 'format_i18n' ) );
-		add_filter( 'string_format_i18n_back', array( &$this, 'string_format_i18n_back' ) );
+		add_filter( 'number_format_i18n_back', array( $this, 'number_format_i18n_back' ) );
+		add_filter( 'string_format_i18n', array( $this, 'format_i18n' ) );
+		add_filter( 'string_format_i18n_back', array( $this, 'string_format_i18n_back' ) );
 		add_filter( 'html_format_i18n', array( 'gPersianDateTranslate', 'html' ) );
 
 		add_filter( 'maybe_format_i18n', array( 'gPersianDateTranslate', 'numbers' ), 10, 2 );
@@ -34,7 +34,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		return self::numbers_back( $formatted, $local, FALSE );
 	}
 
-	// adopt from core's make_clickable()
+	// adopted from core's make_clickable()
 	public static function html( $text )
 	{
 		$r = '';

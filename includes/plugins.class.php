@@ -6,10 +6,10 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 	protected function setup_actions()
 	{
 		// gShop
-		add_filter( 'gshop_stats_current_month', array( &$this, 'gshop_stats_current_month' ), 10, 3 );
+		add_filter( 'gshop_stats_current_month', array( $this, 'gshop_stats_current_month' ), 10, 3 );
 
 		// gEditorial::Alphabets
-		add_filter( 'geditorial_alphabet_strings', array( &$this, 'geditorial_alphabet_strings' ), 8 );
+		add_filter( 'geditorial_alphabet_strings', array( $this, 'geditorial_alphabet_strings' ), 8 );
 	}
 
 	public function gshop_stats_current_month( $month, $current, $force_iso )

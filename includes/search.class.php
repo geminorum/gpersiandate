@@ -3,12 +3,12 @@
 class gPersianDateSearch extends gPersianDateModuleCore
 {
 
-	var $_ajax = TRUE;
+	protected $ajax = TRUE;
 
 	protected function setup_actions()
 	{
-		add_filter( 'posts_request', array( &$this, 'posts_request' ), 20 );
-		add_filter( 'posts_search', array( &$this, 'posts_request' ), 20 );
+		add_filter( 'posts_request', array( $this, 'posts_request' ), 20 );
+		add_filter( 'posts_search', array( $this, 'posts_request' ), 20 );
 
 		add_filter( 'get_search_query', array( 'gPersianDateTranslate', 'chars' ) );
 	}

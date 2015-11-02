@@ -2,8 +2,9 @@
 
 class gPersianDateBuddyPress extends gPersianDateModuleCore
 {
-	var $_ajax = TRUE;
-	
+
+	protected $ajax = TRUE;
+
 	protected function setup_actions()
 	{
 		remove_filter( 'bp_get_total_group_count_for_user', 'bp_core_number_format' );
@@ -11,6 +12,5 @@ class gPersianDateBuddyPress extends gPersianDateModuleCore
 		remove_filter( 'bp_get_total_favorite_count_for_user', 'bp_core_number_format' );
 
 		add_filter( 'bp_core_time_since', array( 'gPersianDateTranslate', 'numbers' ) );
-
 	}
 }

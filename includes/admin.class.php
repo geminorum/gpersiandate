@@ -3,34 +3,34 @@
 class gPersianDateAdmin extends gPersianDateModuleCore
 {
 
-	var $_options = array();
-	var $_datepicker = TRUE;
+	protected $options    = array();
+	protected $datepicker = TRUE;
 
 	protected function setup_actions()
 	{
 		if ( ! is_admin() )
 			return;
 
-		add_action( 'admin_init', array( &$this, 'admin_init' ) );
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_filter( 'update_footer', array( 'gPersianDateTranslate', 'html' ), 12 );
 
-		add_filter( 'pre_get_posts', array( &$this, 'pre_get_posts' ) );
-		add_filter( 'disable_months_dropdown', array( &$this, 'disable_months_dropdown' ), 10, 2 );
+		add_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
+		add_filter( 'disable_months_dropdown', array( $this, 'disable_months_dropdown' ), 10, 2 );
 
-		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	public function admin_init()
 	{
-		$this->_options = gPersianDate()->options();
+		$this->options = gPersianDate()->options();
 
 		$page = 'general';
 
-		register_setting( $page, 'gpersiandate', array( &$this, 'settings_sanitize' ) );
+		register_setting( $page, 'gpersiandate', array( $this, 'settings_sanitize' ) );
 
-		add_settings_field( 'adminbar_clock', __( 'Adminbar Clock', GPERSIANDATE_TEXTDOMAIN ), array( &$this, 'field_adminbar_clock' ), $page );
-		add_settings_field( 'restrict_month', __( 'Month Restrictions', GPERSIANDATE_TEXTDOMAIN ), array( &$this, 'field_restrict_month' ), $page );
-		add_settings_field( 'restrict_fromto', __( 'Date Restrictions', GPERSIANDATE_TEXTDOMAIN ), array( &$this, 'field_restrict_fromto' ), $page );
+		add_settings_field( 'adminbar_clock', __( 'Adminbar Clock', GPERSIANDATE_TEXTDOMAIN ), array( $this, 'field_adminbar_clock' ), $page );
+		add_settings_field( 'restrict_month', __( 'Month Restrictions', GPERSIANDATE_TEXTDOMAIN ), array( $this, 'field_restrict_month' ), $page );
+		add_settings_field( 'restrict_fromto', __( 'Date Restrictions', GPERSIANDATE_TEXTDOMAIN ), array( $this, 'field_restrict_fromto' ), $page );
 	}
 
 	public function settings_sanitize( $input )
@@ -52,7 +52,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 	public function field_adminbar_clock( $args )
 	{
 		$field  = 'adminbar_clock';
-		$option = isset( $this->_options[$field] ) ? $this->_options[$field] : 0;
+		$option = isset( $this->options[$field] ) ? $this->options[$field] : 0;
 
 		echo '<select name="gpersiandate['.$field.']" id="gpersiandate-'.$field.'">';
 			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', GPERSIANDATE_TEXTDOMAIN ); ?></option>
@@ -64,7 +64,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 	public function field_restrict_fromto( $args )
 	{
 		$field  = 'restrict_fromto';
-		$option = isset( $this->_options[$field] ) ? $this->_options[$field] : 0;
+		$option = isset( $this->options[$field] ) ? $this->options[$field] : 0;
 
 		echo '<select name="gpersiandate['.$field.']" id="gpersiandate-'.$field.'">';
 			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', GPERSIANDATE_TEXTDOMAIN ); ?></option>
@@ -76,7 +76,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 	public function field_restrict_month( $args )
 	{
 		$field  = 'restrict_month';
-		$option = isset( $this->_options[$field] ) ? $this->_options[$field] : 0;
+		$option = isset( $this->options[$field] ) ? $this->options[$field] : 0;
 
 		echo '<select name="gpersiandate['.$field.']" id="gpersiandate-'.$field.'">';
 			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', GPERSIANDATE_TEXTDOMAIN ); ?></option>
@@ -91,8 +91,8 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		$screen = get_current_screen();
 
 		if ( 'edit' == $screen->base
-			&& isset( $this->_options['restrict_fromto'] )
-			&& $this->_options['restrict_fromto'] ) {
+			&& isset( $this->options['restrict_fromto'] )
+			&& $this->options['restrict_fromto'] ) {
 
 			wp_register_script( 'persianDatepicker', GPERSIANDATE_URL.'assets/js/persianDatepicker-edited.min.js', array( 'jquery' ), '0.1.0' );
 
@@ -101,8 +101,8 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 				array( 'jquery', 'persianDatepicker' ),
 				GPERSIANDATE_VERSION, TRUE );
 
-			add_action( 'admin_print_styles', array( &$this, 'admin_print_styles' ) );
-			add_action( 'restrict_manage_posts', array( &$this, 'restrict_manage_posts_start_end' ) );
+			add_action( 'admin_print_styles', array( $this, 'admin_print_styles' ) );
+			add_action( 'restrict_manage_posts', array( $this, 'restrict_manage_posts_start_end' ) );
 		}
 	}
 
@@ -118,10 +118,10 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 		if( $query->is_admin && ( 'edit.php' == $pagenow ) ) {
 			if( isset( $_REQUEST['start_date_gp'] ) || isset( $_REQUEST['end_date_gp'] ) )
-				add_filter( 'posts_where', array( &$this, 'posts_where_start_end' ) );
+				add_filter( 'posts_where', array( $this, 'posts_where_start_end' ) );
 
 			if( isset( $_REQUEST['mgp'] ) && 0 != $_REQUEST['mgp'] )
-				add_filter( 'posts_where', array( &$this, 'posts_where_mgp' ) );
+				add_filter( 'posts_where', array( $this, 'posts_where_mgp' ) );
 		}
 
 		return $query;
@@ -170,12 +170,12 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 			return $false;
 
 		// DISABLE
-		if( ! isset( $this->_options['restrict_month'] )
-			|| ! $this->_options['restrict_month'] )
+		if( ! isset( $this->options['restrict_month'] )
+			|| ! $this->options['restrict_month'] )
 			return TRUE;
 
 		// GREGORIAN
-		if( '1' == $this->_options['restrict_month'] )
+		if( '1' == $this->options['restrict_month'] )
 			return FALSE;
 
 		global $wpdb;

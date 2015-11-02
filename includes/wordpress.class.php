@@ -3,28 +3,29 @@
 class gPersianDateWordPress extends gPersianDateModuleCore
 {
 
-	var $_ajax = TRUE;
+	protected $ajax = TRUE;
 
 	protected function setup_actions()
 	{
-		add_filter( 'date_i18n', array( &$this, 'date_i18n' ), 10, 4 );
+		add_filter( 'date_i18n', array( $this, 'date_i18n' ), 10, 4 );
 
-		add_filter( 'get_the_date', array( &$this, 'get_the_date' ), 10, 3 );
-		add_filter( 'get_the_time', array( &$this, 'get_the_time' ), 10, 3 );
+		add_filter( 'get_the_date', array( $this, 'get_the_date' ), 10, 3 );
+		add_filter( 'get_the_time', array( $this, 'get_the_time' ), 10, 3 );
 
-		add_filter( 'get_comment_date', array( &$this, 'get_comment_date' ), 10, 3 );
-		add_filter( 'get_comment_time', array( &$this, 'get_comment_time' ), 10, 5 ); // the function has a translate option, but we override b/c time_format
+		add_filter( 'get_comment_date', array( $this, 'get_comment_date' ), 10, 3 );
+		// NOTE: get_comment_time has a translate option, but we override b/c time_format
+		add_filter( 'get_comment_time', array( $this, 'get_comment_time' ), 10, 5 );
 
 		add_filter( 'wp_title', array( 'gPersianDateTranslate', 'legacy' ), 12 );
 
 		add_filter( 'the_title', array( 'gPersianDateTranslate', 'legacy' ), 12 );
-		add_filter( 'the_content', array( &$this, 'the_content' ), 12 );
+		add_filter( 'the_content', array( $this, 'the_content' ), 12 );
 		add_filter( 'get_the_excerpt', array( 'gPersianDateTranslate', 'html' ), 12 );
 		add_filter( 'get_comment_excerpt', array( 'gPersianDateTranslate', 'html' ), 12 );
 		add_filter( 'get_comment_text', array( 'gPersianDateTranslate', 'html' ), 12 );
 		add_filter( 'comments_number', array( 'gPersianDateTranslate', 'numbers' ), 12 );
 
-		add_filter( 'pre_insert_term', array( &$this, 'pre_insert_term' ), 10, 2 );
+		add_filter( 'pre_insert_term', array( $this, 'pre_insert_term' ), 10, 2 );
 		add_filter( 'pre_term_name', array( 'gPersianDateTranslate', 'numbers' ) );
 		add_filter( 'pre_term_description', array( 'gPersianDateTranslate', 'html' ) );
 
@@ -33,9 +34,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		add_filter( 'geditorial_kses', array( 'gPersianDateTranslate', 'html' ), 12 );
 
 		add_filter( 'list_pages', array( 'gPersianDateTranslate', 'numbers' ), 12 ); // page dropdown walker item title
-		add_filter( 'wp_nav_menu_items', array( &$this, 'wp_nav_menu_items' ), 10, 2 );
+		add_filter( 'wp_nav_menu_items', array( $this, 'wp_nav_menu_items' ), 10, 2 );
 
-		add_action( 'widgets_init', array( &$this, 'widgets_init' ), 20 );
+		add_action( 'widgets_init', array( $this, 'widgets_init' ), 20 );
 	}
 
 	public function widgets_init()
@@ -120,6 +121,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 	{
 		$format = 'j F Y'; // 'j M Y'
 
+		// TODO: check if needs!
 		$items = preg_replace( '%{TODAY_DATE}%', gPersianDateDate::to( $format ), $items );
 		$items = preg_replace( '%{TODAY_DATE_HIJRI}%', gPersianDateDate::toHijri( $format ), $items );
 
