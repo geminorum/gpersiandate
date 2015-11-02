@@ -58,12 +58,12 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 		$myweek = array();
 
-		for ( $wdcount=0; $wdcount<=6; $wdcount++ )
-			$myweek[] = $wp_locale->get_weekday(($wdcount+$week_begins)%7);
+		for ( $wdcount = 0; $wdcount <= 6; $wdcount++ )
+			$myweek[] = $wp_locale->get_weekday( ( $wdcount + $week_begins ) % 7 );
 
 		foreach ( $myweek as $wd ) {
-			$day_name = $initial ? $wp_locale->get_weekday_initial($wd) : $wp_locale->get_weekday_abbrev($wd);
-			$wd = esc_attr($wd);
+			$day_name = $initial ? $wp_locale->get_weekday_initial( $wd ) : $wp_locale->get_weekday_abbrev( $wd );
+			$wd = esc_attr( $wd );
 			$calendar_output .= "\n\t\t<th scope=\"col\" title=\"$wd\">$day_name</th>";
 		}
 
@@ -174,11 +174,11 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 			$calendar_output .= '</td>';
 
-			if ( 6 == self::week_mod( date( 'w', gPersianDateDate::make( 0, 0 , 0, $jthismonth, $jday, $jthisyear ) ) - $week_begins ) )
+			if ( 6 == self::week_mod( date( 'w', gPersianDateDate::make( 0, 0, 0, $jthismonth, $jday, $jthisyear ) ) - $week_begins ) )
 				$newrow = TRUE;
 		}
 
-		$pad = 7 - self::week_mod( date('w', gPersianDateDate::make( 0, 0 , 0, $jthismonth, $jday, $jthisyear ) ) - $week_begins );
+		$pad = 7 - self::week_mod( date( 'w', gPersianDateDate::make( 0, 0, 0, $jthismonth, $jday, $jthisyear ) ) - $week_begins );
 
 		if ( $pad != 0 && $pad != 7 )
 			$calendar_output .= "\n\t\t".'<td class="pad" colspan="'.esc_attr( $pad ).'">&nbsp;</td>';
@@ -193,7 +193,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 	public static function week_mod( $num )
 	{
 		$base = 7;
-		return ($num - $base*floor($num/$base));
+		return ( $num - $base * floor( $num / $base ) );
 	}
 
 	public static function get( $initial = TRUE, $echo = TRUE )
@@ -201,39 +201,41 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		global $wpdb, $m, $monthnum, $year, $posts;
 
 		$key = md5( $m.$monthnum.$year );
+
 		if ( $cache = wp_cache_get( 'get_calendar', 'calendar' ) ) {
-			if ( is_array($cache) && isset( $cache[ $key ] ) ) {
-				if ( $echo ) {
-					echo apply_filters( 'get_calendar', $cache[$key] );
-					return;
-				} else {
-					return apply_filters( 'get_calendar', $cache[$key] );
-				}
+			if ( is_array( $cache ) && isset( $cache[ $key ] ) ) {
+
+				$output = apply_filters( 'get_calendar', $cache[$key] );
+
+				if ( ! $echo )
+					return $output;
+
+				echo $output;
+				return;
 			}
 		}
 
-		if ( !is_array($cache) )
+		if ( ! is_array( $cache ) )
 			$cache = array();
 
 		// quick check: if we have no posts at all, abort!
-		if ( !$posts ) {
+		if ( ! $posts ) {
 			$gotsome = $wpdb->get_var("SELECT 1 as test FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' LIMIT 1");
-			if ( !$gotsome ) {
-				$cache[ $key ] = '';
+			if ( ! $gotsome ) {
+				$cache[$key] = '';
 				wp_cache_set( 'get_calendar', $cache, 'calendar' );
 				return;
 			}
 		}
 
-		$calendar_output = self::build( $initial );
-
-		$cache[ $key ] = $calendar_output;
+		$cache[$key] = self::build( $initial );
 		wp_cache_set( 'get_calendar', $cache, 'calendar' );
 
-		if ( $echo ) {
-			echo apply_filters( 'get_calendar', $calendar_output );
-		} else {
-			return apply_filters( 'get_calendar', $calendar_output );
-		}
+		$output = apply_filters( 'get_calendar', $cache[$key] );
+
+		if ( ! $echo )
+			return $output;
+
+		echo $output;
 	}
 }
