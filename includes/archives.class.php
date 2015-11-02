@@ -16,9 +16,18 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'show_post_count' => FALSE,
 			'echo'            => 1,
 			'order'           => 'DESC',
+			'post_type'       => 'post',
 		);
 
 		$args = wp_parse_args( $r, $defaults );
+
+		$post_type_object = get_post_type_object( $args['post_type'] );
+
+		if ( ! is_post_type_viewable( $post_type_object ) )
+			return;
+
+		$args['post_type'] = $post_type_object->name;
+
 
 		if ( '' == $args['type'] )
 			$args['type'] = 'monthly';
@@ -44,7 +53,9 @@ class gPersianDateArchives extends gPersianDateModuleCore
 		if ( ! $archive_date_format_over_ride )
 			$archive_day_date_format = $archive_week_start_date_format = $archive_week_end_date_format = get_option( 'date_format' );
 
-		$where = apply_filters( 'getarchives_where', "WHERE post_type = 'post' AND post_status = 'publish'", $args );
+		$sql_where = $wpdb->prepare( "WHERE post_type = %s AND post_status = 'publish'", $args['post_type'] );
+
+		$where = apply_filters( 'getarchives_where', $sql_where, $args );
 		$join  = apply_filters( 'getarchives_join', '', $args );
 
 		$where = gPersianDateLinks::stripDateClauses( $where ); // just in case!
