@@ -30,7 +30,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 		add_filter( 'gmeta_meta', array( 'gPersianDateTranslate', 'numbers' ), 12 );
 		add_filter( 'gmeta_lead', array( 'gPersianDateTranslate', 'html' ), 12 );
-		add_filter( 'geditorial_kses', array( 'gPersianDateTranslate', 'numbers' ), 12 );
+		add_filter( 'geditorial_kses', array( 'gPersianDateTranslate', 'html' ), 12 );
 
 		add_filter( 'list_pages', array( 'gPersianDateTranslate', 'numbers' ), 12 ); // page dropdown walker item title
 		add_filter( 'wp_nav_menu_items', array( &$this, 'wp_nav_menu_items' ), 10, 2 );
