@@ -3,7 +3,7 @@
 class gPersianDateFormat extends gPersianDateModuleCore
 {
 
-	var $_ajax = TRUE;
+	protected $ajax = TRUE;
 
 	private static $_saved = array();
 
@@ -15,8 +15,8 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		);
 
 		if ( is_admin() ) {
-			
-			// FIXME: must be admin?
+
+			// FIXME: must be admin?			
 			add_filter( 'gettext', array( $this, 'gettext' ), 10, 3 );
 			// add_filter( 'gettext_with_context', array( $this, 'gettext_with_context' ), 10, 4 ); // no need for now
 
@@ -39,7 +39,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			'c', // ISO 8601 date // 2004-02-12T15:19:21+00:00 // 'Y-m-d\TH:i:s\Z'
 			'G', // 24-hour format of an hour without leading zeros // 0 through 23
 			'I', // Whether or not the date is in daylight saving time // 1 if Daylight Saving Time, 0 otherwise.
-			
+
 			'Y-m-d_H-i-s',
 			'Y-m-d H:i:s',
 		);
