@@ -80,34 +80,43 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 		switch( $calendar ) {
 
-			case 'Gregorian' :
+			case 'Gregorian': // 0 (for Sunday) through 6 (for Saturday)
 
 				$week = array(
-					0 => __( 'Saturday', GPERSIANDATE_TEXTDOMAIN ),
-					1 => __( 'Sunday', GPERSIANDATE_TEXTDOMAIN ),
-					2 => __( 'Monday', GPERSIANDATE_TEXTDOMAIN ),
-					3 => __( 'Tuesday', GPERSIANDATE_TEXTDOMAIN ),
-					4 => __( 'Wednesday', GPERSIANDATE_TEXTDOMAIN ),
-					5 => __( 'Thursday', GPERSIANDATE_TEXTDOMAIN ),
-					6 => __( 'Friday', GPERSIANDATE_TEXTDOMAIN ),
+					0 => _x( 'Sunday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+					1 => _x( 'Monday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+					2 => _x( 'Tuesday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+					3 => _x( 'Wednesday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+					4 => _x( 'Thursday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+					5 => _x( 'Friday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+					6 => _x( 'Saturday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
 				);
 
 			break;
-			case 'Hijri' :
+			case 'Hijri': // 0 (for Saturday) through 6 (for Friday)
 
-				// FIXME: !!
+				// @SEE: https://en.wikipedia.org/wiki/Islamic_calendar
+				$week = array(
+					0 => _x( 'as-Sabt', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+					1 => _x( 'al-Aḥad', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+					2 => _x( 'al-Ithnayn', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+					3 => _x( 'ath-Thulāthāʼ', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+					4 => _x( 'al-Arbi‘ā’', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+					5 => _x( 'al-Khamīs', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+					6 => _x( 'al-Jumu‘ah', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+				);
 
-			default :
-			case 'Jalali' :
+			default:
+			case 'Jalali': // 0 (for Saturday) through 6 (for Friday)
 
 				$week = array(
-					0 => __( 'Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
-					1 => __( 'YekShanbeh', GPERSIANDATE_TEXTDOMAIN ),
-					2 => __( 'DoShanbeh', GPERSIANDATE_TEXTDOMAIN ),
-					3 => __( 'SeShanbeh', GPERSIANDATE_TEXTDOMAIN ),
-					4 => __( 'ChaharShanbeh', GPERSIANDATE_TEXTDOMAIN ),
-					5 => __( 'PanjShanbeh', GPERSIANDATE_TEXTDOMAIN ),
-					6 => __( 'Jom\'eh', GPERSIANDATE_TEXTDOMAIN ),
+					0 => _x( 'Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+					1 => _x( 'Yek-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+					2 => _x( 'Do-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+					3 => _x( 'Seh-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+					4 => _x( 'Chahar-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+					5 => _x( 'Panj-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+					6 => _x( 'Adineh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
 				);
 		}
 
@@ -120,24 +129,11 @@ class gPersianDateStrings extends gPersianDateModuleCore
 		return $week[$dayoftheweek-1];
 	}
 
+	// FIXME: DEPRECATED
 	// OLD: used in p2
 	// before: get_dayoftheweek()
-	// (0 (for Saturday) through 6 (for Friday))
 	public static function get_dayoftheweek( $dayoftheweek, $all = FALSE, $calendar = NULL )
 	{
-		$week = array(
-			0 => __( 'Sunday', GPERSIANDATE_TEXTDOMAIN ),
-			1 => __( 'Monday', GPERSIANDATE_TEXTDOMAIN ),
-			2 => __( 'Tuesday', GPERSIANDATE_TEXTDOMAIN ),
-			3 => __( 'Wednesday', GPERSIANDATE_TEXTDOMAIN ),
-			4 => __( 'Thursday', GPERSIANDATE_TEXTDOMAIN ),
-			5 => __( 'Friday', GPERSIANDATE_TEXTDOMAIN ),
-			6 => __( 'Saturday', GPERSIANDATE_TEXTDOMAIN ),
-		);
-
-		if ( $all )
-			return $week;
-
-		return $week[$dayoftheweek-1];
+		return self::dayoftheweek( $dayoftheweek, $all, ( is_null( $calendar ) ? 'Gregorian' : $calendar ) );
 	}
 }
