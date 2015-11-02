@@ -11,8 +11,9 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		add_filter( 'bb_number_format_i18n', array( &$this, 'format_i18n' ), 10, 1 );
 
 		// our filters!
-		add_filter( 'number_format_i18n_back', array( &$this, 'format_i18n_back' ) );
+		add_filter( 'number_format_i18n_back', array( &$this, 'number_format_i18n_back' ) );
 		add_filter( 'string_format_i18n', array( &$this, 'format_i18n' ) );
+		add_filter( 'string_format_i18n_back', array( &$this, 'string_format_i18n_back' ) );
 		add_filter( 'html_format_i18n', array( 'gPersianDateTranslate', 'html' ) );
 
 		add_filter( 'maybe_format_i18n', array( 'gPersianDateTranslate', 'numbers' ), 10, 2 );
@@ -23,9 +24,14 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		return self::numbers( $formatted );
 	}
 
-	public function format_i18n_back( $formatted, $local = GPERSIANDATE_LOCALE  )
+	public function number_format_i18n_back( $formatted, $local = GPERSIANDATE_LOCALE )
 	{
-		return self::numbers_back( $formatted, $local );
+		return self::numbers_back( $formatted, $local, TRUE );
+	}
+
+	public function string_format_i18n_back( $formatted, $local = GPERSIANDATE_LOCALE )
+	{
+		return self::numbers_back( $formatted, $local, FALSE );
 	}
 
 	// adopt from core's make_clickable()
@@ -186,7 +192,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		return $format;
 	}
 
-	public static function numbers_back( $text, $local = GPERSIANDATE_LOCALE )
+	public static function numbers_back( $text, $local = GPERSIANDATE_LOCALE, $intval = TRUE )
 	{
 		if ( is_null( $text ) )
 			return NULL;
@@ -213,7 +219,10 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 		}
 
-		// todo : strip non numerial
+		if ( ! $intval )
+			return $text;
+
+		// TODO: strip non numerial
 		return intval( $text );
 	}
 }
