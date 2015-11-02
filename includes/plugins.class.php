@@ -2,7 +2,7 @@
 
 class gPersianDatePlugins extends gPersianDateModuleCore
 {
-	
+
 	protected function setup_actions()
 	{
 		// gShop

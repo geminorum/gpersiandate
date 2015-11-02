@@ -17,6 +17,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		add_filter( 'month_link', array( &$this, 'month_link' ), 10, 3 );
 		add_filter( 'year_link', array( &$this, 'year_link' ), 10, 2 );
 
+		// NOTE: wp_title deprecated as WP v4.4.0 / no need further
 		add_filter( 'wp_title_parts', array( &$this, 'wp_title_parts' ) );
 	}
 

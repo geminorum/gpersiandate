@@ -15,9 +15,10 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		);
 
 		if ( is_admin() ) {
-			// ? : must be admin?
+			
+			// FIXME: must be admin?
 			add_filter( 'gettext', array( &$this, 'gettext' ), 10, 3 );
-			//add_filter( 'gettext_with_context', array( &$this, 'gettext_with_context' ), 10, 4 ); // no need for now
+			// add_filter( 'gettext_with_context', array( &$this, 'gettext_with_context' ), 10, 4 ); // no need for now
 
 			add_filter( 'date_formats', array( &$this, 'date_formats' ) );
 			add_filter( 'time_formats', array( &$this, 'time_formats' ) );
@@ -49,7 +50,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		return FALSE;
 	}
 
-	// before : format()
+	// OLD: format()
 	public static function sanitize( $format = '', $context = 'date', $locale = GPERSIANDATE_LOCALE )
 	{
 		if ( '' == $format && isset( self::$_saved[$context] ) )
@@ -101,7 +102,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		return $translations;
 	}
 
-	// FORMATS : http://codex.wordpress.org/Formatting_Date_and_Time
+	// @SEE: http://codex.wordpress.org/Formatting_Date_and_Time
 	public function date_formats( $formats )
 	{
 		// TODO : what about local?
@@ -111,7 +112,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			'y/m/d',
 			'Y/n/d',
 			'Y/m/d',
-			// 'l S F Y', // TODO : must support "l" : (st, nd or th in the 1st, 2nd or 15th.)
+			// 'l S F Y', // TODO: must support "l" : (st, nd or th in the 1st, 2nd or 15th.)
 			__( 'F j, Y' ),
 		);
 	}
@@ -121,7 +122,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		return array(
 			'H:i',
 			// 'g:i A',
-			__('g:i a'),
+			__( 'g:i a' ),
 		);
 	}
 
@@ -129,5 +130,4 @@ class gPersianDateFormat extends gPersianDateModuleCore
 	{
 		return 6;
 	}
-
 }

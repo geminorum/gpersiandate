@@ -8,11 +8,11 @@ class gPersianDateStrings extends gPersianDateModuleCore
 	{
 		if ( is_null( $calendar ) )
 			$calendar = 'Jalali';
-			
+
 		switch( $calendar ) {
-		
+
 			case 'Gregorian' :
-				
+
 				// FIXME: !!
 				$months = array(
 					'01' => __( 'January', GPERSIANDATE_TEXTDOMAIN ), // 31 days
@@ -28,7 +28,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 					'11' => __( 'November', GPERSIANDATE_TEXTDOMAIN ), // 30 days
 					'12' => __( 'December', GPERSIANDATE_TEXTDOMAIN ), // 31 days
 				);
-		
+
 			break;
 			case 'Hijri' :
 
@@ -46,11 +46,11 @@ class gPersianDateStrings extends gPersianDateModuleCore
 					'11' => __( 'Dhu al-Qidah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Qi'dah (The Master of Truce) ذو القعدة
 					'12' => __( 'Dhu al-Hijjah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
 				);
-			
+
 			break;
 			default :
 			case 'Jalali' :
-			
+
 				$months = array(
 					'01' => __( 'Farvardin', GPERSIANDATE_TEXTDOMAIN ), // (31 days, فروردین)
 					'02' => __( 'Ordibehesht', GPERSIANDATE_TEXTDOMAIN ), // (31 days, اردیبهشت)
@@ -77,9 +77,9 @@ class gPersianDateStrings extends gPersianDateModuleCore
 	{
 		if ( is_null( $calendar ) )
 			$calendar = 'Jalali';
-			
+
 		switch( $calendar ) {
-		
+
 			case 'Gregorian' :
 
 				$week = array(
@@ -94,12 +94,12 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 			break;
 			case 'Hijri' :
-			
+
 				// FIXME: !!
-			
+
 			default :
 			case 'Jalali' :
-					
+
 				$week = array(
 					0 => __( 'Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
 					1 => __( 'YekShanbeh', GPERSIANDATE_TEXTDOMAIN ),
@@ -110,9 +110,12 @@ class gPersianDateStrings extends gPersianDateModuleCore
 					6 => __( 'Jom\'eh', GPERSIANDATE_TEXTDOMAIN ),
 				);
 		}
-		
+
 		if ( $all )
 			return $week;
+
+		// if ( $dayoftheweek < 0 )
+		// 	$dayoftheweek = 7;
 
 		return $week[$dayoftheweek-1];
 	}

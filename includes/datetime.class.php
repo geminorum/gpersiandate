@@ -3,6 +3,7 @@
 class gPersianDateDateTime extends gPersianDateModuleCore
 {
 
+	// SEE: http://www.paulund.co.uk/datetime-php
 	public static function to( $time, $format, $timezone = NULL, $calendar = NULL )
 	{
 		$result       = '';
