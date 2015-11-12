@@ -1,3 +1,10 @@
+### 0.3.1
+* format: more iso filtering
+* archives: add support for post type
+* widgets: updated to WP4.4
+* strings: correct order of the of the week
+* strings: hijri days of the week
+
 ### 0.3.0
 * complete rewrite
 
