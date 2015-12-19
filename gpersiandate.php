@@ -8,6 +8,8 @@ Version: 0.3.1
 Author URI: http://geminorum.ir/
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 GitHub Branch: develop
+Requires WP: 4.4
+Requires PHP: 5.3
 */
 
 /*
