@@ -1,3 +1,7 @@
+### 0.3.2
+* all: using exception on not loading the modules
+* strings: fixed notice on day of the week
+
 ### 0.3.1
 * format: more iso filtering
 * archives: add support for post type
