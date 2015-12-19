@@ -123,10 +123,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 		if ( $all )
 			return $week;
 
-		// if ( $dayoftheweek < 0 )
-		// 	$dayoftheweek = 7;
-
-		return $week[$dayoftheweek-1];
+		return $week[$dayoftheweek];
 	}
 
 	// FIXME: DEPRECATED
