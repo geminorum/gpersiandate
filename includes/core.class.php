@@ -52,9 +52,15 @@ class gPersianDateCore
 			'plugins'   => 'gPersianDatePlugins',
 		);
 
-		foreach ( $modules as $module => $class )
-			if ( class_exists( $class ) )
-				$this->{$module} = new $class;
+		foreach ( $modules as $module => $class ) {
+			if ( class_exists( $class ) ) {
+				try {
+					$this->{$module} = new $class;
+				} catch ( \Exception $e ) {
+					// do nothing!
+				}
+			}
+		}
 
 		add_action( 'bp_include', array( $this, 'bp_include' ) );
 		add_action( 'bbp_includes', array( $this, 'bbp_includes' ) );
@@ -62,14 +68,24 @@ class gPersianDateCore
 
 	public function bp_include()
 	{
-		if ( class_exists( 'gPersianDateBuddyPress' ) )
-			$this->buddypress = new gPersianDateBuddyPress();
+		if ( class_exists( 'gPersianDateBuddyPress' ) ) {
+			try {
+				$this->buddypress = new gPersianDateBuddyPress();
+			} catch ( \Exception $e ) {
+				// do nothing!
+			}
+		}
 	}
 
 	public function bbp_includes()
 	{
-		if ( class_exists( 'gPersianDateBBPress' ) )
-			$this->bbpress = new gPersianDateBBPress();
+		if ( class_exists( 'gPersianDateBBPress' ) ) {
+			try {
+				$this->bbpress = new gPersianDateBBPress();
+			} catch ( \Exception $e ) {
+				// do nothing!
+			}
+		}
 	}
 
 	public function init()

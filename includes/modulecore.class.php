@@ -7,9 +7,11 @@ class gPersianDateModuleCore
 
 	public function __construct()
 	{
-		if ( ( ! $this->ajax && self::isAJAX() )
-			|| ( defined( 'WP_INSTALLING' ) && constant( 'WP_INSTALLING' ) ) )
-			return;
+		if ( ! $this->ajax && self::isAJAX() )
+			throw new \Exception( 'Not on AJAX Calls!' );
+
+		if ( wp_installing() )
+			throw new \Exception( 'Not while WP is Installing!' );
 
 		$this->setup_actions();
 	}
