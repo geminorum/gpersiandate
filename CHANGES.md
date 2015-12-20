@@ -1,3 +1,7 @@
+### 0.3.3
+* strings: initial day of the week
+* calendar: correct day of the week columns
+
 ### 0.3.2
 * all: using exception on not loading the modules
 * strings: fixed notice on day of the week
