@@ -56,16 +56,22 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			.sprintf( $calendar_caption, gPersianDateStrings::month( $jthismonth ), gPersianDateTranslate::numbers( $jthisyear ) )
 			.'</caption><thead><tr>';
 
-		$myweek = array();
+		// $myweek = array();
+		//
+		// for ( $wdcount = 0; $wdcount <= 6; $wdcount++ )
+		// 	$myweek[] = $wp_locale->get_weekday( ( $wdcount + $week_begins ) % 7 );
+		//
+		// foreach ( $myweek as $wd ) {
+		// 	$day_name = $initial ? $wp_locale->get_weekday_initial( $wd ) : $wp_locale->get_weekday_abbrev( $wd );
+		// 	$wd = esc_attr( $wd );
+		// 	$calendar_output .= "\n\t\t<th scope=\"col\" title=\"$wd\">$day_name</th>";
+		// }
 
-		for ( $wdcount = 0; $wdcount <= 6; $wdcount++ )
-			$myweek[] = $wp_locale->get_weekday( ( $wdcount + $week_begins ) % 7 );
+		$myweek = gPersianDateStrings::dayoftheweek( NULL, TRUE );
+		$mydays = gPersianDateStrings::dayoftheweek( NULL, TRUE, NULL, TRUE );
 
-		foreach ( $myweek as $wd ) {
-			$day_name = $initial ? $wp_locale->get_weekday_initial( $wd ) : $wp_locale->get_weekday_abbrev( $wd );
-			$wd = esc_attr( $wd );
-			$calendar_output .= "\n\t\t<th scope=\"col\" title=\"$wd\">$day_name</th>";
-		}
+		foreach ( $mydays as $wd => $day_initial )
+			$calendar_output .= '<th scope="col" title="'.esc_attr( $myweek[$wd] ).'">'.$day_initial.'</th>';
 
 		$calendar_output .= '</tr></thead><tfoot><tr>';
 
