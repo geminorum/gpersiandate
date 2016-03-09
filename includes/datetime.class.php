@@ -125,9 +125,12 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 					$result .= floor( $days / 7 ) + 1;
 				break;
 
+				case 'a': // Lowercase Ante meridiem and Post meridiem (am or pm)
+				case 'A': // Uppercase Ante meridiem and Post meridiem (AM or PM)
+					$result .= gPersianDateStrings::meridiemAntePost( $datetime->format( $format[$i] ), FALSE, $calendar );
+				break;
+
 				// case "S": //English ordinal suffix for the day of the month, 2 characters (st, nd, rd or th. Works well with j)
-				// case "a": //Lowercase Ante meridiem and Post meridiem (am or pm)
-				// case "A": //Uppercase Ante meridiem and Post meridiem (AM or PM)
 
 				case "\\":
 					if ( $i+1 < strlen( $format ) )

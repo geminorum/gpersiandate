@@ -73,6 +73,44 @@ class gPersianDateStrings extends gPersianDateModuleCore
 		return $months[zeroise($month, 2)];
 	}
 
+	public static function meridiemAntePost( $formatted, $all = FALSE, $calendar = NULL )
+	{
+		static $strings = NULL;
+
+		if ( is_null( $strings ) )
+			$strings = array(
+				'Gregorian' => array(
+					'am' => _x( 'am', 'Ante meridiem: Gregorian - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
+					'pm' => _x( 'pm', 'Post meridiem: Gregorian - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
+					'AM' => _x( 'AM', 'Ante meridiem: Gregorian - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
+					'PM' => _x( 'PM', 'Post meridiem: Gregorian - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
+				),
+				'Hijri' => array(
+					'am' => _x( 'am', 'Ante meridiem: Hijri - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
+					'pm' => _x( 'pm', 'Post meridiem: Hijri - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
+					'AM' => _x( 'AM', 'Ante meridiem: Hijri - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
+					'PM' => _x( 'PM', 'Post meridiem: Hijri - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
+				),
+				'Jalali' => array(
+					'am' => _x( 'am', 'Ante meridiem: Jalali - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
+					'pm' => _x( 'pm', 'Post meridiem: Jalali - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
+					'AM' => _x( 'AM', 'Ante meridiem: Jalali - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
+					'PM' => _x( 'PM', 'Post meridiem: Jalali - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
+				),
+			);
+
+		if ( is_null( $calendar ) )
+			$calendar = 'Jalali';
+
+		if ( $all )
+			return $strings[$calendar];
+
+		if ( isset( $strings[$calendar][$formatted] ) )
+			return $strings[$calendar][$formatted];
+
+		return $formatted;
+	}
+
 	public static function dayoftheweek( $dayoftheweek, $all = FALSE, $calendar = NULL, $initial = FALSE )
 	{
 		if ( is_null( $calendar ) )
