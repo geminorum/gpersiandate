@@ -18,13 +18,14 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 		if ( 'Gregorian' == $calendar )
 			return $datetime->format( $format );
+
 		else if ( 'Hijri' == $calendar )
 			$convertor = array( 'self', 'toHijri' );
+
 		else
 			$convertor = array( 'self', 'toJalali' );
 
 		list( $year,  $month,  $day  ) = explode( '-', $datetime->format( 'Y-n-j' ) );
-		// list( $jyear, $jmonth, $jday ) = self::toJalali( $year, $month, $day );
 		list( $jyear, $jmonth, $jday ) = call_user_func_array( $convertor, array( $year, $month, $day ) );
 
 		for ( $i = 0; $i < strlen( $format ); $i++ ) {
