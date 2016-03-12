@@ -2,14 +2,21 @@
 
 class gPersianDateStrings extends gPersianDateModuleCore
 {
-	// OLD: get_month()
+
+	public static function sanitizeCalendar( $calendar = NULL )
+	{
+		if ( ! in_array( $calendar, array( 'Gregorian', 'Jalali', 'Hijri' ) ) )
+			return 'Jalali';
+
+		return trim( $calendar );
+	}
+
 	// @SEE: http://www.wikiwand.com/en/Month
 	public static function month( $formatted, $all = FALSE, $calendar = NULL )
 	{
 		static $strings = array();
 
-		if ( is_null( $calendar ) )
-			$calendar = 'Jalali';
+		$calendar = self::sanitizeCalendar( $calendar );
 
 		if ( ! isset( $strings[$calendar] ) ) {
 
@@ -109,8 +116,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 				),
 			);
 
-		if ( is_null( $calendar ) )
-			$calendar = 'Jalali';
+		$calendar = self::sanitizeCalendar( $calendar );
 
 		if ( $all )
 			return $strings[$calendar];
@@ -125,9 +131,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 	{
 		static $strings = array();
 
-		if ( is_null( $calendar ) )
-			$calendar = 'Jalali';
-
+		$calendar = self::sanitizeCalendar( $calendar );
 		$full = $initial ? 'initial' : 'full';
 
 		if ( ! isset( $strings[$calendar][$full] ) ) {
