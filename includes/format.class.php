@@ -16,7 +16,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 		if ( is_admin() ) {
 
-			// FIXME: must be admin?			
+			// FIXME: must be admin?
 			add_filter( 'gettext', array( $this, 'gettext' ), 10, 3 );
 			// add_filter( 'gettext_with_context', array( $this, 'gettext_with_context' ), 10, 4 ); // no need for now
 
@@ -28,10 +28,14 @@ class gPersianDateFormat extends gPersianDateModuleCore
 	}
 
 	// @SEE: http://php.net/manual/en/function.date.php
+	// @SEE: date_i18n()
 	public static function checkISO( $format )
 	{
-		$iso = array(
-			'Z', // Timezone offset in seconds. // -43200 through 50400
+		return in_array( $format, array(
+			'Z', // Timezone offset in seconds // -43200 through 50400
+			'T', // Timezone abbreviation // Examples: EST, MDT
+			'O', // Difference to Greenwich time (GMT) in hours // Example: +0200
+			'P', // Difference to Greenwich time (GMT) with colon between hours and minutes // Example: +02:00
 			'U', // Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)
 			'u', // Microseconds // Example: 654321
 			'e', // Timezone identifier // Examples: UTC, GMT, Atlantic/Azores
@@ -42,15 +46,9 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 			'Y-m-d_H-i-s',
 			'Y-m-d H:i:s',
-		);
-
-		if ( in_array( $format, $iso ) )
-			return TRUE;
-
-		return FALSE;
+		) );
 	}
 
-	// OLD: format()
 	public static function sanitize( $format = '', $context = 'date', $locale = GPERSIANDATE_LOCALE )
 	{
 		if ( '' == $format && isset( self::$_saved[$context] ) )
