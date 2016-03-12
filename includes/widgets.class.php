@@ -5,7 +5,7 @@ require_once( ABSPATH.WPINC.'/widgets/class-wp-widget-calendar.php' );
 
 class WP_Widget_Persian_Archives extends WP_Widget_Archives {
 
-	// almost exact copy of core 4.4-beta2-35486
+	// almost exact copy of core 4.5-beta3-36969
 	public function widget( $args, $instance ) {
 		$c = ! empty( $instance['count'] ) ? '1' : '0';
 		$d = ! empty( $instance['dropdown'] ) ? '1' : '0';
@@ -91,7 +91,7 @@ class WP_Widget_Persian_Calendar extends WP_Widget_Calendar {
 
 	protected static $instance = 0;
 
-	// almost exact copy of core 4.4-beta2-35486
+	// almost exact copy of core 4.5-beta3-36969
 	public function widget( $args, $instance ) {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
