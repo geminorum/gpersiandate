@@ -2,6 +2,7 @@
 .sass-cache
 .gulp
 .imdone
+.temp
 
 /assets/components
 /assets/views/cache
@@ -9,6 +10,8 @@
 /assets/vendor
 /assets/bin
 /node_modules
+
+/x-local-*
 
 composer.lock
 npm-debug.log
