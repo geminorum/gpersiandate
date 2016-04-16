@@ -1,3 +1,11 @@
+### 3.4
+* moved to [Semantic Versioning](http://semver.org/)
+* buddypress: more filters
+* strings: am/pm formatting
+* strings: fewer calls using static variables
+* strings: sanitize calendar helper
+* format: more iso filtering
+
 ### 0.3.3
 * strings: initial day of the week
 * calendar: correct day of the week columns
