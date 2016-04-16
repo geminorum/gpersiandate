@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gPersianDate v0.3.3\n"
+"Project-Id-Version: gPersianDate v3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-20 11:52+0330\n"
-"PO-Revision-Date: 2015-12-20 11:55+0330\n"
+"POT-Creation-Date: 2016-03-13 01:23+0330\n"
+"PO-Revision-Date: 2016-03-13 01:23+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
 "esc_html_x:1,2c\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: languages/.git\n"
@@ -134,377 +134,437 @@ msgid "%1$s %2$s"
 msgstr ""
 
 # @ default
-#: includes/format.class.php:116
+#: includes/format.class.php:114
 msgid "F j, Y"
 msgstr ""
 
 # @ default
-#: includes/format.class.php:125
+#: includes/format.class.php:123
 msgid "g:i a"
 msgstr ""
 
-#: includes/strings.class.php:18
+#: includes/strings.class.php:22
 msgid "January"
 msgstr "ژانویه"
 
-#: includes/strings.class.php:19
+#: includes/strings.class.php:23
 msgid "February"
 msgstr "فوریه"
 
-#: includes/strings.class.php:20
+#: includes/strings.class.php:24
 msgid "March"
 msgstr "مارس"
 
-#: includes/strings.class.php:21
+#: includes/strings.class.php:25
 msgid "April"
 msgstr "آوریل"
 
-#: includes/strings.class.php:22
+#: includes/strings.class.php:26
 msgid "May"
 msgstr "می"
 
-#: includes/strings.class.php:23
+#: includes/strings.class.php:27
 msgid "June"
 msgstr "ژوئن"
 
-#: includes/strings.class.php:24
+#: includes/strings.class.php:28
 msgid "July"
 msgstr "جولای"
 
-#: includes/strings.class.php:25
+#: includes/strings.class.php:29
 msgid "August"
 msgstr "آگوست"
 
-#: includes/strings.class.php:26
+#: includes/strings.class.php:30
 msgid "September"
 msgstr "سپتامبر"
 
-#: includes/strings.class.php:27
+#: includes/strings.class.php:31
 msgid "October"
 msgstr "اکتبر"
 
-#: includes/strings.class.php:28
+#: includes/strings.class.php:32
 msgid "November"
 msgstr "نوامبر"
 
-#: includes/strings.class.php:29
+#: includes/strings.class.php:33
 msgid "December"
 msgstr "دسامبر"
 
-#: includes/strings.class.php:36
+#: includes/strings.class.php:40
 msgid "Muharram"
 msgstr "محرم"
 
-#: includes/strings.class.php:37
+#: includes/strings.class.php:41
 msgid "Safar"
 msgstr "صفر"
 
-#: includes/strings.class.php:38
+#: includes/strings.class.php:42
 msgid "Rabi I"
 msgstr "ربیع الأول"
 
-#: includes/strings.class.php:39
+#: includes/strings.class.php:43
 msgid "Rabi II"
 msgstr "ربیع الثانی"
 
-#: includes/strings.class.php:40
+#: includes/strings.class.php:44
 msgid "Jumada I"
 msgstr "جمادی الأول"
 
-#: includes/strings.class.php:41
+#: includes/strings.class.php:45
 msgid "Jumada II"
 msgstr "جمادی الثانی"
 
-#: includes/strings.class.php:42
+#: includes/strings.class.php:46
 msgid "Rajab"
 msgstr "رجب"
 
-#: includes/strings.class.php:43
+#: includes/strings.class.php:47
 msgid "Shaaban"
 msgstr "شعبان"
 
-#: includes/strings.class.php:44
+#: includes/strings.class.php:48
 msgid "Ramadan"
 msgstr "رمضان"
 
-#: includes/strings.class.php:45
+#: includes/strings.class.php:49
 msgid "Shawwal"
 msgstr "شوال"
 
-#: includes/strings.class.php:46
+#: includes/strings.class.php:50
 msgid "Dhu al-Qidah"
 msgstr "ذو القعده"
 
-#: includes/strings.class.php:47
+#: includes/strings.class.php:51
 msgid "Dhu al-Hijjah"
 msgstr "ذی الحجه"
 
 # @ gpersiandate
-#: includes/strings.class.php:55
+#: includes/strings.class.php:59
 msgid "Farvardin"
 msgstr "فروردین"
 
 # @ gpersiandate
-#: includes/strings.class.php:56
+#: includes/strings.class.php:60
 msgid "Ordibehesht"
 msgstr "اردیبهشت"
 
 # @ gpersiandate
-#: includes/strings.class.php:57
+#: includes/strings.class.php:61
 msgid "Khordad"
 msgstr "خرداد"
 
 # @ gpersiandate
-#: includes/strings.class.php:58
+#: includes/strings.class.php:62
 msgid "Tir"
 msgstr "تیر"
 
 # @ gpersiandate
-#: includes/strings.class.php:59
+#: includes/strings.class.php:63
 msgid "Mordad"
 msgstr "مرداد"
 
 # @ gpersiandate
-#: includes/strings.class.php:60
+#: includes/strings.class.php:64
 msgid "Shahrivar"
 msgstr "شهریور"
 
 # @ gpersiandate
-#: includes/strings.class.php:61
+#: includes/strings.class.php:65
 msgid "Mehr"
 msgstr "مهر"
 
 # @ gpersiandate
-#: includes/strings.class.php:62
+#: includes/strings.class.php:66
 msgid "Aban"
 msgstr "آبان"
 
 # @ gpersiandate
-#: includes/strings.class.php:63
+#: includes/strings.class.php:67
 msgid "Azar"
 msgstr "آذر"
 
 # @ gpersiandate
-#: includes/strings.class.php:64
+#: includes/strings.class.php:68
 msgid "Dey"
 msgstr "دی"
 
 # @ gpersiandate
-#: includes/strings.class.php:65
+#: includes/strings.class.php:69
 msgid "Bahman"
 msgstr "بهمن"
 
 # @ gpersiandate
-#: includes/strings.class.php:66
+#: includes/strings.class.php:70
 msgid "Esfand"
 msgstr "اسفند"
 
-#: includes/strings.class.php:89
+#: includes/strings.class.php:93
+msgctxt "Ante meridiem: Gregorian - Lowercase"
+msgid "am"
+msgstr "ق.ظ."
+
+#: includes/strings.class.php:94
+msgctxt "Post meridiem: Gregorian - Lowercase"
+msgid "pm"
+msgstr "ب.ظ."
+
+#: includes/strings.class.php:95
+msgctxt "Ante meridiem: Gregorian - Uppercase"
+msgid "AM"
+msgstr "ق.ظ."
+
+#: includes/strings.class.php:96
+msgctxt "Post meridiem: Gregorian - Uppercase"
+msgid "PM"
+msgstr "ب.ظ."
+
+#: includes/strings.class.php:99
+msgctxt "Ante meridiem: Hijri - Lowercase"
+msgid "am"
+msgstr "ق.ظ."
+
+#: includes/strings.class.php:100
+msgctxt "Post meridiem: Hijri - Lowercase"
+msgid "pm"
+msgstr "ب.ظ."
+
+#: includes/strings.class.php:101
+msgctxt "Ante meridiem: Hijri - Uppercase"
+msgid "AM"
+msgstr "ق.ظ."
+
+#: includes/strings.class.php:102
+msgctxt "Post meridiem: Hijri - Uppercase"
+msgid "PM"
+msgstr "ب.ظ."
+
+#: includes/strings.class.php:105
+msgctxt "Ante meridiem: Jalali - Lowercase"
+msgid "am"
+msgstr "ق.ظ."
+
+#: includes/strings.class.php:106
+msgctxt "Post meridiem: Jalali - Lowercase"
+msgid "pm"
+msgstr "ب.ظ."
+
+#: includes/strings.class.php:107
+msgctxt "Ante meridiem: Jalali - Uppercase"
+msgid "AM"
+msgstr "ق.ظ."
+
+#: includes/strings.class.php:108
+msgctxt "Post meridiem: Jalali - Uppercase"
+msgid "PM"
+msgstr "ب.ظ."
+
+#: includes/strings.class.php:143
 msgctxt "Day of the Week Initial: Gregorian - Sunday"
 msgid "S"
 msgstr ""
 
-#: includes/strings.class.php:90
+#: includes/strings.class.php:144
 msgctxt "Day of the Week Initial: Gregorian - Monday"
 msgid "M"
 msgstr ""
 
-#: includes/strings.class.php:91
+#: includes/strings.class.php:145
 msgctxt "Day of the Week Initial: Gregorian - Tuesday"
 msgid "T"
 msgstr ""
 
-#: includes/strings.class.php:92
+#: includes/strings.class.php:146
 msgctxt "Day of the Week Initial: Gregorian - Wednesday"
 msgid "W"
 msgstr ""
 
-#: includes/strings.class.php:93
+#: includes/strings.class.php:147
 msgctxt "Day of the Week Initial: Gregorian - Thursday"
 msgid "T"
 msgstr ""
 
-#: includes/strings.class.php:94
+#: includes/strings.class.php:148
 msgctxt "Day of the Week Initial: Gregorian - Friday"
 msgid "F"
 msgstr ""
 
-#: includes/strings.class.php:95
+#: includes/strings.class.php:149
 msgctxt "Day of the Week Initial: Gregorian - Saturday"
 msgid "S"
 msgstr ""
 
-#: includes/strings.class.php:100
+#: includes/strings.class.php:154
 msgctxt "Day of the Week: Gregorian"
 msgid "Sunday"
 msgstr "یک‌شنبه"
 
-#: includes/strings.class.php:101
+#: includes/strings.class.php:155
 msgctxt "Day of the Week: Gregorian"
 msgid "Monday"
 msgstr "دوشنبه"
 
-#: includes/strings.class.php:102
+#: includes/strings.class.php:156
 msgctxt "Day of the Week: Gregorian"
 msgid "Tuesday"
 msgstr "سه‌شنبه"
 
-#: includes/strings.class.php:103
+#: includes/strings.class.php:157
 msgctxt "Day of the Week: Gregorian"
 msgid "Wednesday"
 msgstr "چهارشنبه"
 
-#: includes/strings.class.php:104
+#: includes/strings.class.php:158
 msgctxt "Day of the Week: Gregorian"
 msgid "Thursday"
 msgstr "پنج‌شنبه"
 
-#: includes/strings.class.php:105
+#: includes/strings.class.php:159
 msgctxt "Day of the Week: Gregorian"
 msgid "Friday"
 msgstr "جمعه"
 
-#: includes/strings.class.php:106
+#: includes/strings.class.php:160
 msgctxt "Day of the Week: Gregorian"
 msgid "Saturday"
 msgstr "شنبه"
 
-#: includes/strings.class.php:117
+#: includes/strings.class.php:171
 msgctxt "Day of the Week Initial: Hijri - as-Sabt"
 msgid "Sa"
 msgstr ""
 
-#: includes/strings.class.php:118
+#: includes/strings.class.php:172
 msgctxt "Day of the Week Initial: Hijri - al-Ahad"
 msgid "Ah"
 msgstr ""
 
-#: includes/strings.class.php:119
+#: includes/strings.class.php:173
 msgctxt "Day of the Week Initial: Hijri - al-Ithnayn"
 msgid "It"
 msgstr ""
 
-#: includes/strings.class.php:120
+#: includes/strings.class.php:174
 msgctxt "Day of the Week Initial: Hijri - ath-Thulatha"
 msgid "Th"
 msgstr ""
 
-#: includes/strings.class.php:121
+#: includes/strings.class.php:175
 msgctxt "Day of the Week Initial: Hijri - al-Arbia"
 msgid "Ar"
 msgstr ""
 
-#: includes/strings.class.php:122
+#: includes/strings.class.php:176
 msgctxt "Day of the Week Initial: Hijri - al-Khamis"
 msgid "Kh"
 msgstr ""
 
-#: includes/strings.class.php:123
+#: includes/strings.class.php:177
 msgctxt "Day of the Week Initial: Hijri - l-Jumuah"
 msgid "Ju"
 msgstr ""
 
-#: includes/strings.class.php:128
+#: includes/strings.class.php:182
 msgctxt "Day of the Week: Hijri"
 msgid "as-Sabt"
 msgstr "شنبه"
 
-#: includes/strings.class.php:129
+#: includes/strings.class.php:183
 msgctxt "Day of the Week: Hijri"
 msgid "al-Aḥad"
 msgstr "یک‌شنبه"
 
-#: includes/strings.class.php:130
+#: includes/strings.class.php:184
 msgctxt "Day of the Week: Hijri"
 msgid "al-Ithnayn"
 msgstr "دوشنبه"
 
-#: includes/strings.class.php:131
+#: includes/strings.class.php:185
 msgctxt "Day of the Week: Hijri"
 msgid "ath-Thulāthāʼ"
 msgstr "سه‌شنبه"
 
-#: includes/strings.class.php:132
+#: includes/strings.class.php:186
 msgctxt "Day of the Week: Hijri"
 msgid "al-Arbi‘ā’"
 msgstr "چهارشنبه"
 
-#: includes/strings.class.php:133
+#: includes/strings.class.php:187
 msgctxt "Day of the Week: Hijri"
 msgid "al-Khamīs"
 msgstr "پنج‌شنبه"
 
-#: includes/strings.class.php:134
+#: includes/strings.class.php:188
 msgctxt "Day of the Week: Hijri"
 msgid "al-Jumu‘ah"
 msgstr "جمعه"
 
-#: includes/strings.class.php:144
+#: includes/strings.class.php:198
 msgctxt "Day of the Week Initial: Jalali - Shanbeh"
 msgid "Sh"
 msgstr "ش"
 
-#: includes/strings.class.php:145
+#: includes/strings.class.php:199
 msgctxt "Day of the Week Initial: Jalali - Yek-Shanbeh"
 msgid "Ye"
 msgstr "ی"
 
-#: includes/strings.class.php:146
+#: includes/strings.class.php:200
 msgctxt "Day of the Week Initial: Jalali - Do-Shanbeh"
 msgid "Do"
 msgstr "د"
 
-#: includes/strings.class.php:147
+#: includes/strings.class.php:201
 msgctxt "Day of the Week Initial: Jalali - Seh-Shanbeh"
 msgid "Se"
 msgstr "س"
 
-#: includes/strings.class.php:148
+#: includes/strings.class.php:202
 msgctxt "Day of the Week Initial: Jalali - Chahar-Shanbeh"
 msgid "Ch"
 msgstr "چ"
 
-#: includes/strings.class.php:149
+#: includes/strings.class.php:203
 msgctxt "Day of the Week Initial: Jalali - Panj-Shanbeh"
 msgid "Pa"
 msgstr "پ"
 
-#: includes/strings.class.php:150
+#: includes/strings.class.php:204
 msgctxt "Day of the Week Initial: Jalali - Adineh"
 msgid "Ad"
 msgstr "ج"
 
-#: includes/strings.class.php:155
+#: includes/strings.class.php:209
 msgctxt "Day of the Week: Jalali"
 msgid "Shanbeh"
 msgstr "شنبه"
 
-#: includes/strings.class.php:156
+#: includes/strings.class.php:210
 msgctxt "Day of the Week: Jalali"
 msgid "Yek-Shanbeh"
 msgstr "یک‌شنبه"
 
-#: includes/strings.class.php:157
+#: includes/strings.class.php:211
 msgctxt "Day of the Week: Jalali"
 msgid "Do-Shanbeh"
 msgstr "دوشنبه"
 
-#: includes/strings.class.php:158
+#: includes/strings.class.php:212
 msgctxt "Day of the Week: Jalali"
 msgid "Seh-Shanbeh"
 msgstr "سه‌شنبه"
 
-#: includes/strings.class.php:159
+#: includes/strings.class.php:213
 msgctxt "Day of the Week: Jalali"
 msgid "Chahar-Shanbeh"
 msgstr "چهارشنبه"
 
-#: includes/strings.class.php:160
+#: includes/strings.class.php:214
 msgctxt "Day of the Week: Jalali"
 msgid "Panj-Shanbeh"
 msgstr "پنج‌شنبه"
 
-#: includes/strings.class.php:161
+#: includes/strings.class.php:215
 msgctxt "Day of the Week: Jalali"
 msgid "Adineh"
 msgstr "جمعه"
