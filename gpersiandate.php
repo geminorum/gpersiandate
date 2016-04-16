@@ -7,7 +7,7 @@ Version: 0.2.34
 Author: geminorum
 Author URI: http://geminorum.ir/
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
-GitHub Branch: master
+GitHub Branch: v2x
 */
 
 /*
