@@ -1,18 +1,17 @@
+.idea
 .sass-cache
+.gulp
+.imdone
+.temp
 
+/assets/components
+/assets/views/cache
+/assets/packages/jquery
 /assets/vendor
 /assets/bin
 /node_modules
-.env
+
+/x-local-*
 
 composer.lock
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-*.cab
-*.msi
-*.msm
-*.msp
+npm-debug.log

@@ -1,12 +1,34 @@
-# gPersianDate
+### 3.4
+* moved to [Semantic Versioning](http://semver.org/)
+* buddypress: more filters
+* strings: am/pm formatting
+* strings: fewer calls using static variables
+* strings: sanitize calendar helper
+* format: more iso filtering
 
-## Changelog
+### 0.3.3
+* strings: initial day of the week
+* calendar: correct day of the week columns
+
+### 0.3.2
+* all: using exception on not loading the modules
+* strings: fixed notice on day of the week
+
+### 0.3.1
+* format: more iso filtering
+* archives: add support for post type
+* widgets: updated to WP4.4
+* strings: correct order of the day of the week
+* strings: hijri days of the week
+
+### 0.3.0
+* complete rewrite
 
 ### 0.2.34
 * using localized widget instead of the WP's
 
 ### 0.2.33
-* providing localized version of P2's `get_js_locale()` 
+* providing localized version of P2's `get_js_locale()`
 * correct order of day of the week strings
 
 ### 0.2.32
