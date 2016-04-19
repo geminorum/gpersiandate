@@ -12,7 +12,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 	}
 
 	// @SEE: http://www.wikiwand.com/en/Month
-	public static function month( $formatted, $all = FALSE, $calendar = NULL )
+	public static function month( $formatted = '01', $all = FALSE, $calendar = NULL )
 	{
 		static $strings = array();
 
@@ -80,7 +80,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 		}
 
 		if ( $all )
-			return $strings[$calendar][$full];
+			return $strings[$calendar];
 
 		$key = zeroise( $formatted, 2 );
 
