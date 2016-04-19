@@ -50,6 +50,7 @@ class gPersianDateCore
 			'archives'  => 'gPersianDateArchives',
 			'calendar'  => 'gPersianDateCalendar',
 			'plugins'   => 'gPersianDatePlugins',
+			'form'      => 'gPersianDateForm',
 		);
 
 		foreach ( $modules as $module => $class ) {

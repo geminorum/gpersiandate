@@ -58,6 +58,7 @@ function gpersiandate_init(){
 		'date',
 		'calendar',
 		'plugins',
+		'form',
 	);
 
 	foreach ( $includes as $include )
