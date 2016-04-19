@@ -11,6 +11,41 @@ class gPersianDateStrings extends gPersianDateModuleCore
 		return trim( $calendar );
 	}
 
+	// @REF: [Month Dropdown in PHP](http://paulferrett.com/2012/month-dropdown-in-php/)
+	public static function lastMonths( $limit = 12, $calendar = NULL )
+	{
+		static $strings = array();
+
+		$calendar = self::sanitizeCalendar( $calendar );
+
+		if ( ! isset( $strings[$calendar][$limit] ) ) {
+
+			$months = array();
+
+			for ( $i = 0; $i <= $limit; ++$i ) {
+
+				$time = strtotime( sprintf( '-%d months', $i ) );
+
+				if ( 'Gregorian' == $calendar ) {
+
+					$key = date( 'Y-m', $time );
+					$val = date( 'F Y', $time );
+
+				} else {
+
+					$key = gPersianDateDateTime::to( $time, 'Y-m', GPERSIANDATE_TIMEZONE, $calendar );
+					$val = gPersianDateDateTime::to( $time, 'F Y', GPERSIANDATE_TIMEZONE, $calendar );
+				}
+
+				$months[$key] = $val;
+			}
+
+			$strings[$calendar][$limit] = $months;
+		}
+
+		return $strings[$calendar][$limit];
+	}
+
 	// @SEE: http://www.wikiwand.com/en/Month
 	public static function month( $formatted = '01', $all = FALSE, $calendar = NULL )
 	{
