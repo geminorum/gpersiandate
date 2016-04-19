@@ -1,4 +1,4 @@
-### 3.4
+### 3.4.0
 * moved to [Semantic Versioning](http://semver.org/)
 * buddypress: more filters
 * strings: am/pm formatting
