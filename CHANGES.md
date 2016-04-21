@@ -1,3 +1,7 @@
+### 3.4.1
+* strings: last x month helper, inspired from [Month Dropdown in PHP](http://paulferrett.com/2012/month-dropdown-in-php/)
+* form: new module
+
 ### 3.4.0
 * moved to [Semantic Versioning](http://semver.org/)
 * buddypress: more filters
