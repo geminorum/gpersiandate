@@ -3,6 +3,7 @@
 class gPersianDateStrings extends gPersianDateModuleCore
 {
 
+	// FIXME: are you kidding me?!
 	public static function sanitizeCalendar( $calendar = NULL )
 	{
 		if ( ! in_array( $calendar, array( 'Gregorian', 'Jalali', 'Hijri' ) ) )
