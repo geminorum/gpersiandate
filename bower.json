@@ -1,9 +1,5 @@
 {
-	"name": "gpersiandate",
-	"private": true,
-	"dependencies": {},
-	"devDependencies": {},
-	"install": {
-		"path": "assets/packages"
-	}
+  "name": "gPersianDate",
+  "private": true,
+  "dependencies": {}
 }
