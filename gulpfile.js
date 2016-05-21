@@ -15,7 +15,7 @@
 		fs = require('fs');
 
 	var
-		json = JSON.parse(fs.readFileSync('./package.json'));
+		pkg = JSON.parse(fs.readFileSync('./package.json'));
 
 	gulp.task('tinypng', function() {
 
@@ -43,7 +43,7 @@
 
 		.pipe(sort())
 
-		.pipe(wpPot(json._pot))
+		.pipe(wpPot(pkg._pot))
 
 		.pipe(gulp.dest('./languages'));
 	});
@@ -57,6 +57,8 @@
 		.pipe(sass().on('error', sass.logError))
 
 		.pipe(nano({
+			// http://cssnano.co/optimisations/
+			zindex: false,
 			discardComments: {
 				removeAll: true
 			}
