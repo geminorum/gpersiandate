@@ -37,7 +37,10 @@
 
 	gulp.task('pot', function() {
 
-		return gulp.src(['./**/*.php', '!./assets/libs/**'])
+		return gulp.src([
+			'./**/*.php',
+			'!./assets/libs/**',
+		])
 
 		.pipe(excludeGitignore())
 
