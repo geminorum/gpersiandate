@@ -11,6 +11,8 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 		add_filter( 'get_the_date', array( $this, 'get_the_date' ), 10, 3 );
 		add_filter( 'get_the_time', array( $this, 'get_the_time' ), 10, 3 );
+		add_filter( 'get_the_modified_date', array( $this, 'get_the_modified_date' ), 10, 3 );
+		add_filter( 'get_the_modified_time', array( $this, 'get_the_modified_time' ), 10, 3 );
 
 		add_filter( 'get_comment_date', array( $this, 'get_comment_date' ), 10, 3 );
 		// NOTE: get_comment_time has a translate option, but we override b/c time_format
@@ -71,6 +73,22 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 	public function get_the_time( $the_time, $d, $post )
 	{
 		$time   = gPersianDateDate::postDate( $post );
+		$format = gPersianDateFormat::sanitize( $d, 'time' );
+
+		return gPersianDateDate::to( $format, $time );
+	}
+
+	public function get_the_modified_date( $the_time, $d, $post = NULL )
+	{
+		$time   = gPersianDateDate::postModifiedDate( $post );
+		$format = gPersianDateFormat::sanitize( $d, 'date' );
+
+		return gPersianDateDate::to( $format, $time );
+	}
+
+	public function get_the_modified_time( $the_time, $d, $post = NULL )
+	{
+		$time   = gPersianDateDate::postModifiedDate( $post );
 		$format = gPersianDateFormat::sanitize( $d, 'time' );
 
 		return gPersianDateDate::to( $format, $time );

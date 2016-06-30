@@ -61,6 +61,18 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return mysql2date( 'U', $the_date, FALSE );
 	}
 
+	public static function postModifiedDate( $post = NULL, $gmt = FALSE, $timestamp = FALSE )
+	{
+		$the_post = get_post( $post );
+
+		$the_date = $gmt ? $the_post->post_modified_gmt : $the_post->post_modified;
+
+		if ( ! $timestamp )
+			return $the_date;
+
+		return mysql2date( 'U', $the_date, FALSE );
+	}
+
 	public static function commentDate( $comment, $gmt = FALSE, $timestamp = FALSE )
 	{
 		$the_date = $gmt ? $comment->comment_date_gmt : $comment->comment_date;
