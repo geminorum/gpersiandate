@@ -90,6 +90,10 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			/* translators: 1: relative date, 2: time, 3: post edit link, 4: post title */
 			'<span>%1$s, %2$s</span> <a href="%3$s">%4$s</a>' => '<span>%1$s &ndash; %2$s</span> <a href="%3$s">%4$s</a>',
 
+			// on wp_post_revision_title_expanded()
+			/* translators: revision date format, see https://secure.php.net/date */
+			'F j, Y @ H:i:s' => 'j M Y @ H:i:s',
+
 			'Howdy, %1$s' => '%1$s',
 
 		), $domain );
