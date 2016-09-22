@@ -7,6 +7,7 @@ License: GPLv3+
 Author: geminorum
 Version: 3.4.1
 Author URI: http://geminorum.ir/
+Network: false
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 GitHub Branch: master
 Requires WP: 4.4
