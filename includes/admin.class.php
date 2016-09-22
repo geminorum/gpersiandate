@@ -116,11 +116,11 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 	{
 		global $pagenow;
 
-		if( $query->is_admin && ( 'edit.php' == $pagenow ) ) {
-			if( isset( $_REQUEST['start_date_gp'] ) || isset( $_REQUEST['end_date_gp'] ) )
+		if ( $query->is_admin && ( 'edit.php' == $pagenow ) ) {
+			if ( isset( $_REQUEST['start_date_gp'] ) || isset( $_REQUEST['end_date_gp'] ) )
 				add_filter( 'posts_where', array( $this, 'posts_where_start_end' ) );
 
-			if( isset( $_REQUEST['mgp'] ) && 0 != $_REQUEST['mgp'] )
+			if ( isset( $_REQUEST['mgp'] ) && 0 != $_REQUEST['mgp'] )
 				add_filter( 'posts_where', array( $this, 'posts_where_mgp' ) );
 		}
 
@@ -146,13 +146,13 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 	{
 		global $wpdb;
 
-		if( isset( $_REQUEST['start_date_gp'] ) && ! empty( $_REQUEST['start_date_gp'] ) ) {
+		if ( isset( $_REQUEST['start_date_gp'] ) && ! empty( $_REQUEST['start_date_gp'] ) ) {
 			$start      = explode( '/', $_REQUEST['start_date_gp'] );
 			$start_date = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $start[1], $start[2], $start[0] ) );
 			$where .= " AND post_date >='$start_date' ";
 		}
 
-		if( isset( $_REQUEST['end_date_gp'] ) && ! empty( $_REQUEST['end_date_gp'] ) ) {
+		if ( isset( $_REQUEST['end_date_gp'] ) && ! empty( $_REQUEST['end_date_gp'] ) ) {
 			$end      = explode( '/', $_REQUEST['end_date_gp'] );
 			$end_date = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $end[1], $end[2], $end[0] ) );
 			$where .= " AND post_date <='$end_date' ";
@@ -168,12 +168,12 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 			return $false;
 
 		// DISABLE
-		if( ! isset( $this->options['restrict_month'] )
+		if ( ! isset( $this->options['restrict_month'] )
 			|| ! $this->options['restrict_month'] )
 			return TRUE;
 
 		// GREGORIAN
-		if( '1' == $this->options['restrict_month'] )
+		if ( '1' == $this->options['restrict_month'] )
 			return FALSE;
 
 		if ( ! $months = gPersianDateDate::getPosttypeMonths( $post_type ) )
@@ -198,7 +198,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 	public function restrict_manage_posts_start_end()
 	{
-		//TODO : set maximum and minimum date based on stored posts
+		// TODO: set maximum and minimum date based on stored posts
 
 		$start_date = isset( $_REQUEST['start_date_gp'] ) ? $_REQUEST['start_date_gp'] : '';
 		$end_date   = isset( $_REQUEST['end_date_gp']   ) ? $_REQUEST['end_date_gp']   : '';
