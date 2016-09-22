@@ -2,6 +2,7 @@
   "name": "gPersianDate",
   "version": "3.4.1",
   "description": "Persian Date for WordPress",
+  "license": "GPL-3+",
   "author": {
     "name": "Nasser Rafie",
     "email": "contact@geminorum.ir",
