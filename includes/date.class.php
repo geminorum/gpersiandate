@@ -49,6 +49,16 @@ class gPersianDateDate extends gPersianDateModuleCore
 		);
 	}
 
+	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s' )
+	{
+		$days = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
+
+		return array(
+			date( $format, self::make( 0, 0, 0, $month, 1, $year ) ),
+			date( $format, self::make( 23, 59, 59, $month, $days[$month-1], $year ) ),
+		);
+	}
+
 	public static function postDate( $post = NULL, $gmt = FALSE, $timestamp = FALSE )
 	{
 		$the_post = get_post( $post );

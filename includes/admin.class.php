@@ -129,18 +129,16 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 	public function posts_where_mgp( $where = '' )
 	{
-		if( isset( $_REQUEST['mgp'] ) && ! empty( $_REQUEST['mgp'] ) ) {
+		if ( isset( $_REQUEST['mgp'] )
+			&& ! empty( $_REQUEST['mgp'] ) ) {
 
-			$days_in_month = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
-			$mgp           = ''.preg_replace( '|[^0-9]|', '', $_REQUEST['mgp'] );
-			$year          = substr( $mgp, 0, 4 );
-			$month         = substr( $mgp, 4, 2 );
+			$mgp = ''.preg_replace( '|[^0-9]|', '', $_REQUEST['mgp'] );
 
-			$first_day     = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $month, 1, $year ) );
-			$last_day      = date( 'Y-m-d H:i:s', gPersianDateDate::make( 23, 59, 59, $month, $days_in_month[$month-1], $year ) );
+			list( $first, $last ) = gPersianDateDate::monthFirstAndLast( substr( $mgp, 0, 4 ), substr( $mgp, 4, 2 ) );
 
-			$where .= " AND post_date >='$first_day' AND post_date <='$last_day' ";
+			$where .= " AND post_date >='$first' AND post_date <='$last' ";
 		}
+
 		return $where;
 	}
 
