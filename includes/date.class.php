@@ -92,4 +92,50 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 		return mysql2date( 'U', $the_date, FALSE );
 	}
+
+	public static function getPosttypeMonths( $post_type )
+	{
+		global $wpdb;
+
+		$query = $wpdb->prepare( "
+			SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month, DAY( post_date ) as day
+			FROM $wpdb->posts
+			WHERE post_type = %s AND post_status <> 'auto-draft'
+			ORDER BY post_date DESC
+			", $post_type );
+
+		$key = md5( $query );
+		$cache = wp_cache_get( 'wp_get_archives' , 'general' );
+
+		if ( ! isset( $cache[$key] ) ) {
+			$months = $wpdb->get_results( $query );
+			$cache[$key] = $months;
+			wp_cache_set( 'wp_get_archives', $cache, 'general' );
+		} else {
+			$months = $cache[$key];
+		}
+
+		$count = count( $months );
+		if ( ! $count || ( 1 == $count && 0 == $months[0]->month ) )
+			return FALSE;
+
+		$list = array();
+		$last = FALSE;
+
+		foreach ( $months as $row ) {
+
+			if ( 0 == $row->year )
+				continue;
+
+			$date  = mktime( 0 ,0 , 0, zeroise( $row->month, 2 ), $row->day, $row->year );
+			$month = self::to( 'Ym', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+
+			if ( $last != $month )
+				$list[$month] = self::to( 'M Y', $date );
+
+			$last = $month;
+		}
+
+		return $list;
+	}
 }

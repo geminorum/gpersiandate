@@ -176,54 +176,20 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		if( '1' == $this->options['restrict_month'] )
 			return FALSE;
 
-		global $wpdb;
+		if ( ! $months = gPersianDateDate::getPosttypeMonths( $post_type ) )
+			return TRUE;
 
-		$query = $wpdb->prepare( "
-			SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month, DAY( post_date ) as day
-			FROM $wpdb->posts
-			WHERE post_type = %s AND post_status <> 'auto-draft'
-			ORDER BY post_date DESC
-			", $post_type );
-
-		$key = md5( $query );
-		$cache = wp_cache_get( 'wp_get_archives' , 'general' );
-
-		if ( ! isset( $cache[ $key ] ) ) {
-			$months = $wpdb->get_results( $query );
-			$cache[ $key ] = $months;
-			wp_cache_set( 'wp_get_archives', $cache, 'general' );
-		} else {
-			$months = $cache[ $key ];
-		}
-
-		$count = count( $months );
-		if ( ! $count || ( 1 == $count && 0 == $months[0]->month ) )
-			return;
-
-		$mgp  = isset( $_GET['mgp'] ) ? (int) $_GET['mgp'] : 0;
-		$last = FALSE;
+		$mgp = isset( $_GET['mgp'] ) ? (int) $_GET['mgp'] : 0;
 
 		echo '<select name="mgp" id="gpersiandate-mgp">';
 			echo '<option '.selected( $mgp, 0, FALSE ).' value="0">'. __( 'Show all dates', GPERSIANDATE_TEXTDOMAIN ).'</option>';
 
-			foreach ( $months as $row ) {
-
-				if ( 0 == $row->year )
-					continue;
-
-				$date  = mktime( 0 ,0 , 0, zeroise( $row->month, 2 ), $row->day, $row->year );
-				$month = gPersianDateDate::to( 'Ym', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-
-				if ( $last != $month ) {
-					printf( '<option %s value="%s">%s</option>'."\n",
-						selected( $mgp, $month, FALSE ),
-						esc_attr( $month ),
-						gPersianDateDate::to( 'M Y', $date )
-					);
-				}
-
-				$last = $month;
-			}
+			foreach ( $months as $key => $month )
+				vprintf( '<option %s value="%s">%s</option>'."\n", array(
+					selected( $mgp, $key, FALSE ),
+					esc_attr( $key ),
+					esc_html( $month ),
+				) );
 
 		echo '</select>';
 
