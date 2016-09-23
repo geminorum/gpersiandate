@@ -93,9 +93,11 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return mysql2date( 'U', $the_date, FALSE );
 	}
 
-	public static function getPosttypeMonths( $post_type, $args = array() )
+	public static function getPosttypeMonths( $post_type = 'post', $args = array(), $user_id = 0 )
 	{
 		global $wpdb;
+
+		$author = $user_id ? $wpdb->prepare( "AND post_author = %d", $user_id ) : '';
 
 		$extra_checks = "AND post_status != 'auto-draft'";
 
@@ -110,7 +112,8 @@ class gPersianDateDate extends gPersianDateModuleCore
 			SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month, DAY( post_date ) as day
 			FROM $wpdb->posts
 			WHERE post_type = %s
-			$extra_checks
+			{$author}
+			{$extra_checks}
 			ORDER BY post_date DESC
 		", $post_type );
 
