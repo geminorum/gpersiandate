@@ -181,8 +181,10 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 		$mgp = isset( $_GET['mgp'] ) ? (int) $_GET['mgp'] : 0;
 
-		echo '<select name="mgp" id="gpersiandate-mgp">';
-			echo '<option '.selected( $mgp, 0, FALSE ).' value="0">'. __( 'Show all dates', GPERSIANDATE_TEXTDOMAIN ).'</option>';
+		echo '<label for="filter-by-date" class="screen-reader-text">'._x( 'Filter by date', 'Admin: Months Dropdown', GPERSIANDATE_TEXTDOMAIN ).'</label>';
+
+		echo '<select name="mgp" id="filter-by-date">';
+			echo '<option '.selected( $mgp, 0, FALSE ).' value="0">'. _x( 'All dates', 'Admin: Months Dropdown', GPERSIANDATE_TEXTDOMAIN ).'</option>';
 
 			foreach ( $months as $key => $month )
 				vprintf( '<option %s value="%s">%s</option>'."\n", array(
