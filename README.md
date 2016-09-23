@@ -2,10 +2,12 @@
 
 Persian Date for [WordPress](https://wordpress.org/)
 
-[![GitHub release](https://img.shields.io/github/release/geminorum/gpersiandate.svg?style=flat)](https://github.com/geminorum/gpersiandate/releases)
-[![GitHub Issues](https://img.shields.io/github/issues/geminorum/gpersiandate.svg?style=flat)](https://github.com/geminorum/gpersiandate/issues)
-[![Gratipay](http://img.shields.io/gratipay/geminorum.svg?style=flat)](https://gratipay.com/geminorum/)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Travis](https://img.shields.io/travis/geminorum/gpersiandate.svg?style=flat-square)](https://travis-ci.org/geminorum/gpersiandate)
+[![GitHub license](https://img.shields.io/badge/license-GPLv3+-blue.svg?style=flat-square)](https://raw.githubusercontent.com/geminorum/gpersiandate/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/geminorum/gpersiandate.svg?style=flat-square)](https://github.com/geminorum/gpersiandate/releases)
+[![GitHub Issues](https://img.shields.io/github/issues/geminorum/gpersiandate.svg?style=flat-square)](https://github.com/geminorum/gpersiandate/issues)
+[![Gratipay](http://img.shields.io/gratipay/geminorum.svg?style=flat-square)](https://gratipay.com/geminorum/)
+[![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 * Persian date for front end
 * Current date and live clock on admin-bar
