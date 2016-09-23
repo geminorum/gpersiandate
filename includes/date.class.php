@@ -93,16 +93,26 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return mysql2date( 'U', $the_date, FALSE );
 	}
 
-	public static function getPosttypeMonths( $post_type )
+	public static function getPosttypeMonths( $post_type, $args = array() )
 	{
 		global $wpdb;
+
+		$extra_checks = "AND post_status != 'auto-draft'";
+
+		if ( ! isset( $args['post_status'] )
+			|| 'trash' !== $args['post_status'] )
+				$extra_checks .= " AND post_status != 'trash'";
+
+		else if ( isset( $args['post_status'] ) )
+			$extra_checks = $wpdb->prepare( ' AND post_status = %s', $args['post_status'] );
 
 		$query = $wpdb->prepare( "
 			SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month, DAY( post_date ) as day
 			FROM $wpdb->posts
-			WHERE post_type = %s AND post_status <> 'auto-draft'
+			WHERE post_type = %s
+			$extra_checks
 			ORDER BY post_date DESC
-			", $post_type );
+		", $post_type );
 
 		$key = md5( $query );
 		$cache = wp_cache_get( 'wp_get_archives' , 'general' );

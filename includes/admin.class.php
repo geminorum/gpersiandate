@@ -176,7 +176,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		if ( '1' == $this->options['restrict_month'] )
 			return FALSE;
 
-		if ( ! $months = gPersianDateDate::getPosttypeMonths( $post_type ) )
+		if ( ! $months = gPersianDateDate::getPosttypeMonths( $post_type, $_GET ) )
 			return TRUE;
 
 		$mgp = isset( $_GET['mgp'] ) ? (int) $_GET['mgp'] : 0;
