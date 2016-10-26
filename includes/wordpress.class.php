@@ -84,7 +84,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		$time   = gPersianDateDate::postModifiedDate( $post );
 		$format = gPersianDateFormat::sanitize( $d, 'date' );
 
-		return gPersianDateDate::to( $format, $time );
+		return FALSE === $time ? $the_time : gPersianDateDate::to( $format, $time );
 	}
 
 	public function get_the_modified_time( $the_time, $d, $post = NULL )
@@ -93,6 +93,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		$format = gPersianDateFormat::sanitize( $d, 'time' );
 
 		return gPersianDateDate::to( $format, $time );
+		return FALSE === $time ? $the_time : gPersianDateDate::to( $format, $time );
 	}
 
 	public function get_comment_date( $date, $d, $comment )

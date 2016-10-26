@@ -5,6 +5,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 	public static function to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = GPERSIANDATE_LOCALE, $translate = TRUE )
 	{
+		if ( FALSE === $time )
+			return FALSE;
+			
 		if ( is_null( $time ) )
 			$time = current_time( 'mysql' );
 
@@ -73,7 +76,8 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 	public static function postModifiedDate( $post = NULL, $gmt = FALSE, $timestamp = FALSE )
 	{
-		$the_post = get_post( $post );
+		if ( ! $the_post = get_post( $post ) )
+			return FALSE;
 
 		$the_date = $gmt ? $the_post->post_modified_gmt : $the_post->post_modified;
 
