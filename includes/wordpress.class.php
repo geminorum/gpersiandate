@@ -19,6 +19,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		add_filter( 'get_comment_time', array( $this, 'get_comment_time' ), 10, 5 );
 
 		add_filter( 'wp_title', array( 'gPersianDateTranslate', 'legacy' ), 12 );
+		add_filter( 'document_title_parts', array( 'gPersianDateTranslate', 'array_map_legacy' ), 12 );
 
 		add_filter( 'the_title', array( 'gPersianDateTranslate', 'legacy' ), 12 );
 		add_filter( 'the_content', array( $this, 'the_content' ), 12 );
