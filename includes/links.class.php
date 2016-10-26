@@ -234,7 +234,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 	public function day_link( $link, $year, $month, $day )
 	{
 		// check if gregorian date or jalali
-		if ( $year == gmdate( 'Y', current_time( 'timestamp' ) ) ) {
+		if ( $year == date( 'Y', current_time( 'timestamp', TRUE ) ) ) {
 
 			$the_time = $year.'-'.$month.'-'.$day;
 			return self::build( 'day',
