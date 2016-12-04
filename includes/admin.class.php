@@ -8,9 +8,6 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		if ( ! is_admin() )
-			return;
-
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_filter( 'update_footer', array( 'gPersianDateTranslate', 'html' ), 12 );
 

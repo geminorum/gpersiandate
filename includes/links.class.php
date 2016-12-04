@@ -7,9 +7,6 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		if ( is_admin() )
-			return;
-
 		add_filter( 'posts_where', array( $this, 'posts_where' ), 20 );
 
 		add_filter( 'post_link', array( $this, 'post_link' ), 10, 3 );

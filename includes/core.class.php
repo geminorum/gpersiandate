@@ -45,13 +45,16 @@ class gPersianDateCore extends gPersianDateBase
 			'date'      => 'gPersianDateDate',
 			'format'    => 'gPersianDateFormat',
 			'search'    => 'gPersianDateSearch',
-			'links'     => 'gPersianDateLinks',
-			'admin'     => 'gPersianDateAdmin',
 			'archives'  => 'gPersianDateArchives',
 			'calendar'  => 'gPersianDateCalendar',
 			'plugins'   => 'gPersianDatePlugins',
 			'form'      => 'gPersianDateForm',
 		);
+
+		if ( is_admin() )
+			$modules['admin'] = 'gPersianDateAdmin';
+		else
+			$modules['links'] = 'gPersianDateLinks';
 
 		foreach ( $modules as $module => $class ) {
 			if ( class_exists( $class ) ) {
