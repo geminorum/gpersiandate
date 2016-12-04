@@ -17,7 +17,6 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		add_filter( 'wp_title_parts', array( $this, 'wp_title_parts' ) );
 	}
 
-	// Originally from wp-jalali
 	public function posts_where( $where = '' )
 	{
 		global $wpdb, $wp_query;
@@ -25,7 +24,8 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( is_admin() || ! $wp_query->is_main_query() )
 			return $where;
 
-		$conversion    = FALSE;
+		$conversion = FALSE;
+
 		$days_in_month = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
 		$start = $end = array(
 			'year'     => 1,
@@ -36,15 +36,15 @@ class gPersianDateLinks extends gPersianDateModuleCore
 			'second'   => 0,
 		);
 
-		if ( isset( $wp_query->query_vars['m'] )
-			&& ! empty( $wp_query->query_vars['m'] ) ) {
+		if ( ! empty( $wp_query->query_vars['m'] ) ) {
 
 			$m = ''.preg_replace( '|[^0-9]|', '', $wp_query->query_vars['m'] );
 			$start['year'] = substr( $m, 0, 4 );
 
 			if ( $start['year'] < 1700 ) {
 
-				$conversion = true;
+				$conversion = TRUE;
+
 				$end['year'] = $start['year'] + 1;
 
 				if ( strlen( $m ) > 5 ) {
@@ -78,47 +78,42 @@ class gPersianDateLinks extends gPersianDateModuleCore
 				}
 			}
 
-		} else if ( isset( $wp_query->query_vars['year'] )
-			&& ! empty( $wp_query->query_vars['year'] )
+		} else if ( ! empty( $wp_query->query_vars['year'] )
 			&& ( (int) $wp_query->query_vars['year'] < 1700 ) ) {
 
-			$conversion = true;
+			$conversion = TRUE;
+
 			$start['year'] = $wp_query->query_vars['year'];
-			$end['year'] = $start['year'] + 1;
+			$end['year']   = $start['year'] + 1;
 
-			if ( isset( $wp_query->query_vars['monthnum'] )
-				&& ! empty( $wp_query->query_vars['monthnum'] ) ) {
-					$start['monthnum'] = $wp_query->query_vars['monthnum'];
-					$end['year']       = $start['year'];
-					$end['monthnum']   = $start['monthnum'] + 1;
+			if ( ! empty( $wp_query->query_vars['monthnum'] ) ) {
+				$start['monthnum'] = $wp_query->query_vars['monthnum'];
+				$end['year']       = $start['year'];
+				$end['monthnum']   = $start['monthnum'] + 1;
 			}
 
-			if ( isset( $wp_query->query_vars['day'] )
-				&& ! empty( $wp_query->query_vars['day'] ) ) {
-					$start['day']    = $wp_query->query_vars['day'];
-					$end['monthnum'] = $start['monthnum'];
-					$end['day']      = $start['day'] + 1;
+			if ( ! empty( $wp_query->query_vars['day'] ) ) {
+				$start['day']    = $wp_query->query_vars['day'];
+				$end['monthnum'] = $start['monthnum'];
+				$end['day']      = $start['day'] + 1;
 			}
 
-			if ( isset( $wp_query->query_vars['hour'] )
-				&& ! empty( $wp_query->query_vars['hour'] ) ) {
-					$start['hour'] = $wp_query->query_vars['hour'];
-					$end['day']    = $start['day'];
-					$end['hour']   = $start['hour'] + 1;
+			if ( ! empty( $wp_query->query_vars['hour'] ) ) {
+				$start['hour'] = $wp_query->query_vars['hour'];
+				$end['day']    = $start['day'];
+				$end['hour']   = $start['hour'] + 1;
 			}
 
-			if ( isset( $wp_query->query_vars['minute'] )
-				&& ! empty( $wp_query->query_vars['minute'] ) ) {
-					$start['minute'] = $wp_query->query_vars['minute'];
-					$end['hour']     = $start['hour'];
-					$end['minute']   = $start['minute'] + 1;
+			if ( ! empty( $wp_query->query_vars['minute'] ) ) {
+				$start['minute'] = $wp_query->query_vars['minute'];
+				$end['hour']     = $start['hour'];
+				$end['minute']   = $start['minute'] + 1;
 			}
 
-			if ( isset( $wp_query->query_vars['second'] )
-				&& ! empty( $wp_query->query_vars['second'] ) ) {
-					$start['second'] = $wp_query->query_vars['second'];
-					$end['minute']   = $start['minute'];
-					$end['second']   = $start['second'] + 1;
+			if ( ! empty( $wp_query->query_vars['second'] ) ) {
+				$start['second'] = $wp_query->query_vars['second'];
+				$end['minute']   = $start['minute'];
+				$end['second']   = $start['second'] + 1;
 			}
 		}
 
@@ -155,8 +150,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		$start_date = date( 'Y-m-d H:i:s', gPersianDateDate::make( $start['hour'], $start['minute'], $start['second'], $start['monthnum'], $start['day'], $start['year'] ) );
 		$end_date   = date( 'Y-m-d H:i:s', gPersianDateDate::make( $end['hour'], $end['minute'], $end['second'], $end['monthnum'], $end['day'], $end['year'] ) );
 
-		$where .= " AND $wpdb->posts.post_date >= '$start_date' AND $wpdb->posts.post_date < '$end_date' ";
-		return $where;
+		return $where." AND $wpdb->posts.post_date >= '$start_date' AND $wpdb->posts.post_date < '$end_date' ";
 	}
 
 	public static function stripDateClauses( $where )
@@ -176,103 +170,108 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		return $where;
 	}
 
-	public static function build( $for, $jyear = NULL, $jmonth = NULL, $jday = NULL )
+	protected static function build( $for, $year = NULL, $month = NULL, $day = NULL )
 	{
 		global $wp_rewrite;
 
 		$link = '';
 
-		switch( $for ) {
-			case 'day' :
-				$link = $wp_rewrite->get_day_permastruct();
-				if ( ! empty( $link ) ) {
-					$link = str_replace(
+		switch ( $for ) {
+
+			case 'day':
+
+				if ( $link = $wp_rewrite->get_day_permastruct() ) {
+
+					$link = user_trailingslashit( str_replace(
 						array( '%year%', '%monthnum%', '%day%' ),
-						array( $jyear, $jmonth, $jday ),
+						array( $year, $month, $day ),
 						$link
-					);
-					$link = user_trailingslashit( $link, 'day' );
+					), 'day' );
+
 				} else {
-					$link = '?m='.$jyear.$jmonth.$jday;
+					$link = '?m='.$year.$month.$day;
 				}
 
-
 			break;
-			case 'month' :
-				$link = $wp_rewrite->get_month_permastruct();
+			case 'month':
 
-				if ( ! empty( $monthlink ) ) {
-					$link = str_replace(
+				if ( $link = $wp_rewrite->get_month_permastruct() ) {
+
+					$link = user_trailingslashit( str_replace(
 						array( '%year%', '%monthnum%' ),
-						array( $jyear, $jmonth ),
+						array( $year, $month ),
 						$link
-					);
-					$link = user_trailingslashit( $link, 'month' );
-				} else {
-					$link = '?m='.$jyear.$jmonth;
-				}
-			break;
+					), 'month' );
 
-			case 'year' :
-				$link = $wp_rewrite->get_year_permastruct();
-
-				if ( ! empty( $yearlink ) ) {
-					$link = str_replace( '%year%', $jyear, $link );
-					$link = user_trailingslashit( $yearlink, 'year' );
 				} else {
-					$link = '?m='.$jyear;
+					$link = '?m='.$year.$month;
 				}
+
 			break;
+			case 'year':
+
+				if ( $link = $wp_rewrite->get_year_permastruct() ) {
+
+					$link = user_trailingslashit( str_replace(
+						'%year%',
+						$year,
+						$link
+					), 'year' );
+
+				} else {
+					$link = '?m='.$year;
+				}
 		}
 
 		return home_url( $link );
 	}
 
-	public function day_link( $link, $year, $month, $day )
+	public function day_link( $daylink, $year, $month, $day )
 	{
-		// check if gregorian date or jalali
-		if ( $year == date( 'Y', current_time( 'timestamp', TRUE ) ) ) {
+		if ( $year != gmdate( 'Y', current_time( 'timestamp' ) ) )
+			return $daylink;
 
-			$the_time = $year.'-'.$month.'-'.$day;
-			return self::build( 'day',
-				gPersianDateDate::to( 'Y', $the_time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ),
-				gPersianDateDate::to( 'm', $the_time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ),
-				gPersianDateDate::to( 'd', $the_time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE )
-			);
-		}
+		if ( $month != gmdate( 'm', current_time( 'timestamp' ) ) )
+			return $daylink;
 
-		return $link;
+		if ( $day != gmdate( 'j', current_time( 'timestamp' ) ) )
+			return $daylink;
+
+		$date = $year.'-'.$month.'-'.$day;
+
+		return self::build( 'day',
+			gPersianDateDate::to( 'Y', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ),
+			gPersianDateDate::to( 'm', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ),
+			gPersianDateDate::to( 'd', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE )
+		);
 	}
 
-	// ISSUE : must convert year/month back from filter args!
-	public function month_link( $link, $year, $month )
+	public function month_link( $monthlink, $year, $month )
 	{
-		// check if gregorian date or jalali
-		if ( $year == gmdate( 'Y', current_time( 'timestamp' ) ) ) {
+		if ( $year != gmdate( 'Y', current_time( 'timestamp' ) ) )
+			return $monthlink;
 
-			$the_time = $year.'-'.$month.'-15';
-			return self::build( 'month',
-				gPersianDateDate::to( 'Y', $the_time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ),
-				gPersianDateDate::to( 'm', $the_time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE )
-			);
-		}
+		if ( $month != gmdate( 'm', current_time( 'timestamp' ) ) )
+			return $monthlink;
 
-		return $link;
+		$date = $year.'-'.$month.'-01';
+
+		return self::build( 'month',
+			gPersianDateDate::to( 'Y', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ),
+			gPersianDateDate::to( 'm', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE )
+		);
 	}
 
-	public function year_link( $link, $year )
+	public function year_link( $yearlink, $year )
 	{
-		// check if gregorian date or jalali
-		if ( $year == gmdate( 'Y', current_time( 'timestamp' ) ) ) {
+		if ( $year != gmdate( 'Y', current_time( 'timestamp' ) ) )
+			return $yearlink;
 
-			$the_time = $year.'-06-15';
-			return self::build( 'year',
-				gPersianDateDate::to( 'Y', $the_time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE )
-			);
+		$date = $year.'-01-01';
 
-		}
-
-		return $link;
+		return self::build( 'year',
+			gPersianDateDate::to( 'Y', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE )
+		);
 	}
 
 	public function post_link( $permalink, $post, $leavename )
@@ -280,44 +279,47 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( FALSE !== strpos( $permalink, '?p=' ) )
 			return $permalink;
 
-		if ( in_array( $post->post_status, array( 'draft', 'pending', 'auto-draft' ) ) )
+		if ( in_array( $post->post_status, array( 'draft', 'pending', 'auto-draft', 'future' ) ) )
 			return $permalink;
 
-		$permalink_structure = apply_filters( 'pre_post_link', get_option( 'permalink_structure' ), $post, $leavename );
-		if ( ! $permalink_structure )
+		if ( ! $structure = apply_filters( 'pre_post_link', get_option( 'permalink_structure' ), $post, $leavename ) )
 			return $permalink;
 
-		if ( FALSE === strpos( $permalink_structure, '%year%' )
-			&& FALSE === strpos( $permalink_structure, '%monthnum%' )
-			&& FALSE === strpos( $permalink_structure, '%day%' ) )
+		if ( FALSE === strpos( $structure, '%year%' )
+			&& FALSE === strpos( $structure, '%monthnum%' )
+			&& FALSE === strpos( $structure, '%day%' ) )
 				return $permalink;
 
-		$category = '';
-		if ( FALSE !== strpos( $permalink_structure, '%category%' ) ) {
-			$cats = get_the_category( $post->ID );
-			if ( $cats ) {
-				usort( $cats, '_usort_terms_by_ID'); // order by ID
+		$category = $author = '';
+
+		if ( FALSE !== strpos( $structure, '%category%' ) ) {
+
+			if ( $cats = get_the_category( $post->ID ) ) {
+
+				// FIXME: will dep on WP v4.7.0
+				// $cats = wp_list_sort( $cats, array( 'term_id' => 'ASC' ) );
+				usort( $cats, '_usort_terms_by_ID' );
+
 				$category_object = apply_filters( 'post_link_category', $cats[0], $cats, $post );
 				$category_object = get_term( $category_object, 'category' );
 				$category = $category_object->slug;
+
 				if ( $parent = $category_object->parent )
-					$category = get_category_parents( $parent, FALSE, '/', true ).$category;
+					$category = get_category_parents( $parent, FALSE, '/', TRUE ).$category;
 			}
+
 			// show default category in permalinks, without
 			// having to assign it explicitly
 			if ( empty( $category ) ) {
 				$default_category = get_category( get_option( 'default_category' ) );
-				$category = is_wp_error( $default_category ) ? '' : $default_category->slug;
+				if ( $default_category && ! is_wp_error( $default_category ) )
+					$category = $default_category->slug;
 			}
 		}
 
-		$author = '';
-		if ( FALSE !== strpos( $permalink_structure, '%author%' ) ) {
-			$authordata = get_userdata( $post->post_author );
-			$author = $authordata->user_nicename;
-		}
+		if ( FALSE !== strpos( $structure, '%author%' ) )
+			$author = get_userdata( $post->post_author )->user_nicename;
 
-		// $date = explode( " ", self::date( 'Y m d H i s', strtotime( $post->post_date ), 'UTC', GPERSIANDATE_LOCALE, false ) );
 		$date = explode( '-', gPersianDateDate::to( 'Y-m-d-H-i-s', $post->post_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ) );
 
 		$rewritereplace = array(
@@ -348,8 +350,11 @@ class gPersianDateLinks extends gPersianDateModuleCore
 			$leavename ? '' : '%pagename%',
 		);
 
-		$permalink = home_url( str_replace( $rewritecode, $rewritereplace, $permalink_structure ) );
-		return user_trailingslashit( $permalink, 'single' );
+		return home_url( user_trailingslashit( str_replace(
+			$rewritecode,
+			$rewritereplace,
+			$structure
+		), 'single' ) );
 	}
 
 	public function wp_title_parts( $title_array )
