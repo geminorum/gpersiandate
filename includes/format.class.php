@@ -16,9 +16,8 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 		if ( is_admin() ) {
 
-			// FIXME: must be admin?
 			add_filter( 'gettext', array( $this, 'gettext' ), 10, 3 );
-			// add_filter( 'gettext_with_context', array( $this, 'gettext_with_context' ), 10, 4 ); // no need for now
+			add_filter( 'gettext_with_context', array( $this, 'gettext_with_context' ), 10, 4 );
 
 			add_filter( 'date_formats', array( $this, 'date_formats' ) );
 			add_filter( 'time_formats', array( $this, 'time_formats' ) );
@@ -67,7 +66,22 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 	public function gettext_with_context( $translations, $text, $context, $domain )
 	{
-		return $this->gettext( $translations, $text, $domain );
+		if ( 'default' != $domain )
+			return $translations;
+
+		$strings = array(
+			'dashboard' => array(
+				'%1$s, %2$s' => '%1$s &mdash; %2$s', // `wp_dashboard_recent_posts()`
+			),
+			'revision date format' => array(
+				'F j, Y @ H:i:s' => 'j M Y — H:i', // `wp_post_revision_title_expanded()`
+			),
+		);
+
+		if ( isset( $strings[$context][$text] ) )
+			return $strings[$context][$text];
+
+		return $translations;
 	}
 
 	public function gettext( $translations, $text, $domain )
@@ -75,28 +89,20 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		if ( 'default' != $domain )
 			return $translations;
 
-		$strings = apply_filters( 'gpersiandate_gettext', array(
+		$strings = array(
 
-			// on touch_time()
-			/* translators: 1: month, 2: day, 3: year, 4: hour, 5: minute */
-			'%1$s %2$s, %3$s @ %4$s : %5$s' => ( 'fa_IR' == GPERSIANDATE_LOCALE ? '%2$s%1$s%3$s @ %5$s:%4$s' : '%2$s%1$s%3$s @ %4$s:%5$s' ),
+			// '%1$s %2$s, %3$s @ %4$s:%5$s' => ( 'fa_IR' == GPERSIANDATE_LOCALE ? '%2$s%1$s%3$s @ %5$s:%4$s' : '%2$s%1$s%3$s @ %4$s:%5$s' ), // `touch_time()`
 
-			/* translators: date and time format for exact current time, mainly about timezones, see http://php.net/date */
-			'Y-m-d G:i:s' => 'G:i:s Y-m-d',
+			'M jS'           => 'j M Y', // `wp_dashboard_recent_posts()`
+			'M jS Y'         => 'j M Y', // `wp_dashboard_recent_posts()`
+			'F j, Y'         => 'j M Y',
+			'M j, Y @ H:i'   => 'j M Y @ H:i',
 
-			// ADMIN DAHSBOARD ACTIVITY WIDGET
-			/* translators: date and time format for recent posts on the dashboard, see http://php.net/date */
-			'M jS' => 'j M Y',
-			/* translators: 1: relative date, 2: time, 3: post edit link, 4: post title */
-			'<span>%1$s, %2$s</span> <a href="%3$s">%4$s</a>' => '<span>%1$s &ndash; %2$s</span> <a href="%3$s">%4$s</a>',
+			'Howdy, %s' => '%s', // `wp_admin_bar_my_account_item()`
 
-			// on wp_post_revision_title_expanded()
-			/* translators: revision date format, see https://secure.php.net/date */
-			'F j, Y @ H:i:s' => 'j M Y @ H:i:s',
-
-			'Howdy, %1$s' => '%1$s',
-
-		), $domain );
+			'Caption' => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+			'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+		);
 
 		if ( isset( $strings[$text] ) )
 			return $strings[$text];
