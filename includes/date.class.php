@@ -97,6 +97,51 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return mysql2date( 'U', $the_date, FALSE );
 	}
 
+	public static function getPosttypeFirstAndLast( $post_type = 'post', $args = array(), $user_id = 0 )
+	{
+		global $wpdb;
+
+		$author = $user_id ? $wpdb->prepare( "AND post_author = %d", $user_id ) : '';
+
+		$extra_checks = "AND post_status != 'auto-draft'";
+
+		if ( ! isset( $args['post_status'] )
+			|| 'trash' !== $args['post_status'] )
+				$extra_checks .= " AND post_status != 'trash'";
+
+		else if ( isset( $args['post_status'] ) )
+			$extra_checks = $wpdb->prepare( ' AND post_status = %s', $args['post_status'] );
+
+		$query = $wpdb->prepare( "
+			SELECT post_date AS date
+			FROM $wpdb->posts
+			WHERE post_type = %s
+			{$author}
+			{$extra_checks}
+			ORDER BY post_date ASC
+			LIMIT 1
+		", $post_type );
+
+		$first = gPersianDateUtilities::getResultsDB( $query );
+
+		$query = $wpdb->prepare( "
+			SELECT post_date AS date
+			FROM $wpdb->posts
+			WHERE post_type = %s
+			{$author}
+			{$extra_checks}
+			ORDER BY post_date DESC
+			LIMIT 1
+		", $post_type );
+
+		$last = gPersianDateUtilities::getResultsDB( $query );
+
+		return array(
+			( count( $first ) ? $first[0]->date : '' ),
+			( count( $last )  ? $last[0]->date  : '' ),
+		);
+	}
+
 	public static function getPosttypeMonths( $post_type = 'post', $args = array(), $user_id = 0 )
 	{
 		global $wpdb;
