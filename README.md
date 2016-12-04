@@ -18,8 +18,8 @@ Persian Date for [WordPress](https://wordpress.org/)
 ### Credits
 * [Jalali](http://www.farsiweb.info/jalali/jalali.c) by Roozbeh Pournader and Mohammad Toossi
 * [jDateTime](https://github.com/sallar/jDateTime) by [Sallar Kaboli](http://sallar.me/projects/jdatetime/)
-* [Persian Datepicker](https://github.com/behzadi/persianDatepicker) by [Mohammad Hasan Behzadi](https://github.com/behzadi)
 * [wp-jalali](https://wordpress.org/plugins/wp-jalali/) by [Persian WordPress Project](http://wp-persian.com/)
+* [PersianDate Datepicker](https://github.com/brothersincode/persiandate) by [juvee](https://github.com/juvee) and [geminorum](https://github.com/geminorum)
 
 ## Installation
 Grab the latest release from [here](https://github.com/geminorum/gpersiandate/releases).
