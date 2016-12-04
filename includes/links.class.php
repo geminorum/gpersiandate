@@ -162,16 +162,16 @@ class gPersianDateLinks extends gPersianDateModuleCore
 	public static function stripDateClauses( $where )
 	{
 		$patterns = array(
-			"YEAR\(\s*.*post_date\s*\)\s*=\s*'*[0-9]{4}'*",
-			"DAYOFMONTH\(\s*.*post_date\s*\)\s*=\s*'*[0-9]{1,}'*",
-			"MONTH\(\s*.*post_date\s*\)\s*=\s*'*[0-9]{1,}'*",
-			"HOUR\(\s*.*post_date\s*\)\s*=\s*'*[0-9]{1,}'*",
-			"MINUTE\(\s*.*post_date\s*\)\s*=\s*'*[0-9]{1,}'*",
-			"SECOND\(\s*.*post_date\s*\)\s*=\s*'*[0-9]{1,}'*",
+			'/YEAR\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
+			'/DAYOFMONTH\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
+			'/MONTH\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
+			'/HOUR\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
+			'/MINUTE\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
+			'/SECOND\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
 		);
 
 		foreach ( $patterns as $pattern )
-			$where = preg_replace( '/'.$pattern.'/', '1=1', $where );
+			$where = preg_replace( $pattern, '1=1', $where );
 
 		return $where;
 	}
