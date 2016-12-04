@@ -168,7 +168,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 		static $strings = array();
 
 		$calendar = self::sanitizeCalendar( $calendar );
-		$full = $initial ? 'initial' : 'full';
+		$full     = $initial ? 'initial' : 'full';
 
 		if ( ! isset( $strings[$calendar][$full] ) ) {
 
@@ -180,24 +180,24 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 					if ( $initial )
 						$strings['Gregorian']['initial'] = array(
-							0 => _x( 'S', 'Day of the Week Initial: Gregorian - Sunday', GPERSIANDATE_TEXTDOMAIN ),
-							1 => _x( 'M', 'Day of the Week Initial: Gregorian - Monday', GPERSIANDATE_TEXTDOMAIN ),
-							2 => _x( 'T', 'Day of the Week Initial: Gregorian - Tuesday', GPERSIANDATE_TEXTDOMAIN ),
-							3 => _x( 'W', 'Day of the Week Initial: Gregorian - Wednesday', GPERSIANDATE_TEXTDOMAIN ),
-							4 => _x( 'T', 'Day of the Week Initial: Gregorian - Thursday', GPERSIANDATE_TEXTDOMAIN ),
-							5 => _x( 'F', 'Day of the Week Initial: Gregorian - Friday', GPERSIANDATE_TEXTDOMAIN ),
-							6 => _x( 'S', 'Day of the Week Initial: Gregorian - Saturday', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'S', 'Day of the Week Initial: Gregorian - Sunday', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'M', 'Day of the Week Initial: Gregorian - Monday', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'T', 'Day of the Week Initial: Gregorian - Tuesday', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'W', 'Day of the Week Initial: Gregorian - Wednesday', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'T', 'Day of the Week Initial: Gregorian - Thursday', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'F', 'Day of the Week Initial: Gregorian - Friday', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'S', 'Day of the Week Initial: Gregorian - Saturday', GPERSIANDATE_TEXTDOMAIN ),
 						);
 
 					else
 						$strings['Gregorian']['full'] = array(
-							0 => _x( 'Sunday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
-							1 => _x( 'Monday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
-							2 => _x( 'Tuesday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
-							3 => _x( 'Wednesday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
-							4 => _x( 'Thursday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
-							5 => _x( 'Friday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
-							6 => _x( 'Saturday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Sunday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Monday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Tuesday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Wednesday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Thursday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Friday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Saturday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
 						);
 
 				break;
@@ -208,24 +208,24 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 					if ( $initial )
 						$strings['Hijri']['initial'] = array(
-							0 => _x( 'Sa', 'Day of the Week Initial: Hijri - as-Sabt', GPERSIANDATE_TEXTDOMAIN ),
-							1 => _x( 'Ah', 'Day of the Week Initial: Hijri - al-Ahad', GPERSIANDATE_TEXTDOMAIN ),
-							2 => _x( 'It', 'Day of the Week Initial: Hijri - al-Ithnayn', GPERSIANDATE_TEXTDOMAIN ),
-							3 => _x( 'Th', 'Day of the Week Initial: Hijri - ath-Thulatha', GPERSIANDATE_TEXTDOMAIN ),
-							4 => _x( 'Ar', 'Day of the Week Initial: Hijri - al-Arbia', GPERSIANDATE_TEXTDOMAIN ),
-							5 => _x( 'Kh', 'Day of the Week Initial: Hijri - al-Khamis', GPERSIANDATE_TEXTDOMAIN ),
-							6 => _x( 'Ju', 'Day of the Week Initial: Hijri - l-Jumuah', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Sa', 'Day of the Week Initial: Hijri - as-Sabt', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Ah', 'Day of the Week Initial: Hijri - al-Ahad', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'It', 'Day of the Week Initial: Hijri - al-Ithnayn', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Th', 'Day of the Week Initial: Hijri - ath-Thulatha', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Ar', 'Day of the Week Initial: Hijri - al-Arbia', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Kh', 'Day of the Week Initial: Hijri - al-Khamis', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Ju', 'Day of the Week Initial: Hijri - l-Jumuah', GPERSIANDATE_TEXTDOMAIN ),
 						);
 
 					else
 						$strings['Hijri']['full'] = array(
-							0 => _x( 'as-Sabt', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
-							1 => _x( 'al-Aḥad', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
-							2 => _x( 'al-Ithnayn', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
-							3 => _x( 'ath-Thulāthāʼ', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
-							4 => _x( 'al-Arbi‘ā’', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
-							5 => _x( 'al-Khamīs', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
-							6 => _x( 'al-Jumu‘ah', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'as-Sabt', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'al-Aḥad', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'al-Ithnayn', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'ath-Thulāthāʼ', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'al-Arbi‘ā’', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'al-Khamīs', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'al-Jumu‘ah', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
 						);
 
 				default:
@@ -235,24 +235,24 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 					if ( $initial )
 						$strings['Jalali']['initial'] = array(
-							0 => _x( 'Sh', 'Day of the Week Initial: Jalali - Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
-							1 => _x( 'Ye', 'Day of the Week Initial: Jalali - Yek-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
-							2 => _x( 'Do', 'Day of the Week Initial: Jalali - Do-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
-							3 => _x( 'Se', 'Day of the Week Initial: Jalali - Seh-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
-							4 => _x( 'Ch', 'Day of the Week Initial: Jalali - Chahar-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
-							5 => _x( 'Pa', 'Day of the Week Initial: Jalali - Panj-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
-							6 => _x( 'Ad', 'Day of the Week Initial: Jalali - Adineh', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Sh', 'Day of the Week Initial: Jalali - Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Ye', 'Day of the Week Initial: Jalali - Yek-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Do', 'Day of the Week Initial: Jalali - Do-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Se', 'Day of the Week Initial: Jalali - Seh-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Ch', 'Day of the Week Initial: Jalali - Chahar-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Pa', 'Day of the Week Initial: Jalali - Panj-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Ad', 'Day of the Week Initial: Jalali - Adineh', GPERSIANDATE_TEXTDOMAIN ),
 						);
 
 					else
 						$strings['Jalali']['full'] = array(
-							0 => _x( 'Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
-							1 => _x( 'Yek-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
-							2 => _x( 'Do-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
-							3 => _x( 'Seh-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
-							4 => _x( 'Chahar-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
-							5 => _x( 'Panj-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
-							6 => _x( 'Adineh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Yek-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Do-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Seh-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Chahar-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Panj-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
+							_x( 'Adineh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
 						);
 			}
 		}
