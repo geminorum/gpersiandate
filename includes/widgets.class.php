@@ -5,7 +5,7 @@ require_once( ABSPATH.WPINC.'/widgets/class-wp-widget-calendar.php' );
 
 class WP_Widget_Persian_Archives extends WP_Widget_Archives {
 
-	// almost exact copy of core 4.5-beta3-36969
+	// almost exact copy of core 4.8-alpha-39357-src
 	public function widget( $args, $instance ) {
 		$c = ! empty( $instance['count'] ) ? '1' : '0';
 		$d = ! empty( $instance['dropdown'] ) ? '1' : '0';
@@ -25,7 +25,7 @@ class WP_Widget_Persian_Archives extends WP_Widget_Archives {
 		<select id="<?php echo esc_attr( $dropdown_id ); ?>" name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'>
 			<?php
 			/**
-			 * Filter the arguments for the Archives widget drop-down.
+			 * Filters the arguments for the Archives widget drop-down.
 			 *
 			 * @since 2.8.0
 			 *
@@ -66,7 +66,7 @@ class WP_Widget_Persian_Archives extends WP_Widget_Archives {
 		<ul>
 		<?php
 		/**
-		 * Filter the arguments for the Archives widget.
+		 * Filters the arguments for the Archives widget.
 		 *
 		 * @since 2.8.0
 		 *
@@ -91,7 +91,7 @@ class WP_Widget_Persian_Calendar extends WP_Widget_Calendar {
 
 	protected static $instance = 0;
 
-	// almost exact copy of core 4.5-beta3-36969
+	// almost exact copy of core 4.8-alpha-39357-src
 	public function widget( $args, $instance ) {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );

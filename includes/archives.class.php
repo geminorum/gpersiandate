@@ -28,11 +28,10 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 		$args['post_type'] = $post_type_object->name;
 
-
 		if ( '' == $args['type'] )
 			$args['type'] = 'monthly';
 
-		if ( '' != $args['limit'] ) {
+		if ( ! empty( $args['limit'] ) ) {
 			$args['limit'] = absint( $args['limit'] );
 			$args['limit'] = ' LIMIT '.$args['limit'];
 		}
@@ -95,8 +94,8 @@ class gPersianDateArchives extends gPersianDateModuleCore
 								gPersianDateTranslate::numbers( $the_year )
 							);
 							if ( $args['show_post_count'] ) {
-								//$first_day = date( 'Y-m-d', gPersianDateHelper::convert_back( $the_year.'/'.$the_month.'/'.'01' ) );
-								//$last_day = date( 'Y-m-d', gPersianDateHelper::convert_back( $the_year.'/'.$the_month.'/'.gPersianDateHelper::j_last_day_of_month( $the_month ) ) );
+								// $first_day = date( 'Y-m-d', gPersianDateHelper::convert_back( $the_year.'/'.$the_month.'/'.'01' ) );
+								// $last_day = date( 'Y-m-d', gPersianDateHelper::convert_back( $the_year.'/'.$the_month.'/'.gPersianDateHelper::j_last_day_of_month( $the_month ) ) );
 								$first_day = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $the_month, 1, $the_year ) );
 								$last_day = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $the_month, $days_in_month[$the_month-1], $the_year ) );
 								$post_count = $wpdb->get_results( "SELECT COUNT(id) as 'post_count' FROM $wpdb->posts $join $where AND post_date >='$first_day' AND post_date <='$last_day' ");

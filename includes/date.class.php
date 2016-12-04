@@ -7,7 +7,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 	{
 		if ( FALSE === $time )
 			return FALSE;
-			
+
 		if ( is_null( $time ) )
 			$time = current_time( 'mysql' );
 
@@ -113,7 +113,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 			$extra_checks = $wpdb->prepare( ' AND post_status = %s', $args['post_status'] );
 
 		$query = $wpdb->prepare( "
-			SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month, DAY( post_date ) as day
+			SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month, DAY( post_date ) AS day
 			FROM $wpdb->posts
 			WHERE post_type = %s
 			{$author}

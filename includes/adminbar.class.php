@@ -27,7 +27,7 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 				GPERSIANDATE_URL.'assets/js/adminbar.clock.min.js',
 				array( 'jquery' ),
 				GPERSIANDATE_VERSION,
-				true
+				TRUE
 			);
 
 			wp_localize_script( 'gperdiandate-clock',
@@ -51,7 +51,7 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 		$wp_admin_bar->add_node( array(
 			'id'     => 'gpersiandate',
 			'title'  => $title,
-			'parent' => 'top-secondary', // Off on the right side
+			'parent' => 'top-secondary',
 			'href'   => ( current_user_can( 'manage_options' ) ? get_admin_url( null, 'options-general.php' ) : false ),
 		) );
 
