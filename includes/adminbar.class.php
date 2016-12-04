@@ -30,11 +30,6 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 				TRUE
 			);
 
-			wp_localize_script( 'gperdiandate-clock',
-				'GPD_clock', array(
-					'local' => GPERSIANDATE_LOCALE,
-			) );
-
 			add_action( ( is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts' ), function(){
 				wp_enqueue_script( 'gperdiandate-clock' );
 			});
@@ -44,9 +39,15 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 	public function admin_bar_menu( $wp_admin_bar )
 	{
 		if ( is_rtl() )
-			$title = '<span id="gpd-now">'.date_i18n( 'H:i' ).'</span> - <span id="gpd-today">'.date_i18n( get_option( 'date_format', 'j M Y' ) ).'</span>';
+			$title = '<span id="gpd-now" data-locale="'.GPERSIANDATE_LOCALE.'">'
+				.date_i18n( 'H:i:s' ).'</span> - <span id="gpd-today">'
+				.date_i18n( get_option( 'date_format', 'j M Y' ) ).'</span>';
+
 		else
-			$title = '<span id="gpd-today">'.date_i18n( get_option( 'date_format', 'j M Y' ) ).'</span> - <span id="gpd-now">'.date_i18n( 'H:i' ).'</span>';
+			$title = '<span id="gpd-today">'
+				.date_i18n( get_option( 'date_format', 'j M Y' ) )
+				.'</span> - <span id="gpd-now" data-locale="'.GPERSIANDATE_LOCALE.'">'
+				.date_i18n( 'H:i:s' ).'</span>';
 
 		$wp_admin_bar->add_node( array(
 			'id'     => 'gpersiandate',

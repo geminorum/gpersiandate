@@ -1,49 +1,68 @@
-function GPDfixNumbers(text, local) {
-	if (text === null){
-		return null;
-		};
-	if ( local === 'fa_IR' ) {
-		text = text.replace(/0/g, '\u06F0');
-		text = text.replace(/1/g, '\u06F1');
-		text = text.replace(/2/g, '\u06F2');
-		text = text.replace(/3/g, '\u06F3');
-		text = text.replace(/4/g, '\u06F4');
-		text = text.replace(/5/g, '\u06F5');
-		text = text.replace(/6/g, '\u06F6');
-		text = text.replace(/7/g, '\u06F7');
-		text = text.replace(/8/g, '\u06F8');
-		text = text.replace(/9/g, '\u06F9');
+(function($) {
+	'use strict';
+
+	var m = {}
+
+	m.wrapper = '#gpd-now';
+
+	m.toPersianDigit = function(number){
+		var pzero = '۰'.charCodeAt(0);
+		return number.toString().replace(/\d+/g,function (match) {
+			return match.split('').map(function (number) {
+				return String.fromCharCode(pzero+parseInt(number))
+			}).join('');
+		})
 	};
-	return text;
-};
-function GPDupdateClock() {
-	var currentTime = new Date();
-	var currentHours = currentTime.getHours();
-	var currentMinutes = currentTime.getMinutes();
-	//var currentSeconds = currentTime.getSeconds();
 
-	// Pad the minutes and seconds with leading zeros, if required
-	currentHours = ( currentHours < 10 ? "0" : "" ) + currentHours;
-	currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
-	//currentSeconds = ( currentSeconds < 10 ? "0" : "" ) + currentSeconds;
+	m.toEnglishDigit = function(number){
+		return number.toString().replace(/[۱۲۳۴۵۶۷۸۹۰]+/g,function (match) {
+			return match.split('').map(function (number) {
+				return number.charCodeAt(0)%1776;
+			}).join('');
+		})
+	};
 
-	// Choose either "AM" or "PM" as appropriate
-	//var timeOfDay = ( currentHours < 12 ) ? "AM" : "PM";
 
-	// Convert the hours component to 12-hour format if needed
-	//currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
+	m.updateClock = function(){
 
-	// Convert an hours component of "0" to "12"
-	//currentHours = ( currentHours == 0 ) ? 12 : currentHours;
+		var
+			wrapper = $(m.wrapper),
+			currentTime = new Date();
 
-	// Compose the string for display
-	//var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
-	var currentTimeString = GPDfixNumbers( currentHours + ":" + currentMinutes, GPD_clock['local'] );
-	//console.log(currentTimeString);
-	//jQuery("#wp-admin-bar-gpersiandate-now div").html(currentTimeString);
-	jQuery("#gpd-now").html(currentTimeString);
-};
-jQuery(document).ready(function($) {
-	//setInterval('GPDupdateClock()', 1000);
-	setInterval('GPDupdateClock()', 60*1000);
-});
+		var
+			currentHours = currentTime.getHours(),
+			currentMinutes = currentTime.getMinutes(),
+			currentSeconds = currentTime.getSeconds();
+
+		// pad the minutes and seconds with leading zeros, if required
+		currentHours = ( currentHours < 10 ? "0" : "" ) + currentHours;
+		currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
+		currentSeconds = ( currentSeconds < 10 ? "0" : "" ) + currentSeconds;
+
+		// choose either "AM" or "PM" as appropriate
+		// var timeOfDay = ( currentHours < 12 ) ? "AM" : "PM";
+
+		// convert the hours component to 12-hour format if needed
+		// currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
+
+		// convert an hours component of "0" to "12"
+		// currentHours = ( currentHours == 0 ) ? 12 : currentHours;
+
+		// compose the string for display
+		// var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
+		// var currentTimeString = GPDfixNumbers( currentHours + ":" + currentMinutes, GPD_clock.local );
+		var currentTimeString = currentHours + ":" + currentMinutes+ ":" + currentSeconds;
+
+		if ( 'fa_IR' == wrapper.data('locale') )
+			currentTimeString = m.toPersianDigit(currentTimeString);
+
+		wrapper.html(currentTimeString);
+		// console.log(currentTimeString);
+	};
+
+	$( document ).ready( function () {
+		setInterval(m.updateClock, 1000);
+		// setInterval(m.updateClock, 60*1000);
+	});
+
+}(jQuery));
