@@ -1,3 +1,29 @@
+### 3.5.0
+* all: new core classes
+* build/gulp: setting up
+* main: plugin file constant
+* main: textdomain moved in init func
+* main/core: not registering admin only modules
+* main/admin: using helper for first~last of the month
+* main/admin: using helper for posttype months dropdown
+* main/admin: screen reader label for months dropdown
+* main/admin: using current screen filter for restrictions
+* main/adminbar: rewriting adminbar clock
+* main/links: revising strip date clauses
+* main/links: revising day/month/year/post link conversions
+* main/translate: more generic filters
+* main/translate: fixed static method notices
+* main/wordpress: filters for translating modified date/time, [see](https://core.trac.wordpress.org/ticket/37059)
+* main/wordpress: filter document title
+* main/worpress: check for post before conversion
+* main/search: better handling arabic char/numbers
+* main/strings: no need for the numeric keys
+* main/format: rechecking overrides
+* main/format: filtering [gMember](https://github.com/geminorum/gmember/) formats
+* main/date: first~last posttype helper
+* main/buddypress: removing old filters
+* main/picker: :pray: new date picker
+
 ### 3.4.1
 * strings: last x month helper, inspired from [Month Dropdown in PHP](http://paulferrett.com/2012/month-dropdown-in-php/)
 * form: new module
