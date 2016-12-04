@@ -1,6 +1,6 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-class gPersianDateModuleCore
+class gPersianDateModuleCore extends gPersianDateBase
 {
 
 	protected $ajax = FALSE;
@@ -17,9 +17,4 @@ class gPersianDateModuleCore
 	}
 
 	protected function setup_actions() {}
-
-	public static function isAJAX()
-	{
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
-	}
 }

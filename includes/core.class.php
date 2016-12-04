@@ -1,6 +1,6 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-class gPersianDateCore
+class gPersianDateCore extends gPersianDateBase
 {
 
 	private $options = FALSE;

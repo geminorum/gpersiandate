@@ -24,6 +24,11 @@ defined( 'GPERSIANDATE_TEXTDOMAIN' ) or define( 'GPERSIANDATE_TEXTDOMAIN', 'gper
 function gpersiandate_init(){
 
 	$includes = array(
+		'core/base',
+		'core/html',
+		'core/text',
+		'utilities',
+
 		'core',
 		'modulecore',
 		'datetime',
@@ -44,7 +49,6 @@ function gpersiandate_init(){
 		'calendar',
 		'plugins',
 		'form',
-		'html',
 	);
 
 	foreach ( $includes as $include )

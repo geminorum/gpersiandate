@@ -21,6 +21,21 @@ class gPersianDateHTML extends gPersianDateBase
 		return $html.$content.'</'.$tag.'>'.$sep;
 	}
 
+	public static function attrClass()
+	{
+		$classes = array();
+
+		foreach ( func_get_args() as $arg )
+
+			if ( is_array( $arg ) )
+				$classes += $arg;
+
+			else if ( $arg )
+				$classes += explode( ' ', $arg );
+
+		return array_unique( array_filter( $classes, 'trim' ) );
+	}
+
 	private static function _tag_open( $tag, $atts, $content = TRUE )
 	{
 		$html = '<'.$tag;
@@ -130,8 +145,90 @@ class gPersianDateHTML extends gPersianDateBase
 		return self::escapeURL( 'tel:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
 	}
 
+	public static function getAtts( $string, $expecting = array() )
+	{
+		foreach ( $expecting as $attr => $default ) {
+
+			preg_match( "#".$attr."=\"(.*?)\"#s", $string, $matches );
+
+			if ( isset( $matches[1] ) )
+				$expecting[$attr] = trim( $matches[1] );
+		}
+
+		return $expecting;
+	}
+
+	public static function linkStyleSheet( $url, $version = NULL, $media = 'all' )
+	{
+		if ( is_array( $version ) )
+			$url = add_query_arg( $version, $url );
+
+		else if ( $version )
+			$url = add_query_arg( 'ver', $version, $url );
+
+		echo "\t".self::tag( 'link', array(
+			'rel'   => 'stylesheet',
+			'href'  => $url,
+			'type'  => 'text/css',
+			'media' => $media,
+		) )."\n";
+	}
+
+	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
+	{
+		if ( ! count( $subs ) )
+			return;
+
+		$html = '';
+
+		foreach ( $subs as $slug => $page )
+			$html .= self::tag( 'a', array(
+				'class' => 'nav-tab '.$prefix.$slug.( $slug == $active ? ' nav-tab-active' : '' ),
+				'href'  => add_query_arg( 'sub', $slug, $uri ),
+			), $page );
+
+		echo self::tag( $tag, array(
+			'class' => 'nav-tab-wrapper',
+		), $html );
+	}
+
+	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
+	// CLASSES: notice-error, notice-warning, notice-success, notice-info, is-dismissible
+	public static function notice( $notice, $class = 'notice-success fade', $echo = TRUE )
+	{
+		$html = sprintf( '<div class="notice %s is-dismissible"><p>%s</p></div>', $class, $notice );
+
+		if ( ! $echo )
+			return $html;
+
+		echo $html;
+	}
+
+	public static function error( $message, $echo = FALSE )
+	{
+		return self::notice( $message, 'notice-error fade', $echo );
+	}
+
+	public static function success( $message, $echo = FALSE )
+	{
+		return self::notice( $message, 'notice-success fade', $echo );
+	}
+
+	public static function warning( $message, $echo = FALSE )
+	{
+		return self::notice( $message, 'notice-warning fade', $echo );
+	}
+
+	public static function info( $message, $echo = FALSE )
+	{
+		return self::notice( $message, 'notice-info fade', $echo );
+	}
+
 	public static function tableCode( $array, $reverse = FALSE, $caption = FALSE )
 	{
+		if ( ! $array )
+			return;
+
 		if ( $reverse )
 			$row = '<tr><td class="-val"><code>%1$s</code></td><td class="-var">%2$s</td></tr>';
 		else
@@ -148,5 +245,32 @@ class gPersianDateHTML extends gPersianDateBase
 			printf( $row, $key, $val );
 
 		echo '</tbody></table>';
+	}
+
+	public static function menu( $menu, $callback = FALSE, $list = 'ul', $children = 'children' )
+	{
+		echo '<'.$list.'>';
+
+		foreach ( $menu as $item ) {
+
+			echo '<li>';
+
+			if ( is_callable( $callback ) )
+				echo call_user_func_array( $callback, array( $item ) );
+			else
+				echo self::menuCallback( $item );
+
+			if ( ! empty( $item[$children] ) )
+				self::menu( $item[$children], $callback, $list, $children );
+
+			echo '</li>';
+		}
+
+		echo '</'.$list.'>';
+	}
+
+	public static function menuCallback( $item )
+	{
+		return self::tag( 'a', array( 'href' => '#'.$item['slug'] ), $item['title'] );
 	}
 }
