@@ -23,6 +23,8 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			add_filter( 'time_formats', array( $this, 'time_formats' ) );
 			add_filter( 'pre_option_start_of_week', array( $this, 'pre_option_start_of_week' ) );
 			add_filter( 'default_option_start_of_week', array( $this, 'pre_option_start_of_week' ) );
+
+			add_filter( 'gmember_date_formats', array( $this, 'gmember_date_formats' ) );
 		}
 	}
 
@@ -137,5 +139,16 @@ class gPersianDateFormat extends gPersianDateModuleCore
 	public function pre_option_start_of_week( $value )
 	{
 		return 6;
+	}
+
+	public function gmember_date_formats( $formats )
+	{
+		$formats['datetime'] = 'j F Y @ G:i';
+		$formats['timedate'] = 'H:i - j F Y';
+		// $formats['timeampm'] = 'g:i a';
+		$formats['monthday'] = 'j/n';
+		$formats['default']  = 'Y/m/d';
+
+		return $formats;
 	}
 }
