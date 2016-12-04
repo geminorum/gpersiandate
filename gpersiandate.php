@@ -18,7 +18,7 @@ Requires PHP: 5.3
 define( 'GPERSIANDATE_VERSION', '3.4.1' );
 define( 'GPERSIANDATE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GPERSIANDATE_URL', plugin_dir_url( __FILE__ ) );
-define( 'GPERSIANDATE_FILE', __FILE__ );
+define( 'GPERSIANDATE_FILE', basename( GPERSIANDATE_DIR ).'/'.basename( __FILE__ ) );
 defined( 'GPERSIANDATE_TEXTDOMAIN' ) or define( 'GPERSIANDATE_TEXTDOMAIN', 'gpersiandate' );
 
 function gpersiandate_init(){
