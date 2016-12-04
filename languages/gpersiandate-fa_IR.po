@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gPersianDate v3.4.2\n"
+"Project-Id-Version: gPersianDate v3.5.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-04-22 15:29+0430\n"
+"PO-Revision-Date: 2016-12-04 09:56+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -12,120 +12,115 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
-"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
-"esc_html_x:1,2c\n"
-"X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.8.7\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: languages/.git\n"
-"X-Poedit-SearchPathExcluded-1: languages/node_modules\n"
-"X-Poedit-SearchPathExcluded-2: languages/.sass-cache\n"
-"X-Poedit-SearchPathExcluded-3: languages/assets\n"
+"X-Generator: Poedit 1.8.11\n"
 
-#: includes/admin.class.php:31
+#: includes/admin.class.php:48
 msgid "Adminbar Clock"
 msgstr "ساعت منوی مدیریت"
 
-#: includes/admin.class.php:32
+#: includes/admin.class.php:49
 msgid "Month Restrictions"
 msgstr "محدویت بر اساس ماه"
 
-#: includes/admin.class.php:33
+#: includes/admin.class.php:50
 msgid "Date Restrictions"
 msgstr "محدودیت در بازه زمانی"
 
-#: includes/admin.class.php:58, includes/admin.class.php:70,
-#: includes/admin.class.php:82
+#: includes/admin.class.php:76, includes/admin.class.php:88,
+#: includes/admin.class.php:100
 msgid "Disabled"
 msgstr "غیرفعال"
 
-#: includes/admin.class.php:59, includes/admin.class.php:71
+#: includes/admin.class.php:77, includes/admin.class.php:89
 msgid "Enabled"
 msgstr "فعال"
 
-#: includes/admin.class.php:61
+#: includes/admin.class.php:79
 msgid "Select to enable current date and time on admin bar."
 msgstr ""
 
-#: includes/admin.class.php:73, includes/admin.class.php:86
+#: includes/admin.class.php:91, includes/admin.class.php:104
 msgid "Select to enable date picker on manage post screen."
 msgstr ""
 
-#: includes/admin.class.php:83
+#: includes/admin.class.php:101
 msgid "Gregorian"
 msgstr "میلادی"
 
-#: includes/admin.class.php:84
+#: includes/admin.class.php:102
 msgid "Jalali"
 msgstr "شمسی"
 
-# @ gpersiandate
-#: includes/admin.class.php:209
-msgid "Show all dates"
-msgstr "نمایش تمامی ماه‌ها"
+#: includes/admin.class.php:158
+msgctxt "Admin: Months Dropdown"
+msgid "Filter by date"
+msgstr "پالایه بر اساس تاریخ"
+
+#: includes/admin.class.php:161
+msgctxt "Admin: Months Dropdown"
+msgid "All dates"
+msgstr "همه‌ی تاریخ‌ها"
 
 # @ gpersiandate
-#: includes/admin.class.php:243
+#: includes/admin.class.php:188
 msgid "From"
 msgstr "از تاریخ"
 
 # @ gpersiandate
-#: includes/admin.class.php:246
+#: includes/admin.class.php:200
 msgid "To"
 msgstr "تا تاریخ"
 
 # @ gpersiandate
-#: includes/adminbar.class.php:66
+#: includes/adminbar.class.php:67
 msgid "Today in Persian ( just to make sure the conversion is intact )"
 msgstr "امروز در تقویم فارسی (برای اطمینان از تبدیل صحیح تاریخ)"
 
-#: includes/adminbar.class.php:66
+#: includes/adminbar.class.php:67
 msgid "Today in Persian"
 msgstr "تاریخ امروز"
 
 # @ gpersiandate
-#: includes/adminbar.class.php:76
+#: includes/adminbar.class.php:77
 msgid "Now ( just to make sure time zone is correct )"
 msgstr "حالا (برای اطمینان از صحت  منطقهٔ زمانی)"
 
-#: includes/adminbar.class.php:76
+#: includes/adminbar.class.php:77
 msgid "Just Now"
 msgstr "همین حالا"
 
-#: includes/archives.class.php:93
+#: includes/archives.class.php:92
 msgctxt "wp_get_archives monthly"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/archives.class.php:103
+#: includes/archives.class.php:102
 msgctxt "wp_get_archives monthly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:134
+#: includes/archives.class.php:133
 msgctxt "wp_get_archives yearly"
 msgid "%s"
 msgstr ""
 
-#: includes/archives.class.php:143
+#: includes/archives.class.php:142
 msgctxt "wp_get_archives yearly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:176
+#: includes/archives.class.php:175
 msgctxt "wp_get_archives daily count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:206
+#: includes/archives.class.php:205
 msgctxt "wp_get_archives weekly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:299
+#: includes/archives.class.php:298
 msgid "Archives are empty."
 msgstr "بایگانی خالی‌ست."
 
@@ -133,6 +128,36 @@ msgstr "بایگانی خالی‌ست."
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr ""
+
+#: includes/format.class.php:105
+msgctxt "gettext overrides"
+msgid "Caption"
+msgstr "عنوان"
+
+#: includes/format.class.php:106
+msgctxt "gettext overrides"
+msgid "Published: <b>%1$s</b>"
+msgstr "انتشار: <b>%1$s</b>"
+
+#: includes/picker.class.php:50
+msgctxt "Date Picker"
+msgid "Done"
+msgstr "بستن"
+
+#: includes/picker.class.php:51
+msgctxt "Date Picker"
+msgid "Today"
+msgstr "امروز"
+
+#: includes/picker.class.php:56
+msgctxt "Date Picker"
+msgid "Next"
+msgstr "بعدی"
+
+#: includes/picker.class.php:57
+msgctxt "Date Picker"
+msgid "Previous"
+msgstr "قبلی"
 
 #: includes/strings.class.php:65
 msgid "January"
@@ -559,6 +584,14 @@ msgstr "پنج‌شنبه"
 msgctxt "Day of the Week: Jalali"
 msgid "Adineh"
 msgstr "جمعه"
+
+#~ msgctxt "gettext overrides"
+#~ msgid "Published on: <b>%1$s</b>"
+#~ msgstr "انتشار: <b>%1$s</b>"
+
+# @ gpersiandate
+#~ msgid "Show all dates"
+#~ msgstr "نمایش تمامی ماه‌ها"
 
 #~ msgid "Archives"
 #~ msgstr "بایگانی"

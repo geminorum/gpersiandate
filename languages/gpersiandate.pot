@@ -7,109 +7,145 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/admin.class.php:31
+#: includes/admin.class.php:48
 msgid "Adminbar Clock"
 msgstr ""
 
-#: includes/admin.class.php:32
+#: includes/admin.class.php:49
 msgid "Month Restrictions"
 msgstr ""
 
-#: includes/admin.class.php:33
+#: includes/admin.class.php:50
 msgid "Date Restrictions"
 msgstr ""
 
-#: includes/admin.class.php:58, includes/admin.class.php:70, includes/admin.class.php:82
+#: includes/admin.class.php:76, includes/admin.class.php:88, includes/admin.class.php:100
 msgid "Disabled"
 msgstr ""
 
-#: includes/admin.class.php:59, includes/admin.class.php:71
+#: includes/admin.class.php:77, includes/admin.class.php:89
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin.class.php:61
+#: includes/admin.class.php:79
 msgid "Select to enable current date and time on admin bar."
 msgstr ""
 
-#: includes/admin.class.php:73, includes/admin.class.php:86
+#: includes/admin.class.php:91, includes/admin.class.php:104
 msgid "Select to enable date picker on manage post screen."
 msgstr ""
 
-#: includes/admin.class.php:83
+#: includes/admin.class.php:101
 msgid "Gregorian"
 msgstr ""
 
-#: includes/admin.class.php:84
+#: includes/admin.class.php:102
 msgid "Jalali"
 msgstr ""
 
-#: includes/admin.class.php:209
-msgid "Show all dates"
+#: includes/admin.class.php:158
+msgctxt "Admin: Months Dropdown"
+msgid "Filter by date"
 msgstr ""
 
-#: includes/admin.class.php:243
+#: includes/admin.class.php:161
+msgctxt "Admin: Months Dropdown"
+msgid "All dates"
+msgstr ""
+
+#: includes/admin.class.php:188
 msgid "From"
 msgstr ""
 
-#: includes/admin.class.php:246
+#: includes/admin.class.php:200
 msgid "To"
 msgstr ""
 
-#: includes/adminbar.class.php:66
+#: includes/adminbar.class.php:67
 msgid "Today in Persian ( just to make sure the conversion is intact )"
 msgstr ""
 
-#: includes/adminbar.class.php:66
+#: includes/adminbar.class.php:67
 msgid "Today in Persian"
 msgstr ""
 
-#: includes/adminbar.class.php:76
+#: includes/adminbar.class.php:77
 msgid "Now ( just to make sure time zone is correct )"
 msgstr ""
 
-#: includes/adminbar.class.php:76
+#: includes/adminbar.class.php:77
 msgid "Just Now"
 msgstr ""
 
-#: includes/archives.class.php:93
+#: includes/archives.class.php:92
 msgctxt "wp_get_archives monthly"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/archives.class.php:103
+#: includes/archives.class.php:102
 msgctxt "wp_get_archives monthly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:134
+#: includes/archives.class.php:133
 msgctxt "wp_get_archives yearly"
 msgid "%s"
 msgstr ""
 
-#: includes/archives.class.php:143
+#: includes/archives.class.php:142
 msgctxt "wp_get_archives yearly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:176
+#: includes/archives.class.php:175
 msgctxt "wp_get_archives daily count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:206
+#: includes/archives.class.php:205
 msgctxt "wp_get_archives weekly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:299
+#: includes/archives.class.php:298
 msgid "Archives are empty."
 msgstr ""
 
 #: includes/calendar.class.php:54
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
+msgstr ""
+
+#: includes/format.class.php:105
+msgctxt "gettext overrides"
+msgid "Caption"
+msgstr ""
+
+#: includes/format.class.php:106
+msgctxt "gettext overrides"
+msgid "Published: <b>%1$s</b>"
+msgstr ""
+
+#: includes/picker.class.php:50
+msgctxt "Date Picker"
+msgid "Done"
+msgstr ""
+
+#: includes/picker.class.php:51
+msgctxt "Date Picker"
+msgid "Today"
+msgstr ""
+
+#: includes/picker.class.php:56
+msgctxt "Date Picker"
+msgid "Next"
+msgstr ""
+
+#: includes/picker.class.php:57
+msgctxt "Date Picker"
+msgid "Previous"
 msgstr ""
 
 #: includes/strings.class.php:65
