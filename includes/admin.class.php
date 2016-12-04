@@ -37,6 +37,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 				&& ( 'post' == $screen->post_type
 				|| post_type_supports( $screen->post_type, 'date-picker' ) ) ) {
 
+				gPersianDatePicker::enqueue();
 
 				add_action( 'restrict_manage_posts', array( $this, 'restrict_manage_posts_start_end' ), 8, 2 );
 			}
