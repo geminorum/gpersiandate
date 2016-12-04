@@ -1,0 +1,56 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gPersianDate Partials: Date Picker -----------------------------------------
+
+.gpersiandate-datepicker {
+  position: relative;
+
+  .dashicons {
+    position: absolute;
+    right: 4px;
+    top: 0;
+    color: #ddd;
+
+    body.rtl & {
+      right: auto;
+      left: 4px;
+    }
+  }
+
+  input {
+    // direction: ltr;
+    // text-align: right;
+    width: 115px !important;
+    padding: 2px 4px 2px 2px;
+    line-height: 28px;
+    height: 28px;
+    vertical-align: middle;
+  }
+  // .datepick {
+  //
+  //   &:before {
+  //     content: "\f145";
+  //
+  //     display: inline-block;
+  //         width: 20px;
+  //         height: 20px;
+  //         font-size: 20px;
+  //         line-height: 1;
+  //         font-family: dashicons;
+  //         text-decoration: inherit;
+  //         font-weight: 400;
+  //         font-style: normal;
+  //         vertical-align: top;
+  //         text-align: center;
+  //   }
+  // }
+  // input {
+  //
+  // 	width: 85px !important;
+  // 	padding: 2px 4px 2px 2px;
+  // 	line-height: 28px;
+  // 	height: 28px;
+  // 	vertical-align: middle;
+  // }
+}
