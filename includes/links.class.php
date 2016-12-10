@@ -170,7 +170,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		return $where;
 	}
 
-	protected static function build( $for, $year = NULL, $month = NULL, $day = NULL )
+	public static function build( $for, $year = NULL, $month = NULL, $day = NULL )
 	{
 		global $wp_rewrite;
 
