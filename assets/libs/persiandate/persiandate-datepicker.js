@@ -3,7 +3,8 @@
  * Includes: jquery.ui.core.js, jquery.ui.datepicker.js
  * Copyright (c) 2012 jQuery Foundation and other contributors Licensed MIT
  *
- * PersianDate https://github.com/brothersincode/persiandate
+ * PersianDate - v0.7.1 - 2016-12-10
+ * https://github.com/brothersincode/persiandate
  * by juvee, geminorum
  *
  * Acknowledgements:
@@ -493,10 +494,27 @@
         /* Override the default settings for all instances of the date picker.
 	   @param  settings  object - the new settings to use as defaults (anonymous object)
 	   @return the manager object */
-        setDefaults: function(settings) {
+        setDefaults: function(settings,lang) {
             extendRemove(this._defaults, settings || {});
+            if(typeof lang=="string")
+              this._lang=lang;
             return this;
         },
+
+        _toPersianDigit:function (input) {
+          if(this._lang && this._lang=="fa")
+            return toPersianDigit.apply(this, arguments);
+          return input;
+        },
+
+        _toEnglishDigit:function (input) {
+          if(this._lang && this._lang=="fa")
+            return toEnglishDigit.apply(this, arguments);
+          return input;
+        },
+
+
+
 
         /* Attach the date picker to a jQuery selection.
 	   @param  target    element - the target input field or division or span
@@ -1011,11 +1029,11 @@
         _doKeyUp: function(event) {
             var inst = $.datepicker._getInst(event.target);
             // if (inst.input.val() != inst.lastVal) {
-            if (toEnglishDigit(inst.input.val()) != inst.lastVal) {
+            if (this._toEnglishDigit(inst.input.val()) != inst.lastVal) {
                 try {
                     var date = $.datepicker.parseDate($.datepicker._get(inst, 'dateFormat'),
                         // (inst.input ? inst.input.val() : null),
-                        (inst.input ? toEnglishDigit(inst.input.val()) : null),
+                        (inst.input ? this._toEnglishDigit(inst.input.val()) : null),
                         $.datepicker._getFormatConfig(inst));
                     if (date) { // only if valid
                         $.datepicker._setDateFromField(inst);
@@ -1243,7 +1261,7 @@
                 if (onClose)
                     onClose.apply((inst.input ? inst.input[0] : null),
                         // [(inst.input ? inst.input.val() : ''), inst]);
-                        [(inst.input ? toEnglishDigit(inst.input.val()) : ''), inst]);
+                        [(inst.input ? this._toEnglishDigit(inst.input.val()) : ''), inst]);
                 this._lastInput = null;
                 if (this._inDialog) {
                     this._dialogInput.css({
@@ -1333,7 +1351,7 @@
             }
             var inst = this._getInst(target[0]);
             // inst.selectedDay = inst.currentDay = $('a', td).html();
-            inst.selectedDay = inst.currentDay = toEnglishDigit($('a', td).html());
+            inst.selectedDay = inst.currentDay = this._toEnglishDigit($('a', td).html());
             inst.selectedMonth = inst.currentMonth = month;
             inst.selectedYear = inst.currentYear = year;
             this._selectDate(id, this._formatDate(inst,
@@ -1354,7 +1372,7 @@
             dateStr = (dateStr != null ? dateStr : this._formatDate(inst));
             if (inst.input)
                 inst.input.val(dateStr);
-                // inst.input.val(toPersianDigit(dateStr));
+                // inst.input.val(this._toPersianDigit(dateStr));
             this._updateAlternate(inst);
             var onSelect = this._get(inst, 'onSelect');
             if (onSelect)
@@ -1726,12 +1744,12 @@
         /* Parse existing date and initialise date picker. */
         _setDateFromField: function(inst, noDefault) {
             // if (inst.input.val() == inst.lastVal) {
-            if (toEnglishDigit(inst.input.val()) == inst.lastVal) {
+            if (this._toEnglishDigit(inst.input.val()) == inst.lastVal) {
                 return;
             }
             var dateFormat = this._get(inst, 'dateFormat');
             // var dates = inst.lastVal = inst.input ? inst.input.val() : null;
-            var dates = inst.lastVal = inst.input ? toEnglishDigit(inst.input.val()) : null;
+            var dates = inst.lastVal = inst.input ? this._toEnglishDigit(inst.input.val()) : null;
             var date, defaultDate;
             date = defaultDate = this._getDefaultDate(inst);
             var settings = this._getFormatConfig(inst);
@@ -1840,7 +1858,7 @@
             this._adjustInstDate(inst);
             if (inst.input) {
                 inst.input.val(clear ? '' : this._formatDate(inst));
-                // inst.input.val(clear ? '' : toPersianDigit(this._formatDate(inst)));
+                // inst.input.val(clear ? '' : this._toPersianDigit(this._formatDate(inst)));
             }
         },
 
@@ -2042,12 +2060,12 @@
                             ((!otherMonth || showOtherMonths) && daySettings[2] ? ' title="' + daySettings[2] + '"' : '') + // cell title
                             (unselectable ? '' : ' data-handler="selectDay" data-event="click" data-month="' + printDate.getMonth() + '" data-year="' + printDate.getFullYear() + '"') + '>' + // actions
                             (otherMonth && !showOtherMonths ? '&#xa0;' : // display for other months
-                                (unselectable ? '<span class="ui-state-default">' + toPersianDigit(printDate.getDate()) + '</span>' : '<a class="ui-state-default' +
+                                (unselectable ? '<span class="ui-state-default">' + this._toPersianDigit(printDate.getDate()) + '</span>' : '<a class="ui-state-default' +
                                     (printDate.getTime() == today.getTime() ? ' ui-state-highlight' : '') +
                                     (printDate.getTime() == currentDate.getTime() ? ' ui-state-active' : '') + // highlight selected day
                                     (otherMonth ? ' ui-priority-secondary' : '') + // distinguish dates from other months
                                     // '" href="#">' + printDate.getDate() + '</a>')) + '</td>'; // display selectable date
-                                    '" href="#">' +toPersianDigit(printDate.getDate()) + '</a>')) + '</td>'; // display selectable date
+                                    '" href="#">' +this._toPersianDigit(printDate.getDate()) + '</a>')) + '</td>'; // display selectable date
                             printDate.setDate(printDate.getDate() + 1);
                             printDate = this._daylightSavingAdjust(printDate);
                         }
@@ -2101,7 +2119,7 @@
                 inst.yearshtml = '';
                 if (secondary || !changeYear)
                     // html += '<span class="ui-datepicker-year">' + drawYear + '</span>';
-                    html += '<span class="ui-datepicker-year">' + toPersianDigit(drawYear) + '</span>';
+                    html += '<span class="ui-datepicker-year">' + this._toPersianDigit(drawYear) + '</span>';
                 else {
                     // determine range of years to display
                     var years = this._get(inst, 'yearRange').split(':');
@@ -2121,7 +2139,7 @@
                         inst.yearshtml += '<option value="' + year + '"' +
                         (year == drawYear ? ' selected="selected"' : '') +
                         // '>' + year + '</option>';
-                        '>' + toPersianDigit(year) + '</option>';
+                        '>' + this._toPersianDigit(year) + '</option>';
                     }
                     inst.yearshtml += '</select>';
 

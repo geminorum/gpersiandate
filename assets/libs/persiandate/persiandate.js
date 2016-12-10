@@ -1,5 +1,5 @@
 /*!
-* PersianDate - v0.6.3 - 2016-11-30
+* PersianDate - v0.7.1 - 2016-12-10
 * https://github.com/brothersincode/persiandate
 * Licensed: MIT
 */
