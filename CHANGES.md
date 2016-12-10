@@ -1,3 +1,8 @@
+### 3.5.1
+* main/picker: PersianDate updated to 0.7.1
+* main/picker: English digits for non fa locale
+* main/links: :warning: fixed fatal for protected method
+
 ### 3.5.0
 * all: new core classes
 * build/gulp: setting up
