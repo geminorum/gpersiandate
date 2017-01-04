@@ -1,4 +1,4 @@
-# Copyright (C) 2016 gPersianDate
+# Copyright (C) 2017 gPersianDate
 # This file is distributed under the same license as the gPersianDate package.
 msgid ""
 msgstr ""
@@ -6,60 +6,52 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/admin.class.php:48
+#: includes/admin.class.php:55
 msgid "Adminbar Clock"
 msgstr ""
 
-#: includes/admin.class.php:49
+#: includes/admin.class.php:56
 msgid "Month Restrictions"
 msgstr ""
 
-#: includes/admin.class.php:50
+#: includes/admin.class.php:57
 msgid "Date Restrictions"
 msgstr ""
 
-#: includes/admin.class.php:76, includes/admin.class.php:88, includes/admin.class.php:100
+#: includes/admin.class.php:83, includes/admin.class.php:95, includes/admin.class.php:107
 msgid "Disabled"
 msgstr ""
 
-#: includes/admin.class.php:77, includes/admin.class.php:89
+#: includes/admin.class.php:84, includes/admin.class.php:96
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin.class.php:79
-msgid "Select to enable current date and time on admin bar."
-msgstr ""
-
-#: includes/admin.class.php:91, includes/admin.class.php:104
-msgid "Select to enable date picker on manage post screen."
-msgstr ""
-
-#: includes/admin.class.php:101
+#: includes/admin.class.php:108
 msgid "Gregorian"
 msgstr ""
 
-#: includes/admin.class.php:102
+#: includes/admin.class.php:109
 msgid "Jalali"
 msgstr ""
 
-#: includes/admin.class.php:158
+#: includes/admin.class.php:165
 msgctxt "Admin: Months Dropdown"
 msgid "Filter by date"
 msgstr ""
 
-#: includes/admin.class.php:161
+#: includes/admin.class.php:168
 msgctxt "Admin: Months Dropdown"
 msgid "All dates"
 msgstr ""
 
-#: includes/admin.class.php:188
+#: includes/admin.class.php:195
 msgid "From"
 msgstr ""
 
-#: includes/admin.class.php:200
+#: includes/admin.class.php:207
 msgid "To"
 msgstr ""
 
@@ -113,37 +105,38 @@ msgstr ""
 msgid "Archives are empty."
 msgstr ""
 
+#. translators: Calendar caption: 1: month name, 2: 4-digit year */
 #: includes/calendar.class.php:54
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/format.class.php:105
+#: includes/format.class.php:111
 msgctxt "gettext overrides"
 msgid "Caption"
 msgstr ""
 
-#: includes/format.class.php:106
+#: includes/format.class.php:112
 msgctxt "gettext overrides"
 msgid "Published: <b>%1$s</b>"
 msgstr ""
 
-#: includes/picker.class.php:50
+#: includes/picker.class.php:53
 msgctxt "Date Picker"
 msgid "Done"
 msgstr ""
 
-#: includes/picker.class.php:51
+#: includes/picker.class.php:54
 msgctxt "Date Picker"
 msgid "Today"
 msgstr ""
 
-#: includes/picker.class.php:56
+#: includes/picker.class.php:59
 msgctxt "Date Picker"
 msgid "Next"
 msgstr ""
 
-#: includes/picker.class.php:57
+#: includes/picker.class.php:60
 msgctxt "Date Picker"
 msgid "Previous"
 msgstr ""

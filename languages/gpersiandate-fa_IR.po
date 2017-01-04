@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gPersianDate v3.5.0\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: gPersianDate v3.5.2\n"
+"Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-12-04 09:56+0330\n"
+"PO-Revision-Date: 2017-01-04 08:17+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -15,60 +15,52 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 1.8.11\n"
 
-#: includes/admin.class.php:48
+#: includes/admin.class.php:55
 msgid "Adminbar Clock"
 msgstr "ساعت منوی مدیریت"
 
-#: includes/admin.class.php:49
+#: includes/admin.class.php:56
 msgid "Month Restrictions"
 msgstr "محدویت بر اساس ماه"
 
-#: includes/admin.class.php:50
+#: includes/admin.class.php:57
 msgid "Date Restrictions"
 msgstr "محدودیت در بازه زمانی"
 
-#: includes/admin.class.php:76, includes/admin.class.php:88,
-#: includes/admin.class.php:100
+#: includes/admin.class.php:83, includes/admin.class.php:95,
+#: includes/admin.class.php:107
 msgid "Disabled"
 msgstr "غیرفعال"
 
-#: includes/admin.class.php:77, includes/admin.class.php:89
+#: includes/admin.class.php:84, includes/admin.class.php:96
 msgid "Enabled"
 msgstr "فعال"
 
-#: includes/admin.class.php:79
-msgid "Select to enable current date and time on admin bar."
-msgstr ""
-
-#: includes/admin.class.php:91, includes/admin.class.php:104
-msgid "Select to enable date picker on manage post screen."
-msgstr ""
-
-#: includes/admin.class.php:101
+#: includes/admin.class.php:108
 msgid "Gregorian"
 msgstr "میلادی"
 
-#: includes/admin.class.php:102
+#: includes/admin.class.php:109
 msgid "Jalali"
 msgstr "شمسی"
 
-#: includes/admin.class.php:158
+#: includes/admin.class.php:165
 msgctxt "Admin: Months Dropdown"
 msgid "Filter by date"
 msgstr "پالایه بر اساس تاریخ"
 
-#: includes/admin.class.php:161
+#: includes/admin.class.php:168
 msgctxt "Admin: Months Dropdown"
 msgid "All dates"
 msgstr "همه‌ی تاریخ‌ها"
 
 # @ gpersiandate
-#: includes/admin.class.php:188
+#: includes/admin.class.php:195
 msgid "From"
 msgstr "از تاریخ"
 
 # @ gpersiandate
-#: includes/admin.class.php:200
+#: includes/admin.class.php:207
 msgid "To"
 msgstr "تا تاریخ"
 
@@ -124,37 +116,38 @@ msgstr ""
 msgid "Archives are empty."
 msgstr "بایگانی خالی‌ست."
 
+#. translators: Calendar caption: 1: month name, 2: 4-digit year */
 #: includes/calendar.class.php:54
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/format.class.php:105
+#: includes/format.class.php:111
 msgctxt "gettext overrides"
 msgid "Caption"
 msgstr "عنوان"
 
-#: includes/format.class.php:106
+#: includes/format.class.php:112
 msgctxt "gettext overrides"
 msgid "Published: <b>%1$s</b>"
 msgstr "انتشار: <b>%1$s</b>"
 
-#: includes/picker.class.php:50
+#: includes/picker.class.php:53
 msgctxt "Date Picker"
 msgid "Done"
 msgstr "بستن"
 
-#: includes/picker.class.php:51
+#: includes/picker.class.php:54
 msgctxt "Date Picker"
 msgid "Today"
 msgstr "امروز"
 
-#: includes/picker.class.php:56
+#: includes/picker.class.php:59
 msgctxt "Date Picker"
 msgid "Next"
 msgstr "بعدی"
 
-#: includes/picker.class.php:57
+#: includes/picker.class.php:60
 msgctxt "Date Picker"
 msgid "Previous"
 msgstr "قبلی"
