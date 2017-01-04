@@ -3,6 +3,11 @@
 class gPersianDateHTML extends gPersianDateBase
 {
 
+	public static function link( $html, $link = '#', $target_blank = FALSE )
+	{
+		return self::tag( 'a', array( 'href' => $link, 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
+	}
+
 	public static function tag( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
 		$tag = self::sanitizeTag( $tag );
@@ -19,6 +24,21 @@ class gPersianDateHTML extends gPersianDateBase
 			return $html.'</'.$tag.'>'.$sep;
 
 		return $html.$content.'</'.$tag.'>'.$sep;
+	}
+
+	public static function attrClass()
+	{
+		$classes = array();
+
+		foreach ( func_get_args() as $arg )
+
+			if ( is_array( $arg ) )
+				$classes = array_merge( $classes, $arg );
+
+			else if ( $arg )
+				$classes = array_merge( $classes, explode( ' ', $arg ) );
+
+		return array_unique( array_filter( $classes, 'trim' ) );
 	}
 
 	private static function _tag_open( $tag, $atts, $content = TRUE )
@@ -145,7 +165,7 @@ class gPersianDateHTML extends gPersianDateBase
 		echo '<tbody>';
 
 		foreach ( (array) $array as $key => $val )
-			printf( $row, $key, $val );
+			@printf( $row, $key, ( is_bool( $val ) ? ( $val ? 'TRUE' : 'FALSE' ) : $val ) );
 
 		echo '</tbody></table>';
 	}
