@@ -71,14 +71,17 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		if ( 'default' != $domain )
 			return $translations;
 
-		$strings = array(
-			'dashboard' => array(
-				'%1$s, %2$s' => '%1$s &mdash; %2$s', // `wp_dashboard_recent_posts()`
-			),
-			'revision date format' => array(
-				'F j, Y @ H:i:s' => 'j M Y — H:i', // `wp_post_revision_title_expanded()`
-			),
-		);
+		static $strings;
+
+		if ( empty( $strings ) )
+			$strings = array(
+				'dashboard' => array(
+					'%1$s, %2$s' => '%1$s &mdash; %2$s', // `wp_dashboard_recent_posts()`
+				),
+				'revision date format' => array(
+					'F j, Y @ H:i:s' => 'j M Y — H:i', // `wp_post_revision_title_expanded()`
+				),
+			);
 
 		if ( isset( $strings[$context][$text] ) )
 			return $strings[$context][$text];
@@ -91,20 +94,23 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		if ( 'default' != $domain )
 			return $translations;
 
-		$strings = array(
+		static $strings;
 
-			// '%1$s %2$s, %3$s @ %4$s:%5$s' => ( 'fa_IR' == GPERSIANDATE_LOCALE ? '%2$s%1$s%3$s @ %5$s:%4$s' : '%2$s%1$s%3$s @ %4$s:%5$s' ), // `touch_time()`
+		if ( empty( $strings ) )
+			$strings = array(
 
-			'M jS'           => 'j M Y', // `wp_dashboard_recent_posts()`
-			'M jS Y'         => 'j M Y', // `wp_dashboard_recent_posts()`
-			'F j, Y'         => 'j M Y',
-			'M j, Y @ H:i'   => 'j M Y @ H:i',
+				// '%1$s %2$s, %3$s @ %4$s:%5$s' => ( 'fa_IR' == GPERSIANDATE_LOCALE ? '%2$s%1$s%3$s @ %5$s:%4$s' : '%2$s%1$s%3$s @ %4$s:%5$s' ), // `touch_time()`
 
-			'Howdy, %s' => '%s', // `wp_admin_bar_my_account_item()`
+				'M jS'           => 'j M Y', // `wp_dashboard_recent_posts()`
+				'M jS Y'         => 'j M Y', // `wp_dashboard_recent_posts()`
+				'F j, Y'         => 'j M Y',
+				'M j, Y @ H:i'   => 'j M Y @ H:i',
 
-			'Caption' => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
-			'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
-		);
+				'Howdy, %s' => '%s', // `wp_admin_bar_my_account_item()`
+
+				'Caption' => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+			);
 
 		if ( isset( $strings[$text] ) )
 			return $strings[$text];
