@@ -42,6 +42,13 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 				add_action( 'restrict_manage_posts', array( $this, 'restrict_manage_posts_start_end' ), 8, 2 );
 			}
 
+		} else if ( 'upload' == $screen->base ) {
+
+			if ( ! empty( $_REQUEST['mgp'] ) )
+				add_filter( 'posts_where', array( $this, 'posts_where_mgp' ) );
+
+			add_filter( 'disable_months_dropdown', array( $this, 'disable_months_dropdown' ), 10, 2 );
+
 		} else if ( 'options-general' == $screen->base ) {
 
 			$page = 'general';
