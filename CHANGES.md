@@ -1,3 +1,8 @@
+### 3.5.2
+* main/admin: support months dropdown for attachments
+* main/format: static caching the l10n overrides
+* main/wordpress: check for date token in menu items before
+
 ### 3.5.1
 * main/picker: PersianDate updated to 0.7.1
 * main/picker: English digits for non fa locale
