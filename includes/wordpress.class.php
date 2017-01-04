@@ -144,9 +144,21 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 	{
 		$format = 'j F Y'; // 'j M Y'
 
-		// TODO: check if needs!
-		$items = preg_replace( '%{TODAY_DATE}%', gPersianDateDate::to( $format ), $items );
-		$items = preg_replace( '%{TODAY_DATE_HIJRI}%', gPersianDateDate::toHijri( $format ), $items );
+		if ( gPersianDateText::has( $items, '{TODAY_DATE}' ) ) {
+
+			if ( ! isset( $this->today_date ) )
+				$this->today_date = gPersianDateDate::to( $format );
+
+			$items = preg_replace( '%{TODAY_DATE}%', $this->today_date, $items );
+		}
+
+		if ( gPersianDateText::has( $items, '{TODAY_DATE_HIJRI}' ) ) {
+
+			if ( ! isset( $this->today_date ) )
+				$this->today_date = gPersianDateDate::toHijri( $format );
+
+			$items = preg_replace( '%{TODAY_DATE_HIJRI}%', $this->today_date, $items );
+		}
 
 		return $items;
 	}
