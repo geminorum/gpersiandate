@@ -1,3 +1,10 @@
+### 3.5.3
+* main/date: same wrapper method for all supporting calendars
+* main/datetime: sanitize timezone/calendar
+* main/datetime: support for datetime object
+* main/format: diffrent format for rtl in gMember strings
+* main/timezone: :warning: fixed fatal upon no timezone string available
+
 ### 3.5.2
 * main/admin: support months dropdown for attachments
 * main/format: static caching the l10n overrides
