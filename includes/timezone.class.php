@@ -5,9 +5,7 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 
 	public static function current()
 	{
-		$timezone = get_option( 'timezone_string' ); // default is 'UTC'
-
-		if ( ! empty( $timezone ) )
+		if ( $timezone = get_option( 'timezone_string' ) )
 			return $timezone;
 
 		return self::fromOffset( get_option( 'gmt_offset', '0' ) );
@@ -56,8 +54,17 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 		return $timezones['0'];
 	}
 
+	// @SOURCE: http://php.net/manual/en/function.timezone-abbreviations-list.php#97472
+	// EXAMPLE: 'America/Los_Angeles' => 'PST'
+	public static function getAbbr( $id )
+	{
+		$dateTime = new \DateTime();
+		$dateTime->setTimeZone( new \DateTimeZone( $id ) );
+		return $dateTime->format( 'T' );
+	}
+
 	// NOT USED YET
-	// Originally from : http://wordpress.org/plugins/easy-digital-downloads/
+	// @SOURCE: http://wordpress.org/plugins/easy-digital-downloads/
 	// USAGE: date_default_timezone_set( gPersianDateTimeZone::getID() );
 	public static function getID()
 	{
@@ -70,19 +77,16 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 			return 'UTC';
 
 		// attempt to guess the timezone string from the UTC offset
-		$timezone = timezone_name_from_abbr( '', $utc_offset );
+		if ( FALSE !== ( $timezone = timezone_name_from_abbr( '', $utc_offset ) ) )
+			return $timezone;
 
 		// last try, guess timezone string manually
-		if ( $timezone === FALSE ) {
+		$is_dst = date( 'I' );
 
-			$is_dst = date( 'I' );
-
-			foreach ( timezone_abbreviations_list() as $abbr )
-				foreach ( $abbr as $city )
-					if ( $city['dst'] == $is_dst &&
-						$city['offset'] == $utc_offset )
-							return $city['timezone_id'];
-		}
+		foreach ( timezone_abbreviations_list() as $abbr )
+			foreach ( $abbr as $city )
+				if ( $city['dst'] == $is_dst && $city['offset'] == $utc_offset )
+					return $city['timezone_id'];
 
 		// fallback
 		return 'UTC';

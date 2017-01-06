@@ -3,21 +3,12 @@
 class gPersianDateStrings extends gPersianDateModuleCore
 {
 
-	// FIXME: are you kidding me?!
-	public static function sanitizeCalendar( $calendar = NULL )
-	{
-		if ( ! in_array( $calendar, array( 'Gregorian', 'Jalali', 'Hijri' ) ) )
-			return 'Jalali';
-
-		return trim( $calendar );
-	}
-
 	// @REF: [Month Dropdown in PHP](http://paulferrett.com/2012/month-dropdown-in-php/)
 	public static function lastMonths( $limit = 12, $calendar = NULL )
 	{
 		static $strings = array();
 
-		$calendar = self::sanitizeCalendar( $calendar );
+		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
 
 		if ( ! isset( $strings[$calendar][$limit] ) ) {
 
@@ -52,7 +43,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 	{
 		static $strings = array();
 
-		$calendar = self::sanitizeCalendar( $calendar );
+		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
 
 		if ( ! isset( $strings[$calendar] ) ) {
 
@@ -152,7 +143,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 				),
 			);
 
-		$calendar = self::sanitizeCalendar( $calendar );
+		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
 
 		if ( $all )
 			return $strings[$calendar];
@@ -167,7 +158,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 	{
 		static $strings = array();
 
-		$calendar = self::sanitizeCalendar( $calendar );
+		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
 		$full     = $initial ? 'initial' : 'full';
 
 		if ( ! isset( $strings[$calendar][$full] ) ) {

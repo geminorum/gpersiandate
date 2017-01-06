@@ -6,14 +6,23 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 	// SEE: http://www.paulund.co.uk/datetime-php
 	public static function to( $time, $format, $timezone = NULL, $calendar = NULL )
 	{
-		$result       = '';
-		$datetimezone = new DateTimeZone( $timezone );
+		$result = '';
 
-		if ( is_a( $time, 'DateTime' ) || is_numeric( $time ) ) {
-			$datetime = new DateTime( NULL, $datetimezone );
+		$timezone = self::sanitizeTimeZone( $timezone );
+		$calendar = self::sanitizeCalendar( $calendar );
+
+		if ( is_numeric( $time ) ) {
+
+			$datetime = new \DateTime( NULL, new \DateTimeZone( $timezone ) );
 			$datetime->setTimestamp( $time );
+
 		} else if ( is_string( $time ) ) {
-			$datetime = new DateTime( $time, $datetimezone );
+
+			$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
+
+		} else if ( is_a( $time, 'DateTime' ) ) {
+
+			$datetime = $time;
 		}
 
 		if ( 'Gregorian' == $calendar )
@@ -32,112 +41,126 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 			switch ( $format[$i] ) {
 
-				// A two digit representation of a year (Examples: 99 or 03)
-				case 'y':
+				case 'y': // A two digit representation of a year (Examples: 99 or 03)
+
 					$result .= substr( $jyear, 2, 4 );
+
 				break;
 
-				// A full numeric representation of a year, 4 digits (Examples: 1999 or 2003)
-				case 'Y':
+				case 'Y': // A full numeric representation of a year, 4 digits (Examples: 1999 or 2003)
+
 					$result .= $jyear;
+
 				break;
 
-				// There is no short textual representation of months in persian so we use full textual representaions instead.
-				case 'M':
+				case 'M': // There is no short textual representation of months in persian so we use full textual representaions instead.
+				case 'F': // A full textual representation of a month (Farvardin through Esfand)
 
-				// A full textual representation of a month (Farvardin through Esfand)
-				case 'F':
-					// $result .= $this->translate( self::$j_months[$jmonth - 1] );
 					$result .= gPersianDateStrings::month( $jmonth, FALSE, $calendar );
+
 				break;
 
-				// Numeric representation of a month, with leading zeros (01 through 12)
-				case 'm':
-					// $result .= sprintf('%02d', $jmonth);
-					$result .= zeroise( $jmonth, 2 );
+				case 'm': // Numeric representation of a month, with leading zeros (01 through 12)
+
+					$result .= sprintf( '%02d', $jmonth );
+
 				break;
 
-				// Numeric representation of a month, without leading zeros (1 through 12)
-				case 'n':
+				case 'n': // Numeric representation of a month, without leading zeros (1 through 12)
+
 					$result .= $jmonth;
+
 				break;
 
-				// Day of the month, 2 digits with leading zeros (01 to 31)
-				case 'd':
-					// $result .= sprintf('%02d', $jday);
-					$result .= zeroise( $jday, 2 );
+				case 'd': // Day of the month, 2 digits with leading zeros (01 to 31)
+
+					$result .= sprintf( '%02d', $jday );
+
 				break;
 
 				// FIXME: check this!
-				// A textual representation of a day, three letters (Mon through Sun)
-				case 'D':
+				case 'D': // A textual representation of a day, three letters (Mon through Sun)
+				case 'l': // A full textual representation of the day of the week (Sunday through Saturday)
 
-				// FIXME: check this!
-				// A full textual representation of the day of the week (Sunday through Saturday)
-				case 'l':
 					$result .= gPersianDateStrings::dayoftheweek( ( $datetime->format( 'w' ) + 1 ) % 7, FALSE, $calendar );
+
 				break;
 
-				// Day of the month without leading zeros (1 to 31)
-				case 'j':
+				case 'j': // Day of the month without leading zeros (1 to 31)
+
 					$result .= $jday;
+
 				break;
 
-				// Numeric representation of the day of the week (0 (for Saturday) through 6 (for Friday))
-				case 'w':
-					// $result .= (parent::format("w") + 1) % 7;
+				case 'w': // Numeric representation of the day of the week (0 (for Saturday) through 6 (for Friday))
+
 					$result .= ( $datetime->format( 'w' ) + 1 ) % 7;
+
 				break;
 
-				// Number of days in the given month (29 through 31)
-				case 't':
+				case 't': // Number of days in the given month (29 through 31)
+
 					if ( $jmonth < 12 )
 						$result .= self::$j_days_in_month[$jmonth-1];
+
 					else if ( self::checkJalali( $jmonth, 30, $jyear ) )
 						$result .= '30';
+
 					else
 						$result .= '29';
+
 				break;
 
-				// The day of the year starting from 0 (0 through 365)
-				case 'z':
+				case 'z': // The day of the year starting from 0 (0 through 365)
+
 					$day_of_year = 0;
-					for ( $n=0; $n<$jmonth-1; $n++ )
+
+					for ( $n = 0; $n < $jmonth - 1; $n++ )
 						$day_of_year += self::$j_days_in_month[$n];
-					$day_of_year += $jday-1;
+
+					$day_of_year += $jday - 1;
 					$result .= $day_of_year;
+
 				break;
 
-				// Whether it's a leap year (1 if it is a leap year, 0 otherwise.)
-				case 'L':
+				case 'L': // Whether it's a leap year (1 if it is a leap year, 0 otherwise.)
+
 					$result .= self::checkJalali( 12, 30, $jyear ) ? '1' : '0';
+
 				break;
 
-				// Week number of year, weeks starting on Saturday
-				case 'W':
+				case 'W': // Week number of year, weeks starting on Saturday
+
 					$z = $datetime->format( 'z' );
 					$firstSaturday = ( $z - $datetime->format( 'w' ) + 7 ) % 7;
 					$days = $z - $firstSaturday; // Number of days after the first Saturday of the year
+
 					if ( $days < 0 ) {
-						$z += self::checkJalali( 12, 30, $jyear-1 ) ? 366 : 365;
+						$z += self::checkJalali( 12, 30, $jyear - 1 ) ? 366 : 365;
 						$firstSaturday = ( $z - $datetime->format( 'w' ) + 7 ) % 7;
 						$days = $z - $firstSaturday;
 					}
+
 					$result .= floor( $days / 7 ) + 1;
+
 				break;
 
 				case 'a': // Lowercase Ante meridiem and Post meridiem (am or pm)
 				case 'A': // Uppercase Ante meridiem and Post meridiem (AM or PM)
+
 					$result .= gPersianDateStrings::meridiemAntePost( $datetime->format( $format[$i] ), FALSE, $calendar );
+
 				break;
 
 				// case "S": //English ordinal suffix for the day of the month, 2 characters (st, nd, rd or th. Works well with j)
 
 				case "\\":
-					if ( $i+1 < strlen( $format ) )
+
+					if ( $i + 1 < strlen( $format ) )
 						$result .= $format[++$i];
 					else
 						$result .= $format[$i];
+
 				break;
 
 				default:
@@ -146,6 +169,34 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		}
 
 		return $result;
+	}
+
+	public static function sanitizeTimeZone( $timezone )
+	{
+		if ( is_numeric( $timezone ) )
+			return gPersianDateTimeZone::fromOffset( $timezone );
+
+		if ( is_string( $timezone ) )
+			return $timezone;
+
+		return date_default_timezone_get();
+	}
+
+	public static function sanitizeCalendar( $calendar )
+	{
+		if ( ! $calendar )
+			return 'Jalali';
+
+		if ( in_array( $calendar, array( 'Jalali', 'jalali', 'Persian', 'persian' ) ) )
+			return 'Jalali';
+
+		if ( in_array( $calendar, array( 'Hijri', 'hijri', 'Islamic', 'islamic' ) ) )
+			return 'Hijri';
+
+		if ( in_array( $calendar, array( 'Gregorian', 'gregorian' ) ) )
+			return 'Gregorian';
+
+		return 'Jalali';
 	}
 
 	static public function checkJalali( $j_m, $j_d, $j_y )
@@ -159,7 +210,6 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 	private static $g_days_in_month = array( 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 	private static $j_days_in_month = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
-	private static $j_months = array( 'Farvardin', 'Ordibehesht', 'Khordad', 'Tir', 'Mordad', 'Shahrivar', 'Mehr', 'Aban', 'Azar', 'Dey', 'Bahman', 'Esfand' );
 
 	// Gregorian to Jalali Conversion
 	// Copyright (C) 2000  Roozbeh Pournader and Mohammad Toossi
