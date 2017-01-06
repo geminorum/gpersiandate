@@ -150,8 +150,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 	public function gmember_date_formats( $formats )
 	{
 		$formats['datetime'] = 'j F Y @ G:i';
-		$formats['timedate'] = 'H:i - j F Y';
-		// $formats['timeampm'] = 'g:i a';
+		$formats['timedate'] = is_rtl() ? 'j F Y — H:i' : 'H:i — j F Y';
 		$formats['monthday'] = 'j/n';
 		$formats['default']  = 'Y/m/d';
 
