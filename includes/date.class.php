@@ -3,7 +3,7 @@
 class gPersianDateDate extends gPersianDateModuleCore
 {
 
-	public static function to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = GPERSIANDATE_LOCALE, $translate = TRUE )
+	public static function to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = GPERSIANDATE_LOCALE, $translate = TRUE, $calendar = 'Jalali' )
 	{
 		if ( FALSE === $time )
 			return FALSE;
@@ -14,7 +14,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		if ( gPersianDateFormat::checkISO( $format ) )
 			return mysql2date( $format, $time, FALSE );
 
-		$string = gPersianDateDateTime::to( $time, $format, $timezone );
+		$string = gPersianDateDateTime::to( $time, $format, $timezone, $calendar );
 
 		if ( $translate )
 			return gPersianDateTranslate::numbers( $string, $locale );
@@ -24,18 +24,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 	public static function toHijri( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = 'ar', $translate = TRUE )
 	{
-		if ( is_null( $time ) )
-			$time = current_time( 'mysql' );
-
-		if ( gPersianDateFormat::checkISO( $format ) )
-			return mysql2date( $format, $time, FALSE );
-
-		$string = gPersianDateDateTime::to( $time, $format, $timezone, 'Hijri' );
-
-		if ( $translate )
-			return gPersianDateTranslate::numbers( $string, $locale );
-
-		return $string;
+		return self::to( $format, $time, $timezone, $locale, $translate, 'Hijri' );
 	}
 
 	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear )
