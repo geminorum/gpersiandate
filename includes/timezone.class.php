@@ -5,7 +5,7 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 
 	public static function current()
 	{
-		$timezone = get_option( 'timezone_string' ); //default is 'UTC' // 'Asia/Tehran'
+		$timezone = get_option( 'timezone_string' ); // default is 'UTC'
 
 		if ( ! empty( $timezone ) )
 			return $timezone;
@@ -48,10 +48,12 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 			'12'   => 'Asia/Kamchatka'
 		);
 
+		$offset = floatval( $offset );
+
 		if ( isset( $timezones[$offset] ) )
 			return $timezones[$offset];
 
-		return '0';
+		return $timezones['0'];
 	}
 
 	// NOT USED YET
