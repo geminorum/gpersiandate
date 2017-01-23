@@ -258,7 +258,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 		$days_in_month = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
 		$where         = apply_filters( 'getarchives_where', "WHERE post_type = 'post' AND post_status = 'publish'", $args );
 		$join          = apply_filters( 'getarchives_join', '', $args );
-		$where         = self::strip_date_clauses( $where ); // just in case!
+		$where         = gPersianDateLinks::stripDateClauses( $where ); // just in case!
 
 		$first = $wpdb->get_results("SELECT post_date AS date FROM $wpdb->posts $where AND post_password='' $join ORDER BY post_date ASC LIMIT 1");
 
