@@ -339,4 +339,122 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 		return $table.'<tbody>'.$html.'</tbody></table></div>';
 	}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// ADOPTED FROM: Clean My Archives v1.0.0 - 2017-01-23
+/// by Justin Tadlock
+// @REF: https://wordpress.org/plugins/clean-my-archives/
+// @REF: https://github.com/justintadlock/clean-my-archives
+
+	public static function getClean( $atts = array() )
+	{
+		$args = self::atts( array(
+			'limit'         => -1,
+			'year'          => '',
+			'month'         => '',
+			'post_type'     => 'post', // or array of types
+			'post_author'   => 0, // all
+			'comment_count' => FALSE,
+			'css_class'     => 'table table-condensed', // Bootstrap 3 classes
+			'string_empty'  => _x( 'Archives are empty.', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
+			'string_count'  => _x( 'Post comment count', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
+		), $atts );
+
+		// FIXME: must check year/month args for conversion
+
+		$html  = $current_year = $current_month = $current_day = '';
+		$query = array(
+
+			'year'           => $args['year'] ? absint( $args['year'] ) : '',
+			'monthnum'       => $args['month'] ? absint( $args['month'] ) : '',
+			'post_type'      => is_array( $args['post_type'] ) ? $args['post_type'] : explode( ',', $args['post_type'] ),
+			'author'         => $args['post_author'],
+			'posts_per_page' => intval( $args['limit'] ),
+
+			'ignore_sticky_posts'    => TRUE,
+			'no_found_rows'          => TRUE,
+			'update_post_meta_cache' => FALSE,
+			'update_post_term_cache' => FALSE,
+			'lazy_load_term_meta'    => FALSE,
+		);
+
+		$loop = new \WP_Query( $query );
+
+		if ( $loop->have_posts() ) {
+
+			while ( $loop->have_posts() ) {
+
+				$loop->the_post();
+
+				// we need this to compare it with the previous post date.
+				$year   = get_the_time( 'Y' );
+				$month  = get_the_time( 'm' );
+				$daynum = get_the_time( 'd' );
+
+				// if the current date doesn't match this post's date, we need extra formatting.
+				if ( $current_year !== $year || $current_month !== $month ) {
+
+					// close the list if this isn't the first post.
+					if ( $current_month && $current_year )
+						$html .= '</ul></div>';
+
+					// set the current year and month to this post's year and month.
+					$current_year  = $year;
+					$current_month = $month;
+					$current_day   = '';
+
+					$number_year  = gPersianDateTranslate::numbers_back( $current_year );
+					$number_month = gPersianDateTranslate::numbers_back( $current_month );
+
+					// add a heading with the month and year and link it to the monthly archive.
+					$html .= sprintf(
+						'<div id="%s"><h3 class="-month"><a href="%s">%s</a></h3>',
+						$number_year.zeroise( $number_month, 2 ),
+						esc_url( gPersianDateLinks::build( 'month', $number_year, $number_month ) ),
+						esc_html( get_the_time( _x( 'F Y', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ) ) )
+					);
+
+					// open a new unordered list.
+					$html .= '<ul class="list-unstyled">';
+				}
+
+				// get the post's day.
+				$day = sprintf( '<span class="-day">%s</span>', get_the_time( esc_html_x( 'j:', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ) ) );
+
+				if ( $args['comment_count'] ) {
+
+					$comments_num = sprintf( esc_html_x( '(%s)', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), get_comments_number() );
+					$comments     = sprintf( '<small class="-comments" title="%s">%s</small>', esc_attr( $args['string_count'] ), gPersianDateTranslate::numbers( $comments_num ) );
+				}
+
+				// check if there's a duplicate day so we can add a class.
+				$duplicate_day = $current_day && $daynum === $current_day ? ' class="-day-duplicate"' : '';
+				$current_day   = $daynum;
+
+				// add the post list item to the formatted archives.
+				$html .= the_title(
+					sprintf( '<li%s>%s <a href="%s">', $duplicate_day, $day, esc_url( get_permalink() ) ),
+					( $args['comment_count'] ? sprintf( '</a> %s</li>', $comments ) : '</a></li>' ),
+					FALSE
+				);
+			}
+
+			// close the final unordered list
+			$html .= '</ul></div>';
+
+			wp_reset_postdata();
+
+		} else if ( ! $args['string_empty'] ) {
+
+			return FALSE;
+
+		} else {
+
+			$html = '<span class="-empty">'.$args['string_empty'].'</span>';
+		}
+
+		return sprintf( '<div class="date-archives-clean %s">%s</div>', $args['css_class'], $html );
+	}
 }
