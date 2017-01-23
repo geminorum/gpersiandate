@@ -108,8 +108,10 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 				'Howdy, %s' => '%s', // `wp_admin_bar_my_account_item()`
 
-				'Caption' => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
-				'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				// must not be static
+				// otherwise, working but that's pathetic!
+				// 'Caption' => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				// 'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
 			);
 
 		if ( isset( $strings[$text] ) )
