@@ -134,9 +134,22 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return mysql2date( 'U', $the_date, FALSE );
 	}
 
-	public static function getPosttypeFirstAndLast( $post_type = 'post', $args = array(), $user_id = 0, $protected = TRUE )
+	public static function getPosttypeFirstAndLast( $post_types = 'post', $args = array(), $user_id = 0, $protected = TRUE )
 	{
 		global $wpdb;
+
+		if ( ! is_array( $post_types ) ) {
+
+			$where = $wpdb->prepare( "WHERE post_type = %s", $post_types );
+
+		} else {
+
+			$post_types_in = implode( ',', array_map( function( $v ){
+				return "'".esc_sql( $v )."'";
+			}, $post_types ) );
+
+			$where = "WHERE post_type IN ( {$post_types_in} )";
+		}
 
 		$author = $user_id ? $wpdb->prepare( "AND post_author = %d", $user_id ) : '';
 
@@ -152,29 +165,25 @@ class gPersianDateDate extends gPersianDateModuleCore
 		if ( ! $protected )
 			$extra_checks .= " AND post_password = ''";
 
-		$query = $wpdb->prepare( "
+		$first = gPersianDateUtilities::getResultsDB( "
 			SELECT post_date AS date
-			FROM $wpdb->posts
-			WHERE post_type = %s
+			FROM {$wpdb->posts}
+			{$where}
 			{$author}
 			{$extra_checks}
 			ORDER BY post_date ASC
 			LIMIT 1
-		", $post_type );
+		" );
 
-		$first = gPersianDateUtilities::getResultsDB( $query );
-
-		$query = $wpdb->prepare( "
+		$last = gPersianDateUtilities::getResultsDB( "
 			SELECT post_date AS date
-			FROM $wpdb->posts
-			WHERE post_type = %s
+			FROM {$wpdb->posts}
+			{$where}
 			{$author}
 			{$extra_checks}
 			ORDER BY post_date DESC
 			LIMIT 1
-		", $post_type );
-
-		$last = gPersianDateUtilities::getResultsDB( $query );
+		" );
 
 		return array(
 			( count( $first ) ? $first[0]->date : '' ),
