@@ -484,6 +484,8 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'post_type'     => 'post', // or array of types
 			'post_author'   => 0, // all
 			'comment_count' => FALSE,
+			'row_context'   => FALSE,
+			'row_day'       => FALSE,
 			'css_class'     => 'table table-condensed', // Bootstrap 3 classes
 			'string_empty'  => _x( 'Archives are empty.', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
 			'string_count'  => _x( 'Post comment count', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
@@ -550,22 +552,34 @@ class gPersianDateArchives extends gPersianDateModuleCore
 				// get the post's day.
 				$day = sprintf( '<span class="-day">%s</span>', get_the_time( esc_html_x( 'j:', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ) ) );
 
-				if ( $args['comment_count'] ) {
-
-					$comments_num = sprintf( esc_html_x( '(%s)', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), get_comments_number() );
-					$comments     = sprintf( '<small class="-comments" title="%s">%s</small>', esc_attr( $args['string_count'] ), gPersianDateTranslate::numbers( $comments_num ) );
-				}
-
 				// check if there's a duplicate day so we can add a class.
 				$duplicate_day = $current_day && $daynum === $current_day ? ' class="-day-duplicate"' : '';
 				$current_day   = $daynum;
 
-				// add the post list item to the formatted archives.
-				$html .= the_title(
-					sprintf( '<li%s>%s <a href="%s">', $duplicate_day, $day, esc_url( get_permalink() ) ),
-					( $args['comment_count'] ? sprintf( '</a> %s</li>', $comments ) : '</a></li>' ),
-					FALSE
-				);
+				if ( $args['row_context'] ) {
+
+					if ( $args['row_day'] )
+						printf( '<li%s>%s ', $duplicate_day, $day );
+					else
+						printf( '<li%s>', $duplicate_day );
+
+						get_template_part( 'row', $args['row_context'] );
+					echo '</li>';
+
+				} else {
+
+					if ( $args['comment_count'] ) {
+						$comments_num = sprintf( esc_html_x( '(%s)', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), get_comments_number() );
+						$comments     = sprintf( '<small class="-comments" title="%s">%s</small>', esc_attr( $args['string_count'] ), gPersianDateTranslate::numbers( $comments_num ) );
+					}
+
+					// add the post list item to the formatted archives.
+					$html .= the_title(
+						sprintf( '<li%s>%s <a href="%s">', $duplicate_day, $day, esc_url( get_permalink() ) ),
+						( $args['comment_count'] ? sprintf( '</a> %s</li>', $comments ) : '</a></li>' ),
+						FALSE
+					);
+				}
 			}
 
 			// close the final unordered list
