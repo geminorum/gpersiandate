@@ -263,6 +263,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'post_author'    => 0, // all
 			'css_class'      => 'table table-condensed', // Bootstrap 3 classes
 			'month_name'     => TRUE, // FALSE to number
+			'link_anchor'    => FALSE, // TRUE to link within the page
 			'string_caption' => FALSE, // table caption
 			'string_count'   => _x( '%s Posts', 'Archives: Compact', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
 			'string_empty'   => _x( 'Archives are empty.', 'Archives: Compact', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
@@ -297,7 +298,10 @@ class gPersianDateArchives extends gPersianDateModuleCore
 		while ( $now >= $year ) {
 
 			$html .= '<tr><td class="-year text-info text-right" style="width:10%;">';
-				$html .= gPersianDateHTML::link( gPersianDateTranslate::numbers( $year ), get_year_link( $year ) );
+				if ( $args['link_anchor'] )
+					$html .= gPersianDateTranslate::numbers( $year );
+				else
+					$html .= gPersianDateHTML::link( gPersianDateTranslate::numbers( $year ), get_year_link( $year ) );
 			$html .= '</td>';
 
 			for ( $month = 1; $month <= 12; $month += 1 ) {
@@ -318,8 +322,9 @@ class gPersianDateArchives extends gPersianDateModuleCore
 				if ( ! $count ) {
 					$html .= '<td class="-month -empty text-muted text-center" style="width:7.5%;">'.$name.'</td>';
 				} else {
-					$title  = $args['string_count'] ? 'title="'.esc_attr( sprintf( $args['string_count'], gPersianDateTranslate::numbers( $count ) ) ).'"' : '';
-					$html  .= '<td class="-month text-center" '.$title.' style="width:7.5%;">'.gPersianDateHTML::link( $name, get_month_link( $year, $month ) ).'</td>';
+					$link  = $args['link_anchor'] ? gPersianDateHTML::scroll( $name, $year.zeroise( $month, 2 ) ) : gPersianDateHTML::link( $name, get_month_link( $year, $month ) );
+					$title = $args['string_count'] ? 'title="'.esc_attr( sprintf( $args['string_count'], gPersianDateTranslate::numbers( $count ) ) ).'"' : '';
+					$html  .= '<td class="-month text-center" '.$title.' style="width:7.5%;">'.$link.'</td>';
 				}
 			}
 
