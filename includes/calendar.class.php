@@ -13,9 +13,9 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		$week_begins        = '6'; // week start on Saturday
 		$ak_title_separator = ', ';
 
-		$jcurrent_year  = $jthisyear  = gPersianDateDate::to( 'Y', $current_time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-		$jcurrent_month = $jthismonth = gPersianDateDate::to( 'm', $current_time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-		$jcurrent_day   = $jthisday   = gPersianDateDate::to( 'd', $current_time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+		$jcurrent_year  = $jthisyear  = gPersianDateDate::_to( 'Y', $current_time );
+		$jcurrent_month = $jthismonth = gPersianDateDate::_to( 'm', $current_time );
+		$jcurrent_day   = $jthisday   = gPersianDateDate::_to( 'd', $current_time );
 
 		if ( ! empty( $monthnum ) && ! empty( $year ) ) {
 			$jthismonth = ''.zeroise( intval( $monthnum ), 2 );
@@ -29,13 +29,13 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 				$jthismonth = ''.zeroise( intval( substr( $m, 4, 2 ) ), 2 );
 		}
 
-		$jlast_day  = gPersianDateDate::to( 't', date( 'Y-m-d H:i:s', gPersianDateDate::make( 0,0,0, $jthismonth, 1, $jthisyear ) ), GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+		$jlast_day  = gPersianDateDate::_to( 't', gPersianDateDate::makeMySQL( 0, 0, 0, $jthismonth, 1, $jthisyear ) );
 		$junixmonth = gPersianDateDate::make( 0, 0, 0, $jthismonth, 1, $jthisyear );
 
 		$jfirst_day_mysql = date( 'Y-m-d H:i:s', $junixmonth );
-		$jlast_day_mysql  = date( 'Y-m-d H:i:s', gPersianDateDate::make( 23, 59, 59, $jthismonth, $jlast_day, $jthisyear ) );
+		$jlast_day_mysql  = gPersianDateDate::makeMySQL( 23, 59, 59, $jthismonth, $jlast_day, $jthisyear );
 
-		// Get the next and previous month and year with at least one post
+		// get the next and previous month and year with at least one post
 		$previous = $wpdb->get_row("SELECT post_date, MONTH(post_date) AS month, YEAR(post_date) AS year
 			FROM $wpdb->posts
 			WHERE post_date < '$jfirst_day_mysql'
@@ -138,8 +138,9 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		}
 
 		$jdaywithpost = array();
+
 		foreach ( $daywithpostfull as $day => $post_date ) {
-			$jday = gPersianDateDate::to( 'j',  $post_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+			$jday = gPersianDateDate::_to( 'j',  $post_date );
 			$jdaywithpost[$jday] = $day;
 		}
 
@@ -149,7 +150,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			$calendar_output .= "\n\t\t".'<td colspan="'.esc_attr( $pad ).'" class="pad">&nbsp;</td>';
 
 		// first day of this month
-		$jday = gPersianDateDate::to( 'j', $jfirst_day_mysql, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+		$jday = gPersianDateDate::_to( 'j', $jfirst_day_mysql );
 
 		$jdaysinmonth = intval( $jlast_day );
 

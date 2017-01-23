@@ -240,9 +240,9 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		$date = $year.'-'.$month.'-'.$day;
 
 		return self::build( 'day',
-			gPersianDateDate::to( 'Y', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ),
-			gPersianDateDate::to( 'm', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ),
-			gPersianDateDate::to( 'd', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE )
+			gPersianDateDate::_to( 'Y', $date ),
+			gPersianDateDate::_to( 'm', $date ),
+			gPersianDateDate::_to( 'd', $date )
 		);
 	}
 
@@ -257,8 +257,8 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		$date = $year.'-'.$month.'-01';
 
 		return self::build( 'month',
-			gPersianDateDate::to( 'Y', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ),
-			gPersianDateDate::to( 'm', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE )
+			gPersianDateDate::_to( 'Y', $date ),
+			gPersianDateDate::_to( 'm', $date )
 		);
 	}
 
@@ -270,7 +270,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		$date = $year.'-01-01';
 
 		return self::build( 'year',
-			gPersianDateDate::to( 'Y', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE )
+			gPersianDateDate::_to( 'Y', $date )
 		);
 	}
 
@@ -320,7 +320,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( FALSE !== strpos( $structure, '%author%' ) )
 			$author = get_userdata( $post->post_author )->user_nicename;
 
-		$date = explode( '-', gPersianDateDate::to( 'Y-m-d-H-i-s', $post->post_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE ) );
+		$date = explode( '-', gPersianDateDate::_to( 'Y-m-d-H-i-s', $post->post_date ) );
 
 		$rewritereplace = array(
 			$date[0],

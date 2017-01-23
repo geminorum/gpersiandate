@@ -27,6 +27,12 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return $string;
 	}
 
+	// not translating!
+	public static function _to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = GPERSIANDATE_LOCALE, $translate = TRUE, $calendar = 'Jalali' )
+	{
+		return self::to( $format, $time, $timezone, $locale, FALSE, $calendar );
+	}
+
 	public static function toHijri( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = 'ar', $translate = TRUE )
 	{
 		return self::to( $format, $time, $timezone, $locale, $translate, 'Hijri' );
@@ -224,7 +230,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 				continue;
 
 			$date  = mktime( 0 ,0 , 0, zeroise( $row->month, 2 ), $row->day, $row->year );
-			$month = self::to( 'Ym', $date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+			$month = self::_to( 'Ym', $date );
 
 			if ( $last != $month )
 				$list[$month] = self::to( 'M Y', $date );
