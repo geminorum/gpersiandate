@@ -127,17 +127,13 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 	public function posts_where_start_end( $where = '' )
 	{
-		if ( ! empty( $_REQUEST['start_date_gp'] ) ) {
-			$start      = explode( '/', $_REQUEST['start_date_gp'] );
-			$start_date = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $start[1], $start[2], $start[0] ) );
-			$where .= " AND post_date >='$start_date' ";
-		}
+		if ( ! empty( $_REQUEST['start_date_gp'] )
+			&& ( $start_date = gPersianDateDate::makeMySQLFromInput( $_REQUEST['start_date_gp'] ) ) )
+				$where .= " AND post_date >='$start_date' ";
 
-		if ( ! empty( $_REQUEST['end_date_gp'] ) ) {
-			$end      = explode( '/', $_REQUEST['end_date_gp'] );
-			$end_date = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $end[1], $end[2], $end[0] ) );
-			$where .= " AND post_date <='$end_date' ";
-		}
+		if ( ! empty( $_REQUEST['end_date_gp'] )
+			&& ( $end_date = gPersianDateDate::makeMySQLFromInput( $_REQUEST['end_date_gp'] ) ) )
+				$where .= " AND post_date <='$end_date' ";
 
 		return $where;
 	}

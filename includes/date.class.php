@@ -41,6 +41,43 @@ class gPersianDateDate extends gPersianDateModuleCore
 		);
 	}
 
+	public static function makeMySQL( $hour, $minute, $second, $jmonth, $jday, $jyear )
+	{
+		return date( 'Y-m-d H:i:s', self::make( $hour, $minute, $second, $jmonth, $jday, $jyear ) );
+	}
+
+	public static function makeFromArray( $atts = array() )
+	{
+		$args = self::atts( array(
+			'year'   => 1362, // ;)
+			'month'  => 1,
+			'day'    => 1,
+			'hour'   => 0,
+			'minute' => 0,
+			'second' => 0,
+		), $atts );
+
+		return self::make( $args['hour'], $args['minute'], $args['second'], $args['month'], $args['day'], $args['year'] );
+	}
+
+	public static function makeMySQLFromArray( $atts = array() )
+	{
+		return date( 'Y-m-d H:i:s', self::makeFromArray( $atts ) );
+	}
+
+	public static function makeFromInput( $input )
+	{
+		// FIXME: needs sanity checks
+		$parts = explode( '/', $input );
+
+		return self::make( 0, 0, 0, $parts[1], $parts[2], $parts[0] );
+	}
+
+	public static function makeMySQLFromInput( $input )
+	{
+		return date( 'Y-m-d H:i:s', self::makeFromInput( $input ) );
+	}
+
 	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s' )
 	{
 		$days = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );

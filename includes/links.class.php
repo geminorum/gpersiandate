@@ -26,14 +26,13 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 		$conversion = FALSE;
 
-		$days_in_month = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
 		$start = $end = array(
-			'year'     => 1,
-			'monthnum' => 1,
-			'day'      => 1,
-			'hour'     => 0,
-			'minute'   => 0,
-			'second'   => 0,
+			'year'   => 1,
+			'month'  => 1,
+			'day'    => 1,
+			'hour'   => 0,
+			'minute' => 0,
+			'second' => 0,
 		);
 
 		if ( ! empty( $wp_query->query_vars['m'] ) ) {
@@ -48,15 +47,15 @@ class gPersianDateLinks extends gPersianDateModuleCore
 				$end['year'] = $start['year'] + 1;
 
 				if ( strlen( $m ) > 5 ) {
-					$start['monthnum'] = substr( $m, 4, 2 );
-					$end['year']       = $start['year'];
-					$end['monthnum']   = $start['monthnum'] + 1;
+					$start['month'] = substr( $m, 4, 2 );
+					$end['year']    = $start['year'];
+					$end['month']   = $start['month'] + 1;
 				}
 
 				if ( strlen( $m ) > 7 ) {
-					$start['day']    = substr( $m, 6, 2 );
-					$end['monthnum'] = $start['monthnum'];
-					$end['day']      = $start['day'] + 1;
+					$start['day'] = substr( $m, 6, 2 );
+					$end['month'] = $start['month'];
+					$end['day']   = $start['day'] + 1;
 				}
 
 				if ( strlen( $m ) > 9 ) {
@@ -87,15 +86,15 @@ class gPersianDateLinks extends gPersianDateModuleCore
 			$end['year']   = $start['year'] + 1;
 
 			if ( ! empty( $wp_query->query_vars['monthnum'] ) ) {
-				$start['monthnum'] = $wp_query->query_vars['monthnum'];
-				$end['year']       = $start['year'];
-				$end['monthnum']   = $start['monthnum'] + 1;
+				$start['month'] = $wp_query->query_vars['monthnum'];
+				$end['year']    = $start['year'];
+				$end['month']   = $start['month'] + 1;
 			}
 
 			if ( ! empty( $wp_query->query_vars['day'] ) ) {
-				$start['day']    = $wp_query->query_vars['day'];
-				$end['monthnum'] = $start['monthnum'];
-				$end['day']      = $start['day'] + 1;
+				$start['day'] = $wp_query->query_vars['day'];
+				$end['month'] = $start['month'];
+				$end['day']   = $start['day'] + 1;
 			}
 
 			if ( ! empty( $wp_query->query_vars['hour'] ) ) {
@@ -120,6 +119,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( ! $conversion )
 			return $where;
 
+		$days  = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
 		$where = self::stripDateClauses( $where );
 
 		if ( $end['second'] > 59 ) {
@@ -137,18 +137,18 @@ class gPersianDateLinks extends gPersianDateModuleCore
 			$end['day']++;
 		}
 
-		if ( $end['day'] > $days_in_month[$start['monthnum']-1] ){
+		if ( $end['day'] > $days[$start['month']-1] ){
 			$end['day'] = 1;
-			$end['monthnum']++;
+			$end['month']++;
 		}
 
-		if ( $end['monthnum'] > 12 ) {
-			$end['monthnum'] = 1;
+		if ( $end['month'] > 12 ) {
+			$end['month'] = 1;
 			$end['year']++;
 		}
 
-		$start_date = date( 'Y-m-d H:i:s', gPersianDateDate::make( $start['hour'], $start['minute'], $start['second'], $start['monthnum'], $start['day'], $start['year'] ) );
-		$end_date   = date( 'Y-m-d H:i:s', gPersianDateDate::make( $end['hour'], $end['minute'], $end['second'], $end['monthnum'], $end['day'], $end['year'] ) );
+		$start_date = gPersianDateDate::makeMySQLFromArray( $start );
+		$end_date   = gPersianDateDate::makeMySQLFromArray( $end );
 
 		return $where." AND $wpdb->posts.post_date >= '$start_date' AND $wpdb->posts.post_date < '$end_date' ";
 	}
