@@ -19,6 +19,27 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		add_filter( 'html_format_i18n', array( __CLASS__, 'html' ) );
 
 		add_filter( 'maybe_format_i18n', array( __CLASS__, 'numbers' ), 10, 2 );
+
+		// FIXME: make optional
+		add_filter( 'wp_insert_attachment_data', array( __CLASS__, 'attachment_data' ), 12, 2 );
+		add_filter( 'image_add_caption_text', array( __CLASS__, 'html' ), 9 );
+	}
+
+	public static function attachment_data( $data, $postarr )
+	{
+		// attachment title
+		if ( ! empty( $data['post_title'] ) )
+			$data['post_title'] = self::numbers( $data['post_title'] );
+
+		// attachment caption
+		if ( ! empty( $data['post_excerpt'] ) )
+			$data['post_excerpt'] = self::html( $data['post_excerpt'] );
+
+		// attachment description
+		if ( ! empty( $data['post_content'] ) )
+			$data['post_content'] = self::html( $data['post_content'] );
+
+		return $data;
 	}
 
 	public static function format_i18n( $formatted, $decimals = 0 )
