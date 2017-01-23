@@ -41,6 +41,7 @@ function gpersiandate_init(){
 		'archives',
 		'wordpress',
 		'adminbar',
+		'shortcodes',
 		'buddypress',
 		'bbpress',
 		'widgets',

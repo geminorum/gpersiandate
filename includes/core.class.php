@@ -36,19 +36,20 @@ class gPersianDateCore extends gPersianDateBase
 	private function setup_modules()
 	{
 		$modules = array(
-			'datetime'  => 'gPersianDateDateTime',
-			'strings'   => 'gPersianDateStrings',
-			'translate' => 'gPersianDateTranslate',
-			'timezone'  => 'gPersianDateTimeZone',
-			'wordpress' => 'gPersianDateWordPress',
-			'adminbar'  => 'gPersianDateAdminBar',
-			'date'      => 'gPersianDateDate',
-			'format'    => 'gPersianDateFormat',
-			'search'    => 'gPersianDateSearch',
-			'archives'  => 'gPersianDateArchives',
-			'calendar'  => 'gPersianDateCalendar',
-			'plugins'   => 'gPersianDatePlugins',
-			'form'      => 'gPersianDateForm',
+			'datetime'   => 'gPersianDateDateTime',
+			'strings'    => 'gPersianDateStrings',
+			'translate'  => 'gPersianDateTranslate',
+			'timezone'   => 'gPersianDateTimeZone',
+			'wordpress'  => 'gPersianDateWordPress',
+			'adminbar'   => 'gPersianDateAdminBar',
+			'date'       => 'gPersianDateDate',
+			'format'     => 'gPersianDateFormat',
+			'search'     => 'gPersianDateSearch',
+			'shortcodes' => 'gPersianDateShortCodes',
+			'archives'   => 'gPersianDateArchives',
+			'calendar'   => 'gPersianDateCalendar',
+			'plugins'    => 'gPersianDatePlugins',
+			'form'       => 'gPersianDateForm',
 		);
 
 		if ( is_admin() )
