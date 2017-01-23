@@ -128,7 +128,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return mysql2date( 'U', $the_date, FALSE );
 	}
 
-	public static function getPosttypeFirstAndLast( $post_type = 'post', $args = array(), $user_id = 0 )
+	public static function getPosttypeFirstAndLast( $post_type = 'post', $args = array(), $user_id = 0, $protected = TRUE )
 	{
 		global $wpdb;
 
@@ -142,6 +142,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 		else if ( isset( $args['post_status'] ) )
 			$extra_checks = $wpdb->prepare( ' AND post_status = %s', $args['post_status'] );
+
+		if ( ! $protected )
+			$extra_checks .= " AND post_password = ''";
 
 		$query = $wpdb->prepare( "
 			SELECT post_date AS date
