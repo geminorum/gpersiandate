@@ -3,6 +3,11 @@
 class gPersianDateDate extends gPersianDateModuleCore
 {
 
+	public static function daysInMonth()
+	{
+		return array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
+	}
+
 	public static function to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = GPERSIANDATE_LOCALE, $translate = TRUE, $calendar = 'Jalali' )
 	{
 		if ( FALSE === $time )
@@ -80,7 +85,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s' )
 	{
-		$days = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
+		$days = self::daysInMonth();
 
 		return array(
 			date( $format, self::make( 0, 0, 0, $month, 1, $year ) ),

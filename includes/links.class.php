@@ -119,7 +119,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( ! $conversion )
 			return $where;
 
-		$days  = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
+		$days  = gPersianDateDate::daysInMonth();
 		$where = self::stripDateClauses( $where );
 
 		if ( $end['second'] > 59 ) {
