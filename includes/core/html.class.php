@@ -3,6 +3,41 @@
 class gPersianDateHTML extends gPersianDateBase
 {
 
+	public static function link( $html, $link = '#', $target_blank = FALSE )
+	{
+		return self::tag( 'a', array( 'class' => 'scroll', 'href' => $link, 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
+	}
+
+	public static function scroll( $html, $to )
+	{
+		return '<a class="scroll" href="#'.$to.'">'.$html.'</a>';
+	}
+
+	public static function h2( $html, $class = FALSE )
+	{
+		echo self::tag( 'h2', array( 'class' => $class ), $html );
+	}
+
+	public static function h3( $html, $class = FALSE )
+	{
+		echo self::tag( 'h3', array( 'class' => $class ), $html );
+	}
+
+	public static function desc( $html, $block = TRUE, $class = '' )
+	{
+		if ( $html ) echo $block ? '<p class="description '.$class.'">'.$html.'</p>' : '<span class="description '.$class.'">'.$html.'</span>';
+	}
+
+	public static function inputHidden( $name, $value = '' )
+	{
+		echo '<input type="hidden" name="'.self::escapeAttr( $name ).'" value="'.self::escapeAttr( $value ).'" />';
+	}
+
+	public static function joined( $items, $before = '', $after = '', $sep = '|' )
+	{
+		return count( $items ) ? ( $before.join( $sep, $items ).$after ) : '';
+	}
+
 	public static function tag( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
 		$tag = self::sanitizeTag( $tag );
@@ -60,7 +95,7 @@ class gPersianDateHTML extends gPersianDateBase
 							continue;
 
 						else
-							$html .= ' data-'.$data_key.'="'.esc_attr( $data_val ).'"';
+							$html .= ' data-'.$data_key.'="'.self::escapeAttr( $data_val ).'"';
 					}
 
 					continue;
@@ -103,7 +138,7 @@ class gPersianDateHTML extends gPersianDateBase
 				$att = self::escapeURL( $att );
 
 			else
-				$att = esc_attr( $att );
+				$att = self::escapeAttr( $att );
 
 			$html .= ' '.$key.'="'.trim( $att ).'"';
 		}
@@ -112,6 +147,16 @@ class gPersianDateHTML extends gPersianDateBase
 			return $html.' />';
 
 		return $html.'>';
+	}
+
+	// like WP core but without filter
+	// @SOURCE: `esc_attr()`
+	public static function escapeAttr( $text )
+	{
+		$safe_text = wp_check_invalid_utf8( $text );
+		$safe_text = _wp_specialchars( $safe_text, ENT_QUOTES );
+
+		return $safe_text;
 	}
 
 	public static function escapeURL( $url )
@@ -241,14 +286,28 @@ class gPersianDateHTML extends gPersianDateBase
 
 		echo '<tbody>';
 
-		foreach ( (array) $array as $key => $val )
+		foreach ( (array) $array as $key => $val ) {
+
+			if ( is_null( $val ) )
+				$val = 'NULL';
+
+			else if ( is_bool( $val ) )
+				$val = $val ? 'TRUE' : 'FALSE';
+
+			else if ( is_array( $val ) || is_object( $val ) )
+				$val = json_encode( $val );
+
 			printf( $row, $key, $val );
+		}
 
 		echo '</tbody></table>';
 	}
 
 	public static function menu( $menu, $callback = FALSE, $list = 'ul', $children = 'children' )
 	{
+		if ( ! $menu )
+			return;
+
 		echo '<'.$list.'>';
 
 		foreach ( $menu as $item ) {
@@ -258,7 +317,7 @@ class gPersianDateHTML extends gPersianDateBase
 			if ( is_callable( $callback ) )
 				echo call_user_func_array( $callback, array( $item ) );
 			else
-				echo self::menuCallback( $item );
+				echo self::link( $item['title'], '#'.$item['slug'] );
 
 			if ( ! empty( $item[$children] ) )
 				self::menu( $item[$children], $callback, $list, $children );
@@ -267,10 +326,5 @@ class gPersianDateHTML extends gPersianDateBase
 		}
 
 		echo '</'.$list.'>';
-	}
-
-	public static function menuCallback( $item )
-	{
-		return self::tag( 'a', array( 'href' => '#'.$item['slug'] ), $item['title'] );
 	}
 }
