@@ -2,7 +2,9 @@
 
 class gPersianDateArchives extends gPersianDateModuleCore
 {
+
 	// FIXME: REWRITE THIS
+	// REPLICA: `wp_get_archives()`
 	public static function get( $r = '' )
 	{
 		global $wpdb, $wp_locale;
@@ -59,183 +61,304 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 		$where = gPersianDateLinks::stripDateClauses( $where ); // just in case!
 
-		$days_in_month     = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
+		$days_in_month     = gPersianDateDate::daysInMonth();
 		$output            = '';
-		$last_persian_year = $last_persian_month = false;
+		$last_persian_year = $last_persian_month = FALSE;
 		$afterafter        = $args['after'];
 		$limit             = 1;
 
-		$last_changed = wp_cache_get( 'last_changed', 'posts' );
-		if ( ! $last_changed ) {
+		if ( ! $last_changed = wp_cache_get( 'last_changed', 'posts' ) ) {
 			$last_changed = microtime();
 			wp_cache_set( 'last_changed', $last_changed, 'posts' );
 		}
 
 		if ( 'monthly' == $args['type'] ) {
-			$query = "SELECT YEAR(post_date) AS `year`, MONTH(post_date) AS `month`, DAY(post_date) AS `day` FROM $wpdb->posts $join $where GROUP BY YEAR(post_date), MONTH(post_date), DAY(post_date) ORDER BY post_date ".$args['order']; //.' '.$args['limit'];
+
+			$query = "
+				SELECT YEAR(post_date) AS `year`, MONTH(post_date) AS `month`, DAY(post_date) AS `day`
+				FROM {$wpdb->posts}
+				{$join}
+				{$where}
+				GROUP BY YEAR(post_date), MONTH(post_date), DAY(post_date)
+				ORDER BY post_date ".$args['order']; //.' '.$args['limit'];
+
 			$key = md5( $query.'_'.$args['limit'] );
 			$key = "wp_get_archives:$key:$last_changed";
+
 			if ( ! $results = wp_cache_get( $key, 'posts' ) ) {
+
 				$results = $wpdb->get_results( $query );
+
 				if ( $results ) {
+
 					foreach ( (array) $results as $result ) {
+
 						if ( 0 == $result->year )
 							continue;
 
 						$the_date = mktime( 0 ,0 , 0, zeroise( $result->month, 2 ), $result->day, $result->year );
-						$the_persian_month = gPersianDateDate::to( 'Ym', $the_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+						$the_persian_month = gPersianDateDate::_to( 'Ym', $the_date );
 
 						if ( $last_persian_month != $the_persian_month ) {
-							$the_year = gPersianDateDate::to( 'Y', $the_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-							$the_month = gPersianDateDate::to( 'm', $the_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+
+							$the_year  = gPersianDateDate::_to( 'Y', $the_date );
+							$the_month = gPersianDateDate::_to( 'm', $the_date );
+
 							$url = get_month_link( $the_year, $the_month );
+
 							$text = sprintf( _x( '%1$s %2$s', 'wp_get_archives monthly', GPERSIANDATE_TEXTDOMAIN ),
 								gPersianDateStrings::month( $the_month ),
 								gPersianDateTranslate::numbers( $the_year )
 							);
+
 							if ( $args['show_post_count'] ) {
-								// $first_day = date( 'Y-m-d', gPersianDateHelper::convert_back( $the_year.'/'.$the_month.'/'.'01' ) );
-								// $last_day = date( 'Y-m-d', gPersianDateHelper::convert_back( $the_year.'/'.$the_month.'/'.gPersianDateHelper::j_last_day_of_month( $the_month ) ) );
-								$first_day = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $the_month, 1, $the_year ) );
-								$last_day = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $the_month, $days_in_month[$the_month-1], $the_year ) );
+
+								list( $first_day, $last_day ) = gPersianDateDate::monthFirstAndLast( $the_year, $the_month );
+
 								$post_count = $wpdb->get_results( "SELECT COUNT(id) as 'post_count' FROM $wpdb->posts $join $where AND post_date >='$first_day' AND post_date <='$last_day' ");
+
 								$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives monthly count', GPERSIANDATE_TEXTDOMAIN ),
 									gPersianDateTranslate::numbers( $post_count[0]->post_count ) ).$afterafter;
 							}
+
 							$output .= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
+
 							if ( $limit == $args['limit'] )
 								break;
+
 							$limit++;
 						}
+
 						$last_persian_month = $the_persian_month;
 					}
+
 					$results = $output;
+
 					wp_cache_set( $key, $results, 'posts' );
 				}
+
 			} else {
+
 				$output .= $results;
 			}
-		} elseif ( 'yearly' == $args['type'] ) {
-			$query = "SELECT DISTINCT YEAR(post_date) AS `year`, MONTH(post_date) AS `month`, DAY(post_date) AS `dayofmonth` FROM $wpdb->posts $join $where GROUP BY YEAR(post_date), MONTH(post_date) ORDER BY post_date ".$args['order'];;
+
+		} else if ( 'yearly' == $args['type'] ) {
+
+			$query = "
+				SELECT DISTINCT YEAR(post_date) AS `year`, MONTH(post_date) AS `month`, DAY(post_date) AS `dayofmonth`
+				FROM {$wpdb->posts}
+				{$join}
+				{$where}
+				GROUP BY YEAR(post_date), MONTH(post_date)
+				ORDER BY post_date ".$args['order'];
+
 			$key = md5( $query.'_'.$args['limit'] );
 			$key = "wp_get_archives:$key:$last_changed";
+
 			if ( ! $results = wp_cache_get( $key, 'posts' ) ) {
+
 				$results = $wpdb->get_results( $query );
+
 				if ( $results ) {
+
 					foreach ( (array) $results as $result ) {
+
 						if ( 0 == $result->year )
 							continue;
-						$the_date = mktime( 0 ,0 , 0, zeroise( $result->month, 2 ), $result->day, $result->year );
-						$the_persian_year = gPersianDateDate::to( 'Y', $the_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+
+						$the_date = mktime( 0 ,0 , 0, zeroise( $result->month, 2 ), $result->dayofmonth, $result->year );
+						$the_persian_year = gPersianDateDate::_to( 'Y', $the_date );
+
 						if ( $last_persian_year != $the_persian_year ) {
-							$the_year = gPersianDateDate::to( 'Y', $the_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-							$url = get_year_link( $the_year );
-							$text = sprintf( _x( '%s', 'wp_get_archives yearly', GPERSIANDATE_TEXTDOMAIN ),
-								gPersianDateTranslate::numbers( $the_year )
-							);
+
+							$the_year = gPersianDateDate::_to( 'Y', $the_date );
+							$url      = get_year_link( $the_year );
+							$text     = sprintf( _x( '%s', 'wp_get_archives yearly', GPERSIANDATE_TEXTDOMAIN ), gPersianDateTranslate::numbers( $the_year ) );
+
 							if ( $args['show_post_count'] ) {
-								//$first_day = date( 'Y-m-d', gPersianDateHelper::convert_back( $the_year.'/01/01' ) );
-								//$last_day = date( 'Y-m-d', gPersianDateHelper::convert_back( ($the_year+1).'/01/01' ) );
-								$first_day = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, 1, 1, $the_year ) );
-								$last_day = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, 1, 1, $the_year+1 ) );
-								$post_count = $wpdb->get_results( "SELECT COUNT(id) as 'post_count' FROM $wpdb->posts $join $where AND post_date >='$first_day' AND post_date <='$last_day' ");
+
+								$first_day = gPersianDateDate::makeMySQL( 0, 0, 0, 1, 1, $the_year );
+								$last_day  = gPersianDateDate::makeMySQL( 0, 0, 0, 1, 1, $the_year + 1 ); // FIXME: is this correct last day of year?
+
+								$post_count = $wpdb->get_results( "
+									SELECT COUNT(id) as 'post_count'
+									FROM {$wpdb->posts}
+									{$join}
+									{$where}
+									AND post_date >='{$first_day}'
+									AND post_date <='{$last_day}'
+								" );
+
 								$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives yearly count', GPERSIANDATE_TEXTDOMAIN ),
 									gPersianDateTranslate::numbers( $post_count[0]->post_count ) ).$afterafter;
 							}
+
 							$output .= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
+
 							if ( $limit == $args['limit'] )
 								break;
+
 							$limit++;
 						}
+
 						$last_persian_year = $the_persian_year;
 					}
+
 					$results = $output;
+
 					wp_cache_set( $key, $results, 'posts' );
 				}
+
 			} else {
+
 				$output .= $results;
 			}
-		} elseif ( 'daily' == $args['type'] ) {
-			$query = "SELECT YEAR(post_date) AS `year`, MONTH(post_date) AS `month`, DAYOFMONTH(post_date) AS `dayofmonth`, count(ID) as posts FROM $wpdb->posts $join $where GROUP BY YEAR(post_date), MONTH(post_date), DAYOFMONTH(post_date) ORDER BY post_date ".$args['order'].' '.$args['limit'];
+
+		} else if ( 'daily' == $args['type'] ) {
+
+			$query = "
+				SELECT YEAR(post_date) AS `year`, MONTH(post_date) AS `month`, DAYOFMONTH(post_date) AS `dayofmonth`, count(ID) as posts
+				FROM {$wpdb->posts}
+				{$join}
+				{$where}
+				GROUP BY YEAR(post_date), MONTH(post_date), DAYOFMONTH(post_date)
+				ORDER BY post_date ".$args['order'].' '.$args['limit'];
+
 			$key = md5( $query );
 			$key = "wp_get_archives:$key:$last_changed";
+
 			if ( ! $results = wp_cache_get( $key, 'posts' ) ) {
+
 				$results = $wpdb->get_results( $query );
 				//$cache[ $key ] = $results;
+
 				if ( $results ) {
+
 					foreach ( (array) $results as $result ) {
-						$the_date = mktime( 0 ,0 , 0, zeroise( $result->month, 2 ), $result->day, $result->year );
-						$the_year = gPersianDateDate::to( 'Y', $the_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-						$the_month = gPersianDateDate::to( 'm', $the_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-						$the_day = gPersianDateDate::to( 'd', $the_date, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
+
+						$the_date  = mktime( 0 ,0 , 0, zeroise( $result->month, 2 ), $result->dayofmonth, $result->year );
+						$the_year  = gPersianDateDate::_to( 'Y', $the_date );
+						$the_month = gPersianDateDate::_to( 'm', $the_date );
+						$the_day   = gPersianDateDate::_to( 'd', $the_date );
+
 						$url = get_day_link( $the_year, $the_month, $the_day );
+
 						$date = sprintf( '%1$d-%2$02d-%3$02d 00:00:00', $result->year, $result->month, $result->dayofmonth );
-						$text = mysql2date( $archive_day_date_format, $date, true ); // this will convert the date
+						$text = mysql2date( $archive_day_date_format, $date, TRUE ); // this will convert the date
+
 						if ( $args['show_post_count'] )
 							$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives daily count', GPERSIANDATE_TEXTDOMAIN ),
 								gPersianDateTranslate::numbers( $result->posts ) ).$afterafter;
+
 						$output .= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
 					}
+
 					$results = $output;
+
 					wp_cache_set( $key, $results, 'posts' );
 				}
+
 			} else {
+
 				$output .= $results;
 			}
-		} elseif ( 'weekly' == $args['type'] ) {
+
+		} else if ( 'weekly' == $args['type'] ) {
+
 			$week = _wp_mysql_week( '`post_date`' );
-			$query = "SELECT DISTINCT $week AS `week`, YEAR( `post_date` ) AS `yr`, DATE_FORMAT( `post_date`, '%Y-%m-%d' ) AS `yyyymmdd`, count( `ID` ) AS `posts` FROM `$wpdb->posts` $join $where GROUP BY $week, YEAR( `post_date` ) ORDER BY `post_date` ".$args['order'].' '.$args['limit'];
+
+			$query = "
+				SELECT DISTINCT {$week} AS `week`, YEAR( `post_date` ) AS `yr`, DATE_FORMAT( `post_date`, '%Y-%m-%d' ) AS `yyyymmdd`, count( `ID` ) AS `posts`
+				FROM {$wpdb->posts}
+				{$join}
+				{$where}
+				GROUP BY {$week}, YEAR( `post_date` )
+				ORDER BY `post_date` ".$args['order'].' '.$args['limit'];
+
 			$key = md5( $query );
 			$key = "wp_get_archives:$key:$last_changed";
+
 			if ( ! $results = wp_cache_get( $key, 'posts' ) ) {
+
 				$results = $wpdb->get_results( $query );
 
 				$arc_w_last = '';
+
 				if ( $results ) {
+
 					foreach ( (array) $results as $result ) {
+
 						if ( $result->week != $arc_w_last ) {
-							$arc_year = $result->yr;
-							$arc_w_last = $result->week;
-							$arc_week = get_weekstartend( $result->yyyymmdd, get_option( 'start_of_week' ) );
+
+							$arc_year       = $result->yr;
+							$arc_w_last     = $result->week;
+							$arc_week       = get_weekstartend( $result->yyyymmdd, get_option( 'start_of_week' ) );
 							$arc_week_start = date_i18n( $archive_week_start_date_format, $arc_week['start'] );
-							$arc_week_end = date_i18n( $archive_week_end_date_format, $arc_week['end'] );
-							$url = sprintf( '%1$s/%2$s%3$sm%4$s%5$s%6$sw%7$s%8$d', home_url(), '', '?', '=', $arc_year, '&amp;', '=', $result->week );
+							$arc_week_end   = date_i18n( $archive_week_end_date_format, $arc_week['end'] );
+
+							$url  = sprintf( '%1$s/%2$s%3$sm%4$s%5$s%6$sw%7$s%8$d', home_url(), '', '?', '=', $arc_year, '&amp;', '=', $result->week );
 							$text = $arc_week_start.$archive_week_separator.$arc_week_end;
+
 							if ( $args['show_post_count'] )
 								$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives weekly count', GPERSIANDATE_TEXTDOMAIN ),
 									gPersianDateTranslate::numbers( $result->posts ) ).$afterafter;
+
 							$output .= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
 						}
 					}
 				}
+
 				$results = $output;
+
 				wp_cache_set( $key, $results, 'posts' );
+
 			} else {
+
 				$output .= $results;
 			}
-		} elseif ( ( 'postbypost' == $args['type'] ) || ( 'alpha' == $args['type'] ) ) {
+
+		} else if ( ( 'postbypost' == $args['type'] ) || ( 'alpha' == $args['type'] ) ) {
+
 			$orderby = ('alpha' == $type) ? 'post_title ASC ' : 'post_date DESC ';
-			$query = "SELECT * FROM $wpdb->posts $join $where ORDER BY ".$args['order'].' '.$args['limit'];
+
+			$query = "
+				SELECT *
+				FROM {$wpdb->posts}
+				{$join}
+				{$where}
+				ORDER BY ".$args['order'].' '.$args['limit'];
+
 			$key = md5( $query );
 			$key = "wp_get_archives:$key:$last_changed";
+
 			if ( ! $results = wp_cache_get( $key, 'posts' ) ) {
+
 				$results = $wpdb->get_results( $query );
 
 				if ( $results ) {
+
 					foreach ( (array) $results as $result ) {
+
 						if ( $result->post_date != '0000-00-00 00:00:00' ) {
+
 							$url = get_permalink( $result );
+
 							if ( $result->post_title )
 								$text = strip_tags( apply_filters( 'the_title', $result->post_title, $result->ID ) );
 							else
 								$text = $result->ID;
+
 							$output .= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
 						}
 					}
 				}
+
 				$results = $output;
+
 				wp_cache_set( $key, $results, 'posts' );
+
 			} else {
+
 				$output .= $results;
 			}
 		}
@@ -244,7 +367,6 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			echo $output;
 		else
 			return $output;
-
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
