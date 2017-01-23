@@ -247,57 +247,96 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 	}
 
-	// FIXME: REWRITE THIS
-	// TODO: args / styles / cache / shortcode / widget
-	public static function get_compact( $r = '' )
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// INSPIRED BY: Compact Archives
+/// by Syed Balkhi & Noumaan Yaqoob
+// @REF: https://wordpress.org/plugins/compact-archives/
+// @REF: http://www.wpbeginner.com/plugins/how-to-create-compact-archives-in-wordpress/
+
+	// LAST EDITED: 1/23/2017, 5:00:27 PM
+	public static function getCompact( $atts = array() )
 	{
+		$args = self::atts( array(
+			'post_type'      => 'post', // or array of types
+			'post_author'    => 0, // all
+			'css_class'      => 'table table-condensed', // Bootstrap 3 classes
+			'month_name'     => TRUE, // FALSE to number
+			'string_caption' => FALSE, // table caption
+			'string_count'   => _x( '%s Posts', 'Archives: Compact', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
+			'string_empty'   => _x( 'Archives are empty.', 'Archives: Compact', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
+		), $atts );
+
+		list( $first, $last ) = gPersianDateDate::getPosttypeFirstAndLast( $args['post_type'], array(), $args['post_author'], FALSE );
+
+		if ( ! $first )
+			return $args['string_empty'] ? '<span class="-empty">'.$args['string_empty'].'</span>' : FALSE;
+
 		global $wpdb;
 
-		$args          = array();
-		$output        = '';
-		$days_in_month = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
-		$where         = apply_filters( 'getarchives_where', "WHERE post_type = 'post' AND post_status = 'publish'", $args );
-		$join          = apply_filters( 'getarchives_join', '', $args );
-		$where         = gPersianDateLinks::stripDateClauses( $where ); // just in case!
+		$html   = '';
+		$author = $args['post_author'] ? $wpdb->prepare( "AND post_author = %d", $args['post_author'] ) : '';
 
-		$first = $wpdb->get_results("SELECT post_date AS date FROM $wpdb->posts $where AND post_password='' $join ORDER BY post_date ASC LIMIT 1");
+		if ( ! is_array( $args['post_type'] ) ) {
 
-		if ( $first ) {
-
-			$last = $wpdb->get_results("SELECT post_date AS date FROM $wpdb->posts $where AND post_password='' $join ORDER BY post_date DESC LIMIT 1");
-			// $the_year = gPersianDateDate::to( 'Y', current_time( 'timestamp' ), GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-			$the_year = gPersianDateDate::to( 'Y', strtotime( $last[0]->date ), GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-			$year = gPersianDateDate::to( 'Y', strtotime( $first[0]->date ), GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, FALSE );
-
-			// echo $results[0]->date.'<br />';
-			// echo 't:'.$the_year.'<br />';
-			// echo 'y:'.$year.'<br />';
-
-			while ( $the_year >= $year ) {
-
-				$output .= '<div dir="ltr"><a href="'.get_year_link( $year ).'">'.gPersianDateTranslate::numbers( $year ).'</a> : ';
-
-				for ( $month = 1; $month <= 12; $month += 1) {
-					$first_day = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $month, 1, $year ) );
-					$last_day = date( 'Y-m-d H:i:s', gPersianDateDate::make( 0, 0, 0, $month, $days_in_month[$month-1], $year ) );
-					$results = $wpdb->get_results("SELECT post_date AS date FROM $wpdb->posts $where AND post_password='' AND post_date >='$first_day' AND post_date <='$last_day' $join LIMIT 1");
-					//$text = gPersianDateTranslate::numbers( zeroise( $month, 2 ) );
-					$text = gPersianDateTranslate::numbers( $month );
-					//$text = gPersianDateStrings::month( $month );
-					if ( $results )
-						$output .= '<span><a href="'.get_month_link( $year, $month ).'">'.$text.'</a></span>&nbsp;';
-					else
-						$output .= '<span class="empty" style="opacity:0.4;">'.$text.'</span>&nbsp;';
-				}
-
-				$output .= '</div>';
-				$year++;
-			}
+			$where = $wpdb->prepare( "WHERE post_type = %s AND post_status = 'publish' AND post_password = ''", $args['post_type'] );
 
 		} else {
-			$output = __( 'Archives are empty.', GPERSIANDATE_TEXTDOMAIN );
+
+			$post_types_in = implode( ',', array_map( function( $v ){
+				return "'".esc_sql( $v )."'";
+			}, $args['post_type'] ) );
+
+			$where = "WHERE post_type IN ( {$post_types_in} ) AND post_status = 'publish' AND post_password = ''";
 		}
 
-		return $output;
+		$year = gPersianDateDate::_to( 'Y', $first );
+		$now  = gPersianDateDate::_to( 'Y', $last );
+
+		while ( $now >= $year ) {
+
+			$html .= '<tr><td class="-year text-info text-right" style="width:10%;">';
+				$html .= gPersianDateHTML::link( gPersianDateTranslate::numbers( $year ), get_year_link( $year ) );
+			$html .= '</td>';
+
+			for ( $month = 1; $month <= 12; $month += 1 ) {
+
+				list( $first_day, $last_day ) = gPersianDateDate::monthFirstAndLast( $year, $month );
+
+				$count = $wpdb->get_var( "
+					SELECT COUNT(*)
+					FROM {$wpdb->posts}
+					{$where}
+					{$author}
+					AND post_date >= '{$first_day}'
+					AND post_date <= '{$last_day}'
+				" );
+
+				$name = $args['month_name'] ? gPersianDateStrings::month( $month ) : gPersianDateTranslate::numbers( $month );
+
+				if ( ! $count ) {
+					$html .= '<td class="-month -empty text-muted text-center" style="width:7.5%;">'.$name.'</td>';
+				} else {
+					$title  = $args['string_count'] ? 'title="'.esc_attr( sprintf( $args['string_count'], gPersianDateTranslate::numbers( $count ) ) ).'"' : '';
+					$html  .= '<td class="-month text-center" '.$title.' style="width:7.5%;">'.gPersianDateHTML::link( $name, get_month_link( $year, $month ) ).'</td>';
+				}
+			}
+
+			$html .= '</tr>';
+			$year++;
+		}
+
+		$table = '<div class="table-responsive"><table';
+
+		if ( ! $args['month_name'] )
+			$table .= ' dir="ltr"';
+
+		$table .= ' class="date-archives-compact '.$args['css_class'].'">';
+
+		if ( $args['string_caption'] )
+			$table .= '<caption>'.$args['string_caption'].'</caption>';
+
+		return $table.'<tbody>'.$html.'</tbody></table></div>';
 	}
 }
