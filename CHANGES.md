@@ -1,3 +1,17 @@
+### 3.5.4
+* main/archives: :warning: fixed fatal: correct class for strip clauses
+* main/archives: :new: new compact archives
+* main/archives: :new: new clean archives
+* main/archives: attempt on get method
+* main/date: first/last supports multiple posttypes
+* main/date: first/last option for password protected
+* main/date: additional wrappers for make time method
+* main/date: days in month array as a method
+* main/date: wrapper for to without number translations
+* main/translate: :new: filtering attachment data
+* main/format: giving up string replacements!
+* main/shortcodes: :new: new module
+
 ### 3.5.3
 * main/date: same wrapper method for all supporting calendars
 * main/datetime: sanitize timezone/calendar
