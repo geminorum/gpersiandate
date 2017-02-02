@@ -28,7 +28,16 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$html = gPersianDateArchives::getClean( $atts );
+		$key = md5( 'gpersiandate_clean_'.serialize( $atts ).'_'.$tag );
+
+		if ( self::isFlush() )
+			delete_site_transient( $key );
+
+		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
+			$html = gPersianDateArchives::getClean( $atts );
+			$html = gPersianDateUtilities::minifyHTML( $html );
+			set_site_transient( $key, $html, 12 * HOUR_IN_SECONDS );
+		}
 
 		return self::shortcodeWrap( $html, 'archives-clean', $args );
 	}
@@ -45,7 +54,16 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$html = gPersianDateArchives::getCompact( $atts );
+		$key = md5( 'gpersiandate_compact_'.serialize( $atts ).'_'.$tag );
+
+		if ( self::isFlush() )
+			delete_site_transient( $key );
+
+		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
+			$html = gPersianDateArchives::getCompact( $atts );
+			$html = gPersianDateUtilities::minifyHTML( $html );
+			set_site_transient( $key, $html, 12 * HOUR_IN_SECONDS );
+		}
 
 		return self::shortcodeWrap( $html, 'archives-compact', $args );
 	}
