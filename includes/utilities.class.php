@@ -23,9 +23,17 @@ class gPersianDateUtilities extends gPersianDateBase
 
 	// @REF: http://php.net/manual/en/function.ob-start.php#71953
 	// @REF: http://stackoverflow.com/a/6225706
+	// @REF: https://coderwall.com/p/fatjmw/compressing-html-output-with-php
 	public static function minifyHTML( $buffer )
 	{
-		return trim( preg_replace( array(
+		$buffer = str_replace( array( "\n", "\r", "\t" ), '', $buffer );
+
+		$buffer = preg_replace(
+			array( '/<!--(.*)-->/Uis', "/[[:blank:]]+/" ),
+			array( '', ' ' ),
+		$buffer );
+
+		$buffer = preg_replace( array(
 			'/\>[^\S ]+/s', // strip whitespaces after tags, except space
 			'/[^\S ]+\</s', // strip whitespaces before tags, except space
 			'/(\s)+/s' // shorten multiple whitespace sequences
@@ -33,6 +41,8 @@ class gPersianDateUtilities extends gPersianDateBase
 			'>',
 			'<',
 			'\\1'
-		), $buffer ) );
+		), $buffer );
+
+		return trim( $buffer );
 	}
 }
