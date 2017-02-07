@@ -71,9 +71,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return self::make( $args['hour'], $args['minute'], $args['second'], $args['month'], $args['day'], $args['year'] );
 	}
 
-	public static function makeMySQLFromArray( $atts = array() )
+	public static function makeMySQLFromArray( $atts = array(), $format = 'Y-m-d H:i:s' )
 	{
-		return date( 'Y-m-d H:i:s', self::makeFromArray( $atts ) );
+		return date( $format, self::makeFromArray( $atts ) );
 	}
 
 	public static function makeFromInput( $input )
@@ -84,9 +84,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return self::make( 0, 0, 0, $parts[1], $parts[2], $parts[0] );
 	}
 
-	public static function makeMySQLFromInput( $input )
+	public static function makeMySQLFromInput( $input, $format = 'Y-m-d H:i:s' )
 	{
-		return date( 'Y-m-d H:i:s', self::makeFromInput( $input ) );
+		return date( $format, self::makeFromInput( $input ) );
 	}
 
 	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s' )

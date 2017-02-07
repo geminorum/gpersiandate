@@ -132,8 +132,8 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 				$where .= " AND post_date >='$start_date' ";
 
 		if ( ! empty( $_REQUEST['end_date_gp'] )
-			&& ( $end_date = gPersianDateDate::makeMySQLFromInput( $_REQUEST['end_date_gp'] ) ) )
-				$where .= " AND post_date <='$end_date' ";
+			&& ( $end_date = gPersianDateDate::makeMySQLFromInput( $_REQUEST['end_date_gp'], 'Y-m-d' ) ) )
+				$where .= " AND post_date <='$end_date 23:59:59'";
 
 		return $where;
 	}
