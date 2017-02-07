@@ -39,80 +39,131 @@ class gPersianDateStrings extends gPersianDateModuleCore
 	}
 
 	// @SEE: http://www.wikiwand.com/en/Month
-	public static function month( $formatted = '01', $all = FALSE, $calendar = NULL )
+	public static function month( $formatted = '01', $all = FALSE, $calendar = NULL, $abbrev = FALSE )
 	{
 		static $strings = array();
 
 		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
+		$full     = $abbrev ? 'abbrev' : 'full';
 
-		if ( ! isset( $strings[$calendar] ) ) {
+		if ( ! isset( $strings[$calendar][$full] ) ) {
 
 			switch( $calendar ) {
 
-				case 'Gregorian' :
+				case 'Gregorian':
 
-					// FIXME: !!
-					$strings['Gregorian'] = array(
-						'01' => __( 'January', GPERSIANDATE_TEXTDOMAIN ), // 31 days
-						'02' => __( 'February', GPERSIANDATE_TEXTDOMAIN ), // 28 days, 29 in leap years
-						'03' => __( 'March', GPERSIANDATE_TEXTDOMAIN ), // 31 days
-						'04' => __( 'April', GPERSIANDATE_TEXTDOMAIN ), // 30 days
-						'05' => __( 'May', GPERSIANDATE_TEXTDOMAIN ), // 31 days
-						'06' => __( 'June', GPERSIANDATE_TEXTDOMAIN ), // 30 days
-						'07' => __( 'July', GPERSIANDATE_TEXTDOMAIN ), // 31 days
-						'08' => __( 'August', GPERSIANDATE_TEXTDOMAIN ), // 31 days
-						'09' => __( 'September', GPERSIANDATE_TEXTDOMAIN ), // 30 days
-						'10' => __( 'October', GPERSIANDATE_TEXTDOMAIN ), // 31 days
-						'11' => __( 'November', GPERSIANDATE_TEXTDOMAIN ), // 30 days
-						'12' => __( 'December', GPERSIANDATE_TEXTDOMAIN ), // 31 days
-					);
+					if ( $abbrev )
+						$strings[$calendar]['abbrev'] = array(
+							'01' => _x( 'Jan', 'Strings: Month: Gregorian: Abbreviation: January', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'02' => _x( 'Feb', 'Strings: Month: Gregorian: Abbreviation: February', GPERSIANDATE_TEXTDOMAIN ), // 28 days, 29 in leap years
+							'03' => _x( 'Mar', 'Strings: Month: Gregorian: Abbreviation: March', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'04' => _x( 'Apr', 'Strings: Month: Gregorian: Abbreviation: April', GPERSIANDATE_TEXTDOMAIN ), // 30 days
+							'05' => _x( 'May', 'Strings: Month: Gregorian: Abbreviation: May', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'06' => _x( 'Jun', 'Strings: Month: Gregorian: Abbreviation: June', GPERSIANDATE_TEXTDOMAIN ), // 30 days
+							'07' => _x( 'Jul', 'Strings: Month: Gregorian: Abbreviation: July', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'08' => _x( 'Aug', 'Strings: Month: Gregorian: Abbreviation: August', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'09' => _x( 'Sep', 'Strings: Month: Gregorian: Abbreviation: September', GPERSIANDATE_TEXTDOMAIN ), // 30 days
+							'10' => _x( 'Oct', 'Strings: Month: Gregorian: Abbreviation: October', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'11' => _x( 'Nov', 'Strings: Month: Gregorian: Abbreviation: November', GPERSIANDATE_TEXTDOMAIN ), // 30 days
+							'12' => _x( 'Dec', 'Strings: Month: Gregorian: Abbreviation: December', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+						);
 
-				break;
-				case 'Hijri' :
-
-					$strings['Hijri'] = array(
-						'01' => __( 'Muharram', GPERSIANDATE_TEXTDOMAIN ), // (Restricted/sacred) محرّم
-						'02' => __( 'Safar', GPERSIANDATE_TEXTDOMAIN ), // (Empty/Yellow) صفر
-						'03' => __( 'Rabi I', GPERSIANDATE_TEXTDOMAIN ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
-						'04' => __( 'Rabi II', GPERSIANDATE_TEXTDOMAIN ), // Rabī’ ath-Thānī/Rabi` al-Aakhir/Rabi' II (Second spring or Last spring) ربيع الآخر أو ربيع الثاني
-						'05' => __( 'Jumada I', GPERSIANDATE_TEXTDOMAIN ), // Jumada al-Awwal/Jumaada I (First Freeze) جمادى الأول
-						'06' => __( 'Jumada II', GPERSIANDATE_TEXTDOMAIN ), // Jumada ath-Thānī or Jumādā al-Thānī/Jumādā II (Second Freeze or Last Freeze) جمادى الآخر أو جمادى الثاني
-						'07' => __( 'Rajab', GPERSIANDATE_TEXTDOMAIN ), // (To Respect) رجب
-						'08' => __( 'Shaaban', GPERSIANDATE_TEXTDOMAIN ), // Sha'bān (To Spread and Distribute) شعبان
-						'09' => __( 'Ramadan', GPERSIANDATE_TEXTDOMAIN ), // Ramadān (Parched Thirst) رمضان
-						'10' => __( 'Shawwal', GPERSIANDATE_TEXTDOMAIN ), // Shawwāl (To Be Light and Vigorous) شوّال
-						'11' => __( 'Dhu al-Qidah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Qi'dah (The Master of Truce) ذو القعدة
-						'12' => __( 'Dhu al-Hijjah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
-					);
+					else
+						$strings[$calendar]['full'] = array(
+							'01' => _x( 'January', 'Strings: Month: Gregorian: Full: January', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'02' => _x( 'February', 'Strings: Month: Gregorian: Full: February', GPERSIANDATE_TEXTDOMAIN ), // 28 days, 29 in leap years
+							'03' => _x( 'March', 'Strings: Month: Gregorian: Full: March', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'04' => _x( 'April', 'Strings: Month: Gregorian: Full: April', GPERSIANDATE_TEXTDOMAIN ), // 30 days
+							'05' => _x( 'May', 'Strings: Month: Gregorian: Full: May', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'06' => _x( 'June', 'Strings: Month: Gregorian: Full: June', GPERSIANDATE_TEXTDOMAIN ), // 30 days
+							'07' => _x( 'July', 'Strings: Month: Gregorian: Full: July', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'08' => _x( 'August', 'Strings: Month: Gregorian: Full: August', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'09' => _x( 'September', 'Strings: Month: Gregorian: Full: September', GPERSIANDATE_TEXTDOMAIN ), // 30 days
+							'10' => _x( 'October', 'Strings: Month: Gregorian: Full: October', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+							'11' => _x( 'November', 'Strings: Month: Gregorian: Full: November', GPERSIANDATE_TEXTDOMAIN ), // 30 days
+							'12' => _x( 'December', 'Strings: Month: Gregorian: Full: December', GPERSIANDATE_TEXTDOMAIN ), // 31 days
+						);
 
 				break;
-				default :
-				case 'Jalali' :
+				case 'Hijri':
 
-					$strings['Jalali'] = array(
-						'01' => __( 'Farvardin', GPERSIANDATE_TEXTDOMAIN ), // (31 days, فروردین)
-						'02' => __( 'Ordibehesht', GPERSIANDATE_TEXTDOMAIN ), // (31 days, اردیبهشت)
-						'03' => __( 'Khordad', GPERSIANDATE_TEXTDOMAIN ), // (31 days, خرداد)
-						'04' => __( 'Tir', GPERSIANDATE_TEXTDOMAIN ), // (31 days, تیر)
-						'05' => __( 'Mordad', GPERSIANDATE_TEXTDOMAIN ), // (31 days, مرداد)
-						'06' => __( 'Shahrivar', GPERSIANDATE_TEXTDOMAIN ), // (31 days, شهریور)
-						'07' => __( 'Mehr', GPERSIANDATE_TEXTDOMAIN ), // (30 days, مهر)
-						'08' => __( 'Aban', GPERSIANDATE_TEXTDOMAIN ), // (30 days, آبان)
-						'09' => __( 'Azar', GPERSIANDATE_TEXTDOMAIN ), // (30 days, آذر)
-						'10' => __( 'Dey', GPERSIANDATE_TEXTDOMAIN ), // (30 days, دی)
-						'11' => __( 'Bahman', GPERSIANDATE_TEXTDOMAIN ), // (30 days, بهمن)
-						'12' => __( 'Esfand', GPERSIANDATE_TEXTDOMAIN ), // (29 days- 30 days in leap year, اسفند)
-					);
+					if ( $abbrev )
+						$strings[$calendar]['abbrev'] = array(
+							'01' => _x( 'Muh', 'Strings: Month: Hijri: Abbreviation: Muharram', GPERSIANDATE_TEXTDOMAIN ), // (Restricted/sacred) محرّم
+							'02' => _x( 'Saf', 'Strings: Month: Hijri: Abbreviation: Safar', GPERSIANDATE_TEXTDOMAIN ), // (Empty/Yellow) صفر
+							'03' => _x( 'RaI', 'Strings: Month: Hijri: Abbreviation: Rabi I', GPERSIANDATE_TEXTDOMAIN ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
+							'04' => _x( 'RaII', 'Strings: Month: Hijri: Abbreviation: Rabi II', GPERSIANDATE_TEXTDOMAIN ), // Rabī’ ath-Thānī/Rabi` al-Aakhir/Rabi' II (Second spring or Last spring) ربيع الآخر أو ربيع الثاني
+							'05' => _x( 'JuI', 'Strings: Month: Hijri: Abbreviation: Jumada I', GPERSIANDATE_TEXTDOMAIN ), // Jumada al-Awwal/Jumaada I (First Freeze) جمادى الأول
+							'06' => _x( 'JuII', 'Strings: Month: Hijri: Abbreviation: Jumada II', GPERSIANDATE_TEXTDOMAIN ), // Jumada ath-Thānī or Jumādā al-Thānī/Jumādā II (Second Freeze or Last Freeze) جمادى الآخر أو جمادى الثاني
+							'07' => _x( 'Raj', 'Strings: Month: Hijri: Abbreviation: Rajab', GPERSIANDATE_TEXTDOMAIN ), // (To Respect) رجب
+							'08' => _x( 'Sha', 'Strings: Month: Hijri: Abbreviation: Shaaban', GPERSIANDATE_TEXTDOMAIN ), // Sha'bān (To Spread and Distribute) شعبان
+							'09' => _x( 'Ram', 'Strings: Month: Hijri: Abbreviation: Ramadan', GPERSIANDATE_TEXTDOMAIN ), // Ramadān (Parched Thirst) رمضان
+							'10' => _x( 'Sha', 'Strings: Month: Hijri: Abbreviation: Shawwal', GPERSIANDATE_TEXTDOMAIN ), // Shawwāl (To Be Light and Vigorous) شوّال
+							'11' => _x( 'DaQ', 'Strings: Month: Hijri: Abbreviation: Dhu al-Qidah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Qi'dah (The Master of Truce) ذو القعدة
+							'12' => _x( 'DaH', 'Strings: Month: Hijri: Abbreviation: Dhu al-Hijjah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
+						);
+
+					else
+						$strings[$calendar]['full'] = array(
+							'01' => _x( 'Muharram', 'Strings: Month: Hijri: Full: Muharram', GPERSIANDATE_TEXTDOMAIN ), // (Restricted/sacred) محرّم
+							'02' => _x( 'Safar', 'Strings: Month: Hijri: Full: Safar', GPERSIANDATE_TEXTDOMAIN ), // (Empty/Yellow) صفر
+							'03' => _x( 'Rabi I', 'Strings: Month: Hijri: Full: Rabi I', GPERSIANDATE_TEXTDOMAIN ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
+							'04' => _x( 'Rabi II', 'Strings: Month: Hijri: Full: Rabi II', GPERSIANDATE_TEXTDOMAIN ), // Rabī’ ath-Thānī/Rabi` al-Aakhir/Rabi' II (Second spring or Last spring) ربيع الآخر أو ربيع الثاني
+							'05' => _x( 'Jumada I', 'Strings: Month: Hijri: Full: Jumada I', GPERSIANDATE_TEXTDOMAIN ), // Jumada al-Awwal/Jumaada I (First Freeze) جمادى الأول
+							'06' => _x( 'Jumada II', 'Strings: Month: Hijri: Full: Jumada II', GPERSIANDATE_TEXTDOMAIN ), // Jumada ath-Thānī or Jumādā al-Thānī/Jumādā II (Second Freeze or Last Freeze) جمادى الآخر أو جمادى الثاني
+							'07' => _x( 'Rajab', 'Strings: Month: Hijri: Full: Rajab', GPERSIANDATE_TEXTDOMAIN ), // (To Respect) رجب
+							'08' => _x( 'Shaaban', 'Strings: Month: Hijri: Full: Shaaban', GPERSIANDATE_TEXTDOMAIN ), // Sha'bān (To Spread and Distribute) شعبان
+							'09' => _x( 'Ramadan', 'Strings: Month: Hijri: Full: Ramadan', GPERSIANDATE_TEXTDOMAIN ), // Ramadān (Parched Thirst) رمضان
+							'10' => _x( 'Shawwal', 'Strings: Month: Hijri: Full: Shawwal', GPERSIANDATE_TEXTDOMAIN ), // Shawwāl (To Be Light and Vigorous) شوّال
+							'11' => _x( 'Dhu al-Qidah', 'Strings: Month: Hijri: Full: Dhu al-Qidah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Qi'dah (The Master of Truce) ذو القعدة
+							'12' => _x( 'Dhu al-Hijjah', 'Strings: Month: Hijri: Full: Dhu al-Hijjah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
+						);
+
+				break;
+				default:
+				case 'Jalali':
+
+					if ( $abbrev )
+						$strings[$calendar]['abbrev'] = array(
+							'01' => _x( 'Far', 'Strings: Month: Jalali: Abbreviation: Farvardin', GPERSIANDATE_TEXTDOMAIN ), // (31 days, فروردین)
+							'02' => _x( 'Ord', 'Strings: Month: Jalali: Abbreviation: Ordibehesht', GPERSIANDATE_TEXTDOMAIN ), // (31 days, اردیبهشت)
+							'03' => _x( 'Kho', 'Strings: Month: Jalali: Abbreviation: Khordad', GPERSIANDATE_TEXTDOMAIN ), // (31 days, خرداد)
+							'04' => _x( 'Tir', 'Strings: Month: Jalali: Abbreviation: Tir', GPERSIANDATE_TEXTDOMAIN ), // (31 days, تیر)
+							'05' => _x( 'Mor', 'Strings: Month: Jalali: Abbreviation: Mordad', GPERSIANDATE_TEXTDOMAIN ), // (31 days, مرداد)
+							'06' => _x( 'Sha', 'Strings: Month: Jalali: Abbreviation: Shahrivar', GPERSIANDATE_TEXTDOMAIN ), // (31 days, شهریور)
+							'07' => _x( 'Meh', 'Strings: Month: Jalali: Abbreviation: Mehr', GPERSIANDATE_TEXTDOMAIN ), // (30 days, مهر)
+							'08' => _x( 'Aba', 'Strings: Month: Jalali: Abbreviation: Aban', GPERSIANDATE_TEXTDOMAIN ), // (30 days, آبان)
+							'09' => _x( 'Aza', 'Strings: Month: Jalali: Abbreviation: Azar', GPERSIANDATE_TEXTDOMAIN ), // (30 days, آذر)
+							'10' => _x( 'Dey', 'Strings: Month: Jalali: Abbreviation: Dey', GPERSIANDATE_TEXTDOMAIN ), // (30 days, دی)
+							'11' => _x( 'Bah', 'Strings: Month: Jalali: Abbreviation: Bahman', GPERSIANDATE_TEXTDOMAIN ), // (30 days, بهمن)
+							'12' => _x( 'Esf', 'Strings: Month: Jalali: Abbreviation: Esfand', GPERSIANDATE_TEXTDOMAIN ), // (29 days- 30 days in leap year, اسفند)
+						);
+
+					else
+						$strings[$calendar]['full'] = array(
+							'01' => _x( 'Farvardin', 'Strings: Month: Jalali: Full: Farvardin', GPERSIANDATE_TEXTDOMAIN ), // (31 days, فروردین)
+							'02' => _x( 'Ordibehesht', 'Strings: Month: Jalali: Full: Ordibehesht', GPERSIANDATE_TEXTDOMAIN ), // (31 days, اردیبهشت)
+							'03' => _x( 'Khordad', 'Strings: Month: Jalali: Full: Khordad', GPERSIANDATE_TEXTDOMAIN ), // (31 days, خرداد)
+							'04' => _x( 'Tir', 'Strings: Month: Jalali: Full: Tir', GPERSIANDATE_TEXTDOMAIN ), // (31 days, تیر)
+							'05' => _x( 'Mordad', 'Strings: Month: Jalali: Full: Mordad', GPERSIANDATE_TEXTDOMAIN ), // (31 days, مرداد)
+							'06' => _x( 'Shahrivar', 'Strings: Month: Jalali: Full: Shahrivar', GPERSIANDATE_TEXTDOMAIN ), // (31 days, شهریور)
+							'07' => _x( 'Mehr', 'Strings: Month: Jalali: Full: Mehr', GPERSIANDATE_TEXTDOMAIN ), // (30 days, مهر)
+							'08' => _x( 'Aban', 'Strings: Month: Jalali: Full: Aban', GPERSIANDATE_TEXTDOMAIN ), // (30 days, آبان)
+							'09' => _x( 'Azar', 'Strings: Month: Jalali: Full: Azar', GPERSIANDATE_TEXTDOMAIN ), // (30 days, آذر)
+							'10' => _x( 'Dey', 'Strings: Month: Jalali: Full: Dey', GPERSIANDATE_TEXTDOMAIN ), // (30 days, دی)
+							'11' => _x( 'Bahman', 'Strings: Month: Jalali: Full: Bahman', GPERSIANDATE_TEXTDOMAIN ), // (30 days, بهمن)
+							'12' => _x( 'Esfand', 'Strings: Month: Jalali: Full: Esfand', GPERSIANDATE_TEXTDOMAIN ), // (29 days- 30 days in leap year, اسفند)
+						);
 			}
 		}
 
 		if ( $all )
-			return $strings[$calendar];
+			return $strings[$calendar][$full];
 
 		$key = zeroise( $formatted, 2 );
 
-		if ( isset( $strings[$calendar][$key] ) )
-			return $strings[$calendar][$key];
+		if ( isset( $strings[$calendar][$full][$key] ) )
+			return $strings[$calendar][$full][$key];
 
 		return $formatted;
 	}
