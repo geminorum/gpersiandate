@@ -1,5 +1,7 @@
 {
   "name": "gPersianDate",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "jquery-timeago": "^1.5.4"
+  }
 }

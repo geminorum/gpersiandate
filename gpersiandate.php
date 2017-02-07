@@ -51,6 +51,7 @@ function gpersiandate_init(){
 		'form',
 
 		'picker',
+		'timeago',
 	);
 
 	foreach ( $includes as $include )
