@@ -180,6 +180,9 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 			case 'day':
 
+				$month = sprintf( '%02d', $month );
+				$day   = sprintf( '%02d', $day );
+
 				if ( $link = $wp_rewrite->get_day_permastruct() ) {
 
 					$link = user_trailingslashit( str_replace(
@@ -194,6 +197,8 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 			break;
 			case 'month':
+
+				$month = sprintf( '%02d', $month );
 
 				if ( $link = $wp_rewrite->get_month_permastruct() ) {
 
@@ -237,13 +242,9 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( $day != gmdate( 'j', current_time( 'timestamp' ) ) )
 			return $daylink;
 
-		$date = $year.'-'.$month.'-'.$day;
+		$date = gPersianDateDate::get( $year.'-'.$month.'-'.$day );
 
-		return self::build( 'day',
-			gPersianDateDate::_to( 'Y', $date ),
-			gPersianDateDate::_to( 'm', $date ),
-			gPersianDateDate::_to( 'd', $date )
-		);
+		return self::build( 'day', $date['year'], $date['mon'], $date['mday'] );
 	}
 
 	public function month_link( $monthlink, $year, $month )
@@ -254,12 +255,9 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( $month != gmdate( 'm', current_time( 'timestamp' ) ) )
 			return $monthlink;
 
-		$date = $year.'-'.$month.'-01';
+		$date = gPersianDateDate::get( $year.'-'.$month.'-01' );
 
-		return self::build( 'month',
-			gPersianDateDate::_to( 'Y', $date ),
-			gPersianDateDate::_to( 'm', $date )
-		);
+		return self::build( 'month', $date['year'], $date['mon'] );
 	}
 
 	public function year_link( $yearlink, $year )
@@ -267,11 +265,9 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( $year != gmdate( 'Y', current_time( 'timestamp' ) ) )
 			return $yearlink;
 
-		$date = $year.'-01-01';
+		$date = gPersianDateDate::get( $year.'-01-01' );
 
-		return self::build( 'year',
-			gPersianDateDate::_to( 'Y', $date )
-		);
+		return self::build( 'year', $date['year'] );
 	}
 
 	public function post_link( $permalink, $post, $leavename )
