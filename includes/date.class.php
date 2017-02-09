@@ -38,7 +38,35 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return self::to( $format, $time, $timezone, $locale, $translate, 'Hijri' );
 	}
 
+	// @REF: http://php.net/manual/en/function.getdate.php
+	public static function get( $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = GPERSIANDATE_LOCALE, $translate = FALSE, $calendar = 'Jalali' )
 	{
+		if ( FALSE === $time )
+			return array();
+
+		$string = self::to( 's|i|G|j|w|n|Y|z|l|F', $time, $timezone, $locale, FALSE, $calendar );
+
+		if ( $translate )
+			return gPersianDateTranslate::numbers( $string, $locale );
+
+		$array = explode( '|', $string );
+
+		return array(
+			'seconds' => $array[0], // `s`: Numeric representation of seconds: 0 to 59
+			'minutes' => $array[1], // `i`: Numeric representation of minutes: 0 to 59
+			'hours'   => $array[2], // `G`: Numeric representation of hours: 0 to 23
+			'mday'    => $array[3], // `j`: Numeric representation of the day of the month: 1 to 31
+			'wday'    => $array[4], // `w`: Numeric representation of the day of the week: 0 (for Sunday) through 6 (for Saturday)
+			'mon'     => $array[5], // `n`: Numeric representation of a month: 1 through 12
+			'year'    => $array[6], // `Y`: A full numeric representation of a year, 4 digits: Examples: 1999 or 2003
+			'yday'    => $array[7], // `z`: Numeric representation of the day of the year: 0 through 365
+			'weekday' => $array[8], // `l`: A full textual representation of the day of the week: Sunday through Saturday
+			'month'   => $array[9], // `F`: A full textual representation of a month, such as January or March: January through December
+
+			0 => is_null( $time ) ? current_time( 'timestamp' ) : $time,
+		);
+	}
+
 	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar = 'Jalali' )
 	{
 		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
