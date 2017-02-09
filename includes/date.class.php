@@ -38,9 +38,26 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return self::to( $format, $time, $timezone, $locale, $translate, 'Hijri' );
 	}
 
-	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear )
 	{
-		list( $year, $month, $day ) = gPersianDateDateTime::fromJalali( $jyear, $jmonth, $jday );
+	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar = 'Jalali' )
+	{
+		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
+
+		if ( 'Gregorian' == $calendar )
+			return mktime(
+				(int) $hour,
+				(int) $minute,
+				(int) $second,
+				(int) $jmonth,
+				(int) $jday,
+				(int) $jyear
+			);
+
+		else if ( 'Hijri' == $calendar )
+			list( $year, $month, $day ) = gPersianDateDateTime::fromHijri( $jyear, $jmonth, $jday );
+
+		else
+			list( $year, $month, $day ) = gPersianDateDateTime::fromJalali( $jyear, $jmonth, $jday );
 
 		return mktime(
 			(int) $hour,
@@ -52,23 +69,24 @@ class gPersianDateDate extends gPersianDateModuleCore
 		);
 	}
 
-	public static function makeMySQL( $hour, $minute, $second, $jmonth, $jday, $jyear )
+	public static function makeMySQL( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar = 'Jalali' )
 	{
-		return date( 'Y-m-d H:i:s', self::make( $hour, $minute, $second, $jmonth, $jday, $jyear ) );
+		return date( 'Y-m-d H:i:s', self::make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar ) );
 	}
 
 	public static function makeFromArray( $atts = array() )
 	{
 		$args = self::atts( array(
-			'year'   => 1362, // ;)
-			'month'  => 1,
-			'day'    => 1,
-			'hour'   => 0,
-			'minute' => 0,
-			'second' => 0,
+			'year'     => 1362, // ;)
+			'month'    => 1,
+			'day'      => 1,
+			'hour'     => 0,
+			'minute'   => 0,
+			'second'   => 0,
+			'calendar' => 'Jalali',
 		), $atts );
 
-		return self::make( $args['hour'], $args['minute'], $args['second'], $args['month'], $args['day'], $args['year'] );
+		return self::make( $args['hour'], $args['minute'], $args['second'], $args['month'], $args['day'], $args['year'], $args['calendar'] );
 	}
 
 	public static function makeMySQLFromArray( $atts = array(), $format = 'Y-m-d H:i:s' )
@@ -76,26 +94,26 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return date( $format, self::makeFromArray( $atts ) );
 	}
 
-	public static function makeFromInput( $input )
+	public static function makeFromInput( $input, $calendar = 'Jalali' )
 	{
 		// FIXME: needs sanity checks
 		$parts = explode( '/', $input );
 
-		return self::make( 0, 0, 0, $parts[1], $parts[2], $parts[0] );
+		return self::make( 0, 0, 0, $parts[1], $parts[2], $parts[0], $calendar );
 	}
 
-	public static function makeMySQLFromInput( $input, $format = 'Y-m-d H:i:s' )
+	public static function makeMySQLFromInput( $input, $format = 'Y-m-d H:i:s', $calendar = 'Jalali' )
 	{
-		return date( $format, self::makeFromInput( $input ) );
+		return date( $format, self::makeFromInput( $input, $calendar ) );
 	}
 
-	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s' )
+	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s', $calendar = 'Jalali' )
 	{
 		$days = self::daysInMonth();
 
 		return array(
-			date( $format, self::make( 0, 0, 0, $month, 1, $year ) ),
-			date( $format, self::make( 23, 59, 59, $month, $days[$month-1], $year ) ),
+			date( $format, self::make( 0, 0, 0, $month, 1, $year, $calendar ) ),
+			date( $format, self::make( 23, 59, 59, $month, $days[$month-1], $year, $calendar ) ),
 		);
 	}
 
