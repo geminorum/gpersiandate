@@ -87,36 +87,39 @@ class gPersianDateStrings extends gPersianDateModuleCore
 				break;
 				case 'Hijri':
 
+					// 'محرم', 'صفر ', 'ربیع‌الاول', 'ربیع‌الثانی', 'جمادی‌الاول', 'جمادی‌الثانی', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذیقعده', 'ذیحجه'
+					// 'محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'
+
 					if ( $abbrev )
 						$strings[$calendar]['abbrev'] = array(
 							'01' => _x( 'Muh', 'Strings: Month: Hijri: Abbreviation: Muharram', GPERSIANDATE_TEXTDOMAIN ), // (Restricted/sacred) محرّم
 							'02' => _x( 'Saf', 'Strings: Month: Hijri: Abbreviation: Safar', GPERSIANDATE_TEXTDOMAIN ), // (Empty/Yellow) صفر
-							'03' => _x( 'RaI', 'Strings: Month: Hijri: Abbreviation: Rabi I', GPERSIANDATE_TEXTDOMAIN ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
-							'04' => _x( 'RaII', 'Strings: Month: Hijri: Abbreviation: Rabi II', GPERSIANDATE_TEXTDOMAIN ), // Rabī’ ath-Thānī/Rabi` al-Aakhir/Rabi' II (Second spring or Last spring) ربيع الآخر أو ربيع الثاني
-							'05' => _x( 'JuI', 'Strings: Month: Hijri: Abbreviation: Jumada I', GPERSIANDATE_TEXTDOMAIN ), // Jumada al-Awwal/Jumaada I (First Freeze) جمادى الأول
-							'06' => _x( 'JuII', 'Strings: Month: Hijri: Abbreviation: Jumada II', GPERSIANDATE_TEXTDOMAIN ), // Jumada ath-Thānī or Jumādā al-Thānī/Jumādā II (Second Freeze or Last Freeze) جمادى الآخر أو جمادى الثاني
+							'03' => _x( 'Rb1', 'Strings: Month: Hijri: Abbreviation: Rabi Al Awwal', GPERSIANDATE_TEXTDOMAIN ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
+							'04' => _x( 'Rb2', 'Strings: Month: Hijri: Abbreviation: Rabi Al Thani', GPERSIANDATE_TEXTDOMAIN ), // Rabī’ ath-Thānī/Rabi` al-Aakhir/Rabi' II (Second spring or Last spring) ربيع الآخر أو ربيع الثاني
+							'05' => _x( 'Jm1', 'Strings: Month: Hijri: Abbreviation: Jumada Al Oula', GPERSIANDATE_TEXTDOMAIN ), // Jumada al-Awwal/Jumaada I (First Freeze) جمادى الأول
+							'06' => _x( 'Jm2', 'Strings: Month: Hijri: Abbreviation: Jumada Al Akhira', GPERSIANDATE_TEXTDOMAIN ), // Jumada ath-Thānī or Jumādā al-Thānī/Jumādā II (Second Freeze or Last Freeze) جمادى الآخر أو جمادى الثاني
 							'07' => _x( 'Raj', 'Strings: Month: Hijri: Abbreviation: Rajab', GPERSIANDATE_TEXTDOMAIN ), // (To Respect) رجب
-							'08' => _x( 'Sha', 'Strings: Month: Hijri: Abbreviation: Shaaban', GPERSIANDATE_TEXTDOMAIN ), // Sha'bān (To Spread and Distribute) شعبان
+							'08' => _x( 'Sha', 'Strings: Month: Hijri: Abbreviation: Shaban', GPERSIANDATE_TEXTDOMAIN ), // Sha'bān (To Spread and Distribute) شعبان
 							'09' => _x( 'Ram', 'Strings: Month: Hijri: Abbreviation: Ramadan', GPERSIANDATE_TEXTDOMAIN ), // Ramadān (Parched Thirst) رمضان
-							'10' => _x( 'Sha', 'Strings: Month: Hijri: Abbreviation: Shawwal', GPERSIANDATE_TEXTDOMAIN ), // Shawwāl (To Be Light and Vigorous) شوّال
-							'11' => _x( 'DaQ', 'Strings: Month: Hijri: Abbreviation: Dhu al-Qidah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Qi'dah (The Master of Truce) ذو القعدة
-							'12' => _x( 'DaH', 'Strings: Month: Hijri: Abbreviation: Dhu al-Hijjah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
+							'10' => _x( 'Shw', 'Strings: Month: Hijri: Abbreviation: Shawwal', GPERSIANDATE_TEXTDOMAIN ), // Shawwāl (To Be Light and Vigorous) شوّال
+							'11' => _x( 'Qid', 'Strings: Month: Hijri: Abbreviation: Dhul Qidah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Qi'dah (The Master of Truce) ذو القعدة
+							'12' => _x( 'Hij', 'Strings: Month: Hijri: Abbreviation: Dhul Hijjah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
 						);
 
 					else
 						$strings[$calendar]['full'] = array(
 							'01' => _x( 'Muharram', 'Strings: Month: Hijri: Full: Muharram', GPERSIANDATE_TEXTDOMAIN ), // (Restricted/sacred) محرّم
 							'02' => _x( 'Safar', 'Strings: Month: Hijri: Full: Safar', GPERSIANDATE_TEXTDOMAIN ), // (Empty/Yellow) صفر
-							'03' => _x( 'Rabi I', 'Strings: Month: Hijri: Full: Rabi I', GPERSIANDATE_TEXTDOMAIN ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
-							'04' => _x( 'Rabi II', 'Strings: Month: Hijri: Full: Rabi II', GPERSIANDATE_TEXTDOMAIN ), // Rabī’ ath-Thānī/Rabi` al-Aakhir/Rabi' II (Second spring or Last spring) ربيع الآخر أو ربيع الثاني
-							'05' => _x( 'Jumada I', 'Strings: Month: Hijri: Full: Jumada I', GPERSIANDATE_TEXTDOMAIN ), // Jumada al-Awwal/Jumaada I (First Freeze) جمادى الأول
-							'06' => _x( 'Jumada II', 'Strings: Month: Hijri: Full: Jumada II', GPERSIANDATE_TEXTDOMAIN ), // Jumada ath-Thānī or Jumādā al-Thānī/Jumādā II (Second Freeze or Last Freeze) جمادى الآخر أو جمادى الثاني
+							'03' => _x( 'Rabi Al Awwal', 'Strings: Month: Hijri: Full: Rabi Al Awwal', GPERSIANDATE_TEXTDOMAIN ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
+							'04' => _x( 'Rabi Al Thani', 'Strings: Month: Hijri: Full: Rabi Al Thani', GPERSIANDATE_TEXTDOMAIN ), // Rabī’ ath-Thānī/Rabi` al-Aakhir/Rabi' II (Second spring or Last spring) ربيع الآخر أو ربيع الثاني
+							'05' => _x( 'Jumada Al Oula', 'Strings: Month: Hijri: Full: Jumada Al Oula', GPERSIANDATE_TEXTDOMAIN ), // Jumada al-Awwal/Jumaada I (First Freeze) جمادى الأول
+							'06' => _x( 'Jumada Al Akhira', 'Strings: Month: Hijri: Full: Jumada Al Akhira', GPERSIANDATE_TEXTDOMAIN ), // Jumada ath-Thānī or Jumādā al-Thānī/Jumādā II (Second Freeze or Last Freeze) جمادى الآخر أو جمادى الثاني
 							'07' => _x( 'Rajab', 'Strings: Month: Hijri: Full: Rajab', GPERSIANDATE_TEXTDOMAIN ), // (To Respect) رجب
-							'08' => _x( 'Shaaban', 'Strings: Month: Hijri: Full: Shaaban', GPERSIANDATE_TEXTDOMAIN ), // Sha'bān (To Spread and Distribute) شعبان
+							'08' => _x( 'Shaban', 'Strings: Month: Hijri: Full: Shaban', GPERSIANDATE_TEXTDOMAIN ), // Sha'bān (To Spread and Distribute) شعبان
 							'09' => _x( 'Ramadan', 'Strings: Month: Hijri: Full: Ramadan', GPERSIANDATE_TEXTDOMAIN ), // Ramadān (Parched Thirst) رمضان
 							'10' => _x( 'Shawwal', 'Strings: Month: Hijri: Full: Shawwal', GPERSIANDATE_TEXTDOMAIN ), // Shawwāl (To Be Light and Vigorous) شوّال
-							'11' => _x( 'Dhu al-Qidah', 'Strings: Month: Hijri: Full: Dhu al-Qidah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Qi'dah (The Master of Truce) ذو القعدة
-							'12' => _x( 'Dhu al-Hijjah', 'Strings: Month: Hijri: Full: Dhu al-Hijjah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
+							'11' => _x( 'Dhul Qidah', 'Strings: Month: Hijri: Full: Dhul Qidah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Qi'dah (The Master of Truce) ذو القعدة
+							'12' => _x( 'Dhul Hijjah', 'Strings: Month: Hijri: Full: Dhul Hijjah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
 						);
 
 				break;
@@ -246,6 +249,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 				case 'Hijri':
 
 					// @SEE: https://en.wikipedia.org/wiki/Islamic_calendar
+					// 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'
 
 					if ( $initial )
 						$strings['Hijri']['initial'] = array(
