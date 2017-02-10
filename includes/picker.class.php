@@ -14,9 +14,7 @@ class gPersianDatePicker extends gPersianDateBase
 
 		global $wp_locale;
 
-		$min  = gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', TRUE );
 		$days = gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', FALSE );
-		$days = array( $days[1], $days[2], $days[3], $days[4], $days[5], $days[6], $days[0] );
 
 		$defaults = wp_json_encode( array(
 			'closeText'   => _x( 'Done', 'Date Picker', GPERSIANDATE_TEXTDOMAIN ),
@@ -24,9 +22,9 @@ class gPersianDatePicker extends gPersianDateBase
 			'nextText'    => _x( 'Next', 'Date Picker', GPERSIANDATE_TEXTDOMAIN ),
 			'prevText'    => _x( 'Previous', 'Date Picker', GPERSIANDATE_TEXTDOMAIN ),
 
-			'dayNames'        => $days,
-			'dayNamesShort'   => $days,
-			'dayNamesMin'     => array( $min[1], $min[2], $min[3], $min[4], $min[5], $min[6], $min[0] ),
+			'dayNames'        => array_values( $days ),
+			'dayNamesShort'   => array_values( $days ),
+			'dayNamesMin'     => array_values( gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', TRUE ) ),
 			'monthNames'      => array_values( gPersianDateStrings::month( NULL, TRUE, 'Jalali', FALSE ) ),
 			'monthNamesShort' => array_values( gPersianDateStrings::month( NULL, TRUE, 'Jalali', TRUE ) ),
 

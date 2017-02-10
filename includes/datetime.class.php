@@ -82,7 +82,8 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 				case 'D': // A textual representation of a day, three letters (Mon through Sun)
 				case 'l': // A full textual representation of the day of the week (Sunday through Saturday)
 
-					$result .= gPersianDateStrings::dayoftheweek( ( $datetime->format( 'w' ) + 1 ) % 7, FALSE, $calendar );
+					$result .= gPersianDateStrings::dayoftheweek(
+						$datetime->format( 'w' ) % 7, FALSE, $calendar );
 
 				break;
 
