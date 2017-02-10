@@ -67,7 +67,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_the_date( $the_date, $d, $post )
 	{
-		$time   = gPersianDateDate::postDate( $post );
+		$time   = self::postDate( $post );
 		$format = gPersianDateFormat::sanitize( $d, 'date' );
 
 		return gPersianDateDate::to( $format, $time );
@@ -75,7 +75,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_the_time( $the_time, $d, $post )
 	{
-		$time   = gPersianDateDate::postDate( $post );
+		$time   = self::postDate( $post );
 		$format = gPersianDateFormat::sanitize( $d, 'time' );
 
 		return gPersianDateDate::to( $format, $time );
@@ -83,7 +83,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_the_modified_date( $the_time, $d, $post = NULL )
 	{
-		$time   = gPersianDateDate::postModifiedDate( $post );
+		$time   = self::postModifiedDate( $post );
 		$format = gPersianDateFormat::sanitize( $d, 'date' );
 
 		return FALSE === $time ? $the_time : gPersianDateDate::to( $format, $time );
@@ -91,7 +91,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_the_modified_time( $the_time, $d, $post = NULL )
 	{
-		$time   = gPersianDateDate::postModifiedDate( $post );
+		$time   = self::postModifiedDate( $post );
 		$format = gPersianDateFormat::sanitize( $d, 'time' );
 
 		return gPersianDateDate::to( $format, $time );
@@ -100,7 +100,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_comment_date( $date, $d, $comment )
 	{
-		$time   = gPersianDateDate::commentDate( $comment );
+		$time   = self::commentDate( $comment );
 		$format = gPersianDateFormat::sanitize( $d, 'date' );
 
 		return gPersianDateDate::to( $format, $time );
@@ -109,7 +109,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 	public function get_comment_time( $date, $d, $gmt, $translate, $comment )
 	{
 		if ( $translate ) {
-			$time   = gPersianDateDate::commentDate( $comment, $gmt );
+			$time   = self::commentDate( $comment, $gmt );
 			$format = gPersianDateFormat::sanitize( $d, 'time' );
 
 			return gPersianDateDate::to( $format, $time );
@@ -161,5 +161,156 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		}
 
 		return $items;
+	}
+
+	public static function postDate( $post = NULL, $gmt = FALSE, $timestamp = FALSE )
+	{
+		$the_post = get_post( $post );
+
+		$the_date = $gmt ? $the_post->post_date_gmt : $the_post->post_date;
+
+		if ( ! $timestamp )
+			return $the_date;
+
+		return mysql2date( 'U', $the_date, FALSE );
+	}
+
+	public static function postModifiedDate( $post = NULL, $gmt = FALSE, $timestamp = FALSE )
+	{
+		if ( ! $the_post = get_post( $post ) )
+			return FALSE;
+
+		$the_date = $gmt ? $the_post->post_modified_gmt : $the_post->post_modified;
+
+		if ( ! $timestamp )
+			return $the_date;
+
+		return mysql2date( 'U', $the_date, FALSE );
+	}
+
+	public static function commentDate( $comment, $gmt = FALSE, $timestamp = FALSE )
+	{
+		$the_date = $gmt ? $comment->comment_date_gmt : $comment->comment_date;
+
+		if ( ! $timestamp )
+			return $the_date;
+
+		return mysql2date( 'U', $the_date, FALSE );
+	}
+
+	public static function getPosttypeFirstAndLast( $post_types = 'post', $args = array(), $user_id = 0, $protected = TRUE )
+	{
+		global $wpdb;
+
+		if ( ! is_array( $post_types ) ) {
+
+			$where = $wpdb->prepare( "WHERE post_type = %s", $post_types );
+
+		} else {
+
+			$post_types_in = implode( ',', array_map( function( $v ){
+				return "'".esc_sql( $v )."'";
+			}, $post_types ) );
+
+			$where = "WHERE post_type IN ( {$post_types_in} )";
+		}
+
+		$author = $user_id ? $wpdb->prepare( "AND post_author = %d", $user_id ) : '';
+
+		$extra_checks = "AND post_status != 'auto-draft'";
+
+		if ( ! isset( $args['post_status'] )
+			|| 'trash' !== $args['post_status'] )
+				$extra_checks .= " AND post_status != 'trash'";
+
+		else if ( isset( $args['post_status'] ) )
+			$extra_checks = $wpdb->prepare( ' AND post_status = %s', $args['post_status'] );
+
+		if ( ! $protected )
+			$extra_checks .= " AND post_password = ''";
+
+		$first = gPersianDateUtilities::getResultsDB( "
+			SELECT post_date AS date
+			FROM {$wpdb->posts}
+			{$where}
+			{$author}
+			{$extra_checks}
+			ORDER BY post_date ASC
+			LIMIT 1
+		" );
+
+		$last = gPersianDateUtilities::getResultsDB( "
+			SELECT post_date AS date
+			FROM {$wpdb->posts}
+			{$where}
+			{$author}
+			{$extra_checks}
+			ORDER BY post_date DESC
+			LIMIT 1
+		" );
+
+		return array(
+			( count( $first ) ? $first[0]->date : '' ),
+			( count( $last )  ? $last[0]->date  : '' ),
+		);
+	}
+
+	public static function getPostTypeMonths( $post_type = 'post', $args = array(), $user_id = 0 )
+	{
+		global $wpdb;
+
+		$author = $user_id ? $wpdb->prepare( "AND post_author = %d", $user_id ) : '';
+
+		$extra_checks = "AND post_status != 'auto-draft'";
+
+		if ( ! isset( $args['post_status'] )
+			|| 'trash' !== $args['post_status'] )
+				$extra_checks .= " AND post_status != 'trash'";
+
+		else if ( isset( $args['post_status'] ) )
+			$extra_checks = $wpdb->prepare( ' AND post_status = %s', $args['post_status'] );
+
+		$query = $wpdb->prepare( "
+			SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month, DAY( post_date ) AS day
+			FROM $wpdb->posts
+			WHERE post_type = %s
+			{$author}
+			{$extra_checks}
+			ORDER BY post_date DESC
+		", $post_type );
+
+		$key = md5( $query );
+		$cache = wp_cache_get( 'wp_get_archives' , 'general' );
+
+		if ( ! isset( $cache[$key] ) ) {
+			$months = $wpdb->get_results( $query );
+			$cache[$key] = $months;
+			wp_cache_set( 'wp_get_archives', $cache, 'general' );
+		} else {
+			$months = $cache[$key];
+		}
+
+		$count = count( $months );
+		if ( ! $count || ( 1 == $count && 0 == $months[0]->month ) )
+			return FALSE;
+
+		$list = array();
+		$last = FALSE;
+
+		foreach ( $months as $row ) {
+
+			if ( 0 == $row->year )
+				continue;
+
+			$date  = mktime( 0 ,0 , 0, zeroise( $row->month, 2 ), $row->day, $row->year );
+			$month = gPersianDateDate::_to( 'Ym', $date );
+
+			if ( $last != $month )
+				$list[$month] = gPersianDateDate::to( 'M Y', $date );
+
+			$last = $month;
+		}
+
+		return $list;
 	}
 }

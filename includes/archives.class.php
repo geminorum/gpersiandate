@@ -391,7 +391,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'string_empty'   => _x( 'Archives are empty.', 'Archives: Compact', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
 		), $atts );
 
-		list( $first, $last ) = gPersianDateDate::getPosttypeFirstAndLast( $args['post_type'], array(), $args['post_author'], FALSE );
+		list( $first, $last ) = gPersianDateWordPress::getPosttypeFirstAndLast( $args['post_type'], array(), $args['post_author'], FALSE );
 
 		if ( ! $first )
 			return $args['string_empty'] ? '<span class="-empty">'.$args['string_empty'].'</span>' : FALSE;

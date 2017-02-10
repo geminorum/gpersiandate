@@ -153,7 +153,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		if ( '1' == $this->options['restrict_month'] )
 			return FALSE;
 
-		if ( ! $months = gPersianDateDate::getPosttypeMonths( $post_type, $_GET ) )
+		if ( ! $months = gPersianDateWordPress::getPostTypeMonths( $post_type, $_GET ) )
 			return TRUE;
 
 		$mgp = isset( $_GET['mgp'] ) ? (int) $_GET['mgp'] : 0;
@@ -178,7 +178,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 	public function restrict_manage_posts_start_end( $post_type, $which )
 	{
 		// TODO: set maximum and minimum date based on stored posts
-		// list( $first, $last ) = gPersianDateDate::getPosttypeFirstAndLast( $post_type, $_GET );
+		// list( $first, $last ) = gPersianDateWordPress::getPosttypeFirstAndLast( $post_type, $_GET );
 
 		$start = isset( $_REQUEST['start_date_gp'] ) ? $_REQUEST['start_date_gp'] : '';
 		$end   = isset( $_REQUEST['end_date_gp']   ) ? $_REQUEST['end_date_gp']   : '';
