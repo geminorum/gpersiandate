@@ -3,246 +3,325 @@
 class gPersianDateCalendar extends gPersianDateModuleCore
 {
 
-	public static function build( $initial = TRUE )
+	public static function build( $atts = array(), $current_time = NULL )
 	{
-		global $wpdb, $wp_locale, $m, $monthnum, $year;
+		global $wpdb;
 
-		// error_log( print_r( compact( 'm', 'monthnum', 'year' ), TRUE ) );
+		$current_date  = gPersianDateDate::getByCal( $current_time, ( isset( $atts['calendar'] ) ? $atts['calendar'] : NULL ) );
+		$current_year  = ''.$current_date['year'];
+		$current_month = ''.sprintf( '%02d', $current_date['mon'] );
+		$current_day   = ''.sprintf( '%02d', $current_date['mday'] );
 
-		$current_time       = current_time( 'mysql' );
-		$week_begins        = '6'; // week start on Saturday
-		$ak_title_separator = ', ';
+		$args = self::atts( array(
+			'calendar' => NULL, // NULL to default
 
-		$jcurrent_year  = $jthisyear  = gPersianDateDate::_to( 'Y', $current_time );
-		$jcurrent_month = $jthismonth = gPersianDateDate::_to( 'm', $current_time );
-		$jcurrent_day   = $jthisday   = gPersianDateDate::_to( 'd', $current_time );
+			'this_year'   => $current_year,
+			'this_month'  => $current_month,
+			'this_day'    => $current_day,
+			'week_begins' => get_option( 'start_of_week' ), // '6' // week start on Saturday
 
-		if ( ! empty( $monthnum ) && ! empty( $year ) ) {
-			$jthismonth = ''.zeroise( intval( $monthnum ), 2 );
-			$jthisyear = ''.intval( $year );
+			'post_type'        => apply_filters( 'gpersiandate_calendar_posttypes', array( 'post' ) ),
+			'exclude_statuses' => NULL, // for admin only // NULL to default
 
-		} elseif ( ! empty( $m ) ) {
-			$jthisyear = ''.intval( substr( $m, 0, 4 ) );
-			if ( strlen( $m ) < 6 )
-				$jthismonth = '01';
-			else
-				$jthismonth = ''.zeroise( intval( substr( $m, 4, 2 ) ), 2 );
+			'initial'      => TRUE,
+			'caption'      => TRUE, // year/month table caption / string for custom
+			'caption_link' => TRUE, // table caption link to / string for custom
+			'navigation'   => TRUE, // next/prev foot nav
+
+			'nav_prev'  => _x( '&laquo; %s', 'Calendar: Build: Previous Month', GPERSIANDATE_TEXTDOMAIN ),
+			'nav_next'  => _x( '%s &raquo;', 'Calendar: Build: Next Month', GPERSIANDATE_TEXTDOMAIN ),
+			'title_sep' => _x( ', ', 'Calendar: Build: Title Seperator', GPERSIANDATE_TEXTDOMAIN ),
+
+			'link_build_callback' => NULL, // NULL to default
+			'the_day_callback'    => NULL, // NULL to default
+			'nav_month_callback'  => NULL, // NULL to default
+
+			'id'    => 'wp-calendar', // table html id
+			'class' => 'date-calendar', // table html css class
+		), $atts );
+
+		// bailing if no posts!
+		if ( ! gPersianDateUtilities::hasPosts( $args['post_type'], $args['exclude_statuses'] ) )
+			return '';
+
+		if ( ! $args['link_build_callback'] || ! is_callable( $args['link_build_callback'] ) )
+			$args['link_build_callback'] = array( 'gPersianDateLinks', 'build' );
+
+		if ( ! $args['the_day_callback'] || ! is_callable( $args['the_day_callback'] ) )
+			$args['the_day_callback'] = array( __CLASS__, 'theDayCallback' );
+
+		if ( ! $args['nav_month_callback'] || ! is_callable( $args['nav_month_callback'] ) )
+			$args['nav_month_callback'] = array( __CLASS__, 'navMonthCallback' );
+
+		list( $first_day, $last_day ) = gPersianDateDate::monthFirstAndLast( $args['this_year'], $args['this_month'], NULL, $args['calendar'] );
+
+		$post_type_clause = "AND post_type IN ( '".join( "', '", esc_sql( (array) $args['post_type'] ) )."' )";
+
+		$post_status_clause = is_admin()
+			? "AND post_status NOT IN ( '".join( "', '", esc_sql(
+				gPersianDateUtilities::getExcludeStatuses( $args['exclude_statuses'] ) ) )."' )"
+			: "AND post_status = 'publish'";
+
+		$html = $caption = '';
+
+		if ( TRUE === $args['caption'] )
+			$caption = self::getCaption( $args['this_year'], $args['this_month'], $args['calendar'] );
+
+		else if ( $args['caption'] )
+			$caption = $args['caption'];
+
+		if ( $caption && TRUE === $args['caption_link'] )
+			$caption = gPersianDateHTML::link( $caption, call_user_func_array( $args['link_build_callback'], array( 'month', $args['this_year'], $args['this_month'] ) ) );
+
+		else if ( $caption && $args['caption_link'] )
+			$caption = gPersianDateHTML::link( $caption, $args['caption_link'] );
+
+		if ( $caption )
+			$html .= '<caption>'.$caption.'</caption>';
+
+		$html .= '<thead><tr>';
+
+		$myweek = gPersianDateStrings::dayoftheweek( NULL, TRUE, $args['calendar'], FALSE );
+		$mydays = gPersianDateStrings::dayoftheweek( NULL, TRUE, $args['calendar'], TRUE );
+
+		for ( $wdcount = 0; $wdcount <= 6; $wdcount++ ) {
+			$wd = ( $wdcount + $args['week_begins'] ) % 7;
+			$html .= '<th title="'.esc_attr( $myweek[$wd] ).'">'.( $args['initial'] ? $mydays[$wd] : $myweek[$wd] ).'</th>';
 		}
 
-		$jlast_day  = gPersianDateDate::_to( 't', gPersianDateDate::makeMySQL( 0, 0, 0, $jthismonth, 1, $jthisyear ) );
-		$junixmonth = gPersianDateDate::make( 0, 0, 0, $jthismonth, 1, $jthisyear );
+		$html .= '</tr></thead>';
 
-		$jfirst_day_mysql = date( 'Y-m-d H:i:s', $junixmonth );
-		$jlast_day_mysql  = gPersianDateDate::makeMySQL( 23, 59, 59, $jthismonth, $jlast_day, $jthisyear );
+		if ( $args['navigation'] ) {
 
-		// get the next and previous month and year with at least one post
-		$previous = $wpdb->get_row("SELECT post_date, MONTH(post_date) AS month, YEAR(post_date) AS year
-			FROM $wpdb->posts
-			WHERE post_date < '$jfirst_day_mysql'
-			AND post_type = 'post' AND post_status = 'publish'
+			// get the next and previous months
+			// with at least one post
+
+			$previous = $wpdb->get_row( "
+				SELECT post_date
+				FROM {$wpdb->posts}
+				WHERE post_date < '{$first_day}'
+				{$post_type_clause}
+				{$post_status_clause}
 				ORDER BY post_date DESC
-				LIMIT 1");
+				LIMIT 1
+			" );
 
-		$next = $wpdb->get_row("SELECT post_date, MONTH(post_date) AS month, YEAR(post_date) AS year
-			FROM $wpdb->posts
-			WHERE post_date > '$jlast_day_mysql'
-			AND post_type = 'post' AND post_status = 'publish'
+			$next = $wpdb->get_row( "
+				SELECT post_date
+				FROM {$wpdb->posts}
+				WHERE post_date > '{$last_day}'
+				{$post_type_clause}
+				{$post_status_clause}
 				ORDER BY post_date ASC
-				LIMIT 1");
+				LIMIT 1
+			" );
 
-		/* translators: Calendar caption: 1: month name, 2: 4-digit year */
-		$calendar_caption = _x( '%1$s %2$s', 'calendar caption', GPERSIANDATE_TEXTDOMAIN );
-		$calendar_output = '<table id="wp-calendar"><caption>'
-			.sprintf( $calendar_caption, gPersianDateStrings::month( $jthismonth ), gPersianDateTranslate::numbers( $jthisyear ) )
-			.'</caption><thead><tr>';
+			$html .= '<tfoot><tr>';
 
-		// $myweek = array();
-		//
-		// for ( $wdcount = 0; $wdcount <= 6; $wdcount++ )
-		// 	$myweek[] = $wp_locale->get_weekday( ( $wdcount + $week_begins ) % 7 );
-		//
-		// foreach ( $myweek as $wd ) {
-		// 	$day_name = $initial ? $wp_locale->get_weekday_initial( $wd ) : $wp_locale->get_weekday_abbrev( $wd );
-		// 	$wd = esc_attr( $wd );
-		// 	$calendar_output .= "\n\t\t<th scope=\"col\" title=\"$wd\">$day_name</th>";
-		// }
+			if ( $previous ) {
 
-		$myweek = gPersianDateStrings::dayoftheweek( NULL, TRUE );
-		$mydays = gPersianDateStrings::dayoftheweek( NULL, TRUE, NULL, TRUE );
+				$previous_date = gPersianDateDate::getByCal( $previous->post_date, $args['calendar'] );
 
-		foreach ( $mydays as $wd => $day_initial )
-			$calendar_output .= '<th scope="col" title="'.esc_attr( $myweek[$wd] ).'">'.$day_initial.'</th>';
+				$html .= '<td colspan="3" class="-prev">';
+				$html .= call_user_func_array( $args['nav_month_callback'],
+					array( $previous_date, FALSE, $args ) );
+				$html .'</td>';
 
-		$calendar_output .= '</tr></thead><tfoot><tr>';
-
-		if ( $previous ) {
-			$calendar_output .= "\n\t\t".'<td colspan="3" id="prev"><a href="'
-				.get_month_link( $previous->year, $previous->month )
-				.'">&laquo; '
-				.gPersianDateDate::to( 'M', $previous->post_date )
-				.'</a></td>';
-		} else {
-			$calendar_output .= "\n\t\t".'<td colspan="3" id="prev" class="pad">&nbsp;</td>';
-		}
-
-		$calendar_output .= "\n\t\t".'<td class="pad">&nbsp;</td>';
-
-		if ( $next ) {
-			$calendar_output .= "\n\t\t".'<td colspan="3" id="next"><a href="'
-			.get_month_link($next->year, $next->month)
-			.'">'
-			.gPersianDateDate::to( 'M', $next->post_date )
-			.' &raquo;</a></td>';
-		} else {
-			$calendar_output .= "\n\t\t".'<td colspan="3" id="next" class="pad">&nbsp;</td>';
-		}
-
-		$calendar_output .= '</tr></tfoot><tbody><tr>';
-
-		$daywithpost = array();
-
-		// Get days with posts
-		$dayswithposts = $wpdb->get_results("SELECT DISTINCT DAYOFMONTH(post_date)
-			FROM $wpdb->posts WHERE post_date >= '$jfirst_day_mysql'
-			AND post_type = 'post' AND post_status = 'publish'
-			AND post_date <= '$jlast_day_mysql'", ARRAY_N );
-
-		if ( $dayswithposts ) {
-			foreach ( (array) $dayswithposts as $daywith ) {
-				$daywithpost[] = $daywith[0];
-			}
-		}
-
-		$ak_titles_for_day = $daywithpostfull = array();
-
-		$ak_post_titles = $wpdb->get_results("SELECT ID, post_title, post_date, DAYOFMONTH(post_date) as dom "
-			."FROM $wpdb->posts "
-			."WHERE post_date >= '$jfirst_day_mysql' "
-			."AND post_date <= '$jlast_day_mysql' "
-			."AND post_type = 'post' AND post_status = 'publish'"
-		);
-
-		if ( $ak_post_titles ) {
-			foreach ( (array) $ak_post_titles as $ak_post_title ) {
-				$post_title = esc_attr( apply_filters( 'the_title', $ak_post_title->post_title, $ak_post_title->ID ) );
-
-				if ( empty($ak_titles_for_day['day_'.$ak_post_title->dom]) )
-					$ak_titles_for_day['day_'.$ak_post_title->dom] = '';
-				if ( empty($ak_titles_for_day["$ak_post_title->dom"]) ) // first one
-					$ak_titles_for_day["$ak_post_title->dom"] = $post_title;
-				else
-					$ak_titles_for_day["$ak_post_title->dom"] .= $ak_title_separator.$post_title;
-
-				$daywithpostfull["$ak_post_title->dom"] = $ak_post_title->post_date;
-			}
-		}
-
-		$jdaywithpost = array();
-
-		foreach ( $daywithpostfull as $day => $post_date ) {
-			$jday = gPersianDateDate::_to( 'j',  $post_date );
-			$jdaywithpost[$jday] = $day;
-		}
-
-		// See how much we should pad in the beginning
-		$pad = self::week_mod( date( 'w', $junixmonth ) - $week_begins );
-		if ( 0 != $pad )
-			$calendar_output .= "\n\t\t".'<td colspan="'.esc_attr( $pad ).'" class="pad">&nbsp;</td>';
-
-		// first day of this month
-		$jday = gPersianDateDate::_to( 'j', $jfirst_day_mysql );
-
-		$jdaysinmonth = intval( $jlast_day );
-
-		for ( $jday = 1; $jday <= $jdaysinmonth; ++$jday ) {
-
-			if ( isset( $newrow ) && $newrow )
-				$calendar_output .= "\n\t</tr>\n\t<tr>\n\t\t";
-			$newrow = FALSE;
-
-			if ( $jday == $jcurrent_day
-				&& $jthismonth == $jcurrent_month
-				&& $jthisyear == $jcurrent_year )
-					$calendar_output .= '<td id="today">';
-			else
-				$calendar_output .= '<td>';
-
-			// any posts today?
-			if ( array_key_exists( $jday, $jdaywithpost ) ) {
-				// $this_time = strtotime( $daywithpostfull[$jdaywithpost[$jday]] );
-				$calendar_output .= '<a href="'
-					// .get_day_link( date( 'Y', $this_time ), date( 'm', $this_time ), $jdaywithpost[$jday] )
-					.gPersianDateLinks::build( 'day', $jthisyear, $jthismonth, $jday )
-					.'" title="'.esc_attr( $ak_titles_for_day[ $jdaywithpost[$jday] ] )
-					.'">'.gPersianDateTranslate::numbers( $jday ).'</a>';
 			} else {
-				$calendar_output .= gPersianDateTranslate::numbers( $jday );
+				$html .= self::getPad( 3 );
 			}
 
-			$calendar_output .= '</td>';
+			$html .= '<td class="-middle -pad">&nbsp;</td>';
 
-			if ( 6 == self::week_mod( date( 'w', gPersianDateDate::make( 0, 0, 0, $jthismonth, $jday, $jthisyear ) ) - $week_begins ) )
-				$newrow = TRUE;
+			if ( $next ) {
+
+				$next_date = gPersianDateDate::getByCal( $next->post_date, $args['calendar'] );
+
+				$html .= '<td colspan="3" class="-next">';
+					$html .= call_user_func_array( $args['nav_month_callback'],
+						array( $next_date, TRUE, $args ) );
+				$html .'</td>';
+
+			} else {
+				$html .= self::getPad( 3 );
+			}
+
+			$html .= '</tr></tfoot>';
 		}
 
-		$pad = 7 - self::week_mod( date( 'w', gPersianDateDate::make( 0, 0, 0, $jthismonth, $jday, $jthisyear ) ) - $week_begins );
+		$html .= '<tbody><tr>';
 
-		if ( $pad != 0 && $pad != 7 )
-			$calendar_output .= "\n\t\t".'<td class="pad" colspan="'.esc_attr( $pad ).'">&nbsp;</td>';
+		$data = array();
 
+		$post_select_fields = is_admin()
+			? "post_title, post_date, post_type, post_modified, post_status, post_author"
+			: "post_title, post_date, post_type";
 
-		$calendar_output .= "\n\t</tr>\n\t</tbody>\n\t</table>";
-		return $calendar_output;
+		$posts = $wpdb->get_results( "
+			SELECT ID, {$post_select_fields}, MONTH(post_date) AS month, DAYOFMONTH(post_date) as dom
+			FROM {$wpdb->posts}
+			WHERE post_date >= '{$first_day}'
+			AND post_date <= '{$last_day}'
+			{$post_type_clause}
+			{$post_status_clause}
+		" );
+
+		if ( $posts ) {
+			foreach ( (array) $posts as $post ) {
+
+				$key = $post->month.'_'.$post->dom;
+
+				if ( ! isset( $data[$key] ) ) {
+					$post_date = gPersianDateDate::getByCal( $post->post_date, $args['calendar'] );
+					$data[$key] = array( 'posts' => array(), 'mday' => $post_date['mday'] );
+				}
+
+				$the_post = array(
+					'ID'    => $post->ID,
+					'date'  => $post->post_date,
+					'type'  => $post->post_type,
+					'title' => $post->post_title,
+				);
+
+				if ( is_admin() ) {
+					$the_post['modified'] = $post->post_modified;
+					$the_post['status']   = $post->post_status;
+					$the_post['author']   = $post->post_author;
+				}
+
+				$data[$key]['posts'][] = $the_post;
+			}
+
+			if ( ! empty( $data ) ) {
+				$the_days  = wp_list_pluck( $data, 'mday' );
+				$data = array_combine( $the_days, $data );
+			}
+		}
+
+		if ( $pad = self::mod( date( 'w', strtotime( $first_day ) ) - $args['week_begins'] ) )
+			$html .= self::getPad( $pad );
+
+		$days_in_month = gPersianDateDate::daysInMonth( $args['this_month'], $args['this_year'], $args['calendar'] );
+
+		for ( $the_day = 1; $the_day <= $days_in_month; ++$the_day ) {
+
+			if ( isset( $new_row ) && $new_row )
+				$html .= '</tr><tr>';
+
+			$new_row = FALSE;
+
+			$today = ( $the_day == $current_day
+				&& $args['this_month'] == $current_month
+				&& $args['this_year'] == $current_year );
+
+			$the_day_data = array_key_exists( $the_day, $data ) ? $data[$the_day]['posts'] : array();
+
+			$html .= '<td class="-day'.( $today ? ' -today' : '' ).( empty( $the_day_data ) ? '' : ' -with-posts' ).'">';
+				$html .= call_user_func_array( $args['the_day_callback'],
+					array( $the_day, $the_day_data, $args, $today ) );
+			$html .= '</td>';
+
+			$week_day = gPersianDateDate::dayOfWeek( $args['this_month'], $the_day, $args['this_year'], $args['calendar'] );
+
+			if ( 6 == self::mod( $week_day - $args['week_begins'] ) )
+				$new_row = TRUE;
+		}
+
+		if ( $pad = ( 6 - self::mod( $week_day - $args['week_begins'] ) ) )
+			$html .= self::getPad( $pad );
+
+		return  gPersianDateHTML::tag( 'table', array(
+			'id'    => $args['id'],
+			'class' => $args['class'],
+			'data' => array(
+				'year'  => $args['this_year'],
+				'month' => $args['this_month'],
+			),
+		), $html.'</tr></tbody>' );
 	}
 
-	// Get number of days since the start of the week.
-	// exact copy of core calendar_week_mod()
-	public static function week_mod( $num )
+	public static function theDayCallback( $the_day, $data = array(), $args = array(), $today = FALSE )
 	{
-		$base = 7;
-		return ( $num - $base * floor( $num / $base ) );
+		if ( ! count( $data ) )
+			return gPersianDateTranslate::numbers( $the_day );
+
+		$titles = array();
+
+		foreach ( $data as $post )
+			$titles[] = apply_filters( 'the_title', $post['title'], $post['ID'] );
+
+		return gPersianDateHTML::tag( 'a', array(
+			'href'  => call_user_func_array( $args['link_build_callback'], array( 'day', $args['this_year'], $args['this_month'], $the_day ) ),
+			'title' => implode( $args['title_sep'], $titles ),
+		), gPersianDateTranslate::numbers( $the_day ) );
 	}
 
+	public static function navMonthCallback( $date, $next = TRUE, $args = array() )
+	{
+		return gPersianDateHTML::tag( 'a', array(
+			'href'  => call_user_func_array( $args['link_build_callback'], array( 'month', $date['year'], $date['mon'] ) ),
+			'title' => self::getCaption( $date['year'], $date['mon'], $args['calendar'] ),
+		), sprintf( ( $next ? $args['nav_next'] : $args['nav_prev'] ), $date['month'] ) );
+	}
+
+	public static function getPad( $pad )
+	{
+		return '<td class="-pad" colspan="'.esc_attr( $pad ).'">&nbsp;</td>';
+	}
+
+	public static function getCaption( $year, $month, $calendar = NULL )
+	{
+		return sprintf(
+			_x( '%1$s %2$s', 'Calendar: Build: Caption', GPERSIANDATE_TEXTDOMAIN ),
+			gPersianDateStrings::month( $month, FALSE, $calendar ),
+			gPersianDateTranslate::numbers( $year )
+		);
+	}
+
+	// get number of days since the start of the week
+	// @SOURCE: `calendar_week_mod()`
+	public static function mod( $num, $base = 7 )
+	{
+		return intval( $num - $base * floor( $num / $base ) );
+	}
+
+	// REPLICA: `get_calendar()`
 	public static function get( $initial = TRUE, $echo = TRUE )
 	{
 		global $wpdb, $m, $monthnum, $year, $posts;
 
-		$key = md5( $m.$monthnum.$year );
+		$args = array( 'initial' => $initial );
 
-		if ( $cache = wp_cache_get( 'get_calendar', 'calendar' ) ) {
-			if ( is_array( $cache ) && isset( $cache[ $key ] ) ) {
+		if ( ! empty( $monthnum ) && ! empty( $year ) ) {
 
-				$output = apply_filters( 'get_calendar', $cache[$key] );
+			$args['this_year']  = ''.intval( $year );
+			$args['this_month'] = ''.zeroise( intval( $monthnum ), 2 );
 
-				if ( ! $echo )
-					return $output;
+		} else if ( ! empty( $m ) ) {
 
-				echo $output;
-				return;
-			}
+			$args['this_year'] = ''.intval( substr( $m, 0, 4 ) );
+
+			if ( strlen( $m ) < 6 )
+				$args['this_month'] = '01';
+
+			else
+				$args['this_month'] = ''.zeroise( intval( substr( $m, 4, 2 ) ), 2 );
 		}
 
-		if ( ! is_array( $cache ) )
-			$cache = array();
+		$key = md5( 'gpersiandate_calendar_'.serialize( $args ) );
 
-		// quick check: if we have no posts at all, abort!
-		if ( ! $posts ) {
-			$gotsome = $wpdb->get_var("SELECT 1 as test FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' LIMIT 1");
-			if ( ! $gotsome ) {
-				$cache[$key] = '';
-				wp_cache_set( 'get_calendar', $cache, 'calendar' );
-				return;
-			}
+		if ( self::isFlush() )
+			delete_transient( $key );
+
+		if ( FALSE === ( $html = get_transient( $key ) ) ) {
+			$html = self::build( $args );
+			$html = gPersianDateUtilities::minifyHTML( $html );
+			set_transient( $key, $html, 12 * HOUR_IN_SECONDS );
 		}
-
-		$cache[$key] = self::build( $initial );
-		wp_cache_set( 'get_calendar', $cache, 'calendar' );
-
-		$output = apply_filters( 'get_calendar', $cache[$key] );
 
 		if ( ! $echo )
-			return $output;
+			return $html;
 
-		echo $output;
+		echo $html;
 	}
 }
