@@ -11,6 +11,30 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 		return self::fromOffset( get_option( 'gmt_offset', '0' ) );
 	}
 
+	// @REF: https://www.skyverge.com/blog/down-the-rabbit-hole-wordpress-and-timezones/
+	public static function timestampTo( $timestamp, $current = NULL )
+	{
+		if ( is_null( $current ) )
+			$current = self::current();
+
+		try {
+
+			// get datetime object from unix timestamp
+			$datetime = new \DateTime( "@{$timestamp}", new \DateTimeZone( 'UTC' ) );
+
+			// set the timezone to the site timezone
+			$datetime->setTimezone( new \DateTimeZone( $current ) );
+
+			// return the unix timestamp adjusted to reflect the site's timezone
+			return $timestamp + $datetime->getOffset();
+
+		} catch ( \Exception $e ) {
+
+			// echo $e->getMessage();
+			return $timestamp;
+		}
+	}
+
 	public static function fromOffset( $offset )
 	{
 		$timezones = array(
@@ -64,7 +88,7 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 	}
 
 	// NOT USED YET
-	// @SOURCE: http://wordpress.org/plugins/easy-digital-downloads/
+	// @SOURCE: https://www.skyverge.com/blog/down-the-rabbit-hole-wordpress-and-timezones/
 	// USAGE: date_default_timezone_set( gPersianDateTimeZone::getID() );
 	public static function getID()
 	{
