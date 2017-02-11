@@ -61,7 +61,6 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 		$where = gPersianDateLinks::stripDateClauses( $where ); // just in case!
 
-		$days_in_month     = gPersianDateDate::daysInMonth();
 		$output            = '';
 		$last_persian_year = $last_persian_month = FALSE;
 		$afterafter        = $args['after'];
@@ -73,6 +72,8 @@ class gPersianDateArchives extends gPersianDateModuleCore
 		}
 
 		if ( 'monthly' == $args['type'] ) {
+
+			// FIXME: use: gPersianDateWordPress::getPostTypeMonths()
 
 			$query = "
 				SELECT YEAR(post_date) AS `year`, MONTH(post_date) AS `month`, DAY(post_date) AS `day`
@@ -96,7 +97,8 @@ class gPersianDateArchives extends gPersianDateModuleCore
 						if ( 0 == $result->year )
 							continue;
 
-						$the_date = mktime( 0 ,0 , 0, zeroise( $result->month, 2 ), $result->day, $result->year );
+						// $the_date = mktime( 0 ,0 , 0, zeroise( $result->month, 2 ), $result->day, $result->year );
+						$the_date = mktime( 0 ,0 , 0, $result->month, $result->day, $result->year );
 						$the_persian_month = gPersianDateDate::_to( 'Ym', $the_date );
 
 						if ( $last_persian_month != $the_persian_month ) {
