@@ -272,7 +272,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 	public function post_link( $permalink, $post, $leavename )
 	{
-		if ( FALSE !== strpos( $permalink, '?p=' ) )
+		if ( gPersianDateText::has( $permalink, '?p=' ) )
 			return $permalink;
 
 		if ( in_array( $post->post_status, array( 'draft', 'pending', 'auto-draft', 'future' ) ) )
@@ -281,14 +281,12 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( ! $structure = apply_filters( 'pre_post_link', get_option( 'permalink_structure' ), $post, $leavename ) )
 			return $permalink;
 
-		if ( FALSE === strpos( $structure, '%year%' )
-			&& FALSE === strpos( $structure, '%monthnum%' )
-			&& FALSE === strpos( $structure, '%day%' ) )
-				return $permalink;
+		if ( ! gPersianDateText::has( $structure, array( '%year%', '%monthnum%', '%day%' ), 'AND' ) )
+			return $permalink;
 
 		$category = $author = '';
 
-		if ( FALSE !== strpos( $structure, '%category%' ) ) {
+		if ( gPersianDateText::has( $structure, '%category%' ) ) {
 
 			if ( $cats = get_the_category( $post->ID ) ) {
 
@@ -315,7 +313,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 			}
 		}
 
-		if ( FALSE !== strpos( $structure, '%author%' ) )
+		if ( gPersianDateText::has( $structure, '%author%' ) )
 			$author = get_userdata( $post->post_author )->user_nicename;
 
 		$date = explode( '-', gPersianDateDate::_to( 'Y-m-d-H-i-s', $post->post_date ) );

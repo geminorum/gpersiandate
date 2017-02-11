@@ -3,15 +3,25 @@
 class gPersianDateText
 {
 
-	public static function has( $haystack, $needles )
+	public static function has( $haystack, $needles, $operator = 'OR' )
 	{
 		if ( ! is_array( $needles ) )
 			return FALSE !== stripos( $haystack, $needles );
 
+		if ( 'OR' == $operator ) {
+			foreach ( $needles as $needle )
+				if ( FALSE !== stripos( $haystack, $needle ) )
+					return TRUE;
+
+			return FALSE;
+		}
+
+		$has = FALSE;
+
 		foreach ( $needles as $needle )
 			if ( FALSE !== stripos( $haystack, $needle ) )
-				return TRUE;
+				$has = TRUE;
 
-		return FALSE;
+		return $has;
 	}
 }
