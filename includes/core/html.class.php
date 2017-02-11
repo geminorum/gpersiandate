@@ -5,7 +5,7 @@ class gPersianDateHTML extends gPersianDateBase
 
 	public static function link( $html, $link = '#', $target_blank = FALSE )
 	{
-		return self::tag( 'a', array( 'class' => 'scroll', 'href' => $link, 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
+		return self::tag( 'a', array( 'href' => $link, 'class' => '-link', 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
 	}
 
 	public static function scroll( $html, $to )
