@@ -3,7 +3,6 @@
 class gPersianDateDateTime extends gPersianDateModuleCore
 {
 
-	// SEE: http://www.paulund.co.uk/datetime-php
 	public static function to( $time, $format, $timezone = NULL, $calendar = NULL )
 	{
 		$result = '';
@@ -34,7 +33,10 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		else
 			$convertor = array( 'self', 'toJalali' );
 
-		list( $year,  $month,  $day  ) = explode( '-', $datetime->format( 'Y-n-j' ) );
+		$year  = $datetime->format( 'Y' );
+		$month = $datetime->format( 'n' );
+		$day   = $datetime->format( 'j' );
+
 		list( $jyear, $jmonth, $jday ) = call_user_func_array( $convertor, array( $year, $month, $day ) );
 
 		for ( $i = 0; $i < strlen( $format ); $i++ ) {
@@ -101,32 +103,31 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 				case 't': // Number of days in the given month (29 through 31)
 
-					if ( $jmonth < 12 )
-						$result .= self::$j_days_in_month[$jmonth-1];
-
-					else if ( self::checkJalali( $jmonth, 30, $jyear ) )
-						$result .= '30';
+					if ( 'Hijri' == $calendar )
+						$result .= self::daysInMonthHijri( $jmonth, $jyear );
 
 					else
-						$result .= '29';
+						$result .= self::daysInMonthJalali( $jmonth, $jyear );
 
 				break;
 
 				case 'z': // The day of the year starting from 0 (0 through 365)
 
-					$day_of_year = 0;
+					if ( 'Hijri' == $calendar )
+						$result .= self::dayOfYearHijri( $jmonth, $jday ) - 1;
 
-					for ( $n = 0; $n < $jmonth - 1; $n++ )
-						$day_of_year += self::$j_days_in_month[$n];
-
-					$day_of_year += $jday - 1;
-					$result .= $day_of_year;
+					else
+						$result .= self::dayOfYearJalali( $jmonth, $jday ) - 1;
 
 				break;
 
 				case 'L': // Whether it's a leap year (1 if it is a leap year, 0 otherwise.)
 
-					$result .= self::checkJalali( 12, 30, $jyear ) ? '1' : '0';
+					if ( 'Hijri' == $calendar )
+						$result .= self::isLeapYearJalali( $jyear ) ? '1' : '0';
+
+					else
+						$result .= self::isLeapYearHijri( $jyear ) ? '1' : '0';
 
 				break;
 
@@ -149,7 +150,8 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 				case 'a': // Lowercase Ante meridiem and Post meridiem (am or pm)
 				case 'A': // Uppercase Ante meridiem and Post meridiem (AM or PM)
 
-					$result .= gPersianDateStrings::meridiemAntePost( $datetime->format( $format[$i] ), FALSE, $calendar );
+					$result .= gPersianDateStrings::meridiemAntePost(
+						$datetime->format( $format[$i] ), FALSE, $calendar );
 
 				break;
 
@@ -174,6 +176,9 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 	public static function sanitizeTimeZone( $timezone )
 	{
+		if ( is_null( $timezone ) && defined( 'GPERSIANDATE_TIMEZONE' ) )
+			return GPERSIANDATE_TIMEZONE;
+
 		if ( is_numeric( $timezone ) )
 			return gPersianDateTimeZone::fromOffset( $timezone );
 
@@ -200,12 +205,187 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return 'Jalali';
 	}
 
-	static public function checkJalali( $j_m, $j_d, $j_y )
+	public static function todayGregorian( $time = 'now', $timezone = NULL )
 	{
-		if ( $j_y < 0 || $j_y > 32767 || $j_m < 1 || $j_m > 12 || $j_d < 1 || $j_d >
-			(self::$j_days_in_month[$j_m-1] + ($j_m == 12 && !(($j_y-979)%33%4))))
-				return FALSE;
+		$timezone = self::sanitizeTimeZone( $timezone );
+		$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
 
+		return explode( '-', $datetime->format( 'Y-n-j' ) );
+	}
+
+	public static function todayJalali( $time = 'now', $timezone = NULL )
+	{
+		$timezone = self::sanitizeTimeZone( $timezone );
+		$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
+
+		return call_user_func_array( array( __CLASS__, 'toJalali' ), explode( '-', $datetime->format( 'Y-n-j' ) ) );
+	}
+
+	public static function todayHijri( $time = 'now', $timezone = NULL )
+	{
+		$timezone = self::sanitizeTimeZone( $timezone );
+		$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
+
+		return call_user_func_array( array( __CLASS__, 'toHijri' ), explode( '-', $datetime->format( 'Y-n-j' ) ) );
+	}
+
+	// @SOURCE: https://davidwalsh.name/php-function-calculating-days-in-a-month
+	// @REF: `cal_days_in_month()`
+	public static function daysInMonthGregorian( $month, $year )
+	{
+		return $month == 2 ? ( $year % 4 ? 28 : ( $year % 100 ? 29 : ( $year %400 ? 28 : 29 ) ) ) : ( ( $month - 1 ) % 7 % 2 ? 30 : 31 );
+	}
+
+	// @REF: `cal_days_in_month()`
+	public static function daysInMonthGregorian_ALT( $month, $year )
+	{
+		// RECOMMANDED:
+		// return date( 't', mktime( 0, 0, 0, $month, 1, $year ) );
+
+		if ( $month == 2 )
+			return self::isLeapYearGregorian( $year ) ? 29 : 28;
+
+		return self::$g_days_in_month[$month-1];
+	}
+
+	// @REF: `cal_days_in_month()`
+	public static function daysInMonthJalali( $month, $year )
+	{
+		if ( $month < 12 )
+			return self::$j_days_in_month[$month-1];
+
+		return self::isLeapYearJalali( $year ) ? 30 : 29;
+	}
+
+	// FIXME
+	public static function daysInMonthHijri( $month, $year )
+	{
+		return self::daysInMonthJalali( $month, $year );
+	}
+
+	// @SOURCE: http://php.net/manual/en/function.cal-days-in-month.php#102855
+	public static function daysTillBirthdayGregorian( $month, $day, $now = 'now' )
+	{
+		if ( 'now' == $now )
+			$now = mktime( 0, 0, 0, date( 'm' ), date( 'd' ), date( 'Y' ) );
+
+		$year = date( 'Y', $now );
+		$next = mktime( 0, 0, 0, $month, $day, $year );
+		$days = self::isLeapYearGregorian( $year ) ? 366 : 365;
+
+		if ( $next < $now )
+			$next = $next + ( 60 * 60 * 24 * $days );
+
+		return intval( ( $next - $now ) / ( 60 * 60 * 24 ) );
+	}
+
+	public static function daysTillBirthdayJalali( $month, $day, $form = 'now' )
+	{
+		list( $this_year, $this_month, $this_day ) = self::todayJalali( $form );
+
+		$days = self::isLeapYearJalali( $this_year ) ? 366 : 365;
+		$next = self::makeJalali( 0, 0, 0, $month, $day, $this_year + 1 );
+		$now  = self::makeJalali( 0, 0, 0, $this_month, $this_day, $this_year );
+
+		if ( $next < $now )
+			$next = $next + ( 60 * 60 * 24 * $days );
+
+		return intval( ( $next - $now ) / ( 60 * 60 * 24 ) );
+	}
+
+	// The day of the year: 1 through 366
+	public static function dayOfYearJalali( $month, $day )
+	{
+		$day_of_year = 0;
+
+		for ( $n = 0; $n < $month - 1; $n++ )
+			$day_of_year += self::$j_days_in_month[$n];
+
+		return $day_of_year + $day;
+	}
+
+	// FIXME
+	public static function dayOfYearHijri( $month, $day )
+	{
+		return self::dayOfYearJalali( $month, $day );
+	}
+
+	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar = 'Jalali', $timezone = NULL )
+	{
+		$calendar = self::sanitizeCalendar( $calendar );
+		$timezone = self::sanitizeTimeZone( $timezone );
+
+		if ( 'Gregorian' == $calendar )
+			list( $year, $month, $day ) = array( $jyear, $jmonth, $jday );
+
+		else if ( 'Hijri' == $calendar )
+			list( $year, $month, $day ) = self::fromHijri( $jyear, $jmonth, $jday );
+
+		else
+			list( $year, $month, $day ) = self::fromJalali( $jyear, $jmonth, $jday );
+
+		$time  = $year.'-'.sprintf( '%02d', $month ).'-'.sprintf( '%02d', $day ).' ';
+		$time .= sprintf( '%02d', $hour ).':'.sprintf( '%02d', $minute ).':'.sprintf( '%02d', $second );
+
+		try {
+
+			$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
+			return $datetime->format( 'U' );
+
+		} catch ( \Exception $e ) {
+
+			// echo $e->getMessage();
+			return FALSE;
+		}
+	}
+
+	// @SOURCE: https://davidwalsh.name/checking-for-leap-year-using-php
+	public static function isLeapYearGregorian( $year )
+	{
+		return ( ( ( $year % 4 ) == 0 ) && ( ( ( $year % 100 ) != 0 ) || ( ( $year % 400 ) == 0 ) ) );
+	}
+
+	public static function isLeapYearJalali( $year )
+	{
+		return self::checkJalali( 12, 30, $year );
+	}
+
+	// FIXME
+	public static function isLeapYearHijri( $year )
+	{
+		return FALSE;
+	}
+
+	public static function check( $month, $day, $year, $calendar = 'Jalali' )
+	{
+		$calendar = self::sanitizeCalendar( $calendar );
+
+		if ( 'Gregorian' == $calendar )
+			return checkdate( $month, $day, $year );
+
+		else if ( 'Hijri' == $calendar )
+			return self::checkHijri( $month, $day, $year );
+
+		return self::checkJalali( $month, $day, $year );
+	}
+
+	public static function checkJalali( $month, $day, $year )
+	{
+		if ( $year < 0 || $year > 32767 )
+			return FALSE;
+
+		if ( $month < 1 || $month > 12 )
+			return FALSE;
+
+		if ( $day < 1 || $day > ( self::$j_days_in_month[$month-1] + ( $month == 12 && ! ( ( $year - 979 ) % 33 % 4 ) ) ) )
+			return FALSE;
+
+		return TRUE;
+	}
+
+	// FIXME
+	public static function checkHijri( $month, $day, $year )
+	{
 		return TRUE;
 	}
 

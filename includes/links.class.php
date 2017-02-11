@@ -119,7 +119,6 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( ! $conversion )
 			return $where;
 
-		$days  = gPersianDateDate::daysInMonth();
 		$where = self::stripDateClauses( $where );
 
 		if ( $end['second'] > 59 ) {
@@ -137,7 +136,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 			$end['day']++;
 		}
 
-		if ( $end['day'] > $days[$start['month']-1] ){
+		if ( $end['day'] > gPersianDateDate::daysInMonth( $start['month'], $start['year'] ) ) {
 			$end['day'] = 1;
 			$end['month']++;
 		}
