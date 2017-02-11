@@ -1,3 +1,23 @@
+### 3.5.5
+* lib/datetime: rethinking misc methods
+* core/html: correct class for links
+* main/admin: correct end time
+* main/calendar: :new: rewrite!
+* main/date: passing calendar into make time
+* main/date: new method as getdate
+* main/format: not overriding start of the week
+* main/links: less calls to make date for archives links
+* main/links: check for dep function
+* main/links: using helper for string positions
+* main/picker: stabilizing enqueue method
+* main/shortcodes: minify & caching expensive results
+* main/strings: abbreviations for months
+* main/strings: hijri month names updated
+* main/strings: :warning: correct order of week days
+* main/timeago: :new: support for [jquery-timeago](https://github.com/rmm5t/jquery-timeago)
+* main/timezone: timestamp conversion method
+* main/wordpress: moved wordpress methods here
+
 ### 3.5.4
 * main/archives: :warning: fixed fatal: correct class for strip clauses
 * main/archives: :new: new compact archives
