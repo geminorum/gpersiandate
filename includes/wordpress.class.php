@@ -29,6 +29,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		add_filter( 'comments_number', array( 'gPersianDateTranslate', 'numbers' ), 12 );
 		add_filter( 'human_time_diff', array( 'gPersianDateTranslate', 'numbers' ), 12 );
 
+		add_filter( 'wp_get_attachment_caption', array( 'gPersianDateTranslate', 'html' ), 12 );
 		add_filter( 'wp_link_pages_link', array( 'gPersianDateTranslate', 'html' ), 12 );
 
 		// add_filter( 'pre_insert_term', array( $this, 'pre_insert_term' ), 10, 2 );
