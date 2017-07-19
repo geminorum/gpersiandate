@@ -25,7 +25,8 @@ class gPersianDateBase
 
 	public static function order( $default = 'desc', $key = 'order' )
 	{
-		return self::req( $key, $default );
+		$req = strtoupper( self::req( $key, $default ) );
+		return ( 'ASC' === $req || 'DESC' === $req ) ? $req : $default;
 	}
 
 	public static function dump( $var, $safe = TRUE, $echo = TRUE )

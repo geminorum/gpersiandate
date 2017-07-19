@@ -36,7 +36,7 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 		}
 	}
 
-	public function admin_bar_menu( $wp_admin_bar )
+	public function admin_bar_menu( &$wp_admin_bar )
 	{
 		if ( is_rtl() )
 			$title = '<span id="gpd-now" data-locale="'.GPERSIANDATE_LOCALE.'">'
@@ -53,29 +53,7 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 			'id'     => 'gpersiandate',
 			'title'  => $title,
 			'parent' => 'top-secondary',
-			'href'   => ( current_user_can( 'manage_options' ) ? get_admin_url( null, 'options-general.php' ) : false ),
-		) );
-
-		return;
-
-		$wp_admin_bar->add_node( array(
-			'id'     => 'gpersiandate-today',
-			'title'  => esc_html( date_i18n( get_option( 'date_format', 'j M Y' ) ) ),
-			'parent' => 'top-secondary',
-			'href'   => false,
-			'meta'   => array(
-				'title'  => ( is_admin() ? esc_html__( 'Today in Persian ( just to make sure the conversion is intact )', GPERSIANDATE_TEXTDOMAIN ) : esc_html__( 'Today in Persian', GPERSIANDATE_TEXTDOMAIN ) ),
-			),
-		) );
-
-		$wp_admin_bar->add_node( array(
-			'id'     => 'gpersiandate-now',
-			'title'  => esc_html( date_i18n( 'H:i' ) ), // get_option( 'time_format', 'g:i A' )
-			'parent' => 'top-secondary',
-			'href'   => false,
-			'meta'   => array(
-				'title'  => ( is_admin() ? esc_html__( 'Now ( just to make sure time zone is correct )', GPERSIANDATE_TEXTDOMAIN ) : esc_html__( 'Just Now', GPERSIANDATE_TEXTDOMAIN ) ),
-			),
+			'href'   => current_user_can( 'manage_options' ) ? get_admin_url( NULL, 'options-general.php' ) : FALSE,
 		) );
 	}
 }

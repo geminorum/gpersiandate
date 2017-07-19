@@ -2,6 +2,6 @@
   "name": "gPersianDate",
   "private": true,
   "dependencies": {
-    "jquery-timeago": "^1.5.4"
+    "jquery-timeago": "^1.6.1"
   }
 }
