@@ -48,7 +48,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 		if ( ! isset( $strings[$calendar][$full] ) ) {
 
-			switch( $calendar ) {
+			switch ( $calendar ) {
 
 				case 'Gregorian':
 
@@ -217,7 +217,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 		if ( ! isset( $strings[$calendar][$full] ) ) {
 
-			switch( $calendar ) {
+			switch ( $calendar ) {
 
 				case 'Gregorian':
 

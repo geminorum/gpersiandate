@@ -119,10 +119,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 	public static function html_callback( $matches )
 	{
-		if ( isset( $matches[1] ) )
-			return self::numbers( $matches[1] );
-		else
-			return $matches[0];
+		return isset( $matches[1] ) ? self::numbers( $matches[1] ) : $matches[0];
 	}
 
 	public static function legacy( $text )
@@ -139,14 +136,14 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		if ( is_null( $string ) )
 			return NULL;
 
-		switch( $local ) {
+		switch ( $local ) {
 
-			case 'en_US' :
+			case 'en_US':
 
 				return self::chars( $string, FALSE );
 
 			break;
-			case 'ar' :
+			case 'ar':
 
 				$string = strtr( $string, array(
 					'0' => chr(0xD9).chr(0xA0),
@@ -164,7 +161,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 				return self::chars( $string, FALSE );
 
 			break;
-			case 'fa_IR' :
+			case 'fa_IR':
 
 				$string = strtr( $string, array(
 					'0' => chr(0xDB).chr(0xB0),
@@ -211,7 +208,6 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 				// http://stackoverflow.com/a/13481824
 				// chr(0xE2).chr(0x80).chr(0x8C), // ZERO WIDTH NON-JOINER (U+200C) : &zwnj;
-
 			) ) ;
 		}
 
@@ -235,10 +231,10 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		if ( is_null( $text ) )
 			return NULL;
 
-		switch( $local ) {
-			// case 'en_US' :
+		switch ( $local ) {
+			// case 'en_US':
 
-			case 'fa_IR' :
+			case 'fa_IR':
 
 				$text = strtr( $text, array(
 					chr(0xDB).chr(0xB0) => '0',
@@ -252,15 +248,12 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 					chr(0xDB).chr(0xB8) => '8',
 					chr(0xDB).chr(0xB9) => '9',
 				) );
-
-			break;
-
 		}
 
 		if ( ! $intval )
 			return $text;
 
-		// TODO: strip non numerial
+		// FIXME: strip non numerial before intval
 		return intval( $text );
 	}
 }
