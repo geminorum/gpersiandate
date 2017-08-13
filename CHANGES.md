@@ -1,3 +1,7 @@
+### 3.5.6
+* main/format: custom date formats filter
+* main/wordpress: new filter for attachment caption
+
 ### 3.5.5
 * lib/datetime: rethinking misc methods
 * core/html: correct class for links
