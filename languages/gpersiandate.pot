@@ -6,8 +6,21 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language-Team: geminorum <contact@geminorum.ir>\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gpersiandate.php:2
+msgid "gPersianDate"
+msgstr ""
+
+#: gpersiandate.php:5
+msgid "3.5.6"
+msgstr ""
+
+#: gpersiandate.php:7
+msgid "geminorum"
+msgstr ""
 
 #: includes/admin.class.php:55
 msgid "Adminbar Clock"
@@ -53,22 +66,6 @@ msgstr ""
 
 #: includes/admin.class.php:203
 msgid "To"
-msgstr ""
-
-#: includes/adminbar.class.php:67
-msgid "Today in Persian ( just to make sure the conversion is intact )"
-msgstr ""
-
-#: includes/adminbar.class.php:67
-msgid "Today in Persian"
-msgstr ""
-
-#: includes/adminbar.class.php:77
-msgid "Now ( just to make sure time zone is correct )"
-msgstr ""
-
-#: includes/adminbar.class.php:77
-msgid "Just Now"
 msgstr ""
 
 #: includes/archives.class.php:111

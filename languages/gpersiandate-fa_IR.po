@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gPersianDate v3.5.5\n"
+"Project-Id-Version: gPersianDate\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-02-11 09:53+0330\n"
+"PO-Revision-Date: 2017-08-14 02:44+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -13,7 +13,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.3\n"
+
+#: gpersiandate.php:2
+msgid "gPersianDate"
+msgstr "تاریخ ایرانی"
+
+#: gpersiandate.php:5
+msgid "3.5.6"
+msgstr ""
+
+#: gpersiandate.php:7
+msgid "geminorum"
+msgstr "ژمای‌نوروم"
 
 #: includes/admin.class.php:55
 msgid "Adminbar Clock"
@@ -63,24 +75,6 @@ msgstr "از تاریخ"
 #: includes/admin.class.php:203
 msgid "To"
 msgstr "تا تاریخ"
-
-# @ gpersiandate
-#: includes/adminbar.class.php:67
-msgid "Today in Persian ( just to make sure the conversion is intact )"
-msgstr "امروز در تقویم فارسی (برای اطمینان از تبدیل صحیح تاریخ)"
-
-#: includes/adminbar.class.php:67
-msgid "Today in Persian"
-msgstr "تاریخ امروز"
-
-# @ gpersiandate
-#: includes/adminbar.class.php:77
-msgid "Now ( just to make sure time zone is correct )"
-msgstr "حالا (برای اطمینان از صحت  منطقهٔ زمانی)"
-
-#: includes/adminbar.class.php:77
-msgid "Just Now"
-msgstr "همین حالا"
 
 #: includes/archives.class.php:111
 msgctxt "wp_get_archives monthly"
@@ -886,6 +880,20 @@ msgstr "نزدیک به یک سال"
 msgctxt "Time Ago"
 msgid "%d years"
 msgstr "%d سال"
+
+# @ gpersiandate
+#~ msgid "Today in Persian ( just to make sure the conversion is intact )"
+#~ msgstr "امروز در تقویم فارسی (برای اطمینان از تبدیل صحیح تاریخ)"
+
+#~ msgid "Today in Persian"
+#~ msgstr "تاریخ امروز"
+
+# @ gpersiandate
+#~ msgid "Now ( just to make sure time zone is correct )"
+#~ msgstr "حالا (برای اطمینان از صحت  منطقهٔ زمانی)"
+
+#~ msgid "Just Now"
+#~ msgstr "همین حالا"
 
 #~ msgctxt "Strings: Month: Hijri: Abbreviation: Shaaban"
 #~ msgid "Sha"
