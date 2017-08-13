@@ -22,9 +22,10 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			add_filter( 'date_formats', array( $this, 'date_formats' ) );
 			add_filter( 'time_formats', array( $this, 'time_formats' ) );
 			add_filter( 'default_option_start_of_week', array( $this, 'default_option_start_of_week' ) );
-
-			add_filter( 'gmember_date_formats', array( $this, 'gmember_date_formats' ) );
 		}
+
+		add_filter( 'custom_date_formats', array( $this, 'custom_date_formats' ) );
+		add_filter( 'gmember_date_formats', array( $this, 'custom_date_formats' ) );
 	}
 
 	// @SEE: http://php.net/manual/en/function.date.php
@@ -148,9 +149,11 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		return 6;
 	}
 
-	public function gmember_date_formats( $formats )
+	public function custom_date_formats( $formats )
 	{
+		$formats['fulltime'] = 'l، j M Y - H:i:s';
 		$formats['datetime'] = 'j F Y @ G:i';
+		$formats['dateonly'] = 'l، j M Y';
 		$formats['timedate'] = is_rtl() ? 'j F Y — H:i' : 'H:i — j F Y';
 		$formats['monthday'] = 'j/n';
 		$formats['default']  = 'Y/m/d';
