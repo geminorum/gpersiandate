@@ -20,7 +20,7 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 			if ( ! $this->adminbar )
 				return;
 
-			add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu' ) );
+			add_action( 'wp_before_admin_bar_render', array( $this, 'wp_before_admin_bar_render' ), 999 );
 
 			// http://www.jquery4u.com/snippets/create-jquery-digital-clock-jquery4u/
 			wp_register_script( 'gperdiandate-clock',
@@ -36,8 +36,11 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 		}
 	}
 
-	public function admin_bar_menu( &$wp_admin_bar )
+	// needs to be last
+	public function wp_before_admin_bar_render()
 	{
+		global $wp_admin_bar;
+
 		if ( is_rtl() )
 			$title = '<span id="gpd-now" data-locale="'.GPERSIANDATE_LOCALE.'">'
 				.date_i18n( 'H:i:s' ).'</span> - <span id="gpd-today">'
@@ -50,9 +53,9 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 				.date_i18n( 'H:i:s' ).'</span>';
 
 		$wp_admin_bar->add_node( array(
+			'parent' => 'top-secondary',
 			'id'     => 'gpersiandate',
 			'title'  => $title,
-			'parent' => 'top-secondary',
 			'href'   => current_user_can( 'manage_options' ) ? get_admin_url( NULL, 'options-general.php' ) : FALSE,
 		) );
 	}
