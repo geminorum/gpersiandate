@@ -155,7 +155,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		$formats['datetime'] = 'j F Y @ G:i';
 		$formats['dateonly'] = 'l، j M Y';
 		$formats['timedate'] = is_rtl() ? 'j F Y — H:i' : 'H:i — j F Y';
-		$formats['monthday'] = 'j/n';
+		$formats['monthday'] = is_rtl() ? 'j/n' : 'n/j';
 		$formats['default']  = 'Y/m/d';
 
 		return $formats;
