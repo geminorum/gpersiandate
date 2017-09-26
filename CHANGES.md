@@ -2,7 +2,7 @@
 * main/core: early load textdomain
 * main/adminbar: clock on last
 * main/format: check rtl for monthday
-* main/calendar: padding args into link builder
+* main/calendar: passing args into link builder
 * main/calendar: more html data attributes
 
 ### 3.5.6
