@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gPersianDate\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-08-14 02:44+0430\n"
+"PO-Revision-Date: 2017-09-27 00:15+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -13,14 +13,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #: gpersiandate.php:2
 msgid "gPersianDate"
 msgstr "تاریخ ایرانی"
 
 #: gpersiandate.php:5
-msgid "3.5.6"
+msgid "3.5.7"
 msgstr ""
 
 #: gpersiandate.php:7
@@ -156,7 +156,7 @@ msgctxt "Calendar: Build: Title Seperator"
 msgid ", "
 msgstr "، "
 
-#: includes/calendar.class.php:275
+#: includes/calendar.class.php:276
 msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""

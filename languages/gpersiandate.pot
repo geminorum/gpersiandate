@@ -15,7 +15,7 @@ msgid "gPersianDate"
 msgstr ""
 
 #: gpersiandate.php:5
-msgid "3.5.6"
+msgid "3.5.7"
 msgstr ""
 
 #: gpersiandate.php:7
@@ -148,7 +148,7 @@ msgctxt "Calendar: Build: Title Seperator"
 msgid ", "
 msgstr ""
 
-#: includes/calendar.class.php:275
+#: includes/calendar.class.php:276
 msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
