@@ -1,3 +1,10 @@
+### 3.5.7
+* main/core: early load textdomain
+* main/adminbar: clock on last
+* main/format: check rtl for monthday
+* main/calendar: padding args into link builder
+* main/calendar: more html data attributes
+
 ### 3.5.6
 * main/format: custom date formats filter
 * main/wordpress: new filter for attachment caption
