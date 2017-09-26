@@ -86,7 +86,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 		for ( $wdcount = 0; $wdcount <= 6; $wdcount++ ) {
 			$wd = ( $wdcount + $args['week_begins'] ) % 7;
-			$html .= '<th title="'.esc_attr( $myweek[$wd] ).'">'.( $args['initial'] ? $mydays[$wd] : $myweek[$wd] ).'</th>';
+			$html .= $args['initial'] ? '<th title="'.esc_attr( $myweek[$wd] ).'" data-weekday="'.$wd.'">'.$mydays[$wd].'</th>' : '<th data-weekday="'.$wd.'">'.$myweek[$wd].'</th>';
 		}
 
 		$html .= '</tr></thead>';
@@ -216,7 +216,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 			$the_day_data = array_key_exists( $the_day, $data ) ? $data[$the_day]['posts'] : array();
 
-			$html .= '<td class="-day'.( $today ? ' -today' : '' ).( empty( $the_day_data ) ? '' : ' -with-posts' ).'">';
+			$html .= '<td class="-day'.( $today ? ' -today' : '' ).( empty( $the_day_data ) ? '' : ' -with-posts' ).'" data-day="'.$the_day.'">';
 				$html .= call_user_func_array( $args['the_day_callback'],
 					array( $the_day, $the_day_data, $args, $today ) );
 			$html .= '</td>';
@@ -230,12 +230,13 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		if ( $pad = ( 6 - self::mod( $week_day - $args['week_begins'] ) ) )
 			$html .= self::getPad( $pad );
 
-		return  gPersianDateHTML::tag( 'table', array(
+		return gPersianDateHTML::tag( 'table', array(
 			'id'    => $args['id'],
 			'class' => $args['class'],
 			'data' => array(
-				'year'  => $args['this_year'],
-				'month' => $args['this_month'],
+				'calendar' => $args['calendar'],
+				'year'     => $args['this_year'],
+				'month'    => $args['this_month'],
 			),
 		), $html.'</tr></tbody>' );
 	}
