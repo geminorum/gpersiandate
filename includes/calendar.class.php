@@ -71,7 +71,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			$caption = $args['caption'];
 
 		if ( $caption && TRUE === $args['caption_link'] )
-			$caption = gPersianDateHTML::link( $caption, call_user_func_array( $args['link_build_callback'], array( 'month', $args['this_year'], $args['this_month'] ) ) );
+			$caption = gPersianDateHTML::link( $caption, call_user_func_array( $args['link_build_callback'], array( 'month', $args['this_year'], $args['this_month'], $args ) ) );
 
 		else if ( $caption && $args['caption_link'] )
 			$caption = gPersianDateHTML::link( $caption, $args['caption_link'] );
@@ -251,7 +251,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			$titles[] = apply_filters( 'the_title', $post['title'], $post['ID'] );
 
 		return gPersianDateHTML::tag( 'a', array(
-			'href'  => call_user_func_array( $args['link_build_callback'], array( 'day', $args['this_year'], $args['this_month'], $the_day ) ),
+			'href'  => call_user_func_array( $args['link_build_callback'], array( 'day', $args['this_year'], $args['this_month'], $the_day, $args ) ),
 			'title' => implode( $args['title_sep'], $titles ),
 		), gPersianDateTranslate::numbers( $the_day ) );
 	}
@@ -259,7 +259,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 	public static function navMonthCallback( $date, $next = TRUE, $args = array() )
 	{
 		return gPersianDateHTML::tag( 'a', array(
-			'href'  => call_user_func_array( $args['link_build_callback'], array( 'month', $date['year'], $date['mon'] ) ),
+			'href'  => call_user_func_array( $args['link_build_callback'], array( 'month', $date['year'], $date['mon'], NULL, $args ) ),
 			'title' => self::getCaption( $date['year'], $date['mon'], $args['calendar'] ),
 		), sprintf( ( $next ? $args['nav_next'] : $args['nav_prev'] ), $date['month'] ) );
 	}
