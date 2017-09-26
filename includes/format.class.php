@@ -58,6 +58,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		$formats = apply_filters( 'gpersiandate_sanitize_format', array(
 			'j M, Y' => 'j M Y',
 			'F j, Y' => 'j F Y',
+			'd. F Y' => 'j F Y',
 		), $context, $locale );
 
 		if ( isset( $formats[$format] ) )
