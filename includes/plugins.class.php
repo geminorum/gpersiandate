@@ -6,7 +6,7 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 	protected function setup_actions()
 	{
 		// gShop
-		add_filter( 'gshop_stats_current_month', array( $this, 'gshop_stats_current_month' ), 10, 3 );
+		add_filter( 'gshop_stats_current_month', [ $this, 'gshop_stats_current_month' ], 10, 3 );
 	}
 
 	public function gshop_stats_current_month( $month, $current, $force_iso )

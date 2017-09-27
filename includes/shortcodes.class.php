@@ -5,25 +5,25 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'init', [ $this, 'init' ] );
 	}
 
 	public function init()
 	{
-		$this->shortcodes( array(
+		$this->shortcodes( [
 			'date-archives-clean'   => 'shortcode_archives_clean',
 			'date-archives-compact' => 'shortcode_archives_compact',
-		) );
+		] );
 	}
 
-	public function shortcode_archives_clean( $atts = array(), $content = NULL, $tag = '' )
+	public function shortcode_archives_clean( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -42,14 +42,14 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 		return self::shortcodeWrap( $html, 'archives-clean', $args );
 	}
 
-	public function shortcode_archives_compact( $atts = array(), $content = NULL, $tag = '' )
+	public function shortcode_archives_compact( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;

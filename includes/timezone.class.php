@@ -37,7 +37,7 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 
 	public static function fromOffset( $offset )
 	{
-		$timezones = array(
+		$timezones = [
 			'-12'  => 'Pacific/Kwajalein',
 			'-11'  => 'Pacific/Samoa',
 			'-10'  => 'Pacific/Honolulu',
@@ -68,7 +68,7 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 			'10'   => 'Pacific/Guam',
 			'11'   => 'Asia/Magadan',
 			'12'   => 'Asia/Kamchatka'
-		);
+		];
 
 		$offset = floatval( $offset );
 

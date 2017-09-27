@@ -28,16 +28,16 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 			return $datetime->format( $format );
 
 		else if ( 'Hijri' == $calendar )
-			$convertor = array( 'self', 'toHijri' );
+			$convertor = [ 'self', 'toHijri' ];
 
 		else
-			$convertor = array( 'self', 'toJalali' );
+			$convertor = [ 'self', 'toJalali' ];
 
 		$year  = $datetime->format( 'Y' );
 		$month = $datetime->format( 'n' );
 		$day   = $datetime->format( 'j' );
 
-		list( $jyear, $jmonth, $jday ) = call_user_func_array( $convertor, array( $year, $month, $day ) );
+		list( $jyear, $jmonth, $jday ) = call_user_func_array( $convertor, [ $year, $month, $day ] );
 
 		for ( $i = 0; $i < strlen( $format ); $i++ ) {
 
@@ -193,13 +193,13 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		if ( ! $calendar )
 			return 'Jalali';
 
-		if ( in_array( $calendar, array( 'Jalali', 'jalali', 'Persian', 'persian' ) ) )
+		if ( in_array( $calendar, [ 'Jalali', 'jalali', 'Persian', 'persian' ] ) )
 			return 'Jalali';
 
-		if ( in_array( $calendar, array( 'Hijri', 'hijri', 'Islamic', 'islamic' ) ) )
+		if ( in_array( $calendar, [ 'Hijri', 'hijri', 'Islamic', 'islamic' ] ) )
 			return 'Hijri';
 
-		if ( in_array( $calendar, array( 'Gregorian', 'gregorian' ) ) )
+		if ( in_array( $calendar, [ 'Gregorian', 'gregorian' ] ) )
 			return 'Gregorian';
 
 		return 'Jalali';
@@ -218,7 +218,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		$timezone = self::sanitizeTimeZone( $timezone );
 		$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
 
-		return call_user_func_array( array( __CLASS__, 'toJalali' ), explode( '-', $datetime->format( 'Y-n-j' ) ) );
+		return call_user_func_array( [ __CLASS__, 'toJalali' ], explode( '-', $datetime->format( 'Y-n-j' ) ) );
 	}
 
 	public static function todayHijri( $time = 'now', $timezone = NULL )
@@ -226,7 +226,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		$timezone = self::sanitizeTimeZone( $timezone );
 		$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
 
-		return call_user_func_array( array( __CLASS__, 'toHijri' ), explode( '-', $datetime->format( 'Y-n-j' ) ) );
+		return call_user_func_array( [ __CLASS__, 'toHijri' ], explode( '-', $datetime->format( 'Y-n-j' ) ) );
 	}
 
 	// @SOURCE: https://davidwalsh.name/php-function-calculating-days-in-a-month
@@ -316,7 +316,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		$timezone = self::sanitizeTimeZone( $timezone );
 
 		if ( 'Gregorian' == $calendar )
-			list( $year, $month, $day ) = array( $jyear, $jmonth, $jday );
+			list( $year, $month, $day ) = [ $jyear, $jmonth, $jday ];
 
 		else if ( 'Hijri' == $calendar )
 			list( $year, $month, $day ) = self::fromHijri( $jyear, $jmonth, $jday );
@@ -389,8 +389,8 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return TRUE;
 	}
 
-	private static $g_days_in_month = array( 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
-	private static $j_days_in_month = array( 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 );
+	private static $g_days_in_month = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+	private static $j_days_in_month = [ 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 ];
 
 	// Gregorian to Jalali Conversion
 	// Copyright (C) 2000  Roozbeh Pournader and Mohammad Toossi
@@ -430,7 +430,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		$jm = $i+1;
 		$jd = $j_day_no+1;
 
-		return array( $jy, $jm, $jd );
+		return [ $jy, $jm, $jd ];
 	}
 
 	// Back Comp
@@ -489,7 +489,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		$gm = $i + 1;
 		$gd = $g_day_no + 1;
 
-		return array( $gy, $gm, $gd );
+		return [ $gy, $gm, $gd ];
 	}
 
 	// Division
@@ -516,7 +516,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		$day=$l-(int)((709*$month)/24);
 		$year=(30*$n)+$j-30;
 
-		return array( $year, $month, $day );
+		return [ $year, $month, $day ];
 	}
 
 	public static function fromHijri( $year, $month, $day )
@@ -547,6 +547,6 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 			$year=(4*$k)+$n+$i-4716;
 		}
 
-		return array( $year, $month, $day );
+		return [ $year, $month, $day ];
 	}
 }

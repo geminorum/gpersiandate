@@ -23,7 +23,7 @@ class gPersianDateCore extends gPersianDateBase
 
 	private function setup()
 	{
-		$modules = array(
+		$modules = [
 			'datetime'   => 'gPersianDateDateTime',
 			'strings'    => 'gPersianDateStrings',
 			'translate'  => 'gPersianDateTranslate',
@@ -38,7 +38,7 @@ class gPersianDateCore extends gPersianDateBase
 			'calendar'   => 'gPersianDateCalendar',
 			'plugins'    => 'gPersianDatePlugins',
 			'form'       => 'gPersianDateForm',
-		);
+		];
 
 		if ( is_admin() )
 			$modules['admin'] = 'gPersianDateAdmin';
@@ -57,10 +57,10 @@ class gPersianDateCore extends gPersianDateBase
 
 		load_plugin_textdomain( GPERSIANDATE_TEXTDOMAIN, FALSE, 'gpersiandate/languages' );
 
-		add_action( 'bp_include', array( $this, 'bp_include' ) );
-		add_action( 'bbp_includes', array( $this, 'bbp_includes' ) );
+		add_action( 'bp_include', [ $this, 'bp_include' ] );
+		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] );
 
-		// do_action_ref_array( 'gpersiandate_after_setup_actions', array( &$this ) );
+		// do_action_ref_array( 'gpersiandate_after_setup_actions', [ &$this ] );
 	}
 
 	public function bp_include()
@@ -88,7 +88,7 @@ class gPersianDateCore extends gPersianDateBase
 	public function options()
 	{
 		if ( FALSE === $this->options )
-			$this->options = get_option( 'gpersiandate', array() );
+			$this->options = get_option( 'gpersiandate', [] );
 
 		return $this->options;
 	}

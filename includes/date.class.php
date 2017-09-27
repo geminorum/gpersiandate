@@ -42,7 +42,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 	public static function get( $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = GPERSIANDATE_LOCALE, $translate = FALSE, $calendar = 'Jalali' )
 	{
 		if ( FALSE === $time )
-			return array();
+			return [];
 
 		$string = self::to( 's|i|G|j|w|n|Y|z|l|F', $time, $timezone, $locale, FALSE, $calendar );
 
@@ -51,7 +51,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 		$array = explode( '|', $string );
 
-		return array(
+		return [
 			'seconds' => $array[0], // `s`: Numeric representation of seconds: 0 to 59
 			'minutes' => $array[1], // `i`: Numeric representation of minutes: 0 to 59
 			'hours'   => $array[2], // `G`: Numeric representation of hours: 0 to 23
@@ -64,7 +64,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 			'month'   => $array[9], // `F`: A full textual representation of a month, such as January or March: January through December
 
 			0 => is_null( $time ) ? current_time( 'timestamp' ) : $time,
-		);
+		];
 	}
 
 	public static function getByCal( $time = NULL, $calendar = 'Jalali', $translate = FALSE )
@@ -82,9 +82,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return date( 'Y-m-d H:i:s', self::make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar, $timezone ) );
 	}
 
-	public static function makeFromArray( $atts = array() )
+	public static function makeFromArray( $atts = [] )
 	{
-		$args = self::atts( array(
+		$args = self::atts( [
 			'year'     => 1362, // ;)
 			'month'    => 1,
 			'day'      => 1,
@@ -93,7 +93,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 			'second'   => 0,
 			'calendar' => 'Jalali',
 			'timezone' => GPERSIANDATE_TIMEZONE,
-		), $atts );
+		], $atts );
 
 		return self::make(
 			$args['hour'],
@@ -107,7 +107,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		);
 	}
 
-	public static function makeMySQLFromArray( $atts = array(), $format = NULL )
+	public static function makeMySQLFromArray( $atts = [], $format = NULL )
 	{
 		if ( is_null( $format ) )
 			$format = 'Y-m-d H:i:s';
@@ -139,10 +139,10 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 		$days = self::daysInMonth( $month, $year, $calendar );
 
-		return array(
+		return [
 			date( $format, self::make( 0, 0, 0, $month, 1, $year, $calendar, $timezone ) ),
 			date( $format, self::make( 23, 59, 59, $month, $days, $year, $calendar, $timezone ) ),
-		);
+		];
 	}
 
 	// @REF: `cal_days_in_month()`
@@ -162,12 +162,12 @@ class gPersianDateDate extends gPersianDateModuleCore
 	// timezone must be UTC, since all dates stored in wp are local
 	public static function dayOfWeek( $month, $day, $year, $calendar = 'Jalali', $timezone = 'UTC' )
 	{
-		return date( 'w', self::makeFromArray( array(
+		return date( 'w', self::makeFromArray( [
 			'year'     => $year,
 			'month'    => $month,
 			'day'      => $day,
 			'calendar' => $calendar,
 			'timezone' => $timezone,
-		) ) );
+		] ) );
 	}
 }

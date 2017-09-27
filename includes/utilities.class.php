@@ -21,7 +21,7 @@ class gPersianDateUtilities extends gPersianDateBase
 		return $cache[$sub];
 	}
 
-	public static function hasPosts( $post_types = array( 'post' ), $exclude_statuses = NULL )
+	public static function hasPosts( $post_types = [ 'post' ], $exclude_statuses = NULL )
 	{
 		global $wpdb;
 
@@ -37,13 +37,13 @@ class gPersianDateUtilities extends gPersianDateBase
 	public static function getExcludeStatuses( $statuses = NULL )
 	{
 		if ( is_null( $statuses ) )
-			return array(
+			return [
 				'draft',
 				'private',
 				'trash',
 				'auto-draft',
 				'inherit',
-			);
+			];
 
 		return (array) $statuses;
 	}
@@ -53,22 +53,26 @@ class gPersianDateUtilities extends gPersianDateBase
 	// @REF: https://coderwall.com/p/fatjmw/compressing-html-output-with-php
 	public static function minifyHTML( $buffer )
 	{
-		$buffer = str_replace( array( "\n", "\r", "\t" ), '', $buffer );
+		$buffer = str_replace( [ "\n", "\r", "\t" ], '', $buffer );
 
-		$buffer = preg_replace(
-			array( '/<!--(.*)-->/Uis', "/[[:blank:]]+/" ),
-			array( '', ' ' ),
+		$buffer = preg_replace( [
+			'/<!--(.*)-->/Uis',
+			"/[[:blank:]]+/",
+		], [
+			'',
+			' ',
+		],
 		$buffer );
 
-		$buffer = preg_replace( array(
+		$buffer = preg_replace( [
 			'/\>[^\S ]+/s', // strip whitespaces after tags, except space
 			'/[^\S ]+\</s', // strip whitespaces before tags, except space
 			'/(\s)+/s' // shorten multiple whitespace sequences
-		), array(
+		], [
 			'>',
 			'<',
 			'\\1'
-		), $buffer );
+		], $buffer );
 
 		return trim( $buffer );
 	}

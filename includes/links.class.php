@@ -7,14 +7,14 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'posts_where', array( $this, 'posts_where' ), 20 );
+		add_filter( 'posts_where', [ $this, 'posts_where' ], 20 );
 
-		add_filter( 'post_link', array( $this, 'post_link' ), 10, 3 );
-		add_filter( 'day_link', array( $this, 'day_link' ), 10, 4 );
-		add_filter( 'month_link', array( $this, 'month_link' ), 10, 3 );
-		add_filter( 'year_link', array( $this, 'year_link' ), 10, 2 );
+		add_filter( 'post_link', [ $this, 'post_link' ], 10, 3 );
+		add_filter( 'day_link', [ $this, 'day_link' ], 10, 4 );
+		add_filter( 'month_link', [ $this, 'month_link' ], 10, 3 );
+		add_filter( 'year_link', [ $this, 'year_link' ], 10, 2 );
 
-		add_filter( 'wp_title_parts', array( $this, 'wp_title_parts' ) );
+		add_filter( 'wp_title_parts', [ $this, 'wp_title_parts' ] );
 	}
 
 	public function posts_where( $where = '' )
@@ -26,14 +26,14 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 		$conversion = FALSE;
 
-		$start = $end = array(
+		$start = $end = [
 			'year'   => 1,
 			'month'  => 1,
 			'day'    => 1,
 			'hour'   => 0,
 			'minute' => 0,
 			'second' => 0,
-		);
+		];
 
 		if ( ! empty( $wp_query->query_vars['m'] ) ) {
 
@@ -154,14 +154,14 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 	public static function stripDateClauses( $where )
 	{
-		$patterns = array(
+		$patterns = [
 			'/YEAR\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
 			'/DAYOFMONTH\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
 			'/MONTH\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
 			'/HOUR\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
 			'/MINUTE\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
 			'/SECOND\((.*?)post_date\s*\)\s*=\s*[0-9\']*/',
-		);
+		];
 
 		foreach ( $patterns as $pattern )
 			$where = preg_replace( $pattern, '1=1', $where );
@@ -274,13 +274,13 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( gPersianDateText::has( $permalink, '?p=' ) )
 			return $permalink;
 
-		if ( in_array( $post->post_status, array( 'draft', 'pending', 'auto-draft', 'future' ) ) )
+		if ( in_array( $post->post_status, [ 'draft', 'pending', 'auto-draft', 'future' ] ) )
 			return $permalink;
 
 		if ( ! $structure = apply_filters( 'pre_post_link', get_option( 'permalink_structure' ), $post, $leavename ) )
 			return $permalink;
 
-		if ( ! gPersianDateText::has( $structure, array( '%year%', '%monthnum%', '%day%' ), 'AND' ) )
+		if ( ! gPersianDateText::has( $structure, [ '%year%', '%monthnum%', '%day%' ], 'AND' ) )
 			return $permalink;
 
 		$category = $author = '';
@@ -291,7 +291,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 				// FIXME: DEPRECATED Since WP v4.7.0
 				if ( function_exists( 'wp_list_sort' ) )
-					$cats = wp_list_sort( $cats, array( 'term_id' => 'ASC' ) );
+					$cats = wp_list_sort( $cats, [ 'term_id' => 'ASC' ] );
 				else
 					usort( $cats, '_usort_terms_by_ID' );
 
@@ -317,7 +317,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 		$date = explode( '-', gPersianDateDate::_to( 'Y-m-d-H-i-s', $post->post_date ) );
 
-		$rewritereplace = array(
+		$rewritereplace = [
 			$date[0],
 			$date[1],
 			$date[2],
@@ -329,9 +329,9 @@ class gPersianDateLinks extends gPersianDateModuleCore
 			$category,
 			$author,
 			$post->post_name,
-		);
+		];
 
-		$rewritecode = array(
+		$rewritecode = [
 			'%year%',
 			'%monthnum%',
 			'%day%',
@@ -343,7 +343,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 			'%category%',
 			'%author%',
 			$leavename ? '' : '%pagename%',
-		);
+		];
 
 		return home_url( user_trailingslashit( str_replace(
 			$rewritecode,

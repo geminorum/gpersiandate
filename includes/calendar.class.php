@@ -3,7 +3,7 @@
 class gPersianDateCalendar extends gPersianDateModuleCore
 {
 
-	public static function build( $atts = array(), $current_time = NULL )
+	public static function build( $atts = [], $current_time = NULL )
 	{
 		global $wpdb;
 
@@ -12,7 +12,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		$current_month = ''.sprintf( '%02d', $current_date['mon'] );
 		$current_day   = ''.sprintf( '%02d', $current_date['mday'] );
 
-		$args = self::atts( array(
+		$args = self::atts( [
 			'calendar' => NULL, // NULL to default
 
 			'this_year'   => $current_year,
@@ -20,7 +20,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			'this_day'    => $current_day,
 			'week_begins' => get_option( 'start_of_week' ), // '6' // week start on Saturday
 
-			'post_type'        => apply_filters( 'gpersiandate_calendar_posttypes', array( 'post' ) ),
+			'post_type'        => apply_filters( 'gpersiandate_calendar_posttypes', [ 'post' ] ),
 			'exclude_statuses' => NULL, // for admin only // NULL to default
 
 			'initial'      => TRUE,
@@ -38,20 +38,20 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 			'id'    => 'wp-calendar', // table html id
 			'class' => 'date-calendar', // table html css class
-		), $atts );
+		], $atts );
 
 		// bailing if no posts!
 		if ( ! gPersianDateUtilities::hasPosts( $args['post_type'], $args['exclude_statuses'] ) )
 			return '';
 
 		if ( ! $args['link_build_callback'] || ! is_callable( $args['link_build_callback'] ) )
-			$args['link_build_callback'] = array( 'gPersianDateLinks', 'build' );
+			$args['link_build_callback'] = [ 'gPersianDateLinks', 'build' ];
 
 		if ( ! $args['the_day_callback'] || ! is_callable( $args['the_day_callback'] ) )
-			$args['the_day_callback'] = array( __CLASS__, 'theDayCallback' );
+			$args['the_day_callback'] = [ __CLASS__, 'theDayCallback' ];
 
 		if ( ! $args['nav_month_callback'] || ! is_callable( $args['nav_month_callback'] ) )
-			$args['nav_month_callback'] = array( __CLASS__, 'navMonthCallback' );
+			$args['nav_month_callback'] = [ __CLASS__, 'navMonthCallback' ];
 
 		list( $first_day, $last_day ) = gPersianDateDate::monthFirstAndLast( $args['this_year'], $args['this_month'], NULL, $args['calendar'] );
 
@@ -71,7 +71,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			$caption = $args['caption'];
 
 		if ( $caption && TRUE === $args['caption_link'] )
-			$caption = gPersianDateHTML::link( $caption, call_user_func_array( $args['link_build_callback'], array( 'month', $args['this_year'], $args['this_month'], $args ) ) );
+			$caption = gPersianDateHTML::link( $caption, call_user_func_array( $args['link_build_callback'], [ 'month', $args['this_year'], $args['this_month'], $args ] ) );
 
 		else if ( $caption && $args['caption_link'] )
 			$caption = gPersianDateHTML::link( $caption, $args['caption_link'] );
@@ -151,7 +151,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 		$html .= '<tbody><tr>';
 
-		$data = array();
+		$data = [];
 
 		$post_select_fields = is_admin()
 			? "post_title, post_date, post_type, post_modified, post_status, post_author"
@@ -173,15 +173,15 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 				if ( ! isset( $data[$key] ) ) {
 					$post_date = gPersianDateDate::getByCal( $post->post_date, $args['calendar'] );
-					$data[$key] = array( 'posts' => array(), 'mday' => $post_date['mday'] );
+					$data[$key] = [ 'posts' => [], 'mday' => $post_date['mday'] ];
 				}
 
-				$the_post = array(
+				$the_post = [
 					'ID'    => $post->ID,
 					'date'  => $post->post_date,
 					'type'  => $post->post_type,
 					'title' => $post->post_title,
-				);
+				];
 
 				if ( is_admin() ) {
 					$the_post['modified'] = $post->post_modified;
@@ -214,7 +214,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 				&& $args['this_month'] == $current_month
 				&& $args['this_year'] == $current_year );
 
-			$the_day_data = array_key_exists( $the_day, $data ) ? $data[$the_day]['posts'] : array();
+			$the_day_data = array_key_exists( $the_day, $data ) ? $data[$the_day]['posts'] : [];
 
 			$html .= '<td class="-day'.( $today ? ' -today' : '' ).( empty( $the_day_data ) ? '' : ' -with-posts' ).'" data-day="'.$the_day.'">';
 				$html .= call_user_func_array( $args['the_day_callback'],
@@ -230,39 +230,39 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		if ( $pad = ( 6 - self::mod( $week_day - $args['week_begins'] ) ) )
 			$html .= self::getPad( $pad );
 
-		return gPersianDateHTML::tag( 'table', array(
+		return gPersianDateHTML::tag( 'table', [
 			'id'    => $args['id'],
 			'class' => $args['class'],
-			'data' => array(
+			'data'  => [
 				'calendar' => $args['calendar'],
 				'year'     => $args['this_year'],
 				'month'    => $args['this_month'],
-			),
-		), $html.'</tr></tbody>' );
+			],
+		], $html.'</tr></tbody>' );
 	}
 
-	public static function theDayCallback( $the_day, $data = array(), $args = array(), $today = FALSE )
+	public static function theDayCallback( $the_day, $data = [], $args = [], $today = FALSE )
 	{
 		if ( ! count( $data ) )
 			return gPersianDateTranslate::numbers( $the_day );
 
-		$titles = array();
+		$titles = [];
 
 		foreach ( $data as $post )
 			$titles[] = apply_filters( 'the_title', $post['title'], $post['ID'] );
 
-		return gPersianDateHTML::tag( 'a', array(
-			'href'  => call_user_func_array( $args['link_build_callback'], array( 'day', $args['this_year'], $args['this_month'], $the_day, $args ) ),
+		return gPersianDateHTML::tag( 'a', [
+			'href'  => call_user_func_array( $args['link_build_callback'], [ 'day', $args['this_year'], $args['this_month'], $the_day, $args ] ),
 			'title' => implode( $args['title_sep'], $titles ),
-		), gPersianDateTranslate::numbers( $the_day ) );
+		], gPersianDateTranslate::numbers( $the_day ) );
 	}
 
-	public static function navMonthCallback( $date, $next = TRUE, $args = array() )
+	public static function navMonthCallback( $date, $next = TRUE, $args = [] )
 	{
-		return gPersianDateHTML::tag( 'a', array(
-			'href'  => call_user_func_array( $args['link_build_callback'], array( 'month', $date['year'], $date['mon'], NULL, $args ) ),
+		return gPersianDateHTML::tag( 'a', [
+			'href'  => call_user_func_array( $args['link_build_callback'], [ 'month', $date['year'], $date['mon'], NULL, $args ] ),
 			'title' => self::getCaption( $date['year'], $date['mon'], $args['calendar'] ),
-		), sprintf( ( $next ? $args['nav_next'] : $args['nav_prev'] ), $date['month'] ) );
+		], sprintf( ( $next ? $args['nav_next'] : $args['nav_prev'] ), $date['month'] ) );
 	}
 
 	public static function getPad( $pad )
@@ -291,7 +291,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 	{
 		global $wpdb, $m, $monthnum, $year, $posts;
 
-		$args = array( 'initial' => $initial );
+		$args = [ 'initial' => $initial ];
 
 		if ( ! empty( $monthnum ) && ! empty( $year ) ) {
 

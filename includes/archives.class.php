@@ -9,7 +9,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 	{
 		global $wpdb, $wp_locale;
 
-		$defaults = array(
+		$defaults = [
 			'type'            => 'monthly',
 			'limit'           => '',
 			'format'          => 'html',
@@ -19,7 +19,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'echo'            => 1,
 			'order'           => 'DESC',
 			'post_type'       => 'post',
-		);
+		];
 
 		$args = wp_parse_args( $r, $defaults );
 
@@ -380,9 +380,9 @@ class gPersianDateArchives extends gPersianDateModuleCore
 // @REF: http://www.wpbeginner.com/plugins/how-to-create-compact-archives-in-wordpress/
 
 	// LAST EDITED: 1/23/2017, 5:00:27 PM
-	public static function getCompact( $atts = array() )
+	public static function getCompact( $atts = [] )
 	{
-		$args = self::atts( array(
+		$args = self::atts( [
 			'post_type'      => 'post', // or array of types
 			'post_author'    => 0, // all
 			'css_class'      => 'table table-condensed', // Bootstrap 3 classes
@@ -391,9 +391,9 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'string_caption' => FALSE, // table caption
 			'string_count'   => _x( '%s Posts', 'Archives: Compact', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
 			'string_empty'   => _x( 'Archives are empty.', 'Archives: Compact', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
-		), $atts );
+		], $atts );
 
-		list( $first, $last ) = gPersianDateWordPress::getPosttypeFirstAndLast( $args['post_type'], array(), $args['post_author'], FALSE );
+		list( $first, $last ) = gPersianDateWordPress::getPosttypeFirstAndLast( $args['post_type'], [], $args['post_author'], FALSE );
 
 		if ( ! $first )
 			return $args['string_empty'] ? '<span class="-empty">'.$args['string_empty'].'</span>' : FALSE;
@@ -477,9 +477,9 @@ class gPersianDateArchives extends gPersianDateModuleCore
 // @REF: https://wordpress.org/plugins/clean-my-archives/
 // @REF: https://github.com/justintadlock/clean-my-archives
 
-	public static function getClean( $atts = array() )
+	public static function getClean( $atts = [] )
 	{
-		$args = self::atts( array(
+		$args = self::atts( [
 			'limit'         => -1,
 			'year'          => '',
 			'month'         => '',
@@ -491,13 +491,12 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'css_class'     => 'table table-condensed', // Bootstrap 3 classes
 			'string_empty'  => _x( 'Archives are empty.', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
 			'string_count'  => _x( 'Post comment count', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
-		), $atts );
+		], $atts );
 
 		// FIXME: must check year/month args for conversion
 
 		$html  = $current_year = $current_month = $current_day = '';
-		$query = array(
-
+		$query = [
 			'year'           => $args['year'] ? absint( $args['year'] ) : '',
 			'monthnum'       => $args['month'] ? absint( $args['month'] ) : '',
 			'post_type'      => is_array( $args['post_type'] ) ? $args['post_type'] : explode( ',', $args['post_type'] ),
@@ -509,7 +508,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'update_post_meta_cache' => FALSE,
 			'update_post_term_cache' => FALSE,
 			'lazy_load_term_meta'    => FALSE,
-		);
+		];
 
 		$loop = new \WP_Query( $query );
 

@@ -6,13 +6,13 @@ class gPersianDateStrings extends gPersianDateModuleCore
 	// @REF: [Month Dropdown in PHP](http://paulferrett.com/2012/month-dropdown-in-php/)
 	public static function lastMonths( $limit = 12, $calendar = NULL )
 	{
-		static $strings = array();
+		static $strings = [];
 
 		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
 
 		if ( ! isset( $strings[$calendar][$limit] ) ) {
 
-			$months = array();
+			$months = [];
 
 			for ( $i = 0; $i <= $limit; ++$i ) {
 
@@ -41,7 +41,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 	// @SEE: http://www.wikiwand.com/en/Month
 	public static function month( $formatted = '01', $all = FALSE, $calendar = NULL, $abbrev = FALSE )
 	{
-		static $strings = array();
+		static $strings = [];
 
 		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
 		$full     = $abbrev ? 'abbrev' : 'full';
@@ -53,7 +53,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 				case 'Gregorian':
 
 					if ( $abbrev )
-						$strings[$calendar]['abbrev'] = array(
+						$strings[$calendar]['abbrev'] = [
 							'01' => _x( 'Jan', 'Strings: Month: Gregorian: Abbreviation: January', GPERSIANDATE_TEXTDOMAIN ), // 31 days
 							'02' => _x( 'Feb', 'Strings: Month: Gregorian: Abbreviation: February', GPERSIANDATE_TEXTDOMAIN ), // 28 days, 29 in leap years
 							'03' => _x( 'Mar', 'Strings: Month: Gregorian: Abbreviation: March', GPERSIANDATE_TEXTDOMAIN ), // 31 days
@@ -66,10 +66,10 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							'10' => _x( 'Oct', 'Strings: Month: Gregorian: Abbreviation: October', GPERSIANDATE_TEXTDOMAIN ), // 31 days
 							'11' => _x( 'Nov', 'Strings: Month: Gregorian: Abbreviation: November', GPERSIANDATE_TEXTDOMAIN ), // 30 days
 							'12' => _x( 'Dec', 'Strings: Month: Gregorian: Abbreviation: December', GPERSIANDATE_TEXTDOMAIN ), // 31 days
-						);
+						];
 
 					else
-						$strings[$calendar]['full'] = array(
+						$strings[$calendar]['full'] = [
 							'01' => _x( 'January', 'Strings: Month: Gregorian: Full: January', GPERSIANDATE_TEXTDOMAIN ), // 31 days
 							'02' => _x( 'February', 'Strings: Month: Gregorian: Full: February', GPERSIANDATE_TEXTDOMAIN ), // 28 days, 29 in leap years
 							'03' => _x( 'March', 'Strings: Month: Gregorian: Full: March', GPERSIANDATE_TEXTDOMAIN ), // 31 days
@@ -82,7 +82,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							'10' => _x( 'October', 'Strings: Month: Gregorian: Full: October', GPERSIANDATE_TEXTDOMAIN ), // 31 days
 							'11' => _x( 'November', 'Strings: Month: Gregorian: Full: November', GPERSIANDATE_TEXTDOMAIN ), // 30 days
 							'12' => _x( 'December', 'Strings: Month: Gregorian: Full: December', GPERSIANDATE_TEXTDOMAIN ), // 31 days
-						);
+						];
 
 				break;
 				case 'Hijri':
@@ -91,7 +91,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 					// 'محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'
 
 					if ( $abbrev )
-						$strings[$calendar]['abbrev'] = array(
+						$strings[$calendar]['abbrev'] = [
 							'01' => _x( 'Muh', 'Strings: Month: Hijri: Abbreviation: Muharram', GPERSIANDATE_TEXTDOMAIN ), // (Restricted/sacred) محرّم
 							'02' => _x( 'Saf', 'Strings: Month: Hijri: Abbreviation: Safar', GPERSIANDATE_TEXTDOMAIN ), // (Empty/Yellow) صفر
 							'03' => _x( 'Rb1', 'Strings: Month: Hijri: Abbreviation: Rabi Al Awwal', GPERSIANDATE_TEXTDOMAIN ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
@@ -104,10 +104,10 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							'10' => _x( 'Shw', 'Strings: Month: Hijri: Abbreviation: Shawwal', GPERSIANDATE_TEXTDOMAIN ), // Shawwāl (To Be Light and Vigorous) شوّال
 							'11' => _x( 'Qid', 'Strings: Month: Hijri: Abbreviation: Dhul Qidah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Qi'dah (The Master of Truce) ذو القعدة
 							'12' => _x( 'Hij', 'Strings: Month: Hijri: Abbreviation: Dhul Hijjah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
-						);
+						];
 
 					else
-						$strings[$calendar]['full'] = array(
+						$strings[$calendar]['full'] = [
 							'01' => _x( 'Muharram', 'Strings: Month: Hijri: Full: Muharram', GPERSIANDATE_TEXTDOMAIN ), // (Restricted/sacred) محرّم
 							'02' => _x( 'Safar', 'Strings: Month: Hijri: Full: Safar', GPERSIANDATE_TEXTDOMAIN ), // (Empty/Yellow) صفر
 							'03' => _x( 'Rabi Al Awwal', 'Strings: Month: Hijri: Full: Rabi Al Awwal', GPERSIANDATE_TEXTDOMAIN ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
@@ -120,14 +120,14 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							'10' => _x( 'Shawwal', 'Strings: Month: Hijri: Full: Shawwal', GPERSIANDATE_TEXTDOMAIN ), // Shawwāl (To Be Light and Vigorous) شوّال
 							'11' => _x( 'Dhul Qidah', 'Strings: Month: Hijri: Full: Dhul Qidah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Qi'dah (The Master of Truce) ذو القعدة
 							'12' => _x( 'Dhul Hijjah', 'Strings: Month: Hijri: Full: Dhul Hijjah', GPERSIANDATE_TEXTDOMAIN ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
-						);
+						];
 
 				break;
 				default:
 				case 'Jalali':
 
 					if ( $abbrev )
-						$strings[$calendar]['abbrev'] = array(
+						$strings[$calendar]['abbrev'] = [
 							'01' => _x( 'Far', 'Strings: Month: Jalali: Abbreviation: Farvardin', GPERSIANDATE_TEXTDOMAIN ), // (31 days, فروردین)
 							'02' => _x( 'Ord', 'Strings: Month: Jalali: Abbreviation: Ordibehesht', GPERSIANDATE_TEXTDOMAIN ), // (31 days, اردیبهشت)
 							'03' => _x( 'Kho', 'Strings: Month: Jalali: Abbreviation: Khordad', GPERSIANDATE_TEXTDOMAIN ), // (31 days, خرداد)
@@ -140,10 +140,10 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							'10' => _x( 'Dey', 'Strings: Month: Jalali: Abbreviation: Dey', GPERSIANDATE_TEXTDOMAIN ), // (30 days, دی)
 							'11' => _x( 'Bah', 'Strings: Month: Jalali: Abbreviation: Bahman', GPERSIANDATE_TEXTDOMAIN ), // (30 days, بهمن)
 							'12' => _x( 'Esf', 'Strings: Month: Jalali: Abbreviation: Esfand', GPERSIANDATE_TEXTDOMAIN ), // (29 days- 30 days in leap year, اسفند)
-						);
+						];
 
 					else
-						$strings[$calendar]['full'] = array(
+						$strings[$calendar]['full'] = [
 							'01' => _x( 'Farvardin', 'Strings: Month: Jalali: Full: Farvardin', GPERSIANDATE_TEXTDOMAIN ), // (31 days, فروردین)
 							'02' => _x( 'Ordibehesht', 'Strings: Month: Jalali: Full: Ordibehesht', GPERSIANDATE_TEXTDOMAIN ), // (31 days, اردیبهشت)
 							'03' => _x( 'Khordad', 'Strings: Month: Jalali: Full: Khordad', GPERSIANDATE_TEXTDOMAIN ), // (31 days, خرداد)
@@ -156,7 +156,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							'10' => _x( 'Dey', 'Strings: Month: Jalali: Full: Dey', GPERSIANDATE_TEXTDOMAIN ), // (30 days, دی)
 							'11' => _x( 'Bahman', 'Strings: Month: Jalali: Full: Bahman', GPERSIANDATE_TEXTDOMAIN ), // (30 days, بهمن)
 							'12' => _x( 'Esfand', 'Strings: Month: Jalali: Full: Esfand', GPERSIANDATE_TEXTDOMAIN ), // (29 days- 30 days in leap year, اسفند)
-						);
+						];
 			}
 		}
 
@@ -176,26 +176,26 @@ class gPersianDateStrings extends gPersianDateModuleCore
 		static $strings = NULL;
 
 		if ( is_null( $strings ) )
-			$strings = array(
-				'Gregorian' => array(
+			$strings = [
+				'Gregorian' => [
 					'am' => _x( 'am', 'Ante meridiem: Gregorian - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
 					'pm' => _x( 'pm', 'Post meridiem: Gregorian - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
 					'AM' => _x( 'AM', 'Ante meridiem: Gregorian - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
 					'PM' => _x( 'PM', 'Post meridiem: Gregorian - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
-				),
-				'Hijri' => array(
+				],
+				'Hijri' => [
 					'am' => _x( 'am', 'Ante meridiem: Hijri - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
 					'pm' => _x( 'pm', 'Post meridiem: Hijri - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
 					'AM' => _x( 'AM', 'Ante meridiem: Hijri - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
 					'PM' => _x( 'PM', 'Post meridiem: Hijri - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
-				),
-				'Jalali' => array(
+				],
+				'Jalali' => [
 					'am' => _x( 'am', 'Ante meridiem: Jalali - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
 					'pm' => _x( 'pm', 'Post meridiem: Jalali - Lowercase', GPERSIANDATE_TEXTDOMAIN ),
 					'AM' => _x( 'AM', 'Ante meridiem: Jalali - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
 					'PM' => _x( 'PM', 'Post meridiem: Jalali - Uppercase', GPERSIANDATE_TEXTDOMAIN ),
-				),
-			);
+				],
+			];
 
 		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
 
@@ -210,7 +210,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 	public static function dayoftheweek( $formatted, $all = FALSE, $calendar = NULL, $initial = FALSE )
 	{
-		static $strings = array();
+		static $strings = [];
 
 		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
 		$full     = $initial ? 'initial' : 'full';
@@ -224,7 +224,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 					// 0 (for Sunday) through 6 (for Saturday)
 
 					if ( $initial )
-						$strings['Gregorian']['initial'] = array(
+						$strings['Gregorian']['initial'] = [
 							_x( 'S', 'Day of the Week Initial: Gregorian - Sunday', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'M', 'Day of the Week Initial: Gregorian - Monday', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'T', 'Day of the Week Initial: Gregorian - Tuesday', GPERSIANDATE_TEXTDOMAIN ),
@@ -232,10 +232,10 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							_x( 'T', 'Day of the Week Initial: Gregorian - Thursday', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'F', 'Day of the Week Initial: Gregorian - Friday', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'S', 'Day of the Week Initial: Gregorian - Saturday', GPERSIANDATE_TEXTDOMAIN ),
-						);
+						];
 
 					else
-						$strings['Gregorian']['full'] = array(
+						$strings['Gregorian']['full'] = [
 							_x( 'Sunday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Monday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Tuesday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
@@ -243,7 +243,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							_x( 'Thursday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Friday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Saturday', 'Day of the Week: Gregorian', GPERSIANDATE_TEXTDOMAIN ),
-						);
+						];
 
 				break;
 				case 'Hijri':
@@ -252,7 +252,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 					// 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'
 
 					if ( $initial )
-						$strings['Hijri']['initial'] = array(
+						$strings['Hijri']['initial'] = [
 							_x( 'Ah', 'Day of the Week Initial: Hijri - al-Ahad', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'It', 'Day of the Week Initial: Hijri - al-Ithnayn', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Th', 'Day of the Week Initial: Hijri - ath-Thulatha', GPERSIANDATE_TEXTDOMAIN ),
@@ -260,10 +260,10 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							_x( 'Kh', 'Day of the Week Initial: Hijri - al-Khamis', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Ju', 'Day of the Week Initial: Hijri - l-Jumuah', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Sa', 'Day of the Week Initial: Hijri - as-Sabt', GPERSIANDATE_TEXTDOMAIN ),
-						);
+						];
 
 					else
-						$strings['Hijri']['full'] = array(
+						$strings['Hijri']['full'] = [
 							_x( 'al-Aḥad', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'al-Ithnayn', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'ath-Thulāthāʼ', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
@@ -271,13 +271,13 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							_x( 'al-Khamīs', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'al-Jumu‘ah', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'as-Sabt', 'Day of the Week: Hijri', GPERSIANDATE_TEXTDOMAIN ),
-						);
+						];
 
 				default:
 				case 'Jalali':
 
 					if ( $initial )
-						$strings['Jalali']['initial'] = array(
+						$strings['Jalali']['initial'] = [
 							_x( 'Ye', 'Day of the Week Initial: Jalali - Yek-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Do', 'Day of the Week Initial: Jalali - Do-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Se', 'Day of the Week Initial: Jalali - Seh-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
@@ -285,10 +285,10 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							_x( 'Pa', 'Day of the Week Initial: Jalali - Panj-Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Ad', 'Day of the Week Initial: Jalali - Adineh', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Sh', 'Day of the Week Initial: Jalali - Shanbeh', GPERSIANDATE_TEXTDOMAIN ),
-						);
+						];
 
 					else
-						$strings['Jalali']['full'] = array(
+						$strings['Jalali']['full'] = [
 							_x( 'Yek-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Do-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Seh-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
@@ -296,7 +296,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							_x( 'Panj-Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Adineh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
 							_x( 'Shanbeh', 'Day of the Week: Jalali', GPERSIANDATE_TEXTDOMAIN ),
-						);
+						];
 			}
 		}
 

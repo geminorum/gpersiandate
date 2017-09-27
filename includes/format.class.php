@@ -5,34 +5,34 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 	protected $ajax = TRUE;
 
-	private static $_saved = array();
+	private static $_saved = [];
 
 	protected function setup_actions()
 	{
-		self::$_saved = array(
+		self::$_saved = [
 			'time' => get_option( 'time_format' ),
 			'date' => get_option( 'date_format' ),
-		);
+		];
 
 		if ( is_admin() ) {
 
-			add_filter( 'gettext', array( $this, 'gettext' ), 10, 3 );
-			add_filter( 'gettext_with_context', array( $this, 'gettext_with_context' ), 10, 4 );
+			add_filter( 'gettext', [ $this, 'gettext' ], 10, 3 );
+			add_filter( 'gettext_with_context', [ $this, 'gettext_with_context' ], 10, 4 );
 
-			add_filter( 'date_formats', array( $this, 'date_formats' ) );
-			add_filter( 'time_formats', array( $this, 'time_formats' ) );
-			add_filter( 'default_option_start_of_week', array( $this, 'default_option_start_of_week' ) );
+			add_filter( 'date_formats', [ $this, 'date_formats' ] );
+			add_filter( 'time_formats', [ $this, 'time_formats' ] );
+			add_filter( 'default_option_start_of_week', [ $this, 'default_option_start_of_week' ] );
 		}
 
-		add_filter( 'custom_date_formats', array( $this, 'custom_date_formats' ) );
-		add_filter( 'gmember_date_formats', array( $this, 'custom_date_formats' ) );
+		add_filter( 'custom_date_formats', [ $this, 'custom_date_formats' ] );
+		add_filter( 'gmember_date_formats', [ $this, 'custom_date_formats' ] );
 	}
 
 	// @SEE: http://php.net/manual/en/function.date.php
 	// @SEE: date_i18n()
 	public static function checkISO( $format )
 	{
-		return in_array( $format, array(
+		return in_array( $format, [
 			'Z', // Timezone offset in seconds // -43200 through 50400
 			'T', // Timezone abbreviation // Examples: EST, MDT
 			'O', // Difference to Greenwich time (GMT) in hours // Example: +0200
@@ -47,7 +47,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 			'Y-m-d_H-i-s',
 			'Y-m-d H:i:s',
-		) );
+		] );
 	}
 
 	public static function sanitize( $format = '', $context = 'date', $locale = GPERSIANDATE_LOCALE )
@@ -55,11 +55,11 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		if ( '' == $format && isset( self::$_saved[$context] ) )
 			$format = self::$_saved[$context];
 
-		$formats = apply_filters( 'gpersiandate_sanitize_format', array(
+		$formats = apply_filters( 'gpersiandate_sanitize_format', [
 			'j M, Y' => 'j M Y',
 			'F j, Y' => 'j F Y',
 			'd. F Y' => 'j F Y',
-		), $context, $locale );
+		], $context, $locale );
 
 		if ( isset( $formats[$format] ) )
 			return $formats[$format];
@@ -75,14 +75,14 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		static $strings;
 
 		if ( empty( $strings ) )
-			$strings = array(
-				'dashboard' => array(
+			$strings = [
+				'dashboard' => [
 					'%1$s, %2$s' => '%1$s &mdash; %2$s', // `wp_dashboard_recent_posts()`
-				),
-				'revision date format' => array(
+				],
+				'revision date format' => [
 					'F j, Y @ H:i:s' => 'j M Y — H:i', // `wp_post_revision_title_expanded()`
-				),
-			);
+				],
+			];
 
 		if ( isset( $strings[$context][$text] ) )
 			return $strings[$context][$text];
@@ -98,7 +98,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		static $strings;
 
 		if ( empty( $strings ) )
-			$strings = array(
+			$strings = [
 
 				// '%1$s %2$s, %3$s @ %4$s:%5$s' => ( 'fa_IR' == GPERSIANDATE_LOCALE ? '%2$s%1$s%3$s @ %5$s:%4$s' : '%2$s%1$s%3$s @ %4$s:%5$s' ), // `touch_time()`
 
@@ -113,7 +113,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 				// otherwise, working but that's pathetic!
 				// 'Caption' => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
 				// 'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
-			);
+			];
 
 		if ( isset( $strings[$text] ) )
 			return $strings[$text];
@@ -125,7 +125,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 	public function date_formats( $formats )
 	{
 		// TODO : what about local?
-		return array(
+		return [
 			'j F Y',
 			'y/n/d',
 			'y/m/d',
@@ -133,16 +133,16 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			'Y/m/d',
 			// 'l S F Y', // TODO: must support "l" : (st, nd or th in the 1st, 2nd or 15th.)
 			__( 'F j, Y' ),
-		);
+		];
 	}
 
 	public function time_formats( $formats )
 	{
-		return array(
+		return [
 			'H:i',
 			// 'g:i A',
 			__( 'g:i a' ),
-		);
+		];
 	}
 
 	public function default_option_start_of_week( $value )

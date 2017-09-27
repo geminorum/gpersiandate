@@ -7,22 +7,22 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'number_format_i18n', array( __CLASS__, 'format_i18n' ), 10, 2 );
-		add_filter( 'bb_number_format_i18n', array( __CLASS__, 'format_i18n' ), 10, 1 );
+		add_filter( 'number_format_i18n', [ __CLASS__, 'format_i18n' ], 10, 2 );
+		add_filter( 'bb_number_format_i18n', [ __CLASS__, 'format_i18n' ], 10, 1 );
 
 		// our filters!
-		add_filter( 'number_format_i18n_back', array( __CLASS__, 'number_format_i18n_back' ) );
-		add_filter( 'string_format_i18n', array( __CLASS__, 'format_i18n' ) );
-		add_filter( 'string_format_i18n_back', array( __CLASS__, 'string_format_i18n_back' ) );
-		add_filter( 'array_format_i18n', array( __CLASS__, 'array_map_numbers' ) );
-		add_filter( 'array_format_i18n_back', array( __CLASS__, 'array_map_numbers_back' ) );
-		add_filter( 'html_format_i18n', array( __CLASS__, 'html' ) );
+		add_filter( 'number_format_i18n_back', [ __CLASS__, 'number_format_i18n_back' ] );
+		add_filter( 'string_format_i18n', [ __CLASS__, 'format_i18n' ] );
+		add_filter( 'string_format_i18n_back', [ __CLASS__, 'string_format_i18n_back' ] );
+		add_filter( 'array_format_i18n', [ __CLASS__, 'array_map_numbers' ] );
+		add_filter( 'array_format_i18n_back', [ __CLASS__, 'array_map_numbers_back' ] );
+		add_filter( 'html_format_i18n', [ __CLASS__, 'html' ] );
 
-		add_filter( 'maybe_format_i18n', array( __CLASS__, 'numbers' ), 10, 2 );
+		add_filter( 'maybe_format_i18n', [ __CLASS__, 'numbers' ], 10, 2 );
 
 		// FIXME: make optional
-		add_filter( 'wp_insert_attachment_data', array( __CLASS__, 'attachment_data' ), 12, 2 );
-		add_filter( 'image_add_caption_text', array( __CLASS__, 'html' ), 9 );
+		add_filter( 'wp_insert_attachment_data', [ __CLASS__, 'attachment_data' ], 12, 2 );
+		add_filter( 'image_add_caption_text', [ __CLASS__, 'html' ], 9 );
 	}
 
 	public static function attachment_data( $data, $postarr )
@@ -59,17 +59,17 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 	public static function array_map_numbers( $array )
 	{
-		return array_map( array( __CLASS__, 'numbers' ), $array );
+		return array_map( [ __CLASS__, 'numbers' ], $array );
 	}
 
 	public static function array_map_numbers_back( $array )
 	{
-		return array_map( array( __CLASS__, 'numbers_back' ), $array );
+		return array_map( [ __CLASS__, 'numbers_back' ], $array );
 	}
 
 	public static function array_map_legacy( $array )
 	{
-		return array_map( array( __CLASS__, 'legacy' ), $array );
+		return array_map( [ __CLASS__, 'legacy' ], $array );
 	}
 
 	// adopted from core's make_clickable()
@@ -106,8 +106,8 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 				//$pattern = '/(?:&#\d{2,4};)|((?:\&nbsp\;)*\d+(?:\&nbsp\;)*\d*\.*(?:\&nbsp\;)*\d*(?:\&nbsp\;)*\d*)|(?:[a-z](?:[\x00-\x3B\x3D-\x7F]|<\s*[^>]+>)*)|<\s*[^>]+>/i';
 				$pattern = '/(?:&#\d{2,4};)|(\d+[\.\d]*)|(?:[a-z](?:[\x00-\x3B\x3D-\x7F]|<\s*[^>]+>)*)|<\s*[^>]+>/iu';
-				// $ret = self::chars( preg_replace_callback( $pattern, array( __CLASS__, 'html_callback' ), $ret ) );
-				$ret = preg_replace_callback( $pattern, array( __CLASS__, 'html_callback' ), $ret );
+				// $ret = self::chars( preg_replace_callback( $pattern, [ __CLASS__, 'html_callback' ], $ret ) );
+				$ret = preg_replace_callback( $pattern, [ __CLASS__, 'html_callback' ], $ret );
 
 				$ret = substr( $ret, 1, -1 ); // Remove our whitespace padding.
 				$r .= $ret;
@@ -127,7 +127,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		//$pattern = '/(?:&#\d{2,4};)|((?:\&nbsp\;)*\d+(?:\&nbsp\;)*\d*\.*(?:\&nbsp\;)*\d*(?:\&nbsp\;)*\d*)|(?:[a-z](?:[\x00-\x3B\x3D-\x7F]|<\s*[^>]+>)*)|<\s*[^>]+>/i';
 		$pattern = '/(?:&#\d{2,4};)|(\d+[\.\d]*)|(?:[a-z](?:[\x00-\x3B\x3D-\x7F]|<\s*[^>]+>)*)|<\s*[^>]+>/iu';
 
-		return preg_replace_callback( $pattern, array( __CLASS__, 'html_callback' ), $text );
+		return preg_replace_callback( $pattern, [ __CLASS__, 'html_callback' ], $text );
 	}
 
 	// before: translate_numbers()
@@ -145,7 +145,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 			break;
 			case 'ar':
 
-				$string = strtr( $string, array(
+				$string = strtr( $string, [
 					'0' => chr(0xD9).chr(0xA0),
 					'1' => chr(0xD9).chr(0xA1),
 					'2' => chr(0xD9).chr(0xA2),
@@ -156,14 +156,14 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 					'7' => chr(0xD9).chr(0xA7),
 					'8' => chr(0xD9).chr(0xA8),
 					'9' => chr(0xD9).chr(0xA9),
-				) );
+				] );
 
 				return self::chars( $string, FALSE );
 
 			break;
 			case 'fa_IR':
 
-				$string = strtr( $string, array(
+				$string = strtr( $string, [
 					'0' => chr(0xDB).chr(0xB0),
 					'1' => chr(0xDB).chr(0xB1),
 					'2' => chr(0xDB).chr(0xB2),
@@ -174,7 +174,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 					'7' => chr(0xDB).chr(0xB7),
 					'8' => chr(0xDB).chr(0xB8),
 					'9' => chr(0xDB).chr(0xB9),
-				) );
+				] );
 
 				return self::chars( $string );
 		}
@@ -188,7 +188,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 	{
 		if ( $fix ) {
 
-			return strtr( $string, array(
+			return strtr( $string, [
 
 				chr(0xD9).chr(0xA0) => chr(0xDB).chr(0xB0),
 				chr(0xD9).chr(0xA1) => chr(0xDB).chr(0xB1),
@@ -208,7 +208,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 				// http://stackoverflow.com/a/13481824
 				// chr(0xE2).chr(0x80).chr(0x8C), // ZERO WIDTH NON-JOINER (U+200C) : &zwnj;
-			) ) ;
+			] ) ;
 		}
 
 		return $string;
@@ -236,7 +236,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 			case 'fa_IR':
 
-				$text = strtr( $text, array(
+				$text = strtr( $text, [
 					chr(0xDB).chr(0xB0) => '0',
 					chr(0xDB).chr(0xB1) => '1',
 					chr(0xDB).chr(0xB2) => '2',
@@ -247,7 +247,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 					chr(0xDB).chr(0xB7) => '7',
 					chr(0xDB).chr(0xB8) => '8',
 					chr(0xDB).chr(0xB9) => '9',
-				) );
+				] );
 		}
 
 		if ( ! $intval )

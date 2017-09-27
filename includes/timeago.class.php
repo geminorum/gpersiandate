@@ -18,7 +18,7 @@ class gPersianDateTimeAgo extends gPersianDateBase
 
 		if ( 'en_US' != GPERSIANDATE_LOCALE ) {
 
-			$defaults = wp_json_encode( array(
+			$defaults = wp_json_encode( [
 				'prefixAgo'     => NULL,
 				'prefixFromNow' => NULL,
 				'wordSeparator' => ' ',
@@ -38,8 +38,8 @@ class gPersianDateTimeAgo extends gPersianDateBase
 				'year'          => _x( 'about a year', 'Time Ago', GPERSIANDATE_TEXTDOMAIN ),
 				'years'         => _x( '%d years', 'Time Ago', GPERSIANDATE_TEXTDOMAIN ),
 
-				// 'numbers'       => array_map( array( 'gPersianDateTranslate', 'numbers' ), range( 0, 9 ) ),
-				'numbers'       => array(
+				// 'numbers'       => array_map( [ 'gPersianDateTranslate', 'numbers' ), range( 0, 9 ) ),
+				'numbers'       => [
 					'0' => chr(0xDB).chr(0xB0),
 					'1' => chr(0xDB).chr(0xB1),
 					'2' => chr(0xDB).chr(0xB2),
@@ -50,8 +50,8 @@ class gPersianDateTimeAgo extends gPersianDateBase
 					'7' => chr(0xDB).chr(0xB7),
 					'8' => chr(0xDB).chr(0xB8),
 					'9' => chr(0xDB).chr(0xB9),
-				),
-			) );
+				],
+			] );
 
 			$script .= "jQuery.timeago.settings.strings={$defaults};";
 		}
@@ -65,7 +65,7 @@ class gPersianDateTimeAgo extends gPersianDateBase
 		});";
 
 		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-		wp_enqueue_script( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/libs/jquery-timeago/jquery.timeago'.$variant.'.js', array( 'jquery' ), self::TIMEAGO_VERSION );
+		wp_enqueue_script( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/libs/jquery-timeago/jquery.timeago'.$variant.'.js', [ 'jquery' ], self::TIMEAGO_VERSION );
 		wp_add_inline_script( self::WP_SCRIPT_HANDLE, $script );
 
 		return self::WP_SCRIPT_HANDLE;

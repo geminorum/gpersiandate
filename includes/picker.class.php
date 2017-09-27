@@ -16,7 +16,7 @@ class gPersianDatePicker extends gPersianDateBase
 
 		$days = gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', FALSE );
 
-		$defaults = wp_json_encode( array(
+		$defaults = wp_json_encode( [
 			'closeText'   => _x( 'Done', 'Date Picker', GPERSIANDATE_TEXTDOMAIN ),
 			'currentText' => _x( 'Today', 'Date Picker', GPERSIANDATE_TEXTDOMAIN ),
 			'nextText'    => _x( 'Next', 'Date Picker', GPERSIANDATE_TEXTDOMAIN ),
@@ -34,7 +34,7 @@ class gPersianDatePicker extends gPersianDateBase
 
 			// 'showMonthAfterYear' => FALSE,
 			// 'yearSuffix'         => '',
-		) );
+		] );
 
 		$lang = 'fa_IR' == GPERSIANDATE_LOCALE ? "'fa'" : 'null';
 
@@ -57,10 +57,10 @@ class gPersianDatePicker extends gPersianDateBase
 		."});";
 
 		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-		wp_register_script( 'gpersiandate-persiandate', GPERSIANDATE_URL.'assets/libs/persiandate/persiandate'.$variant.'.js', array( 'jquery' ), self::PERSIANDATE_VERSION );
-		wp_enqueue_script( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/libs/persiandate/persiandate-datepicker'.$variant.'.js', array( 'jquery', 'gpersiandate-persiandate' ), self::JQUERYUI_VERSION );
+		wp_register_script( 'gpersiandate-persiandate', GPERSIANDATE_URL.'assets/libs/persiandate/persiandate'.$variant.'.js', [ 'jquery' ], self::PERSIANDATE_VERSION );
+		wp_enqueue_script( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/libs/persiandate/persiandate-datepicker'.$variant.'.js', [ 'jquery', 'gpersiandate-persiandate' ], self::JQUERYUI_VERSION );
 		wp_add_inline_script( self::WP_SCRIPT_HANDLE, $script );
-		wp_enqueue_style( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/css/all.datepicker.css', array(), GPERSIANDATE_VERSION );
+		wp_enqueue_style( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/css/all.datepicker.css', [], GPERSIANDATE_VERSION );
 
 		return self::WP_SCRIPT_HANDLE;
 	}

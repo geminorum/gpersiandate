@@ -7,43 +7,43 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'date_i18n', array( $this, 'date_i18n' ), 10, 4 );
+		add_filter( 'date_i18n', [ $this, 'date_i18n' ], 10, 4 );
 
-		add_filter( 'get_the_date', array( $this, 'get_the_date' ), 10, 3 );
-		add_filter( 'get_the_time', array( $this, 'get_the_time' ), 10, 3 );
-		add_filter( 'get_the_modified_date', array( $this, 'get_the_modified_date' ), 10, 3 );
-		add_filter( 'get_the_modified_time', array( $this, 'get_the_modified_time' ), 10, 3 );
+		add_filter( 'get_the_date', [ $this, 'get_the_date' ], 10, 3 );
+		add_filter( 'get_the_time', [ $this, 'get_the_time' ], 10, 3 );
+		add_filter( 'get_the_modified_date', [ $this, 'get_the_modified_date' ], 10, 3 );
+		add_filter( 'get_the_modified_time', [ $this, 'get_the_modified_time' ], 10, 3 );
 
-		add_filter( 'get_comment_date', array( $this, 'get_comment_date' ), 10, 3 );
+		add_filter( 'get_comment_date', [ $this, 'get_comment_date' ], 10, 3 );
 		// NOTE: get_comment_time has a translate option, but we override b/c time_format
-		add_filter( 'get_comment_time', array( $this, 'get_comment_time' ), 10, 5 );
+		add_filter( 'get_comment_time', [ $this, 'get_comment_time' ], 10, 5 );
 
-		add_filter( 'wp_title', array( 'gPersianDateTranslate', 'legacy' ), 12 );
-		add_filter( 'document_title_parts', array( 'gPersianDateTranslate', 'array_map_legacy' ), 12 );
+		add_filter( 'wp_title', [ 'gPersianDateTranslate', 'legacy' ], 12 );
+		add_filter( 'document_title_parts', [ 'gPersianDateTranslate', 'array_map_legacy' ], 12 );
 
-		add_filter( 'the_title', array( 'gPersianDateTranslate', 'legacy' ), 12 );
-		add_filter( 'the_content', array( $this, 'the_content' ), 12 );
-		add_filter( 'get_the_excerpt', array( 'gPersianDateTranslate', 'html' ), 12 );
-		add_filter( 'get_comment_excerpt', array( 'gPersianDateTranslate', 'html' ), 12 );
-		add_filter( 'get_comment_text', array( 'gPersianDateTranslate', 'html' ), 12 );
-		add_filter( 'comments_number', array( 'gPersianDateTranslate', 'numbers' ), 12 );
-		add_filter( 'human_time_diff', array( 'gPersianDateTranslate', 'numbers' ), 12 );
+		add_filter( 'the_title', [ 'gPersianDateTranslate', 'legacy' ], 12 );
+		add_filter( 'the_content', [ $this, 'the_content' ], 12 );
+		add_filter( 'get_the_excerpt', [ 'gPersianDateTranslate', 'html' ], 12 );
+		add_filter( 'get_comment_excerpt', [ 'gPersianDateTranslate', 'html' ], 12 );
+		add_filter( 'get_comment_text', [ 'gPersianDateTranslate', 'html' ], 12 );
+		add_filter( 'comments_number', [ 'gPersianDateTranslate', 'numbers' ], 12 );
+		add_filter( 'human_time_diff', [ 'gPersianDateTranslate', 'numbers' ], 12 );
 
-		add_filter( 'wp_get_attachment_caption', array( 'gPersianDateTranslate', 'html' ), 12 );
-		add_filter( 'wp_link_pages_link', array( 'gPersianDateTranslate', 'html' ), 12 );
+		add_filter( 'wp_get_attachment_caption', [ 'gPersianDateTranslate', 'html' ], 12 );
+		add_filter( 'wp_link_pages_link', [ 'gPersianDateTranslate', 'html' ], 12 );
 
-		// add_filter( 'pre_insert_term', array( $this, 'pre_insert_term' ), 10, 2 );
-		add_filter( 'pre_term_name', array( 'gPersianDateTranslate', 'numbers' ) );
-		add_filter( 'pre_term_description', array( 'gPersianDateTranslate', 'html' ) );
+		// add_filter( 'pre_insert_term', [ $this, 'pre_insert_term' ], 10, 2 );
+		add_filter( 'pre_term_name', [ 'gPersianDateTranslate', 'numbers' ] );
+		add_filter( 'pre_term_description', [ 'gPersianDateTranslate', 'html' ] );
 
-		add_filter( 'gmeta_meta', array( 'gPersianDateTranslate', 'numbers' ), 12 );
-		add_filter( 'gmeta_lead', array( 'gPersianDateTranslate', 'html' ), 12 );
-		add_filter( 'geditorial_kses', array( 'gPersianDateTranslate', 'html' ), 12 );
+		add_filter( 'gmeta_meta', [ 'gPersianDateTranslate', 'numbers' ], 12 );
+		add_filter( 'gmeta_lead', [ 'gPersianDateTranslate', 'html' ], 12 );
+		add_filter( 'geditorial_kses', [ 'gPersianDateTranslate', 'html' ], 12 );
 
-		add_filter( 'list_pages', array( 'gPersianDateTranslate', 'numbers' ), 12 ); // page dropdown walker item title
-		add_filter( 'wp_nav_menu_items', array( $this, 'wp_nav_menu_items' ), 10, 2 );
+		add_filter( 'list_pages', [ 'gPersianDateTranslate', 'numbers' ], 12 ); // page dropdown walker item title
+		add_filter( 'wp_nav_menu_items', [ $this, 'wp_nav_menu_items' ], 10, 2 );
 
-		add_action( 'widgets_init', array( $this, 'widgets_init' ), 20 );
+		add_action( 'widgets_init', [ $this, 'widgets_init' ], 20 );
 	}
 
 	public function widgets_init()
@@ -199,7 +199,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		return mysql2date( 'U', $the_date, FALSE );
 	}
 
-	public static function getPosttypeFirstAndLast( $post_types = 'post', $args = array(), $user_id = 0, $protected = TRUE )
+	public static function getPosttypeFirstAndLast( $post_types = 'post', $args = [], $user_id = 0, $protected = TRUE )
 	{
 		global $wpdb;
 
@@ -250,13 +250,13 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 			LIMIT 1
 		" );
 
-		return array(
+		return [
 			( count( $first ) ? $first[0]->date : '' ),
 			( count( $last )  ? $last[0]->date  : '' ),
-		);
+		];
 	}
 
-	public static function getPostTypeMonths( $post_type = 'post', $args = array(), $user_id = 0 )
+	public static function getPostTypeMonths( $post_type = 'post', $args = [], $user_id = 0 )
 	{
 		global $wpdb;
 
@@ -295,7 +295,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		if ( ! $count || ( 1 == $count && 0 == $months[0]->month ) )
 			return FALSE;
 
-		$list = array();
+		$list = [];
 		$last = FALSE;
 
 		foreach ( $months as $row ) {

@@ -18,15 +18,15 @@ class gPersianDateModuleCore extends gPersianDateBase
 
 	protected function setup_actions() {}
 
-	protected function shortcodes( $shortcodes = array() )
+	protected function shortcodes( $shortcodes = [] )
 	{
 		foreach ( $shortcodes as $shortcode => $method ) {
 			remove_shortcode( $shortcode );
-			add_shortcode( $shortcode, array( $this, $method ) );
+			add_shortcode( $shortcode, [ $this, $method ] );
 		}
 	}
 
-	public static function shortcodeWrap( $html, $suffix = FALSE, $args = array(), $block = TRUE )
+	public static function shortcodeWrap( $html, $suffix = FALSE, $args = [], $block = TRUE )
 	{
 		$before = empty( $args['before'] ) ? '' : $args['before'];
 		$after  = empty( $args['after'] )  ? '' : $args['after'];
@@ -34,7 +34,7 @@ class gPersianDateModuleCore extends gPersianDateBase
 		if ( empty( $args['wrap'] ) )
 			return $before.$html.$after;
 
-		$classes = array( 'gpersiandate-wrap-shortcode' );
+		$classes = [ 'gpersiandate-wrap-shortcode' ];
 
 		if ( $suffix )
 			$classes[] = 'shortcode-'.$suffix;
@@ -43,8 +43,8 @@ class gPersianDateModuleCore extends gPersianDateBase
 			$classes[] = 'context-'.$args['context'];
 
 		if ( $after )
-			return $before.gPersianDateHTML::tag( $block ? 'div' : 'span', array( 'class' => $classes ), $html ).$after;
+			return $before.gPersianDateHTML::tag( $block ? 'div' : 'span', [ 'class' => $classes ], $html ).$after;
 
-		return gPersianDateHTML::tag( $block ? 'div' : 'span', array( 'class' => $classes ), $before.$html );
+		return gPersianDateHTML::tag( $block ? 'div' : 'span', [ 'class' => $classes ], $before.$html );
 	}
 }

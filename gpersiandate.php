@@ -12,7 +12,7 @@ Network: false
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 GitHub Branch: master
 Requires WP: 4.4
-Requires PHP: 5.3
+Requires PHP: 5.4
 */
 
 define( 'GPERSIANDATE_VERSION', '3.5.7' );
@@ -20,9 +20,9 @@ define( 'GPERSIANDATE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GPERSIANDATE_URL', plugin_dir_url( __FILE__ ) );
 define( 'GPERSIANDATE_FILE', basename( GPERSIANDATE_DIR ).'/'.basename( __FILE__ ) );
 
-function gpersiandate_init(){
+function gpersiandate_init() {
 
-	$includes = array(
+	$includes = [
 		'core/base',
 		'core/html',
 		'core/text',
@@ -52,7 +52,7 @@ function gpersiandate_init(){
 
 		'picker',
 		'timeago',
-	);
+	];
 
 	foreach ( $includes as $include )
 		if ( file_exists( GPERSIANDATE_DIR.'includes/'.$include.'.class.php' ) )

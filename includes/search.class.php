@@ -7,15 +7,15 @@ class gPersianDateSearch extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'posts_search', array( $this, 'posts_search' ), 20, 2 );
+		add_filter( 'posts_search', [ $this, 'posts_search' ], 20, 2 );
 
-		add_filter( 'get_search_query', array( 'gPersianDateTranslate', 'chars' ) );
+		add_filter( 'get_search_query', [ 'gPersianDateTranslate', 'chars' ] );
 	}
 
 	// TODO: english numbers too?
 	protected static function chars()
 	{
-		return array(
+		return [
 			'ي' => 'ی',
 			'ك' => 'ک',
 			'٠' => '۰',
@@ -28,7 +28,7 @@ class gPersianDateSearch extends gPersianDateModuleCore
 			'٧' => '۷',
 			'٨' => '۸',
 			'٩' => '۹',
-		);
+		];
 	}
 
 	public function posts_search( $search, $wp_query )
