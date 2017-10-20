@@ -4,7 +4,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 {
 
 	// FIXME: REWRITE THIS
-	// REPLICA: `wp_get_archives()`
+	// @SOURCE: `wp_get_archives()`
 	public static function get( $r = '' )
 	{
 		global $wpdb, $wp_locale;
@@ -97,7 +97,6 @@ class gPersianDateArchives extends gPersianDateModuleCore
 						if ( 0 == $result->year )
 							continue;
 
-						// $the_date = mktime( 0 ,0 , 0, zeroise( $result->month, 2 ), $result->day, $result->year );
 						$the_date = mktime( 0 ,0 , 0, $result->month, $result->day, $result->year );
 						$the_persian_month = gPersianDateDate::_to( 'Ym', $the_date );
 
@@ -123,7 +122,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 									gPersianDateTranslate::numbers( $post_count[0]->post_count ) ).$afterafter;
 							}
 
-							$output .= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
+							$output.= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
 
 							if ( $limit == $args['limit'] )
 								break;
@@ -141,7 +140,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 			} else {
 
-				$output .= $results;
+				$output.= $results;
 			}
 
 		} else if ( 'yearly' == $args['type'] ) {
@@ -195,7 +194,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 									gPersianDateTranslate::numbers( $post_count[0]->post_count ) ).$afterafter;
 							}
 
-							$output .= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
+							$output.= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
 
 							if ( $limit == $args['limit'] )
 								break;
@@ -213,7 +212,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 			} else {
 
-				$output .= $results;
+				$output.= $results;
 			}
 
 		} else if ( 'daily' == $args['type'] ) {
@@ -232,7 +231,6 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			if ( ! $results = wp_cache_get( $key, 'posts' ) ) {
 
 				$results = $wpdb->get_results( $query );
-				//$cache[ $key ] = $results;
 
 				if ( $results ) {
 
@@ -252,7 +250,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 							$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives daily count', GPERSIANDATE_TEXTDOMAIN ),
 								gPersianDateTranslate::numbers( $result->posts ) ).$afterafter;
 
-						$output .= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
+						$output.= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
 					}
 
 					$results = $output;
@@ -262,7 +260,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 			} else {
 
-				$output .= $results;
+				$output.= $results;
 			}
 
 		} else if ( 'weekly' == $args['type'] ) {
@@ -305,7 +303,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 								$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives weekly count', GPERSIANDATE_TEXTDOMAIN ),
 									gPersianDateTranslate::numbers( $result->posts ) ).$afterafter;
 
-							$output .= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
+							$output.= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
 						}
 					}
 				}
@@ -316,7 +314,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 			} else {
 
-				$output .= $results;
+				$output.= $results;
 			}
 
 		} else if ( ( 'postbypost' == $args['type'] ) || ( 'alpha' == $args['type'] ) ) {
@@ -343,14 +341,11 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 						if ( $result->post_date != '0000-00-00 00:00:00' ) {
 
-							$url = get_permalink( $result );
+							$title = $result->post_title
+								? strip_tags( apply_filters( 'the_title', $result->post_title, $result->ID ) )
+								: $result->ID;
 
-							if ( $result->post_title )
-								$text = strip_tags( apply_filters( 'the_title', $result->post_title, $result->ID ) );
-							else
-								$text = $result->ID;
-
-							$output .= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
+							$output.= get_archives_link( get_permalink( $result ), $title, $args['format'], $args['before'], $args['after'] );
 						}
 					}
 				}
@@ -361,14 +356,14 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 			} else {
 
-				$output .= $results;
+				$output.= $results;
 			}
 		}
 
-		if ( $args['echo'] )
-			echo $output;
-		else
+		if ( ! $args['echo'] )
 			return $output;
+
+		echo $output;
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -379,9 +374,10 @@ class gPersianDateArchives extends gPersianDateModuleCore
 // @REF: https://wordpress.org/plugins/compact-archives/
 // @REF: http://www.wpbeginner.com/plugins/how-to-create-compact-archives-in-wordpress/
 
-	// LAST EDITED: 1/23/2017, 5:00:27 PM
 	public static function getCompact( $atts = [] )
 	{
+		global $wpdb;
+
 		$args = self::atts( [
 			'post_type'      => 'post', // or array of types
 			'post_author'    => 0, // all
@@ -398,35 +394,28 @@ class gPersianDateArchives extends gPersianDateModuleCore
 		if ( ! $first )
 			return $args['string_empty'] ? '<span class="-empty">'.$args['string_empty'].'</span>' : FALSE;
 
-		global $wpdb;
+		$html = '';
 
-		$html   = '';
-		$author = $args['post_author'] ? $wpdb->prepare( "AND post_author = %d", $args['post_author'] ) : '';
+		$where = is_array( $args['post_type'] )
+			? "WHERE post_type IN ( '".join( "', '", esc_sql( $args['post_type'] ) )."' )"
+			: $wpdb->prepare( "WHERE post_type = %s", $args['post_type'] );
 
-		if ( ! is_array( $args['post_type'] ) ) {
-
-			$where = $wpdb->prepare( "WHERE post_type = %s AND post_status = 'publish' AND post_password = ''", $args['post_type'] );
-
-		} else {
-
-			$post_types_in = implode( ',', array_map( function( $v ){
-				return "'".esc_sql( $v )."'";
-			}, $args['post_type'] ) );
-
-			$where = "WHERE post_type IN ( {$post_types_in} ) AND post_status = 'publish' AND post_password = ''";
-		}
+		$author = $args['post_author']
+			? $wpdb->prepare( "AND post_author = %d", $args['post_author'] )
+			: '';
 
 		$year = gPersianDateDate::_to( 'Y', $first );
 		$now  = gPersianDateDate::_to( 'Y', $last );
 
 		while ( $now >= $year ) {
 
-			$html .= '<tr><td class="-year text-info text-right" style="width:10%;">';
-				if ( $args['link_anchor'] )
-					$html .= gPersianDateTranslate::numbers( $year );
-				else
-					$html .= gPersianDateHTML::link( gPersianDateTranslate::numbers( $year ), get_year_link( $year ) );
-			$html .= '</td>';
+			$html.= '<tr><td class="-year text-info text-right" style="width:10%;">';
+
+			$html.= $args['link_anchor']
+				? gPersianDateTranslate::numbers( $year )
+				: gPersianDateHTML::link( gPersianDateTranslate::numbers( $year ), get_year_link( $year ) );
+
+			$html.= '</td>';
 
 			for ( $month = 1; $month <= 12; $month += 1 ) {
 
@@ -437,34 +426,47 @@ class gPersianDateArchives extends gPersianDateModuleCore
 					FROM {$wpdb->posts}
 					{$where}
 					{$author}
+					AND post_status = 'publish'
+					AND post_password = ''
 					AND post_date >= '{$first_day}'
 					AND post_date <= '{$last_day}'
 				" );
 
-				$name = $args['month_name'] ? gPersianDateStrings::month( $month ) : gPersianDateTranslate::numbers( $month );
+				$name = $args['month_name']
+					? gPersianDateStrings::month( $month )
+					: gPersianDateTranslate::numbers( $month );
 
-				if ( ! $count ) {
-					$html .= '<td class="-month -empty text-muted text-center" style="width:7.5%;">'.$name.'</td>';
+				if ( $count ) {
+
+					$link  = $args['link_anchor']
+						? gPersianDateHTML::scroll( $name, $year.zeroise( $month, 2 ) )
+						: gPersianDateHTML::link( $name, get_month_link( $year, $month ) );
+
+					$title = $args['string_count']
+						? 'title="'.esc_attr( sprintf( $args['string_count'], gPersianDateTranslate::numbers( $count ) ) ).'"'
+						: '';
+
+					$html.= '<td class="-month text-center" '.$title.' style="width:7.5%;">'.$link.'</td>';
+
 				} else {
-					$link  = $args['link_anchor'] ? gPersianDateHTML::scroll( $name, $year.zeroise( $month, 2 ) ) : gPersianDateHTML::link( $name, get_month_link( $year, $month ) );
-					$title = $args['string_count'] ? 'title="'.esc_attr( sprintf( $args['string_count'], gPersianDateTranslate::numbers( $count ) ) ).'"' : '';
-					$html  .= '<td class="-month text-center" '.$title.' style="width:7.5%;">'.$link.'</td>';
+
+					$html.= '<td class="-month -empty text-muted text-center" style="width:7.5%;">'.$name.'</td>';
 				}
 			}
 
-			$html .= '</tr>';
+			$html.= '</tr>';
 			$year++;
 		}
 
-		$table = '<div class="table-responsive"><table';
+		$table = '<div class="-wrap table-responsive"><table';
 
 		if ( ! $args['month_name'] )
-			$table .= ' dir="ltr"';
+			$table.= ' dir="ltr"';
 
-		$table .= ' class="date-archives-compact '.$args['css_class'].'">';
+		$table.= ' class="date-archives-compact '.$args['css_class'].'">';
 
 		if ( $args['string_caption'] )
-			$table .= '<caption>'.$args['string_caption'].'</caption>';
+			$table.= '<caption>'.$args['string_caption'].'</caption>';
 
 		return $table.'<tbody>'.$html.'</tbody></table></div>';
 	}
@@ -472,7 +474,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// ADOPTED FROM: Clean My Archives v1.0.0 - 2017-01-23
+/// ADOPTED FROM: Clean My Archives v1.2.0 - 2017-10-20
 /// by Justin Tadlock
 // @REF: https://wordpress.org/plugins/clean-my-archives/
 // @REF: https://github.com/justintadlock/clean-my-archives
@@ -480,35 +482,48 @@ class gPersianDateArchives extends gPersianDateModuleCore
 	public static function getClean( $atts = [] )
 	{
 		$args = self::atts( [
-			'limit'         => -1,
-			'year'          => '',
-			'month'         => '',
-			'post_type'     => 'post', // or array of types
-			'post_author'   => 0, // all
-			'comment_count' => FALSE,
-			'row_context'   => FALSE,
-			'row_day'       => FALSE,
-			'css_class'     => 'table table-condensed', // Bootstrap 3 classes
-			'string_empty'  => _x( 'Archives are empty.', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
-			'string_count'  => _x( 'Post comment count', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
+			'limit'             => -1,
+			'order'             => 'DESC',
+			'year'              => '',
+			'month'             => '',
+			'post_type'         => 'post', // or array of types
+			'post_author'       => 0, // all
+			'comment_count'     => FALSE,
+			'row_context'       => FALSE,
+			'row_day'           => TRUE,
+			'css_class'         => '',
+			'format_month_year' => _x( 'F Y', 'Archives: Clean: Month + Year Datetime Format', GPERSIANDATE_TEXTDOMAIN ),
+			'format_post_date'  => _x( 'j', 'Archives: Clean: Day Datetime Format', GPERSIANDATE_TEXTDOMAIN ),
+			'string_empty'      => _x( 'Archives are empty.', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
+			'string_count'      => _x( 'Post comment count', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
 		], $atts );
 
-		// FIXME: must check year/month args for conversion
-
-		$html  = $current_year = $current_month = $current_day = '';
 		$query = [
 			'year'           => $args['year'] ? absint( $args['year'] ) : '',
 			'monthnum'       => $args['month'] ? absint( $args['month'] ) : '',
 			'post_type'      => is_array( $args['post_type'] ) ? $args['post_type'] : explode( ',', $args['post_type'] ),
 			'author'         => $args['post_author'],
 			'posts_per_page' => intval( $args['limit'] ),
+			'order'          => in_array( $args['order'], [ 'ASC', 'DESC' ] ) ? $args['order'] : 'DESC',
 
-			'ignore_sticky_posts'    => TRUE,
 			'no_found_rows'          => TRUE,
+			'ignore_sticky_posts'    => TRUE,
 			'update_post_meta_cache' => FALSE,
 			'update_post_term_cache' => FALSE,
 			'lazy_load_term_meta'    => FALSE,
 		];
+
+		// if we have one specific post type,
+		// let's get the query args to append to the month link
+		$link_query = 1 === count( $query['post_type'] )
+			&& 'post' !== $query['post_type'][0]
+				? [ 'post_type' => $query['post_type'][0] ]
+				: FALSE;
+
+		// validate boolean values passed through shortcode
+		$show_comments = self::validateBoolean( $args['comment_count'] ) ? 1 : FALSE;
+
+		$html = $current_year = $current_month = $current_day = '';
 
 		$loop = new \WP_Query( $query );
 
@@ -518,73 +533,86 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 				$loop->the_post();
 
-				// we need this to compare it with the previous post date.
+				// we need this to compare it with the previous post date
 				$year   = get_the_time( 'Y' );
 				$month  = get_the_time( 'm' );
 				$daynum = get_the_time( 'd' );
 
-				// if the current date doesn't match this post's date, we need extra formatting.
+				// if the current date doesn't match this post's date, we need extra formatting
 				if ( $current_year !== $year || $current_month !== $month ) {
 
-					// close the list if this isn't the first post.
+					// close the list if this isn't the first post
 					if ( $current_month && $current_year )
-						$html .= '</ul></div>';
+						$html .= '</dl><div class="clearfix"></div></li>';
 
-					// set the current year and month to this post's year and month.
+					// set the current year and month to this post's year and month
 					$current_year  = $year;
 					$current_month = $month;
 					$current_day   = '';
 
 					$number_year  = gPersianDateTranslate::numbers_back( $current_year );
 					$number_month = gPersianDateTranslate::numbers_back( $current_month );
+					$link_month   = gPersianDateLinks::build( 'month', $number_year, $number_month );
 
-					// add a heading with the month and year and link it to the monthly archive.
-					$html .= sprintf(
-						'<div id="%s"><h3 class="-month"><a href="%s">%s</a></h3>',
+					if ( $link_query )
+						$link_month = add_query_arg( $link_query, $link_month );
+
+					// add a heading with the month and year and link it to the monthly archive
+					$html.= sprintf(
+						'<li id="%s"><h4 class="-month"><a href="%s">%s</a></h4>',
 						$number_year.zeroise( $number_month, 2 ),
-						esc_url( gPersianDateLinks::build( 'month', $number_year, $number_month ) ),
-						esc_html( get_the_time( _x( 'F Y', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ) ) )
+						esc_url( $link_month ),
+						esc_html( get_the_time( $args['format_month_year'] ) )
 					);
 
-					// open a new unordered list.
-					$html .= '<ul class="list-unstyled">';
+					$html.= '<dl class="dl-horizontal">';
 				}
 
-				// get the post's day.
-				$day = sprintf( '<span class="-day">%s</span>', get_the_time( esc_html_x( 'j:', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ) ) );
-
-				// check if there's a duplicate day so we can add a class.
-				$duplicate_day = $current_day && $daynum === $current_day ? ' class="-day-duplicate"' : '';
+				// check if there's a duplicate day so we can add a class
+				$duplicate_day = $current_day && $daynum === $current_day ? ' class="-day-title -day-duplicate"' : ' class="-day-title"';
 				$current_day   = $daynum;
+
+				if ( $args['row_day'] ) {
+
+					$number_day = gPersianDateTranslate::numbers_back( $current_day );
+					$link_day   = gPersianDateLinks::build( 'day', $number_year, $number_month, $number_day );
+
+					if ( $link_query )
+						$link_day = add_query_arg( $link_query, $link_day );
+
+					$day = sprintf( '<dt%s><a href="%s" class="-day">%s</a></dt>', $duplicate_day, esc_url( $link_day ), get_the_time( $args['format_post_date'] ) );
+
+				} else {
+					$day = '';
+				}
 
 				if ( $args['row_context'] ) {
 
-					if ( $args['row_day'] )
-						printf( '<li%s>%s ', $duplicate_day, $day );
-					else
-						printf( '<li%s>', $duplicate_day );
+					echo $day;
 
+					echo( '<dd>' );
 						get_template_part( 'row', $args['row_context'] );
-					echo '</li>';
+					echo '</dd>';
 
 				} else {
 
-					if ( $args['comment_count'] ) {
-						$comments_num = sprintf( esc_html_x( '(%s)', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), get_comments_number() );
-						$comments     = sprintf( '<small class="-comments" title="%s">%s</small>', esc_attr( $args['string_count'] ), gPersianDateTranslate::numbers( $comments_num ) );
+					$template = '%s<dd><a href="%s" rel="bookmark">%s</a></dd>';
+					$values   = [ $day, esc_url( get_permalink() ), get_the_title() ? the_title( '', '', FALSE ) : get_the_ID() ];
+
+					// the comment count will only appear if comments are open or the post has existing comments
+					if ( $show_comments && ( comments_open() || get_comments_number() ) ) {
+
+						$template = '%s<dd><a href="%s" rel="bookmark">%s</a>&nbsp;%s</dd>';
+						$comments = sprintf( esc_html_x( '(%s)', 'Archives: Clean: Comment Count', GPERSIANDATE_TEXTDOMAIN ), get_comments_number() );
+						$values[] = sprintf( '<small class="-comments" title="%s">%s</small>', esc_attr( $args['string_count'] ), gPersianDateTranslate::numbers( $comments ) );
 					}
 
-					// add the post list item to the formatted archives.
-					$html .= the_title(
-						sprintf( '<li%s>%s <a href="%s">', $duplicate_day, $day, esc_url( get_permalink() ) ),
-						( $args['comment_count'] ? sprintf( '</a> %s</li>', $comments ) : '</a></li>' ),
-						FALSE
-					);
+					$html.= vsprintf( $template, $values );
 				}
 			}
 
-			// close the final unordered list
-			$html .= '</ul></div>';
+			$html.= '</dl><div class="clearfix"></div></li>';
+			$html = '<ul class="list-unstyled -archives">'.$html.'</ul>';
 
 			wp_reset_postdata();
 
@@ -597,6 +625,6 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			$html = '<span class="-empty">'.$args['string_empty'].'</span>';
 		}
 
-		return sprintf( '<div class="date-archives-clean %s">%s</div>', $args['css_class'], $html );
+		return sprintf( '<div class="-wrap date-archives-clean %s">%s</div>', $args['css_class'], $html );
 	}
 }
