@@ -255,4 +255,16 @@ class gPersianDateBase
 	{
 		defined( 'DONOTCACHEPAGE' ) or define( 'DONOTCACHEPAGE', TRUE );
 	}
+
+	// @REF: `wp_validate_boolean()`
+	public static function validateBoolean( $var )
+	{
+		if ( is_bool( $var ) )
+			return $var;
+
+		if ( is_string( $var ) && 'false' === strtolower( $var ) )
+			return FALSE;
+
+		return (bool) $var;
+	}
 }

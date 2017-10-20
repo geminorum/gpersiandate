@@ -34,7 +34,7 @@ class gPersianDateModuleCore extends gPersianDateBase
 		if ( empty( $args['wrap'] ) )
 			return $before.$html.$after;
 
-		$classes = [ 'gpersiandate-wrap-shortcode' ];
+		$classes = [ '-wrap', 'gpersiandate-wrap-shortcode' ];
 
 		if ( $suffix )
 			$classes[] = 'shortcode-'.$suffix;

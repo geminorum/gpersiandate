@@ -109,10 +109,13 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 				'Howdy, %s' => '%s', // `wp_admin_bar_my_account_item()`
 
-				// must not be static
-				// otherwise, working but that's pathetic!
-				// 'Caption' => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
-				// 'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				// '%1$s MB (%2$s%%) Space Used' => sprintf( _x( '%s Space Used', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ), '<span title="&lrm;%1$s MB&rlm;">%2$s%%</span>' ),
+				// '%1$s MB (%2$s%%) Space Used' => sprintf( _x( '%s Space Used', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				// 	'<span title="&lrm;%s MB&rlm;">%s'.( is_rtl() ? '&#1642;' : '&#37;' ).'</span>' ), // FIXME: is_rtl not working this early
+
+				// working but pathetic!
+				'Caption' => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
 			];
 
 		if ( isset( $strings[$text] ) )
@@ -152,7 +155,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 	public function custom_date_formats( $formats )
 	{
-		$formats['fulltime'] = 'l، j M Y - H:i:s';
+		$formats['fulltime'] = 'l، j M Y - G:i';
 		$formats['datetime'] = 'j F Y @ G:i';
 		$formats['dateonly'] = 'l، j M Y';
 		$formats['timedate'] = is_rtl() ? 'j F Y — H:i' : 'H:i — j F Y';

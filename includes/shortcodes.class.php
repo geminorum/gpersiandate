@@ -16,6 +16,13 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 		] );
 	}
 
+	/***
+		[clean-my-archives year="1396"]
+		<!-- nextpage -->
+		[clean-my-archives year="1395"]
+		<!-- nextpage -->
+		[clean-my-archives year="1394"]
+	**/
 	public function shortcode_archives_clean( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
