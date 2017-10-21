@@ -15,7 +15,7 @@ msgid "gPersianDate"
 msgstr ""
 
 #: gpersiandate.php:5
-msgid "3.5.7"
+msgid "3.5.8"
 msgstr ""
 
 #: gpersiandate.php:7
@@ -68,68 +68,68 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: includes/archives.class.php:111
+#: includes/archives.class.php:110
 msgctxt "wp_get_archives monthly"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/archives.class.php:122
+#: includes/archives.class.php:121
 msgctxt "wp_get_archives monthly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:178
+#: includes/archives.class.php:177
 msgctxt "wp_get_archives yearly"
 msgid "%s"
 msgstr ""
 
-#: includes/archives.class.php:194
+#: includes/archives.class.php:193
 msgctxt "wp_get_archives yearly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:252
+#: includes/archives.class.php:250
 msgctxt "wp_get_archives daily count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:305
+#: includes/archives.class.php:303
 msgctxt "wp_get_archives weekly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:392
+#: includes/archives.class.php:388
 msgctxt "Archives: Compact"
 msgid "%s Posts"
 msgstr ""
 
-#: includes/archives.class.php:393
+#: includes/archives.class.php:389
 msgctxt "Archives: Compact"
 msgid "Archives are empty."
 msgstr ""
 
-#: includes/archives.class.php:492
+#: includes/archives.class.php:495
+msgctxt "Archives: Clean: Month + Year Datetime Format"
+msgid "F Y"
+msgstr ""
+
+#: includes/archives.class.php:496
+msgctxt "Archives: Clean: Day Datetime Format"
+msgid "j"
+msgstr ""
+
+#: includes/archives.class.php:497
 msgctxt "Archives: Clean"
 msgid "Archives are empty."
 msgstr ""
 
-#: includes/archives.class.php:493
+#: includes/archives.class.php:498
 msgctxt "Archives: Clean"
 msgid "Post comment count"
 msgstr ""
 
-#: includes/archives.class.php:547
-msgctxt "Archives: Clean"
-msgid "F Y"
-msgstr ""
-
-#: includes/archives.class.php:555
-msgctxt "Archives: Clean"
-msgid "j:"
-msgstr ""
-
-#: includes/archives.class.php:574
-msgctxt "Archives: Clean"
+#: includes/archives.class.php:606
+msgctxt "Archives: Clean: Comment Count"
 msgid "(%s)"
 msgstr ""
 
@@ -153,6 +153,16 @@ msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
 
+#: includes/format.class.php:117
+msgctxt "gettext overrides"
+msgid "Caption"
+msgstr ""
+
+#: includes/format.class.php:118
+msgctxt "gettext overrides"
+msgid "Published: <b>%1$s</b>"
+msgstr ""
+
 #: includes/picker.class.php:20
 msgctxt "Date Picker"
 msgid "Done"
@@ -171,6 +181,11 @@ msgstr ""
 #: includes/picker.class.php:23
 msgctxt "Date Picker"
 msgid "Previous"
+msgstr ""
+
+#: includes/shortcodes.class.php:84
+msgctxt "Shortcodes: Entry Published Title"
+msgid "Archive for %s"
 msgstr ""
 
 #: includes/strings.class.php:57

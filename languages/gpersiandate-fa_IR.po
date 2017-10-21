@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gPersianDate\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-09-27 00:15+0330\n"
+"PO-Revision-Date: 2017-10-21 20:19+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -20,7 +20,7 @@ msgid "gPersianDate"
 msgstr "تاریخ ایرانی"
 
 #: gpersiandate.php:5
-msgid "3.5.7"
+msgid "3.5.8"
 msgstr ""
 
 #: gpersiandate.php:7
@@ -76,68 +76,68 @@ msgstr "از تاریخ"
 msgid "To"
 msgstr "تا تاریخ"
 
-#: includes/archives.class.php:111
+#: includes/archives.class.php:110
 msgctxt "wp_get_archives monthly"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/archives.class.php:122
+#: includes/archives.class.php:121
 msgctxt "wp_get_archives monthly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:178
+#: includes/archives.class.php:177
 msgctxt "wp_get_archives yearly"
 msgid "%s"
 msgstr ""
 
-#: includes/archives.class.php:194
+#: includes/archives.class.php:193
 msgctxt "wp_get_archives yearly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:252
+#: includes/archives.class.php:250
 msgctxt "wp_get_archives daily count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:305
+#: includes/archives.class.php:303
 msgctxt "wp_get_archives weekly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:392
+#: includes/archives.class.php:388
 msgctxt "Archives: Compact"
 msgid "%s Posts"
 msgstr "%s نوشته"
 
-#: includes/archives.class.php:393
+#: includes/archives.class.php:389
 msgctxt "Archives: Compact"
 msgid "Archives are empty."
 msgstr "بایگانی خالی‌ست."
 
-#: includes/archives.class.php:492
+#: includes/archives.class.php:495
+msgctxt "Archives: Clean: Month + Year Datetime Format"
+msgid "F Y"
+msgstr ""
+
+#: includes/archives.class.php:496
+msgctxt "Archives: Clean: Day Datetime Format"
+msgid "j"
+msgstr ""
+
+#: includes/archives.class.php:497
 msgctxt "Archives: Clean"
 msgid "Archives are empty."
 msgstr "بایگانی خالی‌ست."
 
-#: includes/archives.class.php:493
+#: includes/archives.class.php:498
 msgctxt "Archives: Clean"
 msgid "Post comment count"
 msgstr "دیدگاه‌های نوشته"
 
-#: includes/archives.class.php:547
-msgctxt "Archives: Clean"
-msgid "F Y"
-msgstr ""
-
-#: includes/archives.class.php:555
-msgctxt "Archives: Clean"
-msgid "j:"
-msgstr ""
-
-#: includes/archives.class.php:574
-msgctxt "Archives: Clean"
+#: includes/archives.class.php:606
+msgctxt "Archives: Clean: Comment Count"
 msgid "(%s)"
 msgstr ""
 
@@ -161,6 +161,16 @@ msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
 
+#: includes/format.class.php:117
+msgctxt "gettext overrides"
+msgid "Caption"
+msgstr "عنوان"
+
+#: includes/format.class.php:118
+msgctxt "gettext overrides"
+msgid "Published: <b>%1$s</b>"
+msgstr "انتشار: <b>%1$s</b>"
+
 #: includes/picker.class.php:20
 msgctxt "Date Picker"
 msgid "Done"
@@ -180,6 +190,11 @@ msgstr "بعدی"
 msgctxt "Date Picker"
 msgid "Previous"
 msgstr "قبلی"
+
+#: includes/shortcodes.class.php:84
+msgctxt "Shortcodes: Entry Published Title"
+msgid "Archive for %s"
+msgstr "بایگانی %s"
 
 #: includes/strings.class.php:57
 msgctxt "Strings: Month: Gregorian: Abbreviation: January"
@@ -881,6 +896,14 @@ msgctxt "Time Ago"
 msgid "%d years"
 msgstr "%d سال"
 
+#~ msgctxt "gettext overrides"
+#~ msgid "%s Space Used"
+#~ msgstr "%s از فضا استفاده شده"
+
+#~ msgctxt "gettext overrides"
+#~ msgid "%1$s MB (%2$s%%) Space Used"
+#~ msgstr "<span title=\"&lrm;%1$s MB&rlm;\">%2$s% &#1642;</span> از فضا استفاده شده"
+
 # @ gpersiandate
 #~ msgid "Today in Persian ( just to make sure the conversion is intact )"
 #~ msgstr "امروز در تقویم فارسی (برای اطمینان از تبدیل صحیح تاریخ)"
@@ -1085,14 +1108,6 @@ msgstr "%d سال"
 
 #~ msgid "Archives are empty."
 #~ msgstr "بایگانی خالی‌ست."
-
-#~ msgctxt "gettext overrides"
-#~ msgid "Caption"
-#~ msgstr "عنوان"
-
-#~ msgctxt "gettext overrides"
-#~ msgid "Published: <b>%1$s</b>"
-#~ msgstr "انتشار: <b>%1$s</b>"
 
 #~ msgctxt "gettext overrides"
 #~ msgid "Published on: <b>%1$s</b>"
