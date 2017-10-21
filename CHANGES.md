@@ -1,3 +1,8 @@
+### 3.5.8
+* main/archives: refactoring methods
+* main/core: postpone language loading after plugins
+* main/shortcodes: :new: `[entry-link-published]`
+
 ### 3.5.7
 * main/core: early load textdomain
 * main/adminbar: clock on last
