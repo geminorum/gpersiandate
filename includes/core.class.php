@@ -54,19 +54,18 @@ class gPersianDateCore extends gPersianDateBase
 				}
 			}
 		}
-		
+
+		add_action( 'bp_include', [ $this, 'bp_include' ] );
+		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] );
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 20 );
 
 		// do_action_ref_array( 'gpersiandate_after_setup_actions', [ &$this ] );
 	}
-	
+
 	public function plugins_loaded()
 	{
 		load_plugin_textdomain( GPERSIANDATE_TEXTDOMAIN, FALSE, 'gpersiandate/languages' );
-
-		add_action( 'bp_include', [ $this, 'bp_include' ] );
-		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] );
-	}	
+	}
 
 	public function bp_include()
 	{
