@@ -46,7 +46,20 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			'I', // Whether or not the date is in daylight saving time // 1 if Daylight Saving Time, 0 otherwise.
 
 			'Y-m-d_H-i-s',
+			'Y-m-d_G-i-s',
 			'Y-m-d H:i:s',
+			'Y-m-d G:i:s',
+		] );
+	}
+
+	public static function checkTimeOnly( $format )
+	{
+		return in_array( $format, [
+			'H:i',
+			'G:i',
+			'g:i',
+			'H:i:s',
+			'G:i:s',
 		] );
 	}
 

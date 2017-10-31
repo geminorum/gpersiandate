@@ -14,7 +14,11 @@ class gPersianDateDate extends gPersianDateModuleCore
 		if ( gPersianDateFormat::checkISO( $format ) )
 			return mysql2date( $format, $time, FALSE );
 
-		$string = gPersianDateDateTime::to( $time, $format, $timezone, $calendar );
+		if ( gPersianDateFormat::checkTimeOnly( $format ) )
+			$string = mysql2date( $format, $time, FALSE );
+
+		else
+			$string = gPersianDateDateTime::to( $time, $format, $timezone, $calendar );
 
 		if ( $translate )
 			return gPersianDateTranslate::numbers( $string, $locale );
