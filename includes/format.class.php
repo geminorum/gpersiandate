@@ -49,6 +49,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			'Y-m-d_G-i-s',
 			'Y-m-d H:i:s',
 			'Y-m-d G:i:s',
+			'd-M-Y H:i',
 		] );
 	}
 
@@ -129,6 +130,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 				// working but pathetic!
 				'Caption' => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
 				'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				'Original dimensions %s'    => _x( 'Original dimensions <span>%s</span>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
 			];
 
 		if ( isset( $strings[$text] ) )
