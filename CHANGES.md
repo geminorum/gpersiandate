@@ -1,3 +1,9 @@
+### 3.5.9
+* main/core: bp/bbp include moved early
+* main/date: skip conversion on time only formats
+* main/format: more overrides
+* main/wordpress: more core filters
+
 ### 3.5.8
 * main/archives: refactoring methods
 * main/core: postpone language loading after plugins
