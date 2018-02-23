@@ -1,4 +1,4 @@
-# Copyright (C) 2017 gPersianDate
+# Copyright (C) 2018 gPersianDate
 # This file is distributed under the same license as the gPersianDate package.
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgid "gPersianDate"
 msgstr ""
 
 #: gpersiandate.php:5
-msgid "3.5.8"
+msgid "3.5.9"
 msgstr ""
 
 #: gpersiandate.php:7
@@ -153,14 +153,19 @@ msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/format.class.php:117
+#: includes/format.class.php:131
 msgctxt "gettext overrides"
 msgid "Caption"
 msgstr ""
 
-#: includes/format.class.php:118
+#: includes/format.class.php:132
 msgctxt "gettext overrides"
 msgid "Published: <b>%1$s</b>"
+msgstr ""
+
+#: includes/format.class.php:133
+msgctxt "gettext overrides"
+msgid "Original dimensions <span>%s</span>"
 msgstr ""
 
 #: includes/picker.class.php:20
