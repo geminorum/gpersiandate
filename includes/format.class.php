@@ -128,7 +128,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 				// 	'<span title="&lrm;%s MB&rlm;">%s'.( is_rtl() ? '&#1642;' : '&#37;' ).'</span>' ), // FIXME: is_rtl not working this early
 
 				// working but pathetic!
-				'Caption' => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				'Caption'                   => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
 				'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
 				'Original dimensions %s'    => _x( 'Original dimensions <span>%s</span>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
 			];
@@ -168,6 +168,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		return 6;
 	}
 
+	// @SEE: [Arabic Date Separator U-060D](https://github.com/rastikerdar/vazir-font/issues/81)
 	public function custom_date_formats( $formats )
 	{
 		$formats['fulltime'] = 'l، j M Y - G:i';
