@@ -6,6 +6,7 @@ Persian Date for [WordPress](https://wordpress.org/)
 [![GitHub license](https://img.shields.io/badge/license-GPLv3+-blue.svg?style=flat-square)](https://raw.githubusercontent.com/geminorum/gpersiandate/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/geminorum/gpersiandate.svg?style=flat-square)](https://github.com/geminorum/gpersiandate/releases)
 [![GitHub Issues](https://img.shields.io/github/issues/geminorum/gpersiandate.svg?style=flat-square)](https://github.com/geminorum/gpersiandate/issues)
+[![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
 [![Gratipay](http://img.shields.io/gratipay/geminorum.svg?style=flat-square)](https://gratipay.com/geminorum/)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
