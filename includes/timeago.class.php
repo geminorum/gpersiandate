@@ -6,7 +6,7 @@ class gPersianDateTimeAgo extends gPersianDateBase
 	// @REF: http://timeago.yarp.com/
 	// @REF: https://github.com/rmm5t/jquery-timeago
 
-	const TIMEAGO_VERSION  = '1.5.4';
+	const TIMEAGO_VERSION  = '1.6.3';
 	const WP_SCRIPT_HANDLE = 'gpersiandate-timeago';
 
 	public static function enqueue()
@@ -18,7 +18,7 @@ class gPersianDateTimeAgo extends gPersianDateBase
 
 		if ( 'en_US' != GPERSIANDATE_LOCALE ) {
 
-			$defaults = wp_json_encode( [
+			$strings = [
 				'prefixAgo'     => NULL,
 				'prefixFromNow' => NULL,
 				'wordSeparator' => ' ',
@@ -37,9 +37,12 @@ class gPersianDateTimeAgo extends gPersianDateBase
 				'months'        => _x( '%d months', 'Time Ago', GPERSIANDATE_TEXTDOMAIN ),
 				'year'          => _x( 'about a year', 'Time Ago', GPERSIANDATE_TEXTDOMAIN ),
 				'years'         => _x( '%d years', 'Time Ago', GPERSIANDATE_TEXTDOMAIN ),
+			];
 
-				// 'numbers'       => array_map( [ 'gPersianDateTranslate', 'numbers' ), range( 0, 9 ) ),
-				'numbers'       => [
+			if ( 'fa_IR' == GPERSIANDATE_LOCALE ) {
+
+				// $strings['numbers'] = array_map( [ 'gPersianDateTranslate', 'numbers' ), range( 0, 9 ) );
+				$strings['numbers'] = [
 					'0' => chr(0xDB).chr(0xB0),
 					'1' => chr(0xDB).chr(0xB1),
 					'2' => chr(0xDB).chr(0xB2),
@@ -50,17 +53,19 @@ class gPersianDateTimeAgo extends gPersianDateBase
 					'7' => chr(0xDB).chr(0xB7),
 					'8' => chr(0xDB).chr(0xB8),
 					'9' => chr(0xDB).chr(0xB9),
-				],
-			] );
+				];
+			}
 
-			$script .= "jQuery.timeago.settings.strings={$defaults};";
+			$encoded = wp_json_encode( $strings );
+
+			$script.= "jQuery.timeago.settings.strings={$encoded};";
 		}
 
-		// cutoff : Return the original date if time distance is older than cutoff (miliseconds).
-		// Display original dates older than 24 hours
-		$script .= "jQuery.timeago.settings.cutoff=1000*60*60*24;";
+		// display original dates older than 24 hours
+		// cutoff: returns the original date if time distance is older than cutoff (miliseconds)
+		$script.= "jQuery.timeago.settings.cutoff=1000*60*60*24;";
 
-		$script .= "jQuery(document).ready(function($){
+		$script.= "jQuery(document).ready(function($){
 			$('.do-timeago').timeago().removeClass('do-timeago');
 		});";
 
