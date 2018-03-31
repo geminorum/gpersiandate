@@ -7,7 +7,7 @@ Description: Persian Date for WordPress
 Version: 3.5.9
 License: GPLv3+
 Author: geminorum
-Author URI: http://geminorum.ir/
+Author URI: https://geminorum.ir/
 Network: false
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 GitHub Branch: master
