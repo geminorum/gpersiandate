@@ -128,9 +128,9 @@ class gPersianDateFormat extends gPersianDateModuleCore
 				// 	'<span title="&lrm;%s MB&rlm;">%s'.( is_rtl() ? '&#1642;' : '&#37;' ).'</span>' ), // FIXME: is_rtl not working this early
 
 				// working but pathetic!
-				'Caption'                   => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
-				'Published on: <b>%1$s</b>' => _x( 'Published: <b>%1$s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
-				'Original dimensions %s'    => _x( 'Original dimensions <span>%s</span>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				'Caption'                 => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				'Published on: <b>%s</b>' => _x( 'Published: <b>%s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				'Original dimensions %s'  => _x( 'Original dimensions <span>%s</span>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
 			];
 
 		if ( isset( $strings[$text] ) )
