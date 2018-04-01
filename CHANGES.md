@@ -1,3 +1,8 @@
+### 3.5.10
+* main/plugin: check for min php before bootstrap
+* main/format: correct override string
+* main/timeago: localized numbers only in persian
+
 ### 3.5.9
 * main/core: bp/bbp include moved early
 * main/date: skip conversion on time only formats
