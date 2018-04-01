@@ -7,7 +7,6 @@ Persian Date for [WordPress](https://wordpress.org/)
 [![GitHub release](https://img.shields.io/github/release/geminorum/gpersiandate.svg?style=flat-square)](https://github.com/geminorum/gpersiandate/releases)
 [![GitHub Issues](https://img.shields.io/github/issues/geminorum/gpersiandate.svg?style=flat-square)](https://github.com/geminorum/gpersiandate/issues)
 [![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
-[![Gratipay](http://img.shields.io/gratipay/geminorum.svg?style=flat-square)](https://gratipay.com/geminorum/)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 * Persian date for front end
@@ -35,5 +34,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Please log issues at [here](https://github.com/geminorum/gpersiandate/issues).
 
-[![it's a geminorum project](http://img.shields.io/badge/it's_a-geminorum_project-lightgrey.svg?style=flat)](http://geminorum.ir/)
+[![it's a geminorum project](http://img.shields.io/badge/it's_a-geminorum_project-lightgrey.svg?style=flat)](https://geminorum.ir/)
 [![Analytics](https://ga-beacon.appspot.com/UA-865830-4/gpersiandate/readme?pixel)](https://github.com/geminorum/gpersiandate)
