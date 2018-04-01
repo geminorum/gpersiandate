@@ -16,58 +16,72 @@ Requires PHP: 5.4
 */
 
 define( 'GPERSIANDATE_VERSION', '3.5.9' );
+define( 'GPERSIANDATE_MIN_PHP', '5.4.0' );
 define( 'GPERSIANDATE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GPERSIANDATE_URL', plugin_dir_url( __FILE__ ) );
 define( 'GPERSIANDATE_FILE', basename( GPERSIANDATE_DIR ).'/'.basename( __FILE__ ) );
 
-function gpersiandate_init() {
+if ( version_compare( GPERSIANDATE_MIN_PHP, PHP_VERSION, '>=' ) ) {
 
-	$includes = [
-		'core/base',
-		'core/html',
-		'core/text',
-		'utilities',
+	if ( is_admin() ) {
+		echo '<div class="notice notice-warning notice-alt is-dismissible"><p dir="ltr">';
+			printf( '<b>gPersianDate</b> requires PHP %s or higher. Please contact your hosting provider to update your site.', GPERSIANDATE_MIN_PHP ) ;
+		echo '</p></div>';
+	}
 
-		'core',
-		'modulecore',
-		'datetime',
-		'format',
-		'strings',
-		'translate',
-		'timezone',
-		'search',
-		'links',
-		'admin',
-		'archives',
-		'wordpress',
-		'adminbar',
-		'shortcodes',
-		'buddypress',
-		'bbpress',
-		'widgets',
-		'date',
-		'calendar',
-		'plugins',
-		'form',
+	return FALSE;
 
-		'picker',
-		'timeago',
-	];
+} else {
 
-	foreach ( $includes as $include )
-		if ( file_exists( GPERSIANDATE_DIR.'includes/'.$include.'.class.php' ) )
-			require_once( GPERSIANDATE_DIR.'includes/'.$include.'.class.php' );
+	function gpersiandate_init() {
 
-	defined( 'GPERSIANDATE_TEXTDOMAIN' ) or define( 'GPERSIANDATE_TEXTDOMAIN', 'gpersiandate' );
-	defined( 'GPERSIANDATE_TIMEZONE' ) or define( 'GPERSIANDATE_TIMEZONE', gPersianDateTimeZone::current() );
-	defined( 'GPERSIANDATE_LOCALE' ) or define( 'GPERSIANDATE_LOCALE', get_locale() );
-	defined( 'GPERSIANDATE_FIXNONPERSIAN' ) or define( 'GPERSIANDATE_FIXNONPERSIAN', TRUE );
+		$includes = [
+			'core/base',
+			'core/html',
+			'core/text',
+			'utilities',
 
-	gPersianDate();
+			'core',
+			'modulecore',
+			'datetime',
+			'format',
+			'strings',
+			'translate',
+			'timezone',
+			'search',
+			'links',
+			'admin',
+			'archives',
+			'wordpress',
+			'adminbar',
+			'shortcodes',
+			'buddypress',
+			'bbpress',
+			'widgets',
+			'date',
+			'calendar',
+			'plugins',
+			'form',
+
+			'picker',
+			'timeago',
+		];
+
+		foreach ( $includes as $include )
+			if ( file_exists( GPERSIANDATE_DIR.'includes/'.$include.'.class.php' ) )
+				require_once( GPERSIANDATE_DIR.'includes/'.$include.'.class.php' );
+
+		defined( 'GPERSIANDATE_TEXTDOMAIN' ) or define( 'GPERSIANDATE_TEXTDOMAIN', 'gpersiandate' );
+		defined( 'GPERSIANDATE_TIMEZONE' ) or define( 'GPERSIANDATE_TIMEZONE', gPersianDateTimeZone::current() );
+		defined( 'GPERSIANDATE_LOCALE' ) or define( 'GPERSIANDATE_LOCALE', get_locale() );
+		defined( 'GPERSIANDATE_FIXNONPERSIAN' ) or define( 'GPERSIANDATE_FIXNONPERSIAN', TRUE );
+
+		gPersianDate();
+	}
+
+	function gPersianDate() {
+		return gPersianDateCore::instance();
+	}
+
+	gpersiandate_init();
 }
-
-function gPersianDate() {
-	return gPersianDateCore::instance();
-}
-
-gpersiandate_init();
