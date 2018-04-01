@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gPersianDate\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-02-23 22:30+0330\n"
+"PO-Revision-Date: 2018-04-01 17:24+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -15,17 +15,25 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 2.0.6\n"
 
-#: gpersiandate.php:2
+#: gpersiandate.php:3
 msgid "gPersianDate"
 msgstr "تاریخ ایرانی"
 
-#: gpersiandate.php:5
-msgid "3.5.9"
+#: gpersiandate.php:4
+msgid "https://geminorum.ir/wordpress/gpersiandate"
 msgstr ""
 
-#: gpersiandate.php:7
+#: gpersiandate.php:5
+msgid "Persian Date for WordPress"
+msgstr "تاریخ ایرانی برای وردپرس"
+
+#: gpersiandate.php:8
 msgid "geminorum"
 msgstr "ژمای‌نوروم"
+
+#: gpersiandate.php:9
+msgid "https://geminorum.ir/"
+msgstr ""
 
 #: includes/admin.class.php:55
 msgid "Adminbar Clock"
@@ -168,8 +176,8 @@ msgstr "عنوان"
 
 #: includes/format.class.php:132
 msgctxt "gettext overrides"
-msgid "Published: <b>%1$s</b>"
-msgstr "انتشار: <b>%1$s</b>"
+msgid "Published: <b>%s</b>"
+msgstr "انتشار: <b>%s</b>"
 
 #: includes/format.class.php:133
 msgctxt "gettext overrides"

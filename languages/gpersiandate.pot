@@ -10,16 +10,24 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gpersiandate.php:2
+#: gpersiandate.php:3
 msgid "gPersianDate"
 msgstr ""
 
-#: gpersiandate.php:5
-msgid "3.5.9"
+#: gpersiandate.php:4
+msgid "https://geminorum.ir/wordpress/gpersiandate"
 msgstr ""
 
-#: gpersiandate.php:7
+#: gpersiandate.php:5
+msgid "Persian Date for WordPress"
+msgstr ""
+
+#: gpersiandate.php:8
 msgid "geminorum"
+msgstr ""
+
+#: gpersiandate.php:9
+msgid "https://geminorum.ir/"
 msgstr ""
 
 #: includes/admin.class.php:55
@@ -160,7 +168,7 @@ msgstr ""
 
 #: includes/format.class.php:132
 msgctxt "gettext overrides"
-msgid "Published: <b>%1$s</b>"
+msgid "Published: <b>%s</b>"
 msgstr ""
 
 #: includes/format.class.php:133
