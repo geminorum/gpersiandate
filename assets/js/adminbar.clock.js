@@ -1,5 +1,3 @@
-/* global jQuery */
-
 (function ($) {
   var m = {};
 
