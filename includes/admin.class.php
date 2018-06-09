@@ -17,7 +17,11 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 	public function admin_init()
 	{
 		$this->options = gPersianDate()->options();
-		register_setting( 'general', 'gpersiandate', [ $this, 'settings_sanitize' ] );
+
+		register_setting( 'general', 'gpersiandate', [
+			'sanitize_callback' => [ $this, 'settings_sanitize' ],
+			'show_in_rest'      => FALSE,
+		] );
 	}
 
 	public function current_screen( $screen )
