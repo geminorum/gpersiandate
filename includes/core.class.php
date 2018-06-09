@@ -64,6 +64,10 @@ class gPersianDateCore extends gPersianDateBase
 
 	public function plugins_loaded()
 	{
+		defined( 'GPERSIANDATE_TIMEZONE' ) or define( 'GPERSIANDATE_TIMEZONE', gPersianDateTimeZone::current() );
+		defined( 'GPERSIANDATE_LOCALE' ) or define( 'GPERSIANDATE_LOCALE', get_user_locale() );
+		defined( 'GPERSIANDATE_FIXNONPERSIAN' ) or define( 'GPERSIANDATE_FIXNONPERSIAN', TRUE );
+
 		load_plugin_textdomain( GPERSIANDATE_TEXTDOMAIN, FALSE, 'gpersiandate/languages' );
 	}
 
