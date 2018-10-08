@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gPersianDate\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-04-01 17:24+0430\n"
+"PO-Revision-Date: 2018-10-08 04:22+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #: gpersiandate.php:3
 msgid "gPersianDate"
@@ -35,52 +35,52 @@ msgstr "ژمای‌نوروم"
 msgid "https://geminorum.ir/"
 msgstr ""
 
-#: includes/admin.class.php:55
+#: includes/admin.class.php:59
 msgid "Adminbar Clock"
 msgstr "ساعت منوی مدیریت"
 
-#: includes/admin.class.php:56
+#: includes/admin.class.php:60
 msgid "Month Restrictions"
 msgstr "محدویت بر اساس ماه"
 
-#: includes/admin.class.php:57
+#: includes/admin.class.php:61
 msgid "Date Restrictions"
 msgstr "محدودیت در بازه زمانی"
 
-#: includes/admin.class.php:83, includes/admin.class.php:95,
-#: includes/admin.class.php:107
+#: includes/admin.class.php:87, includes/admin.class.php:99,
+#: includes/admin.class.php:111
 msgid "Disabled"
 msgstr "غیرفعال"
 
-#: includes/admin.class.php:84, includes/admin.class.php:96
+#: includes/admin.class.php:88, includes/admin.class.php:100
 msgid "Enabled"
 msgstr "فعال"
 
-#: includes/admin.class.php:108
+#: includes/admin.class.php:112
 msgid "Gregorian"
 msgstr "میلادی"
 
-#: includes/admin.class.php:109
+#: includes/admin.class.php:113
 msgid "Jalali"
 msgstr "شمسی"
 
-#: includes/admin.class.php:161
+#: includes/admin.class.php:165
 msgctxt "Admin: Months Dropdown"
 msgid "Filter by date"
 msgstr "پالایه بر اساس تاریخ"
 
-#: includes/admin.class.php:164
+#: includes/admin.class.php:168
 msgctxt "Admin: Months Dropdown"
 msgid "All dates"
 msgstr "همه‌ی تاریخ‌ها"
 
 # @ gpersiandate
-#: includes/admin.class.php:191
+#: includes/admin.class.php:195
 msgid "From"
 msgstr "از تاریخ"
 
 # @ gpersiandate
-#: includes/admin.class.php:203
+#: includes/admin.class.php:207
 msgid "To"
 msgstr "تا تاریخ"
 
@@ -164,7 +164,7 @@ msgctxt "Calendar: Build: Title Seperator"
 msgid ", "
 msgstr "، "
 
-#: includes/calendar.class.php:276
+#: includes/calendar.class.php:277
 msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
