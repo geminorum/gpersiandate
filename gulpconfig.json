@@ -66,6 +66,45 @@
   "sass": {
     "errLogToConsole": true
   },
+  "cssnano": {
+    "dev": {
+      "preset": [
+        "default", {
+          "zindex": false,
+          "discardComments": false
+        }
+      ]
+    },
+    "build": {
+      "preset": [
+        "default", {
+          "zindex": false,
+          "discardComments": {
+            "removeAll": true
+          }
+        }
+      ]
+    }
+  },
+  "autoprefixer": {
+    "dev": {
+      "browsers": [
+        "last 2 versions",
+        "ie >= 9",
+        "Android >= 2.3",
+        "ios >= 7"
+      ]
+    },
+    "build": {
+      "browsers": [
+        "last 2 versions",
+        "ie >= 9",
+        "Android >= 2.3",
+        "ios >= 7"
+      ],
+      "cascade": false
+    }
+  },
   "constants": {
     "version": "GPERSIANDATE_VERSION"
   },

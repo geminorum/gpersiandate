@@ -1,6 +1,8 @@
 (function () {
   var gulp = require('gulp');
   var plugins = require('gulp-load-plugins')();
+  var cssnano = require('cssnano');
+  var autoprefixer = require('autoprefixer');
   var parseChangelog = require('parse-changelog');
   var prettyjson = require('prettyjson');
   var extend = require('xtend');
@@ -65,11 +67,10 @@
     return gulp.src(config.input.sass)
       // .pipe(plugins.sourcemaps.init())
       .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
-      .pipe(plugins.cssnano({
-        core: false,
-        zindex: false,
-        discardComments: false
-      }))
+      .pipe(plugins.postcss([
+        cssnano(config.cssnano.build), // must be .dev but not yet build mechanism
+        autoprefixer(config.autoprefixer.build) // must be .dev but not yet build mechanism
+      ]))
       // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
       .pipe(plugins.changedInPlace())
@@ -89,11 +90,10 @@
     return gulp.src(config.input.sass)
       // .pipe(plugins.sourcemaps.init())
       .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
-      .pipe(plugins.cssnano({
-        core: false,
-        zindex: false,
-        discardComments: false
-      }))
+      .pipe(plugins.postcss([
+        cssnano(config.cssnano.build), // must be .dev but not yet build mechanism
+        autoprefixer(config.autoprefixer.build) // must be .dev but not yet build mechanism
+      ]))
       .pipe(plugins.header(banner, {
         pkg: pkg
       }))
@@ -102,7 +102,7 @@
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
-  gulp.task('build:styles', function () {
+  gulp.task('build:styles:old', function () {
     return gulp.src(config.input.sass)
       .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
       .pipe(plugins.cssnano({
@@ -112,6 +112,16 @@
         }
       }))
       .pipe(gulp.dest(config.output.css));
+  });
+
+  gulp.task('build:styles', function () {
+    return gulp.src(config.input.sass)
+      .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
+      .pipe(plugins.postcss([
+        cssnano(config.cssnano.build),
+        autoprefixer(config.autoprefixer.build)
+      ]))
+      .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
   gulp.task('build:scripts', function () {
