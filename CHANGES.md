@@ -1,3 +1,7 @@
+### 3.5.11
+* main/core: postpone timezone/locale constants
+* main/admin: hide settings in rest
+
 ### 3.5.10
 * main/plugin: check for min php before bootstrap
 * main/format: correct override string
