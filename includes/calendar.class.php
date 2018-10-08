@@ -167,12 +167,13 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		" );
 
 		if ( $posts ) {
+
 			foreach ( (array) $posts as $post ) {
 
 				$key = $post->month.'_'.$post->dom;
 
 				if ( ! isset( $data[$key] ) ) {
-					$post_date = gPersianDateDate::getByCal( $post->post_date, $args['calendar'] );
+					$post_date  = gPersianDateDate::getByCal( $post->post_date, $args['calendar'] );
 					$data[$key] = [ 'posts' => [], 'mday' => $post_date['mday'] ];
 				}
 
@@ -193,8 +194,8 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			}
 
 			if ( ! empty( $data ) ) {
-				$the_days  = wp_list_pluck( $data, 'mday' );
-				$data = array_combine( $the_days, $data );
+				$the_days = wp_list_pluck( $data, 'mday' );
+				$data     = array_combine( $the_days, $data );
 			}
 		}
 

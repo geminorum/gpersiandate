@@ -47,9 +47,13 @@ class gPersianDateCore extends gPersianDateBase
 
 		foreach ( $modules as $module => $class ) {
 			if ( class_exists( $class ) ) {
+
 				try {
+
 					$this->{$module} = new $class;
+
 				} catch ( \Exception $e ) {
+
 					// do nothing!
 				}
 			}
