@@ -1,7 +1,7 @@
 (function ($) {
   var m = {};
 
-  m.wrapper = '#gpd-now';
+  // m.wrapper = '#gpd-now';
 
   m.toPersianDigit = function (number) {
     var pzero = '۰'.charCodeAt(0);
@@ -12,16 +12,17 @@
     });
   };
 
-  m.toEnglishDigit = function (number) {
-    return number.toString().replace(/[۱۲۳۴۵۶۷۸۹۰]+/g, function (match) {
-      return match.split('').map(function (number) {
-        return number.charCodeAt(0) % 1776;
-      }).join('');
-    });
-  };
+  // m.toEnglishDigit = function (number) {
+  //   return number.toString().replace(/[۱۲۳۴۵۶۷۸۹۰]+/g, function (match) {
+  //     return match.split('').map(function (number) {
+  //       return number.charCodeAt(0) % 1776;
+  //     }).join('');
+  //   });
+  // };
 
   m.updateClock = function () {
-    var wrapper = $(m.wrapper);
+    // var wrapper = $(m.wrapper);
+    var wrapper = $('#gpd-now');
     var currentTime = new Date();
     var currentHours = currentTime.getHours();
     var currentMinutes = currentTime.getMinutes();
