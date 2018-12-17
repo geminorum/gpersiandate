@@ -30,6 +30,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 	// @SEE: http://php.net/manual/en/function.date.php
 	// @SEE: date_i18n()
+	// @REF: https://core.trac.wordpress.org/ticket/20973
 	public static function checkISO( $format )
 	{
 		return in_array( $format, [
@@ -50,6 +51,12 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			'Y-m-d H:i:s',
 			'Y-m-d G:i:s',
 			'd-M-Y H:i',
+
+			DATE_W3C, // eq `c`
+			DATE_ISO8601, // eq `c`
+			DATE_RFC2822, // eq `r`
+			'Y-m-d\TH:i:s+00:00', // eq `DATE_W3C` @SEE: http://jochenhebbrecht.be/site/node/761
+			'Y-m-d\TH:i:sP',
 		] );
 	}
 
@@ -120,6 +127,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 				'M jS Y'         => 'j M Y', // `wp_dashboard_recent_posts()`
 				'F j, Y'         => 'j M Y',
 				'M j, Y @ H:i'   => 'j M Y @ H:i',
+				'M j, Y g:i a'   => 'j M Y g:i a', // Abbreviated
 
 				'Howdy, %s' => '%s', // `wp_admin_bar_my_account_item()`
 
