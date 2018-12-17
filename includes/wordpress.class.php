@@ -48,7 +48,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		add_filter( 'geditorial_kses', [ 'gPersianDateTranslate', 'html' ], 12 );
 
 		add_filter( 'list_pages', [ 'gPersianDateTranslate', 'numbers' ], 12 ); // page dropdown walker item title
+
 		add_filter( 'wp_nav_menu_items', [ $this, 'wp_nav_menu_items' ], 10, 2 );
+		add_action( 'gnetwork_navigation_help_placeholders', [ $this, 'help_placeholders' ], 10, 2 );
 
 		add_action( 'widgets_init', [ $this, 'widgets_init' ], 20 );
 	}
@@ -169,6 +171,12 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		}
 
 		return $items;
+	}
+
+	public function help_placeholders( $before, $after )
+	{
+		echo $before.'<code>{TODAY_DATE}</code>'.$after;
+		echo $before.'<code>{TODAY_DATE_HIJRI}</code>'.$after;
 	}
 
 	public static function postDate( $post = NULL, $gmt = FALSE, $timestamp = FALSE )
