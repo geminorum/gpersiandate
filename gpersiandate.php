@@ -41,6 +41,7 @@ if ( version_compare( GPERSIANDATE_MIN_PHP, PHP_VERSION, '>=' ) ) {
 			'core/base',
 			'core/html',
 			'core/text',
+			'core/wordpress',
 			'utilities',
 
 			'core',
