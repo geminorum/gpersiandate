@@ -122,7 +122,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 				$previous_date = gPersianDateDate::getByCal( $previous->post_date, $args['calendar'] );
 
-				$html .= '<td colspan="3" class="-prev">';
+				$html .= '<td colspan="3" class="-next-prev -prev" data-month="'.$previous_date['mon'].'" data-year="'.$previous_date['year'].'">';
 				$html .= call_user_func_array( $args['nav_month_callback'],
 					array( $previous_date, FALSE, $args ) );
 				$html .'</td>';
@@ -137,7 +137,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 				$next_date = gPersianDateDate::getByCal( $next->post_date, $args['calendar'] );
 
-				$html .= '<td colspan="3" class="-next">';
+				$html .= '<td colspan="3" class="-next-prev -next" data-month="'.$next_date['mon'].'" data-year="'.$next_date['year'].'">';
 					$html .= call_user_func_array( $args['nav_month_callback'],
 						array( $next_date, TRUE, $args ) );
 				$html .'</td>';
