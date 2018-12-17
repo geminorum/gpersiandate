@@ -10,8 +10,10 @@ class gPersianDateModuleCore extends gPersianDateBase
 		if ( ! $this->ajax && self::isAJAX() )
 			throw new \Exception( 'Not on AJAX Calls!' );
 
-		if ( wp_installing() )
-			throw new \Exception( 'Not while WP is Installing!' );
+		// wp-activate works only for network enabled plugins!
+		// @SEE: https://core.trac.wordpress.org/ticket/23197
+		// if ( wp_installing() && 'wp-activate.php' !== gPersianDateWP::pageNow() )
+		// 	throw new \Exception( 'Not while WP is Installing!' );
 
 		$this->setup_actions();
 	}
