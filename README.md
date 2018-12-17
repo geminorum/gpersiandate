@@ -2,12 +2,13 @@
 
 Persian Date for [WordPress](https://wordpress.org/)
 
-[![Travis](https://img.shields.io/travis/geminorum/gpersiandate.svg?style=flat-square)](https://travis-ci.org/geminorum/gpersiandate)
-[![GitHub license](https://img.shields.io/badge/license-GPLv3+-blue.svg?style=flat-square)](https://raw.githubusercontent.com/geminorum/gpersiandate/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/geminorum/gpersiandate.svg?style=flat-square)](https://github.com/geminorum/gpersiandate/releases)
-[![GitHub Issues](https://img.shields.io/github/issues/geminorum/gpersiandate.svg?style=flat-square)](https://github.com/geminorum/gpersiandate/issues)
-[![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
-[![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Travis](https://img.shields.io/travis/geminorum/gpersiandate.svg?style=for-the-badge)](https://travis-ci.org/geminorum/gpersiandate)
+[![GitHub release](https://img.shields.io/github/release/geminorum/gpersiandate.svg?style=for-the-badge)](https://github.com/geminorum/gpersiandate/releases)
+[![GitHub Issues](https://img.shields.io/github/issues/geminorum/gpersiandate.svg?style=for-the-badge)](https://github.com/geminorum/gpersiandate/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
+[![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=for-the-badge)](https://github.com/Flet/semistandard)
+[![GitHub license](https://img.shields.io/badge/license-GPLv3+-blue.svg?style=for-the-badge)](https://raw.githubusercontent.com/geminorum/gpersiandate/master/LICENSE)
+[![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=for-the-badge)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 * Persian date for front end
 * Current date and live clock on admin-bar
@@ -34,5 +35,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Please log issues at [here](https://github.com/geminorum/gpersiandate/issues).
 
-[![it's a geminorum project](http://img.shields.io/badge/it's_a-geminorum_project-lightgrey.svg?style=flat)](https://geminorum.ir/)
+[![it's a geminorum project](http://img.shields.io/badge/it's_a-geminorum_project-lightgrey.svg?style=flat-square)](https://geminorum.ir/)
 [![Analytics](https://ga-beacon.appspot.com/UA-865830-4/gpersiandate/readme?pixel)](https://github.com/geminorum/gpersiandate)

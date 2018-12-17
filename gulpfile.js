@@ -26,7 +26,7 @@
   gulp.task('dev:tinify', function () {
     return gulp.src(config.input.images)
       .pipe(plugins.newer(config.output.images))
-      .pipe(plugins.tinypngExtended({
+      .pipe(plugins.tinypngUnlimited({
         key: env.tinypng,
         summarize: true,
         keepMetadata: false,
@@ -100,18 +100,6 @@
       // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
       .pipe(plugins.debug({title: 'unicorn:'}))
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
-  });
-
-  gulp.task('build:styles:old', function () {
-    return gulp.src(config.input.sass)
-      .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
-      .pipe(plugins.cssnano({
-        zindex: false,
-        discardComments: {
-          removeAll: true
-        }
-      }))
-      .pipe(gulp.dest(config.output.css));
   });
 
   gulp.task('build:styles', function () {
