@@ -115,4 +115,44 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 		// fallback
 		return 'UTC';
 	}
+
+	// NOT USED YET
+	// @SEE: https://gist.github.com/stephenh1988/2724520
+	public static function getObject()
+	{
+		$timezone = wp_cache_get( 'site_timezone' );
+
+		if ( FALSE === $timezone || ! ( $timezone instanceof \DateTimeZone ) ) {
+
+			$string = get_option( 'timezone_string' );
+			$offset = get_option( 'gmt_offset' );
+
+			// removes old Etc mappings, fallsback to gmt_offset
+			if ( ! empty( $string ) && FALSE !== strpos( $string, 'Etc/GMT' ) )
+				$string = '';
+
+			if ( empty( $string ) && $offset != 0 ) {
+
+				$offset*= 3600; // converts hour offset to seconds
+
+				foreach ( timezone_abbreviations_list() as $abbr ) {
+					foreach ( $abbr as $city ) {
+						if ( $city['offset'] == $offset ) {
+							$string = $city['timezone_id'];
+							break 2;
+						}
+					}
+				}
+			}
+
+			if ( empty( $string ) )
+				$string = 'UTC';
+
+			$timezone = new \DateTimeZone( $string );
+
+			wp_cache_set( 'site_timezone', $timezone );
+		}
+
+		return $timezone;
+	}
 }
