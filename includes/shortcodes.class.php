@@ -36,7 +36,7 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$key = md5( 'gpersiandate_clean_'.serialize( $atts ).'_'.$tag );
+		$key = md5( 'gpersiandate_clean_'.serialize( $args ).'_'.$tag );
 
 		if ( self::isFlush() )
 			delete_transient( $key );
@@ -62,7 +62,7 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$key = md5( 'gpersiandate_compact_'.serialize( $atts ).'_'.$tag );
+		$key = md5( 'gpersiandate_compact_'.serialize( $args ).'_'.$tag );
 
 		if ( self::isFlush() )
 			delete_transient( $key );
