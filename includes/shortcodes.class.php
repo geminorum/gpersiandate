@@ -42,6 +42,13 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 			delete_transient( $key );
 
 		if ( FALSE === ( $html = get_transient( $key ) ) ) {
+
+			if ( empty( $atts ) )
+				$atts = [];
+
+			// passing context into the generator
+			$atts['row_context'] = $args['context'] ?: FALSE;
+
 			$html = gPersianDateArchives::getClean( $atts );
 			$html = gPersianDateUtilities::minifyHTML( $html );
 			set_transient( $key, $html, 12 * HOUR_IN_SECONDS );
