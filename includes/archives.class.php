@@ -409,7 +409,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 		while ( $now >= $year ) {
 
-			$html.= '<tr><td class="-year text-info text-right" style="width:10%;">';
+			$html.= '<tr><td class="-year">';
 
 			$html.= $args['link_anchor']
 				? gPersianDateTranslate::numbers( $year )
@@ -446,11 +446,11 @@ class gPersianDateArchives extends gPersianDateModuleCore
 						? 'title="'.esc_attr( sprintf( $args['string_count'], gPersianDateTranslate::numbers( $count ) ) ).'"'
 						: '';
 
-					$html.= '<td class="-month text-center" '.$title.' style="width:7.5%;">'.$link.'</td>';
+					$html.= '<td class="-month" '.$title.'>'.$link.'</td>';
 
 				} else {
 
-					$html.= '<td class="-month -empty text-muted text-center" style="width:7.5%;">'.$name.'</td>';
+					$html.= '<td class="-month -empty text-muted">'.$name.'</td>';
 				}
 			}
 
