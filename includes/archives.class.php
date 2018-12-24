@@ -588,11 +588,15 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 				if ( $args['row_context'] ) {
 
+					ob_start();
+
 					echo $day;
 
 					echo( '<dd>' );
 						get_template_part( 'row', $args['row_context'] );
 					echo '</dd>';
+
+					$html.= ob_get_clean();
 
 				} else {
 
