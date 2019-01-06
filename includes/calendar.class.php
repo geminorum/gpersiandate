@@ -235,7 +235,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			'id'    => $args['id'],
 			'class' => $args['class'],
 			'data'  => [
-				'calendar' => $args['calendar'],
+				'calendar' => $args['calendar'] ?: FALSE,
 				'year'     => $args['this_year'],
 				'month'    => $args['this_month'],
 			],
