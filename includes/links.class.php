@@ -7,7 +7,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'posts_where', [ $this, 'posts_where' ], 20 );
+		add_filter( 'posts_where', [ $this, 'posts_where' ], 20, 2 );
 
 		add_filter( 'post_link', [ $this, 'post_link' ], 10, 3 );
 		add_filter( 'day_link', [ $this, 'day_link' ], 10, 4 );
@@ -17,11 +17,14 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		add_filter( 'wp_title_parts', [ $this, 'wp_title_parts' ] );
 	}
 
-	public function posts_where( $where = '' )
+	public function posts_where( $where, &$wp_query )
 	{
-		global $wpdb, $wp_query;
+		global $wpdb;
 
 		if ( is_admin() || ! $wp_query->is_main_query() )
+			return $where;
+
+		if ( ! gPersianDateText::has( $where, $wpdb->posts.'.post_date' ) )
 			return $where;
 
 		$conversion = FALSE;
@@ -149,7 +152,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		$start_date = gPersianDateDate::makeMySQLFromArray( $start );
 		$end_date   = gPersianDateDate::makeMySQLFromArray( $end );
 
-		return $where." AND $wpdb->posts.post_date >= '$start_date' AND $wpdb->posts.post_date < '$end_date' ";
+		return $where." AND {$wpdb->posts}.post_date >= '{$start_date}' AND {$wpdb->posts}.post_date < '{$end_date}' ";
 	}
 
 	public static function stripDateClauses( $where )
