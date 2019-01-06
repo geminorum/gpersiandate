@@ -28,9 +28,10 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			'caption_link' => TRUE, // table caption link to / string for custom
 			'navigation'   => TRUE, // next/prev foot nav
 
-			'nav_prev'  => _x( '&laquo; %s', 'Calendar: Build: Previous Month', GPERSIANDATE_TEXTDOMAIN ),
-			'nav_next'  => _x( '%s &raquo;', 'Calendar: Build: Next Month', GPERSIANDATE_TEXTDOMAIN ),
-			'title_sep' => _x( ', ', 'Calendar: Build: Title Seperator', GPERSIANDATE_TEXTDOMAIN ),
+			'nav_prev'   => _x( '&laquo; %s', 'Calendar: Build: Previous Month', GPERSIANDATE_TEXTDOMAIN ),
+			'nav_next'   => _x( '%s &raquo;', 'Calendar: Build: Next Month', GPERSIANDATE_TEXTDOMAIN ),
+			'title_sep'  => _x( ', ', 'Calendar: Build: Title Seperator', GPERSIANDATE_TEXTDOMAIN ),
+			'title_trim' => 55,
 
 			'link_build_callback' => NULL, // NULL to default
 			'the_day_callback'    => NULL, // NULL to default
@@ -249,8 +250,15 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 		$titles = [];
 
-		foreach ( $data as $post )
-			$titles[] = apply_filters( 'the_title', $post['title'], $post['ID'] );
+		foreach ( $data as $post ) {
+
+			$title = apply_filters( 'the_title', $post['title'], $post['ID'] );
+			$title = apply_filters( 'string_format_i18n', $title );
+			$title = gPersianDateText::trimChars( $title, $args['title_trim'] );
+
+			if ( ! empty( $title ) )
+				$titles[] = $title;
+		}
 
 		return gPersianDateHTML::tag( 'a', [
 			'href'  => call_user_func_array( $args['link_build_callback'], [ 'day', $args['this_year'], $args['this_month'], $the_day, $args ] ),
