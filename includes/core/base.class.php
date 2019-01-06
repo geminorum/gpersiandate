@@ -76,7 +76,7 @@ class gPersianDateBase
 	}
 
 	// INTERNAL
-	public static function __log( $log )
+	public static function _log( $log )
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
 			return;
@@ -88,7 +88,7 @@ class gPersianDateBase
 	}
 
 	// INTERNAL: used on anything deprecated
-	protected static function __dep( $note = '', $prefix = 'DEP: ', $offset = 1 )
+	protected static function _dep( $note = '', $prefix = 'DEP: ', $offset = 1 )
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
 			return;
@@ -122,10 +122,10 @@ class gPersianDateBase
 	}
 
 	// INTERNAL: used on anything deprecated : only on dev mode
-	protected static function __dev_dep( $note = '', $prefix = 'DEP: ', $offset = 2 )
+	protected static function _dev_dep( $note = '', $prefix = 'DEP: ', $offset = 2 )
 	{
 		if ( self::isDev() )
-			self::__dep( $note, $prefix, $offset );
+			self::_dep( $note, $prefix, $offset );
 	}
 
 	// @REF: `shortcode_atts()`
