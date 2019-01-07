@@ -532,11 +532,12 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			while ( $loop->have_posts() ) {
 
 				$loop->the_post();
+				$post = get_post();
 
 				// we need this to compare it with the previous post date
-				$year   = get_the_time( 'Y' );
-				$month  = get_the_time( 'm' );
-				$daynum = get_the_time( 'd' );
+				$year   = get_the_time( 'Y', $post );
+				$month  = get_the_time( 'm', $post );
+				$daynum = get_the_time( 'd', $post );
 
 				// if the current date doesn't match this post's date, we need extra formatting
 				if ( $current_year !== $year || $current_month !== $month ) {
@@ -562,7 +563,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 						'<li id="%s"><h4 class="-month"><a href="%s">%s</a></h4>',
 						$number_year.zeroise( $number_month, 2 ),
 						esc_url( $link_month ),
-						esc_html( get_the_time( $args['format_month_year'] ) )
+						esc_html( get_the_time( $args['format_month_year'], $post ) )
 					);
 
 					$html.= '<dl class="dl-horizontal">';
@@ -580,7 +581,11 @@ class gPersianDateArchives extends gPersianDateModuleCore
 					if ( $link_query )
 						$link_day = add_query_arg( $link_query, $link_day );
 
-					$day = sprintf( '<dt%s><a href="%s" class="-day">%s</a></dt>', $duplicate_day, esc_url( $link_day ), get_the_time( $args['format_post_date'] ) );
+					$day = vsprintf( '<dt%s><a href="%s" class="-day">%s</a></dt>', [
+						$duplicate_day,
+						esc_url( $link_day ),
+						get_the_time( $args['format_post_date'], $post ),
+					] );
 
 				} else {
 					$day = '';
@@ -600,14 +605,20 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 				} else {
 
-					$template = '%s<dd><a href="%s" rel="bookmark">%s</a></dd>';
-					$values   = [ $day, esc_url( get_permalink() ), get_the_title() ? the_title( '', '', FALSE ) : get_the_ID() ];
+					if ( trim( $post->post_title ) )
+						$title = gPersianDateUtilities::prepTitle( $post->post_title, $post->ID );
+					else
+						$title = _x( '[Untitled]', 'Archives: Clean: Untitled Post', GPERSIANDATE_TEXTDOMAIN );
 
-					// the comment count will only appear if comments are open or the post has existing comments
-					if ( $show_comments && ( comments_open() || get_comments_number() ) ) {
+					$template = '%s<dd><a href="%s" rel="bookmark">%s</a></dd>';
+					$values   = [ $day, esc_url( get_permalink( $post ) ), $title ];
+
+					// the comment count will only appear if comments are open
+					// or the post has existing comments
+					if ( $show_comments && ( comments_open( $post ) || get_comments_number( $post ) ) ) {
 
 						$template = '%s<dd><a href="%s" rel="bookmark">%s</a>&nbsp;%s</dd>';
-						$comments = sprintf( esc_html_x( '(%s)', 'Archives: Clean: Comment Count', GPERSIANDATE_TEXTDOMAIN ), get_comments_number() );
+						$comments = sprintf( esc_html_x( '(%s)', 'Archives: Clean: Comment Count', GPERSIANDATE_TEXTDOMAIN ), get_comments_number( $post ) );
 						$values[] = sprintf( '<small class="-comments" title="%s">%s</small>', esc_attr( $args['string_count'] ), gPersianDateTranslate::numbers( $comments ) );
 					}
 
