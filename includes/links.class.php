@@ -7,21 +7,23 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'posts_where', [ $this, 'posts_where' ], 20, 2 );
-
 		add_filter( 'post_link', [ $this, 'post_link' ], 10, 3 );
 		add_filter( 'day_link', [ $this, 'day_link' ], 10, 4 );
 		add_filter( 'month_link', [ $this, 'month_link' ], 10, 3 );
 		add_filter( 'year_link', [ $this, 'year_link' ], 10, 2 );
 
+		if ( is_admin() )
+			return;
+
+		add_filter( 'posts_where', [ $this, 'posts_where' ], 20, 2 );
 		add_filter( 'wp_title_parts', [ $this, 'wp_title_parts' ] );
 	}
 
-	public function posts_where( $where, &$wp_query )
+	public function posts_where( $where, $wp_query )
 	{
 		global $wpdb;
 
-		if ( is_admin() || ! $wp_query->is_main_query() )
+		if ( ! $wp_query->is_main_query() )
 			return $where;
 
 		if ( ! gPersianDateText::has( $where, $wpdb->posts.'.post_date' ) )
