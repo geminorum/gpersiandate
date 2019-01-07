@@ -76,4 +76,30 @@ class gPersianDateUtilities extends gPersianDateBase
 
 		return trim( $buffer );
 	}
+
+	public static function prepTitle( $text, $post_id = 0 )
+	{
+		if ( ! $text )
+			return '';
+
+		$text = apply_filters( 'the_title', $text, $post_id );
+		$text = apply_filters( 'string_format_i18n', $text );
+		$text = apply_filters( 'gnetwork_typography', $text );
+
+		return trim( $text );
+	}
+
+	public static function prepDescription( $text, $shortcode = TRUE, $autop = TRUE )
+	{
+		if ( ! $text )
+			return '';
+
+		if ( $shortcode )
+			$text = do_shortcode( $text, TRUE );
+
+		$text = apply_filters( 'html_format_i18n', $text );
+		$text = apply_filters( 'gnetwork_typography', $text );
+
+		return $autop ? wpautop( $text ) : $text;
+	}
 }
