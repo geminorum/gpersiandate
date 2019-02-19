@@ -156,6 +156,8 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 					'7' => chr(0xD9).chr(0xA7),
 					'8' => chr(0xD9).chr(0xA8),
 					'9' => chr(0xD9).chr(0xA9),
+
+					'%' => chr(0xD9).chr(0xAA),
 				] );
 
 				return self::chars( $string, FALSE );
@@ -174,6 +176,8 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 					'7' => chr(0xDB).chr(0xB7),
 					'8' => chr(0xDB).chr(0xB8),
 					'9' => chr(0xDB).chr(0xB9),
+
+					'%' => chr(0xD9).chr(0xAA),
 				] );
 
 				return self::chars( $string );
@@ -247,6 +251,8 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 					chr(0xDB).chr(0xB7) => '7',
 					chr(0xDB).chr(0xB8) => '8',
 					chr(0xDB).chr(0xB9) => '9',
+
+					chr(0xD9).chr(0xAA) => '%',
 				] );
 		}
 
