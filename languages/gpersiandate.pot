@@ -1,4 +1,4 @@
-# Copyright (C) 2018 gPersianDate
+# Copyright (C) 2019 gPersianDate
 # This file is distributed under the same license as the gPersianDate package.
 msgid ""
 msgstr ""
@@ -136,7 +136,12 @@ msgctxt "Archives: Clean"
 msgid "Post comment count"
 msgstr ""
 
-#: includes/archives.class.php:606
+#: includes/archives.class.php:611
+msgctxt "Archives: Clean: Untitled Post"
+msgid "[Untitled]"
+msgstr ""
+
+#: includes/archives.class.php:621
 msgctxt "Archives: Clean: Comment Count"
 msgid "(%s)"
 msgstr ""
@@ -156,22 +161,22 @@ msgctxt "Calendar: Build: Title Seperator"
 msgid ", "
 msgstr ""
 
-#: includes/calendar.class.php:277
+#: includes/calendar.class.php:285
 msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/format.class.php:131
+#: includes/format.class.php:139
 msgctxt "gettext overrides"
 msgid "Caption"
 msgstr ""
 
-#: includes/format.class.php:132
+#: includes/format.class.php:140
 msgctxt "gettext overrides"
 msgid "Published: <b>%s</b>"
 msgstr ""
 
-#: includes/format.class.php:133
+#: includes/format.class.php:141
 msgctxt "gettext overrides"
 msgid "Original dimensions <span>%s</span>"
 msgstr ""
@@ -196,7 +201,7 @@ msgctxt "Date Picker"
 msgid "Previous"
 msgstr ""
 
-#: includes/shortcodes.class.php:84
+#: includes/shortcodes.class.php:96
 msgctxt "Shortcodes: Entry Published Title"
 msgid "Archive for %s"
 msgstr ""
