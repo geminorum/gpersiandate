@@ -1,3 +1,23 @@
+### 3.6.0
+* module/archives: proper handling titles
+* module/archives: return instead of printing row template in clean list
+* module/archives: strip inline styles from compact table
+* module/calendar: next/prev data key for year/month
+* module/calendar: prep titles as title attr
+* module/calendar: skip empty data calendar
+* module/core: checking for wp is installing disabled
+* module/format: check for more formats
+* module/links: correct query to check for dates
+* module/links: proper hooking filters
+* module/shortcodes: cache key based on filtered args
+* module/shortcodes: passing context into the clean archives
+* module/shortcodes: ttl as atts and can be filtered
+* module/timeago: :up: 1.6.5
+* module/timezone: get object helper
+* module/translate: support for precent sign
+* module/utilities: prep title/desc helpers
+* module/wordpress: navigation help for placeholders
+
 ### 3.5.11
 * main/core: postpone timezone/locale constants
 * main/admin: hide settings in rest
