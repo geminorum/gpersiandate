@@ -86,9 +86,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return date( 'Y-m-d H:i:s', self::make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar, $timezone ) );
 	}
 
-	public static function makeFromArray( $atts = [] )
+	public static function makeFromArray( $array = [] )
 	{
-		$args = self::atts( [
+		$parts = self::atts( [
 			'year'     => 1362, // ;)
 			'month'    => 1,
 			'day'      => 1,
@@ -97,42 +97,51 @@ class gPersianDateDate extends gPersianDateModuleCore
 			'second'   => 0,
 			'calendar' => 'Jalali',
 			'timezone' => GPERSIANDATE_TIMEZONE,
-		], $atts );
+		], $array );
 
 		return self::make(
-			$args['hour'],
-			$args['minute'],
-			$args['second'],
-			$args['month'],
-			$args['day'],
-			$args['year'],
-			$args['calendar'],
-			$args['timezone']
+			$parts['hour'],
+			$parts['minute'],
+			$parts['second'],
+			$parts['month'],
+			$parts['day'],
+			$parts['year'],
+			$parts['calendar'],
+			$parts['timezone']
 		);
 	}
 
-	public static function makeMySQLFromArray( $atts = [], $format = NULL )
+	public static function makeMySQLFromArray( $array = [], $format = NULL, $fallback = '' )
 	{
+		if ( empty( $array ) )
+			return $fallback;
+
 		if ( is_null( $format ) )
 			$format = 'Y-m-d H:i:s';
 
-		return date( $format, self::makeFromArray( $atts ) );
+		return date( $format, self::makeFromArray( $array ) );
 	}
 
-	public static function makeFromInput( $input, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE )
+	public static function makeFromInput( $input, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
 	{
+		if ( empty( $input ) )
+			return $fallback;
+
 		// FIXME: needs sanity checks
 		$parts = explode( '/', apply_filters( 'string_format_i18n_back', $input ) );
 
 		return self::make( 0, 0, 0, $parts[1], $parts[2], $parts[0], $calendar, $timezone );
 	}
 
-	public static function makeMySQLFromInput( $input, $format = NULL, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE )
+	public static function makeMySQLFromInput( $input, $format = NULL, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
 	{
+		if ( empty( $input ) )
+			return $fallback;
+
 		if ( is_null( $format ) )
 			$format = 'Y-m-d H:i:s';
 
-		return date( $format, self::makeFromInput( $input, $calendar, $timezone ) );
+		return date( $format, self::makeFromInput( $input, $calendar, $timezone, $fallback ) );
 	}
 
 	// timezone must be UTC, since all dates stored in wp are local

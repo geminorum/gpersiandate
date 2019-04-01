@@ -28,12 +28,11 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 	{
 		if ( 'edit' == $screen->base ) {
 
-			if ( ! empty( $_REQUEST['start_date_gp'] )
-				|| ! empty( $_REQUEST['end_date_gp'] ) )
-					add_filter( 'posts_where', [ $this, 'posts_where_start_end' ] );
+			if ( self::req( 'persian_start_date' ) || self::req( 'persian_end_date' ) )
+				add_filter( 'posts_where', [ $this, 'posts_where_start_end' ] );
 
-			if ( ! empty( $_REQUEST['mgp'] ) )
-				add_filter( 'posts_where', [ $this, 'posts_where_mgp' ] );
+			if ( self::req( 'persian_month' ) )
+				add_filter( 'posts_where', [ $this, 'posts_where_persian_month' ] );
 
 			add_filter( 'disable_months_dropdown', [ $this, 'disable_months_dropdown' ], 10, 2 );
 
@@ -48,14 +47,15 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 		} else if ( 'upload' == $screen->base ) {
 
-			if ( ! empty( $_REQUEST['mgp'] ) )
-				add_filter( 'posts_where', [ $this, 'posts_where_mgp' ] );
+			if ( self::req( 'persian_month' ) )
+				add_filter( 'posts_where', [ $this, 'posts_where_persian_month' ] );
 
 			add_filter( 'disable_months_dropdown', [ $this, 'disable_months_dropdown' ], 10, 2 );
 
 		} else if ( 'options-general' == $screen->base ) {
 
 			$page = 'general';
+
 			add_settings_field( 'adminbar_clock', __( 'Adminbar Clock', GPERSIANDATE_TEXTDOMAIN ), [ $this, 'field_adminbar_clock' ], $page );
 			add_settings_field( 'restrict_month', __( 'Month Restrictions', GPERSIANDATE_TEXTDOMAIN ), [ $this, 'field_restrict_month' ], $page );
 			add_settings_field( 'restrict_fromto', __( 'Date Restrictions', GPERSIANDATE_TEXTDOMAIN ), [ $this, 'field_restrict_fromto' ], $page );
@@ -64,29 +64,23 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 	public function settings_sanitize( $input )
 	{
-		$output = [];
-
-		if ( isset( $input['adminbar_clock'] ) && $input['adminbar_clock'] )
-			$output['adminbar_clock'] = 1;
-
-		if ( isset( $input['restrict_month'] ) && $input['restrict_month'] )
-			$output['restrict_month'] = $input['restrict_month'];
-
-		if ( isset( $input['restrict_fromto'] ) && $input['restrict_fromto'] )
-			$output['restrict_fromto'] = 1;
-
-		return $output;
+		return [
+			'adminbar_clock'  => empty( $input['adminbar_clock'] ) ? 0 : 1,
+			'restrict_month'  => empty( $input['restrict_month'] ) ? 0 : $input['restrict_month'],
+			'restrict_fromto' => empty( $input['restrict_fromto'] ) ? 0 : 1,
+		];
 	}
 
 	public function field_adminbar_clock( $args )
 	{
 		$field  = 'adminbar_clock';
-		$option = isset( $this->options[$field] ) ? $this->options[$field] : 0;
+		$option = empty( $this->options[$field] ) ? 0 : $this->options[$field];
 
 		echo '<select name="gpersiandate['.$field.']" id="gpersiandate-'.$field.'">';
 			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', GPERSIANDATE_TEXTDOMAIN ); ?></option>
 			<option value="1" <?php selected( $option, 1 ); ?>><?php esc_html_e( 'Enabled', GPERSIANDATE_TEXTDOMAIN ); ?></option><?php
 		echo '</select>';
+
 		// echo '<p class="description">'. __( 'Select to enable current date and time on admin bar.', GPERSIANDATE_TEXTDOMAIN ).'</p>';
 	}
 
@@ -99,6 +93,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', GPERSIANDATE_TEXTDOMAIN ); ?></option>
 			<option value="1" <?php selected( $option, 1 ); ?>><?php esc_html_e( 'Enabled', GPERSIANDATE_TEXTDOMAIN ); ?></option><?php
 		echo '</select>';
+
 		// echo '<p class="description">'. __( 'Select to enable date picker on manage post screen.', GPERSIANDATE_TEXTDOMAIN ).'</p>';
 	}
 
@@ -112,18 +107,19 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 			<option value="1" <?php selected( $option, 1 ); ?>><?php esc_html_e( 'Gregorian', GPERSIANDATE_TEXTDOMAIN ); ?></option>
 			<option value="2" <?php selected( $option, 2 ); ?>><?php esc_html_e( 'Jalali', GPERSIANDATE_TEXTDOMAIN ); ?></option><?php
 		echo '</select>';
+
 		// echo '<p class="description">'. __( 'Select to enable date picker on manage post screen.', GPERSIANDATE_TEXTDOMAIN ).'</p>';
 	}
 
-	public function posts_where_mgp( $where = '' )
+	public function posts_where_persian_month( $where = '' )
 	{
-		if ( ! empty( $_REQUEST['mgp'] ) ) {
+		if ( ! empty( $_REQUEST['persian_month'] ) ) {
 
-			$mgp = ''.preg_replace( '|[^0-9]|', '', $_REQUEST['mgp'] );
+			$persian_month = ''.preg_replace( '|[^0-9]|', '', $_REQUEST['persian_month'] );
 
-			list( $first, $last ) = gPersianDateDate::monthFirstAndLast( substr( $mgp, 0, 4 ), substr( $mgp, 4, 2 ) );
+			list( $first, $last ) = gPersianDateDate::monthFirstAndLast( substr( $persian_month, 0, 4 ), substr( $persian_month, 4, 2 ) );
 
-			$where .= " AND post_date >='$first' AND post_date <='$last' ";
+			$where .= " AND post_date >='{$first}' AND post_date <='{$last}' ";
 		}
 
 		return $where;
@@ -131,13 +127,11 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 	public function posts_where_start_end( $where = '' )
 	{
-		if ( ! empty( $_REQUEST['start_date_gp'] )
-			&& ( $start_date = gPersianDateDate::makeMySQLFromInput( $_REQUEST['start_date_gp'] ) ) )
-				$where .= " AND post_date >='$start_date' ";
+		if ( $start_date = gPersianDateDate::makeMySQLFromInput( self::req( 'persian_start_date' ) ) )
+			$where .= " AND post_date >='{$start_date}' ";
 
-		if ( ! empty( $_REQUEST['end_date_gp'] )
-			&& ( $end_date = gPersianDateDate::makeMySQLFromInput( $_REQUEST['end_date_gp'], 'Y-m-d' ) ) )
-				$where .= " AND post_date <='$end_date 23:59:59'";
+		if ( $end_date = gPersianDateDate::makeMySQLFromInput( self::req( 'persian_end_date' ), 'Y-m-d' ) )
+			$where .= " AND post_date <='{$end_date} 23:59:59'";
 
 		return $where;
 	}
@@ -160,16 +154,21 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		if ( ! $months = gPersianDateWordPress::getPostTypeMonths( $post_type, $_GET ) )
 			return TRUE;
 
-		$mgp = isset( $_GET['mgp'] ) ? (int) $_GET['mgp'] : 0;
+		$persian_month = isset( $_GET['persian_month'] ) ? (int) $_GET['persian_month'] : 0;
 
-		echo '<label for="filter-by-date" class="screen-reader-text">'._x( 'Filter by date', 'Admin: Months Dropdown', GPERSIANDATE_TEXTDOMAIN ).'</label>';
+		echo '<label for="filter-by-date" class="screen-reader-text">'
+			._x( 'Filter by date', 'Admin: Months Dropdown', GPERSIANDATE_TEXTDOMAIN )
+		.'</label>';
 
-		echo '<select name="mgp" id="filter-by-date">';
-			echo '<option '.selected( $mgp, 0, FALSE ).' value="0">'. _x( 'All dates', 'Admin: Months Dropdown', GPERSIANDATE_TEXTDOMAIN ).'</option>';
+		echo '<select name="persian_month" id="filter-by-date">';
+
+			echo '<option '.selected( $persian_month, 0, FALSE ).' value="0">'
+				._x( 'All dates', 'Admin: Months Dropdown', GPERSIANDATE_TEXTDOMAIN )
+			.'</option>';
 
 			foreach ( $months as $key => $month )
 				vprintf( '<option %s value="%s">%s</option>'."\n", [
-					selected( $mgp, $key, FALSE ),
+					selected( $persian_month, $key, FALSE ),
 					esc_attr( $key ),
 					esc_html( $month ),
 				] );
@@ -184,14 +183,11 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		// TODO: set maximum and minimum date based on stored posts
 		// list( $first, $last ) = gPersianDateWordPress::getPosttypeFirstAndLast( $post_type, $_GET );
 
-		$start = isset( $_REQUEST['start_date_gp'] ) ? $_REQUEST['start_date_gp'] : '';
-		$end   = isset( $_REQUEST['end_date_gp']   ) ? $_REQUEST['end_date_gp']   : '';
-
 		?><span class="gpersiandate-datepicker"><input
 			type="text"
-			name="start_date_gp"
-			id="start_date_gp"
-			value="<?php echo $start; ?>"
+			name="persian_start_date"
+			id="persian_start_date"
+			value="<?php echo esc_attr( self::req( 'persian_start_date' ) ); ?>"
 			placeholder="<?php esc_attr_e( 'From', GPERSIANDATE_TEXTDOMAIN ); ?>"
 			autocomplete="off"
 			data-persiandate="datepicker"
@@ -201,9 +197,9 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 		?><span class="gpersiandate-datepicker"><input
 			type="text"
-			name="end_date_gp"
-			id="end_date_gp"
-			value="<?php echo $end; ?>"
+			name="persian_end_date"
+			id="persian_end_date"
+			value="<?php echo esc_attr( self::req( 'persian_end_date' ) ); ?>"
 			placeholder="<?php esc_attr_e( 'To', GPERSIANDATE_TEXTDOMAIN ); ?>"
 			autocomplete="off"
 			data-persiandate="datepicker"
