@@ -1,3 +1,7 @@
+### 3.6.1
+* main/admin: data calendar type on inputs
+* main/links: avoid using % sign on title parts
+
 ### 3.6.0
 * module/archives: proper handling titles
 * module/archives: return instead of printing row template in clean list
