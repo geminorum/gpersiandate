@@ -17,8 +17,11 @@
   var env = config.env;
   var banner = config.banner.join('\n');
 
+  // var debug = /--debug/.test(process.argv.slice(2));
+  var patch = /--patch/.test(process.argv.slice(2)); // bump a patch?
+
   try {
-    env = extend(config.env, yaml.safeLoad(fs.readFileSync('./environment.yml', {encoding: 'utf-8'}), {'json': true}));
+    env = extend(config.env, yaml.safeLoad(fs.readFileSync('./environment.yml', { encoding: 'utf-8' }), { 'json': true }));
   } catch (e) {
     log.warn('no environment.yml loaded!');
   }
@@ -26,8 +29,9 @@
   gulp.task('dev:tinify', function () {
     return gulp.src(config.input.images)
       .pipe(plugins.newer(config.output.images))
-      .pipe(plugins.tinypngUnlimited({
+      .pipe(plugins.tinypngExtended({
         key: env.tinypng,
+        sigFile: config.logs.tinypng,
         summarize: true,
         keepMetadata: false,
         keepOriginal: true,
@@ -74,7 +78,7 @@
       // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
       .pipe(plugins.changedInPlace())
-      .pipe(plugins.debug({title: 'unicorn:'}))
+      .pipe(plugins.debug({ title: 'unicorn:' }))
       .pipe(plugins.if(function (file) {
         if (file.extname !== '.map') return true;
       }, plugins.livereload()));
@@ -98,7 +102,7 @@
         pkg: pkg
       }))
       // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
-      .pipe(plugins.debug({title: 'unicorn:'}))
+      .pipe(plugins.debug({ title: 'unicorn:' }))
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
@@ -113,7 +117,7 @@
   });
 
   gulp.task('build:scripts', function () {
-    return gulp.src(config.input.js, {base: '.'})
+    return gulp.src(config.input.js, { base: '.' })
       .pipe(plugins.rename({
         suffix: '.min'
       }))
@@ -121,7 +125,7 @@
   });
 
   gulp.task('build:banner', function () {
-    return gulp.src(config.input.banner, {'base': '.'})
+    return gulp.src(config.input.banner, { base: '.' })
       .pipe(plugins.header(banner, {
         pkg: pkg
       }))
@@ -129,7 +133,7 @@
   });
 
   gulp.task('build:copy', function () {
-    return gulp.src(config.input.final, {'base': '.'})
+    return gulp.src(config.input.final, { base: '.' })
       .pipe(gulp.dest(config.output.ready + pkg.name));
   });
 
@@ -156,9 +160,8 @@
     })
   );
 
-  gulp.task('release', function () {
-    var changes = parseChangelog(fs.readFileSync('CHANGES.md', {encoding: 'utf-8'}), {title: false});
-
+  gulp.task('github:package', function () {
+    var changes = parseChangelog(fs.readFileSync('CHANGES.md', { encoding: 'utf-8' }), { title: false });
     return gulp.src(pkg.name + '-' + pkg.version + '.zip')
       .pipe(plugins.githubRelease({
         token: env.github,
@@ -171,20 +174,26 @@
 
   gulp.task('bump:package', function () {
     return gulp.src('./package.json')
-      .pipe(plugins.bump().on('error', log.error))
+      .pipe(plugins.bump({
+        type: patch ? 'patch' : 'minor' // `major|minor|patch|prerelease`
+      }).on('error', log.error))
       .pipe(gulp.dest('.'));
   });
 
   gulp.task('bump:plugin', function () {
     return gulp.src(config.pot.metadataFile)
-      .pipe(plugins.bump().on('error', log.error))
+      .pipe(plugins.bump({
+        type: patch ? 'patch' : 'minor' // `major|minor|patch|prerelease`
+      }).on('error', log.error))
       .pipe(gulp.dest('.'));
   });
 
   gulp.task('bump:constant', function () {
     return gulp.src(config.pot.metadataFile)
       .pipe(plugins.bump({
-        regex: new RegExp("([<|'|\"]?" + config.constants.version + "[>|'|\"]?[ ]*[:=,]?[ ]*['|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)(-[0-9A-Za-z.-]+)?(['|\"|<]?)", 'i')
+        type: patch ? 'patch' : 'minor', // `major|minor|patch|prerelease`
+        key: config.constants.version, // for error reference
+        regex: new RegExp('([<|\'|"]?(' + config.constants.version + ')[>|\'|"]?[ ]*[:=,]?[ ]*[\'|"]?[a-z]?)(\\d+.\\d+.\\d+)(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z\\.-]+)?([\'|"|<]?)', 'i')
       }).on('error', log.error))
       .pipe(gulp.dest('.'));
   });
@@ -194,7 +203,7 @@
     'bump:plugin',
     'bump:constant',
     function (done) {
-      log('Bumped!');
+      log(patch ? 'Bumped to a Patched Version!' : 'Bumped to a Minor Version!');
       done();
     })
   );

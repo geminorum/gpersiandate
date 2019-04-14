@@ -22,6 +22,7 @@ assets/css/* linguist-generated=true
 /.git export-ignore
 /.gitignore export-ignore
 /.gitattributes export-ignore
+/.bowerrc export-ignore
 
 /.editorconfig export-ignore
 /.stylelintrc.json export-ignore
