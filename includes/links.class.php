@@ -364,7 +364,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 			$m     = get_query_var( 'm' );
 			$year  = get_query_var( 'year' );
 			$title = '';
-			$t_sep = '%WP_TITILE_SEP%'; // temporary separator
+			$t_sep = '__WP_TITLE_SEP__'; // temporary separator
 
 			if ( ! empty( $m ) ) {
 				$my_year  = substr( $m, 0, 4 );
