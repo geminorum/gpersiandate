@@ -191,6 +191,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 			placeholder="<?php esc_attr_e( 'From', GPERSIANDATE_TEXTDOMAIN ); ?>"
 			autocomplete="off"
 			data-persiandate="datepicker"
+			data-calendar="persian"
 			<?php // echo 'data-min="'.date( 'c', strtotime( $first ) ).'"'; ?>
 			<?php // echo 'data-max="'.date( 'c', strtotime( $last ) ).'"'; ?>
 		/><span class="dashicons dashicons-calendar"></span></span><?php
@@ -203,6 +204,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 			placeholder="<?php esc_attr_e( 'To', GPERSIANDATE_TEXTDOMAIN ); ?>"
 			autocomplete="off"
 			data-persiandate="datepicker"
+			data-calendar="persian"
 			<?php // echo 'data-min="'.date( 'c', strtotime( $first ) ).'"'; ?>
 			<?php // echo 'data-max="'.date( 'c', strtotime( $last ) ).'"'; ?>
 		/><span class="dashicons dashicons-calendar"></span></span><?php
