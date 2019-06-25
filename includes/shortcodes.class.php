@@ -51,7 +51,7 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 			$atts['row_context'] = $args['context'] ?: FALSE;
 
 			$html = gPersianDateArchives::getClean( $atts );
-			$html = gPersianDateUtilities::minifyHTML( $html );
+			// $html = gPersianDateUtilities::minifyHTML( $html ); // causes problem on large data
 
 			set_transient( $key, $html, $args['ttl'] );
 		}
