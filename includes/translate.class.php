@@ -47,12 +47,12 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		return self::numbers( $formatted );
 	}
 
-	public static function number_format_i18n_back( $formatted, $local = GPERSIANDATE_LOCALE )
+	public static function number_format_i18n_back( $formatted, $local = NULL )
 	{
 		return self::numbers_back( $formatted, $local, TRUE );
 	}
 
-	public static function string_format_i18n_back( $formatted, $local = GPERSIANDATE_LOCALE )
+	public static function string_format_i18n_back( $formatted, $local = NULL )
 	{
 		return self::numbers_back( $formatted, $local, FALSE );
 	}
@@ -131,10 +131,15 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 	}
 
 	// before: translate_numbers()
-	public static function numbers( $string, $local = GPERSIANDATE_LOCALE )
+	public static function numbers( $string, $local = NULL, $fix = GPERSIANDATE_FIXNONPERSIAN )
 	{
 		if ( is_null( $string ) )
 			return NULL;
+
+		if ( is_null( $local ) )
+			$local = defined( 'GPERSIANDATE_LOCALE' )
+				? constant( 'GPERSIANDATE_LOCALE' )
+				: get_user_locale();
 
 		switch ( $local ) {
 
@@ -180,7 +185,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 					'%' => chr(0xD9).chr(0xAA),
 				] );
 
-				return self::chars( $string );
+				return self::chars( $string, $fix );
 		}
 
 		return $string;
@@ -230,10 +235,15 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		return $format;
 	}
 
-	public static function numbers_back( $text, $local = GPERSIANDATE_LOCALE, $intval = FALSE )
+	public static function numbers_back( $text, $local = NULL, $intval = FALSE )
 	{
 		if ( is_null( $text ) )
 			return NULL;
+
+		if ( is_null( $local ) )
+			$local = defined( 'GPERSIANDATE_LOCALE' )
+				? constant( 'GPERSIANDATE_LOCALE' )
+				: get_user_locale();
 
 		switch ( $local ) {
 			// case 'en_US':

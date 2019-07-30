@@ -3,7 +3,7 @@
 class gPersianDateDate extends gPersianDateModuleCore
 {
 
-	public static function to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = GPERSIANDATE_LOCALE, $translate = TRUE, $calendar = 'Jalali' )
+	public static function to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = TRUE, $calendar = 'Jalali' )
 	{
 		if ( FALSE === $time )
 			return FALSE;
@@ -27,14 +27,14 @@ class gPersianDateDate extends gPersianDateModuleCore
 	}
 
 	// not translating!
-	public static function _to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = GPERSIANDATE_LOCALE, $translate = TRUE, $calendar = 'Jalali' )
+	public static function _to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = TRUE, $calendar = 'Jalali' )
 	{
 		return self::to( $format, $time, $timezone, $locale, FALSE, $calendar );
 	}
 
 	public static function toByCal( $format, $time = NULL, $calendar = 'Jalali', $translate = FALSE )
 	{
-		return self::to( $format, $time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, $translate, $calendar );
+		return self::to( $format, $time, GPERSIANDATE_TIMEZONE, NULL, $translate, $calendar );
 	}
 
 	public static function toHijri( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = 'ar', $translate = TRUE )
@@ -43,7 +43,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 	}
 
 	// @REF: http://php.net/manual/en/function.getdate.php
-	public static function get( $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = GPERSIANDATE_LOCALE, $translate = FALSE, $calendar = 'Jalali' )
+	public static function get( $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = FALSE, $calendar = 'Jalali' )
 	{
 		if ( FALSE === $time )
 			return [];

@@ -71,7 +71,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		] );
 	}
 
-	public static function sanitize( $format = '', $context = 'date', $locale = GPERSIANDATE_LOCALE )
+	public static function sanitize( $format = '', $context = 'date', $locale = NULL )
 	{
 		if ( '' == $format && isset( self::$_saved[$context] ) )
 			$format = self::$_saved[$context];
