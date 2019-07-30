@@ -16,8 +16,9 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 		if ( is_admin() ) {
 
-			add_filter( 'gettext', [ $this, 'gettext' ], 10, 3 );
-			add_filter( 'gettext_with_context', [ $this, 'gettext_with_context' ], 10, 4 );
+			// DEPRECATED: Now we provide ou own localizations!
+			// add_filter( 'gettext', [ $this, 'gettext' ], 10, 3 );
+			// add_filter( 'gettext_with_context', [ $this, 'gettext_with_context' ], 10, 4 );
 
 			add_filter( 'date_formats', [ $this, 'date_formats' ] );
 			add_filter( 'time_formats', [ $this, 'time_formats' ] );
