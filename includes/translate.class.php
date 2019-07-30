@@ -133,6 +133,9 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 	// before: translate_numbers()
 	public static function numbers( $string, $local = NULL, $fix = GPERSIANDATE_FIXNONPERSIAN )
 	{
+		if ( ! is_numeric( $string ) && ! is_string( $string ) )
+			return $string;
+
 		if ( is_null( $string ) )
 			return NULL;
 
