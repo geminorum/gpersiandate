@@ -4,7 +4,7 @@
 Plugin Name: gPersianDate
 Plugin URI: https://geminorum.ir/wordpress/gpersiandate
 Description: Persian Date for WordPress
-Version: 3.6.1
+Version: 3.6.2
 License: GPLv3+
 Author: geminorum
 Author URI: https://geminorum.ir/
@@ -17,7 +17,7 @@ Requires WP: 4.4
 Requires PHP: 5.6.20
 */
 
-define( 'GPERSIANDATE_VERSION', '3.6.1' );
+define( 'GPERSIANDATE_VERSION', '3.6.2' );
 define( 'GPERSIANDATE_MIN_PHP', '5.6.20' );
 define( 'GPERSIANDATE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GPERSIANDATE_URL', plugin_dir_url( __FILE__ ) );

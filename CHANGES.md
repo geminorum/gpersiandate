@@ -1,3 +1,10 @@
+### 3.6.2
+* :up: min php 5.6.20
+* module/format: gettext filters deprecated
+* module/shortcodes: disable minify html for clean archives
+* module/translate: check types on numbers
+* module/translate: late check for constant
+
 ### 3.6.1
 * main/admin: data calendar type on inputs
 * main/links: avoid using % sign on title parts
