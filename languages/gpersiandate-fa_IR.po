@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gPersianDate\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-04-14 18:08+0430\n"
+"PO-Revision-Date: 2019-07-31 22:45+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: gpersiandate.php:3
 msgid "gPersianDate"
@@ -174,17 +174,17 @@ msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/format.class.php:139
+#: includes/format.class.php:140
 msgctxt "gettext overrides"
 msgid "Caption"
 msgstr "عنوان"
 
-#: includes/format.class.php:140
+#: includes/format.class.php:141
 msgctxt "gettext overrides"
 msgid "Published: <b>%s</b>"
 msgstr "انتشار: <b>%s</b>"
 
-#: includes/format.class.php:141
+#: includes/format.class.php:142
 msgctxt "gettext overrides"
 msgid "Original dimensions <span>%s</span>"
 msgstr "ابعاد اصلی <span>%s</span>"

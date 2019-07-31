@@ -166,17 +166,17 @@ msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/format.class.php:139
+#: includes/format.class.php:140
 msgctxt "gettext overrides"
 msgid "Caption"
 msgstr ""
 
-#: includes/format.class.php:140
+#: includes/format.class.php:141
 msgctxt "gettext overrides"
 msgid "Published: <b>%s</b>"
 msgstr ""
 
-#: includes/format.class.php:141
+#: includes/format.class.php:142
 msgctxt "gettext overrides"
 msgid "Original dimensions <span>%s</span>"
 msgstr ""
