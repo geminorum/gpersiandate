@@ -46,9 +46,9 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		return self::numbers( $formatted );
 	}
 
-	public static function number_format_i18n( $formatted, $number, $decimals = 0 )
+	public static function number_format_i18n( $formatted, $number = NULL, $decimals = 0 )
 	{
-		return self::numbers( $number );
+		return self::numbers( is_null( $number ) ? $formatted : $number );
 	}
 
 	public static function number_format_i18n_back( $formatted, $local = NULL )
