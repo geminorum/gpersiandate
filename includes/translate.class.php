@@ -7,8 +7,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'number_format_i18n', [ __CLASS__, 'format_i18n' ], 10, 2 );
-		add_filter( 'bb_number_format_i18n', [ __CLASS__, 'format_i18n' ], 10, 1 );
+		add_filter( 'number_format_i18n', [ __CLASS__, 'number_format_i18n' ], 10, 3 );
 
 		// our filters!
 		add_filter( 'number_format_i18n_back', [ __CLASS__, 'number_format_i18n_back' ] );
@@ -45,6 +44,11 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 	public static function format_i18n( $formatted, $decimals = 0 )
 	{
 		return self::numbers( $formatted );
+	}
+
+	public static function number_format_i18n( $formatted, $number, $decimals = 0 )
+	{
+		return self::numbers( $number );
 	}
 
 	public static function number_format_i18n_back( $formatted, $local = NULL )
@@ -106,6 +110,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 				//$pattern = '/(?:&#\d{2,4};)|((?:\&nbsp\;)*\d+(?:\&nbsp\;)*\d*\.*(?:\&nbsp\;)*\d*(?:\&nbsp\;)*\d*)|(?:[a-z](?:[\x00-\x3B\x3D-\x7F]|<\s*[^>]+>)*)|<\s*[^>]+>/i';
 				$pattern = '/(?:&#\d{2,4};)|(\d+[\.\d]*)|(?:[a-z](?:[\x00-\x3B\x3D-\x7F]|<\s*[^>]+>)*)|<\s*[^>]+>/iu';
+
 				// $ret = self::chars( preg_replace_callback( $pattern, [ __CLASS__, 'html_callback' ], $ret ) );
 				$ret = preg_replace_callback( $pattern, [ __CLASS__, 'html_callback' ], $ret );
 
