@@ -97,7 +97,7 @@
   },
   "pot": {
     "package": "gPersianDate",
-    "domain": "GPERSIANDATE_TEXTDOMAIN",
+    "domain": "gpersiandate",
     "metadataFile": "gpersiandate.php",
     "bugReport": "https://github.com/geminorum/gpersiandate/issues",
     "commentKeyword": "translators:",
@@ -107,7 +107,7 @@
   },
   "textdomain": {
     "force": true,
-    "text_domain": "GPERSIANDATE_TEXTDOMAIN",
+    "text_domain": "gpersiandate",
     "keywords": [
       "__:1,2d",
       "_e:1,2d",
