@@ -28,14 +28,19 @@ class gPersianDateTimeAgo extends gPersianDateBase
 				'inPast'        => _x( 'any moment now', 'Time Ago', 'gpersiandate' ),
 				'seconds'       => _x( 'less than a minute', 'Time Ago', 'gpersiandate' ),
 				'minute'        => _x( 'about a minute', 'Time Ago', 'gpersiandate' ),
+				/* translators: %d: number of minutes */
 				'minutes'       => _x( '%d minutes', 'Time Ago', 'gpersiandate' ),
 				'hour'          => _x( 'about an hour', 'Time Ago', 'gpersiandate' ),
+				/* translators: %d: number of hours */
 				'hours'         => _x( 'about %d hours', 'Time Ago', 'gpersiandate' ),
 				'day'           => _x( 'a day', 'Time Ago', 'gpersiandate' ),
+				/* translators: %d: number of days */
 				'days'          => _x( '%d days', 'Time Ago', 'gpersiandate' ),
 				'month'         => _x( 'about a month', 'Time Ago', 'gpersiandate' ),
+				/* translators: %d: number of months */
 				'months'        => _x( '%d months', 'Time Ago', 'gpersiandate' ),
 				'year'          => _x( 'about a year', 'Time Ago', 'gpersiandate' ),
+				/* translators: %d: number of years */
 				'years'         => _x( '%d years', 'Time Ago', 'gpersiandate' ),
 			];
 

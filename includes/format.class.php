@@ -138,7 +138,9 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 				// working but pathetic!
 				'Caption'                 => _x( 'Caption', 'gettext overrides', 'gpersiandate' ),
+				/* translators: %s: published time */
 				'Published on: <b>%s</b>' => _x( 'Published: <b>%s</b>', 'gettext overrides', 'gpersiandate' ),
+				/* translators: %s: dimensions string */
 				'Original dimensions %s'  => _x( 'Original dimensions <span>%s</span>', 'gettext overrides', 'gpersiandate' ),
 			];
 

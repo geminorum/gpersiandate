@@ -93,6 +93,7 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 	{
 		$args = shortcode_atts( [
 			'format'  => get_option( 'date_format' ),
+			/* translators: %s: title */
 			'title'   => _x( 'Archive for %s', 'Shortcodes: Entry Published Title', 'gpersiandate' ),
 			'context' => NULL,
 			'wrap'    => TRUE,
