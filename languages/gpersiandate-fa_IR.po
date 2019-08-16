@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gPersianDate\n"
-"Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-07-31 22:45+0430\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gpersiandate\n"
+"POT-Creation-Date: 2019-08-16T05:23:14+00:00\n"
+"PO-Revision-Date: 2019-08-16 09:53+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -15,23 +15,23 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 2.2.3\n"
 
-#: gpersiandate.php:3
+#. Plugin Name of the plugin
 msgid "gPersianDate"
 msgstr "تاریخ ایرانی"
 
-#: gpersiandate.php:4
+#. Plugin URI of the plugin
 msgid "https://geminorum.ir/wordpress/gpersiandate"
 msgstr ""
 
-#: gpersiandate.php:5
+#. Description of the plugin
 msgid "Persian Date for WordPress"
 msgstr "تاریخ ایرانی برای وردپرس"
 
-#: gpersiandate.php:8
+#. Author of the plugin
 msgid "geminorum"
 msgstr "ژمای‌نوروم"
 
-#: gpersiandate.php:9
+#. Author URI of the plugin
 msgid "https://geminorum.ir/"
 msgstr ""
 
@@ -47,12 +47,12 @@ msgstr "محدویت بر اساس ماه"
 msgid "Date Restrictions"
 msgstr "محدودیت در بازه زمانی"
 
-#: includes/admin.class.php:80, includes/admin.class.php:93,
+#: includes/admin.class.php:80 includes/admin.class.php:93
 #: includes/admin.class.php:106
 msgid "Disabled"
 msgstr "غیرفعال"
 
-#: includes/admin.class.php:81, includes/admin.class.php:94
+#: includes/admin.class.php:81 includes/admin.class.php:94
 msgid "Enabled"
 msgstr "فعال"
 
@@ -84,92 +84,103 @@ msgstr "از تاریخ"
 msgid "To"
 msgstr "تا تاریخ"
 
-#: includes/archives.class.php:110
+#. translators: %1$s: month name, %2$s: year number
+#: includes/archives.class.php:111
 msgctxt "wp_get_archives monthly"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/archives.class.php:121
+#. translators: %s: monthly count
+#: includes/archives.class.php:123
 msgctxt "wp_get_archives monthly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:177
+#. translators: %s: yearly
+#: includes/archives.class.php:180
 msgctxt "wp_get_archives yearly"
-msgid "%s"
+msgid "<span>%s</span>"
 msgstr ""
 
-#: includes/archives.class.php:193
+#. translators: %s: yearly count
+#: includes/archives.class.php:197
 msgctxt "wp_get_archives yearly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:250
+#. translators: %s: daily count
+#: includes/archives.class.php:255
 msgctxt "wp_get_archives daily count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:303
+#. translators: %s: weekly count
+#: includes/archives.class.php:309
 msgctxt "wp_get_archives weekly count"
 msgid "&nbsp;(%s)"
 msgstr ""
 
-#: includes/archives.class.php:388
+#. translators: %s: posts count
+#: includes/archives.class.php:395
 msgctxt "Archives: Compact"
 msgid "%s Posts"
 msgstr "%s نوشته"
 
-#: includes/archives.class.php:389
+#: includes/archives.class.php:396
 msgctxt "Archives: Compact"
 msgid "Archives are empty."
 msgstr "بایگانی خالی‌ست."
 
-#: includes/archives.class.php:495
+#: includes/archives.class.php:502
 msgctxt "Archives: Clean: Month + Year Datetime Format"
 msgid "F Y"
 msgstr ""
 
-#: includes/archives.class.php:496
+#: includes/archives.class.php:503
 msgctxt "Archives: Clean: Day Datetime Format"
 msgid "j"
 msgstr ""
 
-#: includes/archives.class.php:497
+#: includes/archives.class.php:504
 msgctxt "Archives: Clean"
 msgid "Archives are empty."
 msgstr "بایگانی خالی‌ست."
 
-#: includes/archives.class.php:498
+#: includes/archives.class.php:505
 msgctxt "Archives: Clean"
 msgid "Post comment count"
 msgstr "دیدگاه‌های نوشته"
 
-#: includes/archives.class.php:611
+#: includes/archives.class.php:618
 msgctxt "Archives: Clean: Untitled Post"
 msgid "[Untitled]"
 msgstr "[بدون عنوان]"
 
-#: includes/archives.class.php:621
+#. translators: %s: comments count
+#: includes/archives.class.php:629
 msgctxt "Archives: Clean: Comment Count"
 msgid "(%s)"
 msgstr ""
 
-#: includes/calendar.class.php:31
+#. translators: %s: previous month
+#: includes/calendar.class.php:32
 msgctxt "Calendar: Build: Previous Month"
 msgid "&laquo; %s"
 msgstr ""
 
-#: includes/calendar.class.php:32
+#. translators: %s: next month
+#: includes/calendar.class.php:34
 msgctxt "Calendar: Build: Next Month"
 msgid "%s &raquo;"
 msgstr ""
 
-#: includes/calendar.class.php:33
+#: includes/calendar.class.php:35
 msgctxt "Calendar: Build: Title Seperator"
 msgid ", "
 msgstr "، "
 
-#: includes/calendar.class.php:285
+#. translators: %1$s: month name, %2$s: year number
+#: includes/calendar.class.php:288
 msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
@@ -179,12 +190,14 @@ msgctxt "gettext overrides"
 msgid "Caption"
 msgstr "عنوان"
 
-#: includes/format.class.php:141
+#. translators: %s: published time
+#: includes/format.class.php:142
 msgctxt "gettext overrides"
 msgid "Published: <b>%s</b>"
 msgstr "انتشار: <b>%s</b>"
 
-#: includes/format.class.php:142
+#. translators: %s: dimensions string
+#: includes/format.class.php:144
 msgctxt "gettext overrides"
 msgid "Original dimensions <span>%s</span>"
 msgstr "ابعاد اصلی <span>%s</span>"
@@ -209,7 +222,8 @@ msgctxt "Date Picker"
 msgid "Previous"
 msgstr "قبلی"
 
-#: includes/shortcodes.class.php:96
+#. translators: %s: title
+#: includes/shortcodes.class.php:97
 msgctxt "Shortcodes: Entry Published Title"
 msgid "Archive for %s"
 msgstr "بایگانی %s"
@@ -869,47 +883,52 @@ msgctxt "Time Ago"
 msgid "about a minute"
 msgstr "نزدیک به یک دقیقه"
 
-#: includes/timeago.class.php:31
+#. translators: %d: number of minutes
+#: includes/timeago.class.php:32
 msgctxt "Time Ago"
 msgid "%d minutes"
 msgstr "%d دقیقه"
 
-#: includes/timeago.class.php:32
+#: includes/timeago.class.php:33
 msgctxt "Time Ago"
 msgid "about an hour"
 msgstr "نزدیک به یک ساعت"
 
-#: includes/timeago.class.php:33
+#. translators: %d: number of hours
+#: includes/timeago.class.php:35
 msgctxt "Time Ago"
 msgid "about %d hours"
 msgstr "نزدیک به %d ساعت"
 
-#: includes/timeago.class.php:34
+#: includes/timeago.class.php:36
 msgctxt "Time Ago"
 msgid "a day"
 msgstr "یک روز"
 
-#: includes/timeago.class.php:35
+#. translators: %d: number of days
+#: includes/timeago.class.php:38
 msgctxt "Time Ago"
 msgid "%d days"
 msgstr "%d روز"
 
-#: includes/timeago.class.php:36
+#: includes/timeago.class.php:39
 msgctxt "Time Ago"
 msgid "about a month"
 msgstr "نزدیک به یک ماه"
 
-#: includes/timeago.class.php:37
+#. translators: %d: number of months
+#: includes/timeago.class.php:41
 msgctxt "Time Ago"
 msgid "%d months"
 msgstr "%d ماه"
 
-#: includes/timeago.class.php:38
+#: includes/timeago.class.php:42
 msgctxt "Time Ago"
 msgid "about a year"
 msgstr "نزدیک به یک سال"
 
-#: includes/timeago.class.php:39
+#. translators: %d: number of years
+#: includes/timeago.class.php:44
 msgctxt "Time Ago"
 msgid "%d years"
 msgstr "%d سال"
