@@ -107,7 +107,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 							$url = get_month_link( $the_year, $the_month );
 
-							$text = sprintf( _x( '%1$s %2$s', 'wp_get_archives monthly', GPERSIANDATE_TEXTDOMAIN ),
+							$text = sprintf( _x( '%1$s %2$s', 'wp_get_archives monthly', 'gpersiandate' ),
 								gPersianDateStrings::month( $the_month ),
 								gPersianDateTranslate::numbers( $the_year )
 							);
@@ -118,7 +118,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 								$post_count = $wpdb->get_results( "SELECT COUNT(id) as 'post_count' FROM $wpdb->posts $join $where AND post_date >='$first_day' AND post_date <='$last_day' ");
 
-								$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives monthly count', GPERSIANDATE_TEXTDOMAIN ),
+								$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives monthly count', 'gpersiandate' ),
 									gPersianDateTranslate::numbers( $post_count[0]->post_count ) ).$afterafter;
 							}
 
@@ -174,7 +174,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 							$the_year = gPersianDateDate::_to( 'Y', $the_date );
 							$url      = get_year_link( $the_year );
-							$text     = sprintf( _x( '%s', 'wp_get_archives yearly', GPERSIANDATE_TEXTDOMAIN ), gPersianDateTranslate::numbers( $the_year ) );
+							$text     = sprintf( _x( '%s', 'wp_get_archives yearly', 'gpersiandate' ), gPersianDateTranslate::numbers( $the_year ) );
 
 							if ( $args['show_post_count'] ) {
 
@@ -190,7 +190,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 									AND post_date <='{$last_day}'
 								" );
 
-								$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives yearly count', GPERSIANDATE_TEXTDOMAIN ),
+								$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives yearly count', 'gpersiandate' ),
 									gPersianDateTranslate::numbers( $post_count[0]->post_count ) ).$afterafter;
 							}
 
@@ -247,7 +247,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 						$text = mysql2date( $archive_day_date_format, $date, TRUE ); // this will convert the date
 
 						if ( $args['show_post_count'] )
-							$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives daily count', GPERSIANDATE_TEXTDOMAIN ),
+							$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives daily count', 'gpersiandate' ),
 								gPersianDateTranslate::numbers( $result->posts ) ).$afterafter;
 
 						$output.= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
@@ -300,7 +300,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 							$text = $arc_week_start.$archive_week_separator.$arc_week_end;
 
 							if ( $args['show_post_count'] )
-								$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives weekly count', GPERSIANDATE_TEXTDOMAIN ),
+								$args['after'] = sprintf( _x( '&nbsp;(%s)', 'wp_get_archives weekly count', 'gpersiandate' ),
 									gPersianDateTranslate::numbers( $result->posts ) ).$afterafter;
 
 							$output.= get_archives_link( $url, $text, $args['format'], $args['before'], $args['after'] );
@@ -385,8 +385,8 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'month_name'     => TRUE, // FALSE to number
 			'link_anchor'    => FALSE, // TRUE to link within the page
 			'string_caption' => FALSE, // table caption
-			'string_count'   => _x( '%s Posts', 'Archives: Compact', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
-			'string_empty'   => _x( 'Archives are empty.', 'Archives: Compact', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
+			'string_count'   => _x( '%s Posts', 'Archives: Compact', 'gpersiandate' ), // FALSE to disable
+			'string_empty'   => _x( 'Archives are empty.', 'Archives: Compact', 'gpersiandate' ), // FALSE to disable
 		], $atts );
 
 		list( $first, $last ) = gPersianDateWordPress::getPosttypeFirstAndLast( $args['post_type'], [], $args['post_author'], FALSE );
@@ -492,10 +492,10 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'row_context'       => FALSE,
 			'row_day'           => TRUE,
 			'css_class'         => '',
-			'format_month_year' => _x( 'F Y', 'Archives: Clean: Month + Year Datetime Format', GPERSIANDATE_TEXTDOMAIN ),
-			'format_post_date'  => _x( 'j', 'Archives: Clean: Day Datetime Format', GPERSIANDATE_TEXTDOMAIN ),
-			'string_empty'      => _x( 'Archives are empty.', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
-			'string_count'      => _x( 'Post comment count', 'Archives: Clean', GPERSIANDATE_TEXTDOMAIN ), // FALSE to disable
+			'format_month_year' => _x( 'F Y', 'Archives: Clean: Month + Year Datetime Format', 'gpersiandate' ),
+			'format_post_date'  => _x( 'j', 'Archives: Clean: Day Datetime Format', 'gpersiandate' ),
+			'string_empty'      => _x( 'Archives are empty.', 'Archives: Clean', 'gpersiandate' ), // FALSE to disable
+			'string_count'      => _x( 'Post comment count', 'Archives: Clean', 'gpersiandate' ), // FALSE to disable
 		], $atts );
 
 		$query = [
@@ -608,7 +608,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 					if ( trim( $post->post_title ) )
 						$title = gPersianDateUtilities::prepTitle( $post->post_title, $post->ID );
 					else
-						$title = _x( '[Untitled]', 'Archives: Clean: Untitled Post', GPERSIANDATE_TEXTDOMAIN );
+						$title = _x( '[Untitled]', 'Archives: Clean: Untitled Post', 'gpersiandate' );
 
 					$template = '%s<dd><a href="%s" rel="bookmark">%s</a></dd>';
 					$values   = [ $day, esc_url( get_permalink( $post ) ), $title ];
@@ -618,7 +618,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 					if ( $show_comments && ( comments_open( $post ) || get_comments_number( $post ) ) ) {
 
 						$template = '%s<dd><a href="%s" rel="bookmark">%s</a>&nbsp;%s</dd>';
-						$comments = sprintf( esc_html_x( '(%s)', 'Archives: Clean: Comment Count', GPERSIANDATE_TEXTDOMAIN ), get_comments_number( $post ) );
+						$comments = sprintf( esc_html_x( '(%s)', 'Archives: Clean: Comment Count', 'gpersiandate' ), get_comments_number( $post ) );
 						$values[] = sprintf( '<small class="-comments" title="%s">%s</small>', esc_attr( $args['string_count'] ), gPersianDateTranslate::numbers( $comments ) );
 					}
 

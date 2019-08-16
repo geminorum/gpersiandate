@@ -132,14 +132,14 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 				'Howdy, %s' => '%s', // `wp_admin_bar_my_account_item()`
 
-				// '%1$s MB (%2$s%%) Space Used' => sprintf( _x( '%s Space Used', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ), '<span title="&lrm;%1$s MB&rlm;">%2$s%%</span>' ),
-				// '%1$s MB (%2$s%%) Space Used' => sprintf( _x( '%s Space Used', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				// '%1$s MB (%2$s%%) Space Used' => sprintf( _x( '%s Space Used', 'gettext overrides', 'gpersiandate' ), '<span title="&lrm;%1$s MB&rlm;">%2$s%%</span>' ),
+				// '%1$s MB (%2$s%%) Space Used' => sprintf( _x( '%s Space Used', 'gettext overrides', 'gpersiandate' ),
 				// 	'<span title="&lrm;%s MB&rlm;">%s'.( is_rtl() ? '&#1642;' : '&#37;' ).'</span>' ), // FIXME: is_rtl not working this early
 
 				// working but pathetic!
-				'Caption'                 => _x( 'Caption', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
-				'Published on: <b>%s</b>' => _x( 'Published: <b>%s</b>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
-				'Original dimensions %s'  => _x( 'Original dimensions <span>%s</span>', 'gettext overrides', GPERSIANDATE_TEXTDOMAIN ),
+				'Caption'                 => _x( 'Caption', 'gettext overrides', 'gpersiandate' ),
+				'Published on: <b>%s</b>' => _x( 'Published: <b>%s</b>', 'gettext overrides', 'gpersiandate' ),
+				'Original dimensions %s'  => _x( 'Original dimensions <span>%s</span>', 'gettext overrides', 'gpersiandate' ),
 			];
 
 		if ( isset( $strings[$text] ) )

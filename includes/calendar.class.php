@@ -28,9 +28,9 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			'caption_link' => TRUE, // table caption link to / string for custom
 			'navigation'   => TRUE, // next/prev foot nav
 
-			'nav_prev'   => _x( '&laquo; %s', 'Calendar: Build: Previous Month', GPERSIANDATE_TEXTDOMAIN ),
-			'nav_next'   => _x( '%s &raquo;', 'Calendar: Build: Next Month', GPERSIANDATE_TEXTDOMAIN ),
-			'title_sep'  => _x( ', ', 'Calendar: Build: Title Seperator', GPERSIANDATE_TEXTDOMAIN ),
+			'nav_prev'   => _x( '&laquo; %s', 'Calendar: Build: Previous Month', 'gpersiandate' ),
+			'nav_next'   => _x( '%s &raquo;', 'Calendar: Build: Next Month', 'gpersiandate' ),
+			'title_sep'  => _x( ', ', 'Calendar: Build: Title Seperator', 'gpersiandate' ),
 			'title_trim' => 55,
 
 			'link_build_callback' => NULL, // NULL to default
@@ -282,7 +282,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 	public static function getCaption( $year, $month, $calendar = NULL )
 	{
 		return sprintf(
-			_x( '%1$s %2$s', 'Calendar: Build: Caption', GPERSIANDATE_TEXTDOMAIN ),
+			_x( '%1$s %2$s', 'Calendar: Build: Caption', 'gpersiandate' ),
 			gPersianDateStrings::month( $month, FALSE, $calendar ),
 			gPersianDateTranslate::numbers( $year )
 		);

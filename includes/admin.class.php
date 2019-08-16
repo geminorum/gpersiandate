@@ -56,9 +56,9 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 			$page = 'general';
 
-			add_settings_field( 'adminbar_clock', __( 'Adminbar Clock', GPERSIANDATE_TEXTDOMAIN ), [ $this, 'field_adminbar_clock' ], $page );
-			add_settings_field( 'restrict_month', __( 'Month Restrictions', GPERSIANDATE_TEXTDOMAIN ), [ $this, 'field_restrict_month' ], $page );
-			add_settings_field( 'restrict_fromto', __( 'Date Restrictions', GPERSIANDATE_TEXTDOMAIN ), [ $this, 'field_restrict_fromto' ], $page );
+			add_settings_field( 'adminbar_clock', __( 'Adminbar Clock', 'gpersiandate' ), [ $this, 'field_adminbar_clock' ], $page );
+			add_settings_field( 'restrict_month', __( 'Month Restrictions', 'gpersiandate' ), [ $this, 'field_restrict_month' ], $page );
+			add_settings_field( 'restrict_fromto', __( 'Date Restrictions', 'gpersiandate' ), [ $this, 'field_restrict_fromto' ], $page );
 		}
 	}
 
@@ -77,11 +77,11 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		$option = empty( $this->options[$field] ) ? 0 : $this->options[$field];
 
 		echo '<select name="gpersiandate['.$field.']" id="gpersiandate-'.$field.'">';
-			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', GPERSIANDATE_TEXTDOMAIN ); ?></option>
-			<option value="1" <?php selected( $option, 1 ); ?>><?php esc_html_e( 'Enabled', GPERSIANDATE_TEXTDOMAIN ); ?></option><?php
+			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', 'gpersiandate' ); ?></option>
+			<option value="1" <?php selected( $option, 1 ); ?>><?php esc_html_e( 'Enabled', 'gpersiandate' ); ?></option><?php
 		echo '</select>';
 
-		// echo '<p class="description">'. __( 'Select to enable current date and time on admin bar.', GPERSIANDATE_TEXTDOMAIN ).'</p>';
+		// echo '<p class="description">'. __( 'Select to enable current date and time on admin bar.', 'gpersiandate' ).'</p>';
 	}
 
 	public function field_restrict_fromto( $args )
@@ -90,11 +90,11 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		$option = isset( $this->options[$field] ) ? $this->options[$field] : 0;
 
 		echo '<select name="gpersiandate['.$field.']" id="gpersiandate-'.$field.'">';
-			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', GPERSIANDATE_TEXTDOMAIN ); ?></option>
-			<option value="1" <?php selected( $option, 1 ); ?>><?php esc_html_e( 'Enabled', GPERSIANDATE_TEXTDOMAIN ); ?></option><?php
+			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', 'gpersiandate' ); ?></option>
+			<option value="1" <?php selected( $option, 1 ); ?>><?php esc_html_e( 'Enabled', 'gpersiandate' ); ?></option><?php
 		echo '</select>';
 
-		// echo '<p class="description">'. __( 'Select to enable date picker on manage post screen.', GPERSIANDATE_TEXTDOMAIN ).'</p>';
+		// echo '<p class="description">'. __( 'Select to enable date picker on manage post screen.', 'gpersiandate' ).'</p>';
 	}
 
 	public function field_restrict_month( $args )
@@ -103,12 +103,12 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		$option = isset( $this->options[$field] ) ? $this->options[$field] : 0;
 
 		echo '<select name="gpersiandate['.$field.']" id="gpersiandate-'.$field.'">';
-			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', GPERSIANDATE_TEXTDOMAIN ); ?></option>
-			<option value="1" <?php selected( $option, 1 ); ?>><?php esc_html_e( 'Gregorian', GPERSIANDATE_TEXTDOMAIN ); ?></option>
-			<option value="2" <?php selected( $option, 2 ); ?>><?php esc_html_e( 'Jalali', GPERSIANDATE_TEXTDOMAIN ); ?></option><?php
+			?><option value="0" <?php selected( $option, 0 ); ?>><?php esc_html_e( 'Disabled', 'gpersiandate' ); ?></option>
+			<option value="1" <?php selected( $option, 1 ); ?>><?php esc_html_e( 'Gregorian', 'gpersiandate' ); ?></option>
+			<option value="2" <?php selected( $option, 2 ); ?>><?php esc_html_e( 'Jalali', 'gpersiandate' ); ?></option><?php
 		echo '</select>';
 
-		// echo '<p class="description">'. __( 'Select to enable date picker on manage post screen.', GPERSIANDATE_TEXTDOMAIN ).'</p>';
+		// echo '<p class="description">'. __( 'Select to enable date picker on manage post screen.', 'gpersiandate' ).'</p>';
 	}
 
 	public function posts_where_persian_month( $where = '' )
@@ -157,13 +157,13 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		$persian_month = isset( $_GET['persian_month'] ) ? (int) $_GET['persian_month'] : 0;
 
 		echo '<label for="filter-by-date" class="screen-reader-text">'
-			._x( 'Filter by date', 'Admin: Months Dropdown', GPERSIANDATE_TEXTDOMAIN )
+			._x( 'Filter by date', 'Admin: Months Dropdown', 'gpersiandate' )
 		.'</label>';
 
 		echo '<select name="persian_month" id="filter-by-date">';
 
 			echo '<option '.selected( $persian_month, 0, FALSE ).' value="0">'
-				._x( 'All dates', 'Admin: Months Dropdown', GPERSIANDATE_TEXTDOMAIN )
+				._x( 'All dates', 'Admin: Months Dropdown', 'gpersiandate' )
 			.'</option>';
 
 			foreach ( $months as $key => $month )
@@ -188,7 +188,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 			name="persian_start_date"
 			id="persian_start_date"
 			value="<?php echo esc_attr( self::req( 'persian_start_date' ) ); ?>"
-			placeholder="<?php esc_attr_e( 'From', GPERSIANDATE_TEXTDOMAIN ); ?>"
+			placeholder="<?php esc_attr_e( 'From', 'gpersiandate' ); ?>"
 			autocomplete="off"
 			data-persiandate="datepicker"
 			data-calendar="persian"
@@ -201,7 +201,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 			name="persian_end_date"
 			id="persian_end_date"
 			value="<?php echo esc_attr( self::req( 'persian_end_date' ) ); ?>"
-			placeholder="<?php esc_attr_e( 'To', GPERSIANDATE_TEXTDOMAIN ); ?>"
+			placeholder="<?php esc_attr_e( 'To', 'gpersiandate' ); ?>"
 			autocomplete="off"
 			data-persiandate="datepicker"
 			data-calendar="persian"

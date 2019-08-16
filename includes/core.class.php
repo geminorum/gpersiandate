@@ -72,7 +72,7 @@ class gPersianDateCore extends gPersianDateBase
 		defined( 'GPERSIANDATE_LOCALE' ) or define( 'GPERSIANDATE_LOCALE', get_user_locale() );
 		defined( 'GPERSIANDATE_FIXNONPERSIAN' ) or define( 'GPERSIANDATE_FIXNONPERSIAN', TRUE );
 
-		load_plugin_textdomain( GPERSIANDATE_TEXTDOMAIN, FALSE, 'gpersiandate/languages' );
+		load_plugin_textdomain( 'gpersiandate', FALSE, 'gpersiandate/languages' );
 	}
 
 	public function bp_include()

@@ -17,10 +17,10 @@ class gPersianDatePicker extends gPersianDateBase
 		$days = gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', FALSE );
 
 		$defaults = wp_json_encode( [
-			'closeText'   => _x( 'Done', 'Date Picker', GPERSIANDATE_TEXTDOMAIN ),
-			'currentText' => _x( 'Today', 'Date Picker', GPERSIANDATE_TEXTDOMAIN ),
-			'nextText'    => _x( 'Next', 'Date Picker', GPERSIANDATE_TEXTDOMAIN ),
-			'prevText'    => _x( 'Previous', 'Date Picker', GPERSIANDATE_TEXTDOMAIN ),
+			'closeText'   => _x( 'Done', 'Date Picker', 'gpersiandate' ),
+			'currentText' => _x( 'Today', 'Date Picker', 'gpersiandate' ),
+			'nextText'    => _x( 'Next', 'Date Picker', 'gpersiandate' ),
+			'prevText'    => _x( 'Previous', 'Date Picker', 'gpersiandate' ),
 
 			'dayNames'        => array_values( $days ),
 			'dayNamesShort'   => array_values( $days ),
