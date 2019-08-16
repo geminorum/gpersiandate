@@ -10,11 +10,10 @@ Author: geminorum
 Author URI: https://geminorum.ir/
 Network: false
 TextDomain: gpersiandate
-GitHub URI: https://github.com/geminorum/gpersiandate
-GitHub Plugin URI: https://github.com/geminorum/gpersiandate
-GitHub Branch: master
-Requires WP: 4.4
+Domain Path: /languages
+Requires WP: 4.9
 Requires PHP: 5.6.20
+GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 */
 
 define( 'GPERSIANDATE_VERSION', '3.6.2' );
