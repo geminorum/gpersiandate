@@ -28,8 +28,11 @@ class gPersianDateModuleCore extends gPersianDateBase
 		}
 	}
 
-	public static function shortcodeWrap( $html, $suffix = FALSE, $args = [], $block = TRUE )
+	public static function shortcodeWrap( $html, $suffix = FALSE, $args = [], $block = TRUE, $extra = [] )
 	{
+		if ( is_null( $html ) )
+			return $html;
+
 		$before = empty( $args['before'] ) ? '' : $args['before'];
 		$after  = empty( $args['after'] )  ? '' : $args['after'];
 
@@ -44,9 +47,12 @@ class gPersianDateModuleCore extends gPersianDateBase
 		if ( isset( $args['context'] ) && $args['context'] )
 			$classes[] = 'context-'.$args['context'];
 
-		if ( $after )
-			return $before.gPersianDateHTML::tag( $block ? 'div' : 'span', [ 'class' => $classes ], $html ).$after;
+		if ( ! empty( $args['class'] ) )
+			$classes[] = $args['class'];
 
-		return gPersianDateHTML::tag( $block ? 'div' : 'span', [ 'class' => $classes ], $before.$html );
+		if ( $after )
+			return $before.gPersianDateHTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
+
+		return gPersianDateHTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $before.$html );
 	}
 }

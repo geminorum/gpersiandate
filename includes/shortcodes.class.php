@@ -27,6 +27,7 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 	public function shortcode_archives_clean( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
+			'class'   => '',
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
@@ -62,6 +63,7 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 	public function shortcode_archives_compact( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
+			'class'   => '',
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
@@ -95,6 +97,7 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 			'format'  => get_option( 'date_format' ),
 			/* translators: %s: title */
 			'title'   => _x( 'Archive for %s', 'Shortcodes: Entry Published Title', 'gpersiandate' ),
+			'class'   => '',
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
