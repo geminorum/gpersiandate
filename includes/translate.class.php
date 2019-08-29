@@ -11,7 +11,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 		// our filters!
 		add_filter( 'number_format_i18n_back', [ __CLASS__, 'number_format_i18n_back' ] );
-		add_filter( 'string_format_i18n', [ __CLASS__, 'format_i18n' ] );
+		add_filter( 'string_format_i18n', [ __CLASS__, 'legacy' ] ); // 'format_i18n'
 		add_filter( 'string_format_i18n_back', [ __CLASS__, 'string_format_i18n_back' ] );
 		add_filter( 'array_format_i18n', [ __CLASS__, 'array_map_numbers' ] );
 		add_filter( 'array_format_i18n_back', [ __CLASS__, 'array_map_numbers_back' ] );
