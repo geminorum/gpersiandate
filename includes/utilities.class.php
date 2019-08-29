@@ -3,6 +3,26 @@
 class gPersianDateUtilities extends gPersianDateBase
 {
 
+	public static function registerBlock( $asset, $dep = NULL, $version = GPERSIANDATE_VERSION, $base = GPERSIANDATE_URL, $path = 'assets/blocks' )
+	{
+		$dep    = is_null( $dep ) ? [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-components' ] : (array) $dep;
+		$handle = strtolower( 'gpersiandate-block-'.str_replace( '.', '-', $asset ) );
+
+		wp_register_script( $handle, $base.$path.'/'.$asset.'/build/index.js', $dep, $version, TRUE );
+
+		return $handle;
+	}
+
+	public static function registerBlockStyle( $asset, $dep = NULL, $version = GPERSIANDATE_VERSION, $base = GPERSIANDATE_URL, $path = 'assets/css' )
+	{
+		$dep    = is_null( $dep ) ? [] : (array) $dep;
+		$handle = strtolower( 'gpersiandate-block-'.str_replace( '.', '-', $asset ) );
+
+		wp_register_style( $handle, $base.$path.'/block.'.$asset.'.css', $dep, $version );
+
+		return $handle;
+	}
+
 	public static function getResultsDB( $query, $output = OBJECT, $key = 'default', $group = 'gpersiandate' )
 	{
 		global $wpdb;

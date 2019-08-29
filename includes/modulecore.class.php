@@ -55,4 +55,53 @@ class gPersianDateModuleCore extends gPersianDateBase
 
 		return gPersianDateHTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $before.$html );
 	}
+
+	public static function blockWrap( $html, $suffix = FALSE, $args = [], $block = TRUE, $extra = [] )
+	{
+		if ( is_null( $html ) )
+			return $html;
+
+		$before = empty( $args['before'] ) ? '' : $args['before'];
+		$after  = empty( $args['after'] )  ? '' : $args['after'];
+
+		// if ( empty( $args['wrap'] ) )
+		// 	return $before.$html.$after;
+
+		$classes = [ '-wrap', 'gpersiandate-wrap-block' ];
+
+		if ( $suffix )
+			$classes[] = 'wp-block-gpersiandate-'.$suffix;
+
+		if ( isset( $args['context'] ) && $args['context'] )
+			$classes[] = 'context-'.$args['context'];
+
+		if ( ! empty( $args['className'] ) )
+			$classes[] = $args['className'];
+
+		if ( $after )
+			return $before.gPersianDateHTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
+
+		return gPersianDateHTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $before.$html );
+	}
+
+	protected function register_blocktype( $name, $extra = [], $deps = NULL )
+	{
+		// checks for WP 5.0
+		if ( ! function_exists( 'register_block_type' ) )
+			return FALSE;
+
+		$args = [ 'editor_script' => gPersianDateUtilities::registerBlock( $name, $deps ) ];
+
+		if ( ! defined( 'GPERSIANDATE_DISABLE_STYLES' ) || ! GPERSIANDATE_DISABLE_STYLES )
+			$args['style'] = gPersianDateUtilities::registerBlockStyle( $name );
+
+		if ( method_exists( $this, 'block_'.$name.'_render_callback' ) )
+			$args['render_callback'] = [ $this, 'block_'.$name.'_render_callback' ];
+
+		$block = register_block_type( 'gpersiandate/'.$name, array_merge( $args, $extra ) );
+
+		wp_set_script_translations( $args['editor_script'], 'gpersiandate', GPERSIANDATE_DIR.'languages' );
+
+		return $block;
+	}
 }
