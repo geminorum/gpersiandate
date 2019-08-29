@@ -13,19 +13,54 @@ class gPersianDateHTML extends gPersianDateBase
 		return '<a class="scroll" href="#'.$to.'">'.$html.'</a>';
 	}
 
-	public static function h2( $html, $class = FALSE )
+	public static function img( $src, $class = '', $alt = '' )
 	{
-		echo self::tag( 'h2', array( 'class' => $class ), $html );
+		return $src ? '<img src="'.$src.'" class="'.self::prepClass( $class ).'" alt="'.$alt.'" />' : '';
 	}
 
-	public static function h3( $html, $class = FALSE )
+	public static function h1( $html, $class = FALSE, $link = FALSE )
 	{
-		echo self::tag( 'h3', array( 'class' => $class ), $html );
+		if ( $html ) echo self::tag( 'h1', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
-	public static function desc( $html, $block = TRUE, $class = '' )
+	public static function h2( $html, $class = FALSE, $link = FALSE )
 	{
-		if ( $html ) echo $block ? '<p class="description '.$class.'">'.$html.'</p>' : '<span class="description '.$class.'">'.$html.'</span>';
+		if ( $html ) echo self::tag( 'h2', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
+	}
+
+	public static function h3( $html, $class = FALSE, $link = FALSE )
+	{
+		if ( $html ) echo self::tag( 'h3', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
+	}
+
+	public static function desc( $html, $block = TRUE, $class = '', $nl2br = TRUE )
+	{
+		if ( ! $html )
+			return;
+
+		if ( $nl2br )
+			$html = nl2br( trim( $html ) );
+
+		$html = Text::wordWrap( $html );
+
+		echo $block
+			? '<p class="'.self::prepClass( 'description', '-description', $class ).'">'.$html.'</p>'
+			: '<span class="'.self::prepClass( 'description', '-description', $class ).'">'.$html.'</span>';
+	}
+
+	public static function wrap( $html, $class = '', $block = TRUE )
+	{
+		if ( ! $html )
+			return '';
+
+		return $block
+			? '<div class="'.self::prepClass( '-wrap', $class ).'">'.$html.'</div>'
+			: '<span class="'.self::prepClass( '-wrap', $class ).'">'.$html.'</span>';
+	}
+
+	public static function wrapLTR( $content )
+	{
+		return '&#8206;'.$content.'&#8207;';
 	}
 
 	public static function inputHidden( $name, $value = '' )
@@ -63,12 +98,22 @@ class gPersianDateHTML extends gPersianDateBase
 		foreach ( func_get_args() as $arg )
 
 			if ( is_array( $arg ) )
-				$classes += $arg;
+				$classes = array_merge( $classes, $arg );
 
 			else if ( $arg )
-				$classes += explode( ' ', $arg );
+				$classes = array_merge( $classes, preg_split( '#\s+#', $arg ) );
 
 		return array_unique( array_filter( $classes, 'trim' ) );
+	}
+
+	public static function prepClass()
+	{
+		$classes = func_get_args();
+
+		if ( TRUE === $classes[0] )
+			return '';
+
+		return implode( ' ', array_unique( array_filter( call_user_func_array( array( __CLASS__, 'attrClass' ), $classes ), array( __CLASS__, 'sanitizeClass' ) ) ) );
 	}
 
 	private static function _tag_open( $tag, $atts, $content = TRUE )

@@ -76,15 +76,18 @@ class gPersianDateBase
 	}
 
 	// INTERNAL
-	public static function _log( $log )
+	public static function _log()
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
 			return;
 
-		if ( is_array( $log ) || is_object( $log ) )
-			error_log( print_r( $log, TRUE ) );
-		else
-			error_log( $log );
+		foreach ( func_get_args() as $data )
+
+			if ( is_array( $data ) || is_object( $data ) )
+				error_log( print_r( $data, TRUE ) );
+
+			else
+				error_log( $data );
 	}
 
 	// INTERNAL: used on anything deprecated
