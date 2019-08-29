@@ -1,0 +1,6 @@
+/**
+ * gpersiandate - Persian Date for WordPress
+ * @link https://github.com/geminorum/gpersiandate
+ * @license GPL-3+
+ */
+.wp-block-gpersiandate-compact table.date-archives-compact{width:auto;margin:10px auto;border-collapse:collapse;border-style:hidden}.wp-block-gpersiandate-compact table.date-archives-compact tr+tr{border-top:1px dashed #777}.wp-block-gpersiandate-compact table.date-archives-compact td+td{border-right:1px dashed #777}.wp-block-gpersiandate-compact table.date-archives-compact td{padding:5px}.wp-block-gpersiandate-compact table.date-archives-compact .-empty{color:#777}

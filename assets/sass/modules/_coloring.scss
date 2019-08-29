@@ -14,23 +14,32 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 // USAGE: @include link-colors(white, blue, green, red);
-@mixin link-colors($link, $visit, $hover, $active) {
-	a {
-		color: $link;
+@mixin link-colors($link, $visit: null, $hover: null, $active: null) {
+  @warn "DEPRECATED: Modules: Coloring: link-colors()";
 
-		&:visited {
-			color: $visit;
-		}
+  a {
+    color: $link;
 
-		&:hover {
-			color: $hover;
-		}
+    @if ($visit) {
+      &:visited {
+        color: $visit;
+      }
+    }
 
-		&:active {
-			color: $active;
-		}
-	}
+    @if ($hover) {
+      &:hover {
+        color: $hover;
+      }
+    }
+
+    @if ($active) {
+      &:active {
+        color: $active;
+      }
+    }
+  }
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,16 +48,23 @@
 // @DEMO: http://codepen.io/CreativePunch/pen/piErg
 // USAGE: @include loop-shadow(10, 30px);
 @mixin loop-shadow($elements, $height) {
-	 @for $i from 0 to $elements{
-		$red: $i * 10 + 150;
-		$green: ($i * 10 + 150) / 2;
-		$blue: ($i * 10 + 150) / 2;
+  @for $i from 0 to $elements {
+    $red: $i * 10 + 150;
+    $green: ($i * 10 + 150) / 2;
+    $blue: ($i * 10 + 150) / 2;
 
-		& div:nth-child(#{$i}) {
-			background: rgb($red, $green, $blue);
-			width: 100%;
-			height: $height;
-			box-shadow: 0 -1px #{($elements - $i) * 2}px rgba(0, 0, 0, 0.7);
-		}
-	}
+    div:nth-child(#{$i}) {
+      background: rgb($red, $green, $blue);
+      width: 100%;
+      height: $height;
+      box-shadow: 0 -1px #{($elements - $i) * 2}px rgba(0, 0, 0, 0.7);
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// @REF: https://github.com/qbittorrent/qBittorrent/issues/6434#issuecomment-378965390
+@mixin invert-colors() {
+  filter: invert(100%) hue-rotate(180deg);
 }
