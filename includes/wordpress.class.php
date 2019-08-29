@@ -63,16 +63,16 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		$wp_widget_factory->widgets['WP_Widget_Calendar'] = new WP_Widget_Persian_Calendar();
 	}
 
-	public function date_i18n( $j, $req_format, $i, $gmt )
+	public function date_i18n( $date, $format, $timestamp, $gmt )
 	{
-		if ( FALSE === $i )
-			$i = current_time( 'mysql', $gmt );
+		if ( FALSE === $timestamp )
+			$timestamp = current_time( 'mysql', $gmt );
 		else
-			$i = date( 'Y-m-d H:i:s', $i );
+			$timestamp = date( 'Y-m-d H:i:s', $timestamp );
 
-		$format = gPersianDateFormat::sanitize( $req_format, 'i18n' );
+		$sanitized = gPersianDateFormat::sanitize( $format, 'i18n' );
 
-		return gPersianDateDate::to( $format, $i );
+		return gPersianDateDate::to( $sanitized, $timestamp );
 	}
 
 	public function get_the_date( $the_date, $d, $post )
