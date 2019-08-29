@@ -3,6 +3,7 @@
 class gPersianDateTimeZone extends gPersianDateModuleCore
 {
 
+	// @SEE: `wp_timezone_string()` since WP 5.3
 	public static function current()
 	{
 		if ( $timezone = get_option( 'timezone_string' ) )
@@ -118,6 +119,7 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 
 	// NOT USED YET
 	// @SEE: https://gist.github.com/stephenh1988/2724520
+	// @SEE: `wp_timezone()` since WP 5.3
 	public static function getObject()
 	{
 		$timezone = wp_cache_get( 'site_timezone' );

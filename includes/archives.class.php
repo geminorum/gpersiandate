@@ -457,7 +457,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 				} else {
 
-					$html.= '<td class="-month -empty text-muted">'.$name.'</td>';
+					$html.= '<td class="-month -empty">'.$name.'</td>';
 				}
 			}
 
@@ -624,7 +624,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 					// or the post has existing comments
 					if ( $show_comments && ( comments_open( $post ) || get_comments_number( $post ) ) ) {
 
-						$template = '%s<dd><a href="%s" rel="bookmark">%s</a>&nbsp;%s</dd>';
+						$template = '%s<dd><a href="%s">%s</a>&nbsp;%s</dd>';
 						/* translators: %s: comments count */
 						$comments = sprintf( esc_html_x( '(%s)', 'Archives: Clean: Comment Count', 'gpersiandate' ), get_comments_number( $post ) );
 						$values[] = sprintf( '<small class="-comments" title="%s">%s</small>', esc_attr( $args['string_count'] ), gPersianDateTranslate::numbers( $comments ) );
