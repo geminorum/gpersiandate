@@ -11,7 +11,11 @@
 /assets/views/cache
 /assets/packages/jquery
 /assets/vendor
-/node_modules
+
+*.deps.json
+*.js.map
+
+node_modules
 
 composer.lock
 npm-debug.log
