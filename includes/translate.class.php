@@ -136,7 +136,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 	}
 
 	// before: translate_numbers()
-	public static function numbers( $string, $local = NULL, $fix = GPERSIANDATE_FIXNONPERSIAN )
+	public static function numbers( $string, $local = NULL, $fix = NULL )
 	{
 		if ( ! is_numeric( $string ) && ! is_string( $string ) )
 			return $string;
@@ -201,8 +201,13 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 	// before: translate_chars()
 	// http://www.ltg.ed.ac.uk/~richard/utf-8.cgi
-	public static function chars( $string, $fix = GPERSIANDATE_FIXNONPERSIAN )
+	public static function chars( $string, $fix = NULL )
 	{
+		if ( is_null( $fix ) )
+			$fix = defined( 'GPERSIANDATE_FIXNONPERSIAN' )
+				? constant( 'GPERSIANDATE_FIXNONPERSIAN' )
+				: TRUE;
+
 		if ( $fix ) {
 
 			return strtr( $string, [
