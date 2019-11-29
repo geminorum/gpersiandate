@@ -61,11 +61,13 @@ if ( version_compare( GPERSIANDATE_MIN_PHP, phpversion(), '>=' ) ) {
 			'shortcodes',
 			'buddypress',
 			'bbpress',
-			'widgets',
 			'date',
 			'calendar',
 			'plugins',
 			'form',
+
+			'widgets/archives',
+			'widgets/calendar',
 
 			'picker',
 			'timeago',
