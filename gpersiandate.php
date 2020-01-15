@@ -12,6 +12,7 @@ Network: false
 TextDomain: gpersiandate
 Domain Path: /languages
 Requires WP: 4.9
+Requires at least: 4.9
 Requires PHP: 5.6.20
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 */
