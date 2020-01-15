@@ -51,6 +51,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 				add_filter( 'posts_where', [ $this, 'posts_where_persian_month' ] );
 
 			add_filter( 'disable_months_dropdown', [ $this, 'disable_months_dropdown' ], 10, 2 );
+			add_filter( 'media_view_settings', [ $this, 'media_view_settings' ], 10, 2 );
 
 		} else if ( 'options-general' == $screen->base ) {
 
@@ -176,6 +177,17 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		echo '</select>';
 
 		return TRUE;
+	}
+
+	public function media_view_settings( $settings, $post )
+	{
+		if ( empty( $settings['months'] ) )
+			return $settings;
+
+		if ( $months = gPersianDateWordPress::getPostTypeMonths( 'attachment', [], 0, TRUE ) )
+			$settings['months'] = $months;
+
+		return $settings;
 	}
 
 	public function restrict_manage_posts_start_end( $post_type, $which )

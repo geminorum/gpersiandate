@@ -271,7 +271,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		];
 	}
 
-	public static function getPostTypeMonths( $post_type = 'post', $args = [], $user_id = 0 )
+	public static function getPostTypeMonths( $post_type = 'post', $args = [], $user_id = 0, $object = FALSE )
 	{
 		global $wpdb;
 
@@ -321,8 +321,18 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 			$date  = mktime( 0 ,0 , 0, zeroise( $row->month, 2 ), $row->day, $row->year );
 			$month = gPersianDateDate::_to( 'Ym', $date );
 
-			if ( $last != $month )
-				$list[$month] = gPersianDateDate::to( 'M Y', $date );
+			if ( $last != $month ) {
+
+				if ( $object )
+					$list[] = (object) [
+						'year'  => gPersianDateDate::_to( 'Y', $date ),
+						'month' => gPersianDateDate::_to( 'n', $date ),
+						'text'  => gPersianDateDate::to( 'M Y', $date ),
+					];
+
+				else
+					$list[$month] = gPersianDateDate::to( 'M Y', $date );
+			}
 
 			$last = $month;
 		}
