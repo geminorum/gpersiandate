@@ -20,6 +20,11 @@ class gPersianDateModuleCore extends gPersianDateBase
 
 	protected function setup_actions() {}
 
+	protected static function sanitize_hook( $hook )
+	{
+		return trim( str_ireplace( [ '-', '.', '/' ], '_', $hook ) );
+	}
+
 	protected function shortcodes( $shortcodes = [] )
 	{
 		foreach ( $shortcodes as $shortcode => $method ) {

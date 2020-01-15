@@ -75,6 +75,17 @@ class gPersianDateHTML extends gPersianDateBase
 
 	public static function tag( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
+		if ( empty( $tag ) ) {
+
+			if ( ! is_array( $atts ) )
+				return $atts.$sep;
+
+			if ( $content )
+				return $content.$sep;
+
+			return '';
+		}
+
 		$tag = self::sanitizeTag( $tag );
 
 		if ( is_array( $atts ) )
