@@ -1,3 +1,18 @@
+### 3.7.0
+* main/admin: :new: persian date on media grid view
+* main/buddypress: retry bp filters
+* main/links: convert query on admin
+* main/modulecore: initial api for blocks
+* main/shortcodes: :new: clean/compact block types
+* main/shortcodes: css class attr
+* main/translate: avoid constants on params
+* main/translate: legacy format for strings with entities
+* main/translate: more args on number format filter
+* main/translate: support for old filters
+* main/translate: using php number format
+* main/wordpress: rename params for date_i18n
+* main/widgets: seperate widgets
+
 ### 3.6.2
 * :up: min php 5.6.20
 * module/format: gettext filters deprecated
