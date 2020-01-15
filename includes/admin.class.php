@@ -51,7 +51,9 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 				add_filter( 'posts_where', [ $this, 'posts_where_persian_month' ] );
 
 			add_filter( 'disable_months_dropdown', [ $this, 'disable_months_dropdown' ], 10, 2 );
-			add_filter( 'media_view_settings', [ $this, 'media_view_settings' ], 10, 2 );
+
+			if ( ! empty( $this->options['restrict_month'] ) && '2' == $this->options['restrict_month'] )
+				add_filter( 'media_view_settings', [ $this, 'media_view_settings' ], 10, 2 );
 
 		} else if ( 'options-general' == $screen->base ) {
 
