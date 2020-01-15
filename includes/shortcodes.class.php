@@ -15,6 +15,19 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 			'date-archives-compact' => 'shortcode_archives_compact',
 			'entry-link-published'  => 'shortcode_entry_published',
 		] );
+
+		$this->register_blocktype( 'clean' );
+		$this->register_blocktype( 'compact' );
+	}
+
+	public function block_clean_render_callback( $attributes, $content )
+	{
+		return self::blockWrap( $this->shortcode_archives_clean( [ 'wrap' => FALSE ] ), 'clean', $attributes );
+	}
+
+	public function block_compact_render_callback( $attributes, $content )
+	{
+		return self::blockWrap( $this->shortcode_archives_compact( [ 'wrap' => FALSE ] ), 'compact', $attributes );
 	}
 
 	/***
