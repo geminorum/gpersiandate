@@ -155,7 +155,7 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 		if ( ! $months = gPersianDateWordPress::getPostTypeMonths( $post_type, $_GET ) )
 			return TRUE;
 
-		$persian_month = isset( $_GET['persian_month'] ) ? (int) $_GET['persian_month'] : 0;
+		$selected = isset( $_GET['persian_month'] ) ? (int) $_GET['persian_month'] : 0;
 
 		echo '<label for="filter-by-date" class="screen-reader-text">'
 			._x( 'Filter by date', 'Admin: Months Dropdown', 'gpersiandate' )
@@ -163,13 +163,13 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 		echo '<select name="persian_month" id="filter-by-date">';
 
-			echo '<option '.selected( $persian_month, 0, FALSE ).' value="0">'
+			echo '<option '.selected( $selected, 0, FALSE ).' value="0">'
 				._x( 'All dates', 'Admin: Months Dropdown', 'gpersiandate' )
 			.'</option>';
 
 			foreach ( $months as $key => $month )
 				vprintf( '<option %s value="%s">%s</option>'."\n", [
-					selected( $persian_month, $key, FALSE ),
+					selected( $selected, $key, FALSE ),
 					esc_attr( $key ),
 					esc_html( $month ),
 				] );

@@ -68,7 +68,7 @@ class gPersianDateTimeAgo extends gPersianDateBase
 
 		// display original dates older than 24 hours
 		// cutoff: returns the original date if time distance is older than cutoff (miliseconds)
-		$script.= "jQuery.timeago.settings.cutoff=1000*60*60*24;";
+		$script.= "jQuery.timeago.settings.cutoff=1000*60*60*24*7;";
 
 		$script.= "jQuery(document).ready(function($){
 			$('.do-timeago').timeago().removeClass('do-timeago');
