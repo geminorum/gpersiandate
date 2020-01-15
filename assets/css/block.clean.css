@@ -1,6 +1,1 @@
-/**
- * gpersiandate - Persian Date for WordPress
- * @link https://github.com/geminorum/gpersiandate
- * @license GPL-3+
- */
 .wp-block-gpersiandate-clean .-wrap.date-archives-clean>ul{padding:0;margin:0;list-style:none}.wp-block-gpersiandate-clean .-wrap.date-archives-clean dl{display:grid;grid-template-columns:-webkit-max-content auto;grid-template-columns:max-content auto}.wp-block-gpersiandate-clean .-wrap.date-archives-clean dt{grid-column-start:1}.wp-block-gpersiandate-clean .-wrap.date-archives-clean dd{grid-column-start:2}.wp-block-gpersiandate-clean .-wrap.date-archives-clean .-day-duplicate{display:none}

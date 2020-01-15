@@ -5,6 +5,11 @@
 
 .gpersiandate-datepicker {
   position: relative;
+  margin:0 5px 0 0;
+
+  body.rtl & {
+    margin:0 0 0 5px;
+  }
 
   .dashicons {
     position: absolute;
