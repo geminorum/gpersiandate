@@ -65,6 +65,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function date_i18n( $date, $format, $timestamp, $gmt )
 	{
+		if ( gPersianDateFormat::checkISO( $format ) )
+			return $date;
+
 		if ( FALSE === $timestamp )
 			$timestamp = current_time( 'mysql', $gmt );
 		else
