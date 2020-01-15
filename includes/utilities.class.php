@@ -5,10 +5,11 @@ class gPersianDateUtilities extends gPersianDateBase
 
 	public static function registerBlock( $asset, $dep = NULL, $version = GPERSIANDATE_VERSION, $base = GPERSIANDATE_URL, $path = 'assets/blocks' )
 	{
-		$dep    = is_null( $dep ) ? [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-components' ] : (array) $dep;
-		$handle = strtolower( 'gpersiandate-block-'.str_replace( '.', '-', $asset ) );
+		$dep     = is_null( $dep ) ? [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-components' ] : (array) $dep;
+		$handle  = strtolower( 'gpersiandate-block-'.str_replace( '.', '-', $asset ) );
+		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_register_script( $handle, $base.$path.'/'.$asset.'/build/index.js', $dep, $version, TRUE );
+		wp_register_script( $handle, $base.$path.'/'.$asset.'/build/index'.$variant.'.js', $dep, $version, TRUE );
 
 		return $handle;
 	}

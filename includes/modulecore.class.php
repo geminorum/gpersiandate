@@ -45,6 +45,7 @@ class gPersianDateModuleCore extends gPersianDateBase
 			return $before.$html.$after;
 
 		$classes = [ '-wrap', 'gpersiandate-wrap-shortcode' ];
+		$wrap    = TRUE === $args['wrap'] ? ( $block ? 'div' : 'span' ) : $args['wrap'];
 
 		if ( $suffix )
 			$classes[] = 'shortcode-'.$suffix;
@@ -53,12 +54,12 @@ class gPersianDateModuleCore extends gPersianDateBase
 			$classes[] = 'context-'.$args['context'];
 
 		if ( ! empty( $args['class'] ) )
-			$classes[] = $args['class'];
+			$classes = gPersianDateHTML::attrClass( $classes, $args['class'] );
 
 		if ( $after )
-			return $before.gPersianDateHTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
+			return $before.gPersianDateHTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
 
-		return gPersianDateHTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $before.$html );
+		return gPersianDateHTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
 	}
 
 	public static function blockWrap( $html, $suffix = FALSE, $args = [], $block = TRUE, $extra = [] )
@@ -69,10 +70,14 @@ class gPersianDateModuleCore extends gPersianDateBase
 		$before = empty( $args['before'] ) ? '' : $args['before'];
 		$after  = empty( $args['after'] )  ? '' : $args['after'];
 
-		// if ( empty( $args['wrap'] ) )
-		// 	return $before.$html.$after;
+		if ( ! array_key_exists( 'wrap', $args ) )
+			$args['wrap'] = TRUE;
+
+		if ( empty( $args['wrap'] ) )
+			return $before.$html.$after;
 
 		$classes = [ '-wrap', 'gpersiandate-wrap-block' ];
+		$wrap    = TRUE === $args['wrap'] ? ( $block ? 'div' : 'span' ) : $args['wrap'];
 
 		if ( $suffix )
 			$classes[] = 'wp-block-gpersiandate-'.$suffix;
@@ -80,13 +85,16 @@ class gPersianDateModuleCore extends gPersianDateBase
 		if ( isset( $args['context'] ) && $args['context'] )
 			$classes[] = 'context-'.$args['context'];
 
+		if ( ! empty( $args['alignment'] ) )
+			$classes[] = 'gpersiandate-block-align-'.$args['alignment'];
+
 		if ( ! empty( $args['className'] ) )
-			$classes[] = $args['className'];
+			$classes = gPersianDateHTML::attrClass( $classes, $args['className'] );
 
 		if ( $after )
-			return $before.gPersianDateHTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
+			return $before.gPersianDateHTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
 
-		return gPersianDateHTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $before.$html );
+		return gPersianDateHTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
 	}
 
 	protected function register_blocktype( $name, $extra = [], $deps = NULL )
@@ -100,8 +108,10 @@ class gPersianDateModuleCore extends gPersianDateBase
 		if ( ! defined( 'GPERSIANDATE_DISABLE_STYLES' ) || ! GPERSIANDATE_DISABLE_STYLES )
 			$args['style'] = gPersianDateUtilities::registerBlockStyle( $name );
 
-		if ( method_exists( $this, 'block_'.$name.'_render_callback' ) )
-			$args['render_callback'] = [ $this, 'block_'.$name.'_render_callback' ];
+		$callback = self::sanitize_hook( 'block_'.$name.'_render_callback' );
+
+		if ( method_exists( $this, $callback ) )
+			$args['render_callback'] = [ $this, $callback ];
 
 		$block = register_block_type( 'gpersiandate/'.$name, array_merge( $args, $extra ) );
 
