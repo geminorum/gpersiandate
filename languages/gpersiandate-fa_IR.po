@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gPersianDate\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gpersiandate\n"
-"POT-Creation-Date: 2019-08-16T05:23:14+00:00\n"
-"PO-Revision-Date: 2019-08-16 09:53+0430\n"
+"Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
+"POT-Creation-Date: 2020-01-15T04:59:01+03:30\n"
+"PO-Revision-Date: 2020-01-15 04:59+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #. Plugin Name of the plugin
 msgid "gPersianDate"
@@ -35,52 +35,52 @@ msgstr "ژمای‌نوروم"
 msgid "https://geminorum.ir/"
 msgstr ""
 
-#: includes/admin.class.php:59
+#: includes/admin.class.php:60
 msgid "Adminbar Clock"
 msgstr "ساعت منوی مدیریت"
 
-#: includes/admin.class.php:60
+#: includes/admin.class.php:61
 msgid "Month Restrictions"
 msgstr "محدویت بر اساس ماه"
 
-#: includes/admin.class.php:61
+#: includes/admin.class.php:62
 msgid "Date Restrictions"
 msgstr "محدودیت در بازه زمانی"
 
-#: includes/admin.class.php:80 includes/admin.class.php:93
-#: includes/admin.class.php:106
+#: includes/admin.class.php:81 includes/admin.class.php:94
+#: includes/admin.class.php:107
 msgid "Disabled"
 msgstr "غیرفعال"
 
-#: includes/admin.class.php:81 includes/admin.class.php:94
+#: includes/admin.class.php:82 includes/admin.class.php:95
 msgid "Enabled"
 msgstr "فعال"
 
-#: includes/admin.class.php:107
+#: includes/admin.class.php:108
 msgid "Gregorian"
 msgstr "میلادی"
 
-#: includes/admin.class.php:108
+#: includes/admin.class.php:109
 msgid "Jalali"
 msgstr "شمسی"
 
-#: includes/admin.class.php:160
+#: includes/admin.class.php:161
 msgctxt "Admin: Months Dropdown"
 msgid "Filter by date"
 msgstr "پالایه بر اساس تاریخ"
 
-#: includes/admin.class.php:166
+#: includes/admin.class.php:167
 msgctxt "Admin: Months Dropdown"
 msgid "All dates"
 msgstr "همه‌ی تاریخ‌ها"
 
 # @ gpersiandate
-#: includes/admin.class.php:191
+#: includes/admin.class.php:203
 msgid "From"
 msgstr "از تاریخ"
 
 # @ gpersiandate
-#: includes/admin.class.php:204
+#: includes/admin.class.php:216
 msgid "To"
 msgstr "تا تاریخ"
 
@@ -223,7 +223,7 @@ msgid "Previous"
 msgstr "قبلی"
 
 #. translators: %s: title
-#: includes/shortcodes.class.php:97
+#: includes/shortcodes.class.php:112
 msgctxt "Shortcodes: Entry Published Title"
 msgid "Archive for %s"
 msgstr "بایگانی %s"
@@ -932,6 +932,72 @@ msgstr "نزدیک به یک سال"
 msgctxt "Time Ago"
 msgid "%d years"
 msgstr "%d سال"
+
+#: assets/blocks/clean/build/index.js:105
+msgctxt "Blocks: Clean"
+msgid "Clean Archives"
+msgstr "بایگانی پاکیزه"
+
+#: assets/blocks/clean/build/index.js:106
+msgctxt "Blocks: Clean"
+msgid "Displays a clean monthly archive."
+msgstr "بایگانی پاکیزه ماهانه را نمایش می‌دهد."
+
+#: assets/blocks/clean/build/index.js:107
+msgctxt "Blocks"
+msgid "clean"
+msgstr "پاکیزه"
+
+#: assets/blocks/clean/build/index.js:107
+#: assets/blocks/compact/build/index.js:107
+msgctxt "Blocks"
+msgid "monthly"
+msgstr "ماهانه"
+
+#: assets/blocks/clean/build/index.js:107
+#: assets/blocks/compact/build/index.js:107
+msgctxt "Blocks"
+msgid "archive"
+msgstr "بایگانی"
+
+#: assets/blocks/compact/build/index.js:105
+msgctxt "Blocks: Compact"
+msgid "Compact Archives"
+msgstr "بایگانی فشرده"
+
+#: assets/blocks/compact/build/index.js:106
+msgctxt "Blocks: Compact"
+msgid "Displays a compact monthly archive."
+msgstr "بایگانی فشرده ماهانه را نمایش می‌دهد."
+
+#: assets/blocks/compact/build/index.js:107
+msgctxt "Blocks"
+msgid "compact"
+msgstr "فشرده"
+
+#~ msgctxt "Blocks: Clean"
+#~ msgid "clean"
+#~ msgstr "پاکیزه"
+
+#~ msgctxt "Blocks: Clean"
+#~ msgid "monthly"
+#~ msgstr "ماهانه"
+
+#~ msgctxt "Blocks: Clean"
+#~ msgid "archive"
+#~ msgstr "بایگانی"
+
+#~ msgctxt "Blocks: Compact"
+#~ msgid "compact"
+#~ msgstr "فشرده"
+
+#~ msgctxt "Blocks: Compact"
+#~ msgid "monthly"
+#~ msgstr "ماهانه"
+
+#~ msgctxt "Blocks: Compact"
+#~ msgid "archive"
+#~ msgstr "بایگانی"
 
 #~ msgctxt "gettext overrides"
 #~ msgid "%s Space Used"
