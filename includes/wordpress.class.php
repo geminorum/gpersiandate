@@ -7,7 +7,10 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'date_i18n', [ $this, 'date_i18n' ], 10, 4 );
+		if ( gPersianDateWP::isWPcompatible( '5.3.0' ) )
+			add_filter( 'wp_date', [ $this, 'wp_date' ], 10, 4 );
+		else
+			add_filter( 'date_i18n', [ $this, 'date_i18n' ], 10, 4 );
 
 		add_filter( 'get_the_date', [ $this, 'get_the_date' ], 10, 3 );
 		add_filter( 'get_the_time', [ $this, 'get_the_time' ], 10, 3 );
@@ -63,6 +66,12 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		$wp_widget_factory->widgets['WP_Widget_Calendar'] = new WP_Widget_Persian_Calendar();
 	}
 
+	public function wp_date( $date, $format, $timestamp, $gmt )
+	{
+		return $this->date_i18n( $date, $format, $timestamp, $gmt );
+	}
+
+	// applies only on prior to WP 5.3.0
 	public function date_i18n( $date, $format, $timestamp, $gmt )
 	{
 		if ( gPersianDateFormat::checkISO( $format ) )
