@@ -1,3 +1,8 @@
+### 3.7.1
+* main/admin: check for options before converting dates on media grid view
+* main/wordpress: early check for iso formats on i18n dates
+* main/wordpress: support for new `wp_date` filter
+
 ### 3.7.0
 * main/admin: :new: persian date on media grid view
 * main/buddypress: retry bp filters
