@@ -25,7 +25,7 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 			// http://www.jquery4u.com/snippets/create-jquery-digital-clock-jquery4u/
 			wp_register_script( 'gperdiandate-clock',
 				GPERSIANDATE_URL.'assets/js/adminbar.clock.min.js',
-				array( 'jquery' ),
+				[ 'jquery' ],
 				GPERSIANDATE_VERSION,
 				TRUE
 			);

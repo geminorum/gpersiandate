@@ -192,8 +192,8 @@ class gPersianDateLinks extends gPersianDateModuleCore
 				if ( $link = $wp_rewrite->get_day_permastruct() ) {
 
 					$link = user_trailingslashit( str_replace(
-						array( '%year%', '%monthnum%', '%day%' ),
-						array( $year, $month, $day ),
+						[ '%year%', '%monthnum%', '%day%' ],
+						[ $year, $month, $day ],
 						$link
 					), 'day' );
 
@@ -209,8 +209,8 @@ class gPersianDateLinks extends gPersianDateModuleCore
 				if ( $link = $wp_rewrite->get_month_permastruct() ) {
 
 					$link = user_trailingslashit( str_replace(
-						array( '%year%', '%monthnum%' ),
-						array( $year, $month ),
+						[ '%year%', '%monthnum%' ],
+						[ $year, $month ],
 						$link
 					), 'month' );
 

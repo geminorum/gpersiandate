@@ -42,7 +42,7 @@ class gPersianDateSearch extends gPersianDateModuleCore
 			return $search;
 
 		return preg_replace_callback( "/(\([^\)\(]* LIKE '([^']*)'\))/",
-			array( __CLASS__, 'duplicateClause' ), $search );
+			[ __CLASS__, 'duplicateClause' ], $search );
 	}
 
 	public static function duplicateClause( $matches )

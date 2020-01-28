@@ -80,19 +80,23 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			$caption = gPersianDateHTML::link( $caption, $args['caption_link'] );
 
 		if ( $caption )
-			$html .= '<caption>'.$caption.'</caption>';
+			$html.= '<caption>'.$caption.'</caption>';
 
-		$html .= '<thead><tr>';
+		$html.= '<thead><tr>';
 
 		$myweek = gPersianDateStrings::dayoftheweek( NULL, TRUE, $args['calendar'], FALSE );
 		$mydays = gPersianDateStrings::dayoftheweek( NULL, TRUE, $args['calendar'], TRUE );
 
 		for ( $wdcount = 0; $wdcount <= 6; $wdcount++ ) {
+
 			$wd = ( $wdcount + $args['week_begins'] ) % 7;
-			$html .= $args['initial'] ? '<th title="'.esc_attr( $myweek[$wd] ).'" data-weekday="'.$wd.'">'.$mydays[$wd].'</th>' : '<th data-weekday="'.$wd.'">'.$myweek[$wd].'</th>';
+
+			$html.= $args['initial']
+				? '<th title="'.esc_attr( $myweek[$wd] ).'" data-weekday="'.$wd.'">'.$mydays[$wd].'</th>'
+				: '<th data-weekday="'.$wd.'">'.$myweek[$wd].'</th>';
 		}
 
-		$html .= '</tr></thead>';
+		$html.= '</tr></thead>';
 
 		if ( $args['navigation'] ) {
 
@@ -119,40 +123,38 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 				LIMIT 1
 			" );
 
-			$html .= '<tfoot><tr>';
+			$html.= '<tfoot><tr>';
 
 			if ( $previous ) {
 
 				$previous_date = gPersianDateDate::getByCal( $previous->post_date, $args['calendar'] );
 
-				$html .= '<td colspan="3" class="-next-prev -prev" data-month="'.$previous_date['mon'].'" data-year="'.$previous_date['year'].'">';
-				$html .= call_user_func_array( $args['nav_month_callback'],
-					array( $previous_date, FALSE, $args ) );
-				$html .'</td>';
+				$html.= '<td colspan="3" class="-next-prev -prev" data-month="'.$previous_date['mon'].'" data-year="'.$previous_date['year'].'">';
+				$html.= call_user_func_array( $args['nav_month_callback'], [ $previous_date, FALSE, $args ] ).'</td>';
 
 			} else {
-				$html .= self::getPad( 3 );
+
+				$html.= self::getPad( 3 );
 			}
 
-			$html .= '<td class="-middle -pad">&nbsp;</td>';
+			$html.= '<td class="-middle -pad">&nbsp;</td>';
 
 			if ( $next ) {
 
 				$next_date = gPersianDateDate::getByCal( $next->post_date, $args['calendar'] );
 
-				$html .= '<td colspan="3" class="-next-prev -next" data-month="'.$next_date['mon'].'" data-year="'.$next_date['year'].'">';
-					$html .= call_user_func_array( $args['nav_month_callback'],
-						array( $next_date, TRUE, $args ) );
-				$html .'</td>';
+				$html.= '<td colspan="3" class="-next-prev -next" data-month="'.$next_date['mon'].'" data-year="'.$next_date['year'].'">';
+				$html.= call_user_func_array( $args['nav_month_callback'], [ $next_date, TRUE, $args ] ).'</td>';
 
 			} else {
-				$html .= self::getPad( 3 );
+
+				$html.= self::getPad( 3 );
 			}
 
-			$html .= '</tr></tfoot>';
+			$html.= '</tr></tfoot>';
 		}
 
-		$html .= '<tbody><tr>';
+		$html.= '<tbody><tr>';
 
 		$data = [];
 
@@ -203,14 +205,14 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		}
 
 		if ( $pad = self::mod( date( 'w', strtotime( $first_day ) ) - $args['week_begins'] ) )
-			$html .= self::getPad( $pad );
+			$html.= self::getPad( $pad );
 
 		$days_in_month = gPersianDateDate::daysInMonth( $args['this_month'], $args['this_year'], $args['calendar'] );
 
 		for ( $the_day = 1; $the_day <= $days_in_month; ++$the_day ) {
 
 			if ( isset( $new_row ) && $new_row )
-				$html .= '</tr><tr>';
+				$html.= '</tr><tr>';
 
 			$new_row = FALSE;
 
@@ -220,10 +222,8 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 			$the_day_data = array_key_exists( $the_day, $data ) ? $data[$the_day]['posts'] : [];
 
-			$html .= '<td class="-day'.( $today ? ' -today' : '' ).( empty( $the_day_data ) ? '' : ' -with-posts' ).'" data-day="'.$the_day.'">';
-				$html .= call_user_func_array( $args['the_day_callback'],
-					array( $the_day, $the_day_data, $args, $today ) );
-			$html .= '</td>';
+			$html.= '<td class="-day'.( $today ? ' -today' : '' ).( empty( $the_day_data ) ? '' : ' -with-posts' ).'" data-day="'.$the_day.'">';
+			$html.= call_user_func_array( $args['the_day_callback'], [ $the_day, $the_day_data, $args, $today ] ).'</td>';
 
 			$week_day = gPersianDateDate::dayOfWeek( $args['this_month'], $the_day, $args['this_year'], $args['calendar'] );
 
@@ -232,7 +232,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		}
 
 		if ( $pad = ( 6 - self::mod( $week_day - $args['week_begins'] ) ) )
-			$html .= self::getPad( $pad );
+			$html.= self::getPad( $pad );
 
 		return gPersianDateHTML::tag( 'table', [
 			'id'    => $args['id'],
