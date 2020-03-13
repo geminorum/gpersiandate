@@ -65,7 +65,7 @@
     "parse-changelog": "^1.0.2",
     "prettyjson": "^1.2.1",
     "semistandard": "^14.2.0",
-    "stylelint": "^13.0.0",
+    "stylelint": "^13.2.1",
     "stylelint-config-wordpress": "^16.0.0",
     "xtend": "^4.0.2"
   },
