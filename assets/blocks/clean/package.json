@@ -7,7 +7,7 @@
     "check-engines": "wp-scripts check-engines"
   },
   "devDependencies": {
-    "@wordpress/scripts": "6.2.0",
+    "@wordpress/scripts": "7.1.2",
     "semistandard": "^14.2.0"
   },
   "semistandard": {
