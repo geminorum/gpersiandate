@@ -40,7 +40,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			'nav_month_callback'  => NULL, // NULL to default
 
 			'id'    => 'wp-calendar', // table html id
-			'class' => 'date-calendar', // table html css class
+			'class' => [ 'date-calendar',  'wp-calendar-table' ], // table html css class
 		], $atts );
 
 		// bailing if no posts!
