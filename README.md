@@ -10,11 +10,11 @@ Persian Date for [WordPress](https://wordpress.org/)
 [![GitHub license](https://img.shields.io/badge/license-GPLv3+-blue.svg?style=for-the-badge)](https://raw.githubusercontent.com/geminorum/gpersiandate/master/LICENSE)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=for-the-badge)](https://gitter.im/geminorum/gpersiandate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-* Persian date for front end
+* Persian date in front-end
 * Current date and live clock on admin-bar
-* Post restriction by month or a time span
+* Post restrictions by month or a time span
 * Format numbers in Persian for WordPress, BuddyPress and bbPress
-* And many more small tweaks
+* And many more minor tweaks
 
 ### Credits
 * [Jalali](http://www.farsiweb.info/jalali/jalali.c) by Roozbeh Pournader and Mohammad Toossi
