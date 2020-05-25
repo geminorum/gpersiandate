@@ -96,65 +96,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 				: '<th data-weekday="'.$wd.'">'.$myweek[$wd].'</th>';
 		}
 
-		$html.= '</tr></thead>';
-
-		if ( $args['navigation'] ) {
-
-			// get the next and previous months
-			// with at least one post
-
-			$previous = $wpdb->get_row( "
-				SELECT post_date
-				FROM {$wpdb->posts}
-				WHERE post_date < '{$first_day}'
-				{$post_type_clause}
-				{$post_status_clause}
-				ORDER BY post_date DESC
-				LIMIT 1
-			" );
-
-			$next = $wpdb->get_row( "
-				SELECT post_date
-				FROM {$wpdb->posts}
-				WHERE post_date > '{$last_day}'
-				{$post_type_clause}
-				{$post_status_clause}
-				ORDER BY post_date ASC
-				LIMIT 1
-			" );
-
-			$html.= '<tfoot><tr>';
-
-			if ( $previous ) {
-
-				$previous_date = gPersianDateDate::getByCal( $previous->post_date, $args['calendar'] );
-
-				$html.= '<td colspan="3" class="-next-prev -prev" data-month="'.$previous_date['mon'].'" data-year="'.$previous_date['year'].'">';
-				$html.= call_user_func_array( $args['nav_month_callback'], [ $previous_date, FALSE, $args ] ).'</td>';
-
-			} else {
-
-				$html.= self::getPad( 3 );
-			}
-
-			$html.= '<td class="-middle -pad">&nbsp;</td>';
-
-			if ( $next ) {
-
-				$next_date = gPersianDateDate::getByCal( $next->post_date, $args['calendar'] );
-
-				$html.= '<td colspan="3" class="-next-prev -next" data-month="'.$next_date['mon'].'" data-year="'.$next_date['year'].'">';
-				$html.= call_user_func_array( $args['nav_month_callback'], [ $next_date, TRUE, $args ] ).'</td>';
-
-			} else {
-
-				$html.= self::getPad( 3 );
-			}
-
-			$html.= '</tr></tfoot>';
-		}
-
-		$html.= '<tbody><tr>';
+		$html.= '</tr></thead><tbody><tr>';
 
 		$data = [];
 
@@ -234,6 +176,67 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 		if ( $pad = ( 6 - self::mod( $week_day - $args['week_begins'] ) ) )
 			$html.= self::getPad( $pad );
 
+		$html.= '</tr></tbody>';
+
+		if ( $args['navigation'] ) {
+
+			// get the next and previous months
+			// with at least one post
+
+			$previous = $wpdb->get_row( "
+				SELECT post_date
+				FROM {$wpdb->posts}
+				WHERE post_date < '{$first_day}'
+				{$post_type_clause}
+				{$post_status_clause}
+				ORDER BY post_date DESC
+				LIMIT 1
+			" );
+
+			$next = $wpdb->get_row( "
+				SELECT post_date
+				FROM {$wpdb->posts}
+				WHERE post_date > '{$last_day}'
+				{$post_type_clause}
+				{$post_status_clause}
+				ORDER BY post_date ASC
+				LIMIT 1
+			" );
+
+			// The `<tfoot>` element was allowed to precede the `<tbody>` element
+			// in HTML 5. However, that was changed in HTML 5.1 and `<tfoot>`
+			// must now follow `<tbody>`.
+			$html.= '<tfoot><tr>';
+
+			if ( $previous ) {
+
+				$previous_date = gPersianDateDate::getByCal( $previous->post_date, $args['calendar'] );
+
+				$html.= '<td colspan="3" class="-next-prev -prev" data-month="'.$previous_date['mon'].'" data-year="'.$previous_date['year'].'">';
+				$html.= call_user_func_array( $args['nav_month_callback'], [ $previous_date, FALSE, $args ] ).'</td>';
+
+			} else {
+
+				$html.= self::getPad( 3 );
+			}
+
+			$html.= '<td class="-middle -pad">&nbsp;</td>';
+
+			if ( $next ) {
+
+				$next_date = gPersianDateDate::getByCal( $next->post_date, $args['calendar'] );
+
+				$html.= '<td colspan="3" class="-next-prev -next" data-month="'.$next_date['mon'].'" data-year="'.$next_date['year'].'">';
+				$html.= call_user_func_array( $args['nav_month_callback'], [ $next_date, TRUE, $args ] ).'</td>';
+
+			} else {
+
+				$html.= self::getPad( 3 );
+			}
+
+			$html.= '</tr></tfoot>';
+		}
+
 		return gPersianDateHTML::tag( 'table', [
 			'id'    => $args['id'],
 			'class' => $args['class'],
@@ -242,7 +245,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 				'year'     => $args['this_year'],
 				'month'    => $args['this_month'],
 			],
-		], $html.'</tr></tbody>' );
+		], $html );
 	}
 
 	public static function theDayCallback( $the_day, $data = [], $args = [], $today = FALSE )
