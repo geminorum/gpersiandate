@@ -20,6 +20,7 @@ class gPersianDateUtilities extends gPersianDateBase
 		$handle = strtolower( 'gpersiandate-block-'.str_replace( '.', '-', $asset ) );
 
 		wp_register_style( $handle, $base.$path.'/block.'.$asset.'.css', $dep, $version );
+		wp_style_add_data( $handle, 'rtl', 'replace' );
 
 		return $handle;
 	}
