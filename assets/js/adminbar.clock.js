@@ -1,27 +1,22 @@
 (function ($) {
-  var m = {};
-
-  // m.wrapper = '#gpd-now';
-
-  m.toPersianDigit = function (number) {
+  function toPersianDigit (number) {
     var pzero = '۰'.charCodeAt(0);
     return number.toString().replace(/\d+/g, function (match) {
       return match.split('').map(function (number) {
         return String.fromCharCode(pzero + parseInt(number));
       }).join('');
     });
-  };
+  }
 
-  // m.toEnglishDigit = function (number) {
+  // function toEnglishDigit (number) {
   //   return number.toString().replace(/[۱۲۳۴۵۶۷۸۹۰]+/g, function (match) {
   //     return match.split('').map(function (number) {
   //       return number.charCodeAt(0) % 1776;
   //     }).join('');
   //   });
-  // };
+  // }
 
-  m.updateClock = function () {
-    // var wrapper = $(m.wrapper);
+  function updateClock () {
     var wrapper = $('#gpd-now');
     var currentTime = new Date();
     var currentHours = currentTime.getHours();
@@ -48,15 +43,15 @@
     var currentTimeString = currentHours + ':' + currentMinutes + ':' + currentSeconds;
 
     if (wrapper.data('locale') === 'fa_IR') {
-      currentTimeString = m.toPersianDigit(currentTimeString);
+      currentTimeString = toPersianDigit(currentTimeString);
     }
 
     wrapper.html(currentTimeString);
     // console.log(currentTimeString);
-  };
+  }
 
   $(document).ready(function () {
-    setInterval(m.updateClock, 1000);
-    // setInterval(m.updateClock, 60*1000);
+    setInterval(updateClock, 1000);
+    // setInterval(updateClock, 60*1000);
   });
 }(jQuery));
