@@ -60,7 +60,9 @@ class gPersianDatePicker extends gPersianDateBase
 		wp_register_script( 'gpersiandate-persiandate', GPERSIANDATE_URL.'assets/libs/persiandate/persiandate'.$variant.'.js', [ 'jquery' ], self::PERSIANDATE_VERSION );
 		wp_enqueue_script( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/libs/persiandate/persiandate-datepicker'.$variant.'.js', [ 'jquery', 'gpersiandate-persiandate' ], self::JQUERYUI_VERSION );
 		wp_add_inline_script( self::WP_SCRIPT_HANDLE, $script );
+
 		wp_enqueue_style( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/css/all.datepicker.css', [], GPERSIANDATE_VERSION );
+		wp_style_add_data( self::WP_SCRIPT_HANDLE, 'rtl', 'replace' );
 
 		return self::WP_SCRIPT_HANDLE;
 	}
