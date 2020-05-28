@@ -1,4 +1,8 @@
-/* Date Picker Default Styles */
+// https://github.com/stuttter/wp-datepicker-styling
+
+////////////////////////////////////////////////////////////////////////////////
+// Date Picker Default Styles
+
 .ui-datepicker {
   padding: 0;
   margin: 0;
@@ -12,11 +16,20 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
   min-width: 17em;
   width: auto;
+  z-index: 1000 !important;
 }
+
+// body.wp-admin:not(.rtl) .ui-datepicker {
+//   margin-left: -1px;
+// }
+//
+// body.wp-admin.rtl .ui-datepicker {
+//   margin-right: -1px;
+// }
 
 .ui-datepicker * {
   padding: 0;
-  font-family: "Open Sans", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -88,9 +101,9 @@
   float: right;
 }
 
-.ui-datepicker .ui-datepicker-prev:before,
-.ui-datepicker .ui-datepicker-next:before {
-  font: 400 20px/34px dashicons;
+.ui-datepicker .ui-datepicker-prev::before,
+.ui-datepicker .ui-datepicker-next::before {
+  font: 400 20px/34px dashicons; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
   padding-left: 7px;
   color: #fff;
   speak: none;
@@ -100,16 +113,20 @@
   height: 34px;
 }
 
-.ui-datepicker .ui-datepicker-prev:before {
+.ui-datepicker .ui-datepicker-prev::before {
+  content: "\f345";
+  /*rtl:remove*/
   content: "\f341";
 }
 
-.ui-datepicker .ui-datepicker-next:before {
+.ui-datepicker .ui-datepicker-next::before {
+  content: "\f341";
+  /*rtl:remove*/
   content: "\f345";
 }
 
-.ui-datepicker .ui-datepicker-prev-hover:before,
-.ui-datepicker .ui-datepicker-next-hover:before {
+.ui-datepicker .ui-datepicker-prev-hover::before,
+.ui-datepicker .ui-datepicker-next-hover::before {
   opacity: 0.7;
 }
 
@@ -136,9 +153,13 @@
   border: transparent;
 }
 
+.ui-datepicker tr:first-of-type td {
+  border-top: 1px solid #f0f0f0;
+}
+
 .ui-datepicker td.ui-datepicker-week-end {
   background-color: #f4f4f4;
-  border: 1px solid #f4f4f4;
+  border: 1px solid #f0f0f0;
 }
 
 .ui-datepicker td.ui-datepicker-today {
@@ -146,7 +167,7 @@
 }
 
 .ui-datepicker td.ui-datepicker-current-day {
-  background: #bbdd88;
+  background: #bd8;
 }
 
 .ui-datepicker td .ui-state-default {
@@ -165,7 +186,8 @@
   opacity: 0.5;
 }
 
-/* Default Color Scheme */
+////////////////////////////////////////////////////////////////////////////////
+// Default Color Scheme
 .ui-datepicker .ui-widget-header,
 .ui-datepicker .ui-datepicker-header {
   background: #00a0d2;
@@ -180,9 +202,11 @@
   color: #fff;
 }
 
-/* WordPress Color Schemes */
+////////////////////////////////////////////////////////////////////////////////
+// WordPress Color Schemes
 
-/* Fresh */
+////////////////////////////////////////////////////////////////////////////////
+// Fresh
 .admin-color-fresh .ui-datepicker .ui-widget-header,
 .admin-color-fresh .ui-datepicker .ui-datepicker-header {
   background: #00a0d2;
@@ -197,7 +221,8 @@
   color: #fff;
 }
 
-/* Blue */
+////////////////////////////////////////////////////////////////////////////////
+// Blue
 .admin-color-blue .ui-datepicker .ui-widget-header,
 .admin-color-blue .ui-datepicker .ui-datepicker-header {
   background: #52accc;
@@ -212,7 +237,8 @@
   color: #fff;
 }
 
-/* Coffee */
+////////////////////////////////////////////////////////////////////////////////
+// Coffee
 .admin-color-coffee .ui-datepicker .ui-widget-header,
 .admin-color-coffee .ui-datepicker .ui-datepicker-header {
   background: #59524c;
@@ -227,7 +253,8 @@
   color: #fff;
 }
 
-/* Ectoplasm */
+////////////////////////////////////////////////////////////////////////////////
+// Ectoplasm
 .admin-color-ectoplasm .ui-datepicker .ui-widget-header,
 .admin-color-ectoplasm .ui-datepicker .ui-datepicker-header {
   background: #523f6d;
@@ -242,7 +269,8 @@
   color: #fff;
 }
 
-/* Midnight */
+////////////////////////////////////////////////////////////////////////////////
+// Midnight
 .admin-color-midnight .ui-datepicker .ui-widget-header,
 .admin-color-midnight .ui-datepicker .ui-datepicker-header {
   background: #363b3f;
@@ -257,7 +285,8 @@
   color: #fff;
 }
 
-/* Ocean */
+////////////////////////////////////////////////////////////////////////////////
+// Ocean
 .admin-color-ocean .ui-datepicker .ui-widget-header,
 .admin-color-ocean .ui-datepicker .ui-datepicker-header {
   background: #738e96;
@@ -272,7 +301,8 @@
   color: #fff;
 }
 
-/* Sunrise */
+////////////////////////////////////////////////////////////////////////////////
+// Sunrise
 .admin-color-sunrise .ui-datepicker .ui-widget-header,
 .admin-color-sunrise .ui-datepicker .ui-datepicker-header,
 .admin-color-sunrise .ui-datepicker .ui-datepicker-header .ui-state-hover {
@@ -289,7 +319,8 @@
   color: #fff;
 }
 
-/* Light */
+////////////////////////////////////////////////////////////////////////////////
+// Light
 .admin-color-light .ui-datepicker .ui-widget-header,
 .admin-color-light .ui-datepicker .ui-datepicker-header {
   background: #e5e5e5;
@@ -301,8 +332,8 @@
 
 .admin-color-light .ui-datepicker .ui-datepicker-title,
 .admin-color-light .ui-datepicker td .ui-state-default,
-.admin-color-light .ui-datepicker .ui-datepicker-prev:before,
-.admin-color-light .ui-datepicker .ui-datepicker-next:before {
+.admin-color-light .ui-datepicker .ui-datepicker-prev::before,
+.admin-color-light .ui-datepicker .ui-datepicker-next::before {
   color: #555;
 }
 
@@ -310,9 +341,11 @@
   background: #e5e5e5;
 }
 
-/* bbPress Color Schemes */
+////////////////////////////////////////////////////////////////////////////////
+// bbPress Color Schemes
 
-/* Evergreen */
+////////////////////////////////////////////////////////////////////////////////
+// Evergreen
 .admin-color-bbp-evergreen .ui-datepicker .ui-widget-header,
 .admin-color-bbp-evergreen .ui-datepicker .ui-datepicker-header {
   background: #56b274;
@@ -327,7 +360,8 @@
   color: #fff;
 }
 
-/* Mint */
+////////////////////////////////////////////////////////////////////////////////
+// Mint
 .admin-color-bbp-mint .ui-datepicker .ui-widget-header,
 .admin-color-bbp-mint .ui-datepicker .ui-datepicker-header {
   background: #4ca26a;
