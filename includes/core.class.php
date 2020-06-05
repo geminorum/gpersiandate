@@ -38,7 +38,7 @@ class gPersianDateCore extends gPersianDateBase
 			'calendar'   => 'gPersianDateCalendar',
 			'plugins'    => 'gPersianDatePlugins',
 			'form'       => 'gPersianDateForm',
-			'links'       => 'gPersianDateLinks',
+			'links'      => 'gPersianDateLinks',
 		];
 
 		if ( is_admin() )
