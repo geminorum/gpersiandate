@@ -32,8 +32,8 @@
     "issues": "start https://github.com/geminorum/gpersiandate/issues"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.1",
-    "@babel/preset-env": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
     "@babel/register": "^7.10.1",
     "@wordpress/browserslist-config": "^2.6.0",
     "autoprefixer": "^9.8.0",
@@ -51,8 +51,8 @@
     "gulp-sass-variables": "^1.2.0",
     "rtlcss": "^2.5.0",
     "semistandard": "^14.2.0",
-    "stylelint": "^13.5.0",
-    "stylelint-config-wordpress": "^16.0.0"
+    "stylelint": "^13.6.0",
+    "stylelint-config-wordpress": "^17.0.0"
   },
   "babel": {
     "presets": [
