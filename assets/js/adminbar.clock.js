@@ -1,3 +1,4 @@
+// @REF: https://www.sitepoint.com/create-jquery-digital-clock-jquery4u/
 (function ($) {
   function toPersianDigit (number) {
     var pzero = '۰'.charCodeAt(0);
