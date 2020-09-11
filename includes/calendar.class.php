@@ -48,7 +48,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			return '';
 
 		if ( ! $args['link_build_callback'] || ! is_callable( $args['link_build_callback'] ) )
-			$args['link_build_callback'] = [ 'gPersianDateLinks', 'build' ];
+			$args['link_build_callback'] = [ __CLASS__, 'linkBuildCallback' ];
 
 		if ( ! $args['the_day_callback'] || ! is_callable( $args['the_day_callback'] ) )
 			$args['the_day_callback'] = [ __CLASS__, 'theDayCallback' ];
@@ -74,7 +74,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			$caption = $args['caption'];
 
 		if ( $caption && TRUE === $args['caption_link'] )
-			$caption = gPersianDateHTML::link( $caption, call_user_func_array( $args['link_build_callback'], [ 'month', $args['this_year'], $args['this_month'], $args ] ) );
+			$caption = gPersianDateHTML::link( $caption, call_user_func_array( $args['link_build_callback'], [ 'month', $args['this_year'], $args['this_month'], NULL, $args ] ) );
 
 		else if ( $caption && $args['caption_link'] )
 			$caption = gPersianDateHTML::link( $caption, $args['caption_link'] );
@@ -246,6 +246,21 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 				'month'    => $args['this_month'],
 			],
 		], $html );
+	}
+
+	public static function linkBuildCallback( $for, $year = NULL, $month = NULL, $day = NULL, $args = [] )
+	{
+		$link = gPersianDateLinks::build( $for, $year, $month, $day );
+
+		// only for single posttype args
+		if ( ! empty( $args['post_type'] ) && 1 === count( $args['post_type']  ) ) {
+			$posttype = array_shift( $args['post_type'] );
+
+			if ( 'post' !== $posttype )
+				return add_query_arg( [ 'post_type' => $posttype ], $link );
+		}
+
+		return $link;
 	}
 
 	public static function theDayCallback( $the_day, $data = [], $args = [], $today = FALSE )
