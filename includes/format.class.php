@@ -26,7 +26,6 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		}
 
 		add_filter( 'custom_date_formats', [ $this, 'custom_date_formats' ] );
-		add_filter( 'gmember_date_formats', [ $this, 'custom_date_formats' ] );
 	}
 
 	// @SEE: http://php.net/manual/en/function.date.php

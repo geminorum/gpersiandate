@@ -294,24 +294,17 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 		if ( gPersianDateText::has( $structure, '%category%' ) ) {
 
-			if ( $cats = get_the_category( $post->ID ) ) {
+			if ( $categories = get_the_category( $post->ID ) ) {
 
-				// FIXME: DEPRECATED Since WP v4.7.0
-				if ( function_exists( 'wp_list_sort' ) )
-					$cats = wp_list_sort( $cats, [ 'term_id' => 'ASC' ] );
-				else
-					usort( $cats, '_usort_terms_by_ID' );
+				$categories = wp_list_sort( $categories, [ 'term_id' => 'ASC' ] );
+				$term       = get_term( apply_filters( 'post_link_category', $categories[0], $categories, $post ), 'category' );
+				$category   = $term->slug;
 
-				$category_object = apply_filters( 'post_link_category', $cats[0], $cats, $post );
-				$category_object = get_term( $category_object, 'category' );
-				$category = $category_object->slug;
-
-				if ( $parent = $category_object->parent )
+				if ( $parent = $term->parent )
 					$category = get_category_parents( $parent, FALSE, '/', TRUE ).$category;
 			}
 
-			// show default category in permalinks, without
-			// having to assign it explicitly
+			// show default category in permalinks, without having to assign it explicitly
 			if ( empty( $category ) ) {
 				$default_category = get_category( get_option( 'default_category' ) );
 				if ( $default_category && ! is_wp_error( $default_category ) )
