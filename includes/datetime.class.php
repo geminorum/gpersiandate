@@ -345,7 +345,26 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return ( ( ( $year % 4 ) == 0 ) && ( ( ( $year % 100 ) != 0 ) || ( ( $year % 400 ) == 0 ) ) );
 	}
 
-	public static function isLeapYearJalali( $year )
+	// @SOURCE: https://gitlab.com/Iranium/Iranium/
+	// @REF: https://goo.gl/wZCU76
+	public function isLeapYearJalali( $year )
+	{
+		$a = 0.025;
+		$b = 266;
+
+		if ( $year <= 0 )
+			return false;
+
+		$c = ( ( $year + 38 ) % 2820 ) * 0.24219 + $a; // 0.24219 ~ Extra days of a year
+		$d = ( ( $year + 39 ) % 2820 ) * 0.24219 + $a; // 38 days is the difference of epoch to 2820-year circle.
+
+		$frac_c = intval( ( $c - intval( $c ) ) * 1000 );
+		$frac_d = intval( ( $d - intval( $d ) ) * 1000 );
+
+		return ( $frac_c <= $b && $frac_d > $b );
+	}
+
+	public static function isLeapYearJalali_OLD( $year )
 	{
 		return self::checkJalali( 12, 30, $year );
 	}
