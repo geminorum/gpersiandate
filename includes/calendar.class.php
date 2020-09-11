@@ -43,6 +43,10 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 			'class' => [ 'date-calendar',  'wp-calendar-table' ], // table html css class
 		], $atts );
 
+		// bailing if no posttypes!
+		if ( empty( $args['post_type'] ) )
+			return '';
+
 		// bailing if no posts!
 		if ( ! gPersianDateUtilities::hasPosts( $args['post_type'], $args['exclude_statuses'] ) )
 			return '';
