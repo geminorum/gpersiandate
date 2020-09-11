@@ -13,6 +13,10 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 		$this->shortcodes( [
 			'date-archives-clean'   => 'shortcode_archives_clean',
 			'date-archives-compact' => 'shortcode_archives_compact',
+			'date-today'            => 'shortcode_today',
+			'date-today-persian'    => 'shortcode_today',
+			'date-today-hijri'      => 'shortcode_today_hijri',
+			'date-today-islamic'    => 'shortcode_today_hijri',
 			'entry-link-published'  => 'shortcode_entry_published',
 		] );
 
@@ -101,6 +105,46 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 		}
 
 		return self::shortcodeWrap( $html, 'archives-compact', $args );
+	}
+
+	public function shortcode_today( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'format'  => get_option( 'date_format' ), // 'j F Y',
+			'class'   => '',
+			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$format = gPersianDateFormat::sanitize( $args['format'], 'today' );
+		$html   = gPersianDateDate::to( $format );
+
+		return self::shortcodeWrap( $html, 'date-today', $args, FALSE );
+	}
+
+	public function shortcode_today_hijri( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'format'  => get_option( 'date_format' ), // 'j F Y',
+			'class'   => '',
+			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$format = gPersianDateFormat::sanitize( $args['format'], 'today-hijri' );
+		$html   = gPersianDateDate::toHijri( $format );
+
+		return self::shortcodeWrap( $html, 'date-today-hijri', $args, FALSE );
 	}
 
 	// @REF: http://justintadlock.com/?p=2507
