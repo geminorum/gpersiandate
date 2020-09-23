@@ -50,9 +50,10 @@ class gPersianDatePicker extends gPersianDateBase
 		**/
 
 		$script = "jQuery(document).ready(function($){"
-			."$.datepicker.setDefaults({$defaults},{$lang});"
+			."var defaults={$defaults};defaults.calculateWeek=PersianDate.calculateWeek;defaults.calendar=PersianDate;"
+			."$.datepicker.setDefaults(defaults,{$lang});"
 			."$('[data-persiandate=\'datepicker\']').each(function(){"
-				."$(this).datepicker({calculateWeek:PersianDate.calculateWeek,calendar:PersianDate});"
+				."$(this).datepicker();"
 			."});"
 		."});";
 
