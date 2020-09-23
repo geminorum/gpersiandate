@@ -12,32 +12,8 @@ class gPersianDatePicker extends gPersianDateBase
 		if ( wp_script_is( self::WP_SCRIPT_HANDLE ) )
 			return self::WP_SCRIPT_HANDLE;
 
-		global $wp_locale;
-
-		$days = gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', FALSE );
-
-		$defaults = wp_json_encode( [
-			'closeText'   => _x( 'Done', 'Date Picker', 'gpersiandate' ),
-			'currentText' => _x( 'Today', 'Date Picker', 'gpersiandate' ),
-			'nextText'    => _x( 'Next', 'Date Picker', 'gpersiandate' ),
-			'prevText'    => _x( 'Previous', 'Date Picker', 'gpersiandate' ),
-
-			'dayNames'        => array_values( $days ),
-			'dayNamesShort'   => array_values( $days ),
-			'dayNamesMin'     => array_values( gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', TRUE ) ),
-			'monthNames'      => array_values( gPersianDateStrings::month( NULL, TRUE, 'Jalali', FALSE ) ),
-			'monthNamesShort' => array_values( gPersianDateStrings::month( NULL, TRUE, 'Jalali', TRUE ) ),
-
-			'isRTL'      => $wp_locale->is_rtl(),
-			// 'dateFormat' => is_null( $format ) ? 'yy-mm-dd' : $format,
-			'dateFormat' => self::getFormat( $format ),
-			'firstDay'   => absint( get_option( 'start_of_week' ) ), // 6
-
-			// 'showMonthAfterYear' => FALSE,
-			// 'yearSuffix'         => '',
-		] );
-
-		$lang = 'fa_IR' == GPERSIANDATE_LOCALE ? "'fa'" : 'null';
+		$defaults = wp_json_encode( self::getDefaults( $format ) );
+		$lang     = 'fa_IR' == GPERSIANDATE_LOCALE ? "'fa'" : 'null';
 
 		// FIXME: our date picker does not support min/max
 		/***
@@ -67,6 +43,37 @@ class gPersianDatePicker extends gPersianDateBase
 		wp_style_add_data( self::WP_SCRIPT_HANDLE, 'rtl', 'replace' );
 
 		return self::WP_SCRIPT_HANDLE;
+	}
+
+	public static function getDefaults( $format = NULL )
+	{
+		global $wp_locale;
+
+		$days = gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', FALSE );
+
+		return [
+			'closeText'   => _x( 'Done', 'Date Picker', 'gpersiandate' ),
+			'currentText' => _x( 'Today', 'Date Picker', 'gpersiandate' ),
+			'nextText'    => _x( 'Next', 'Date Picker', 'gpersiandate' ),
+			'prevText'    => _x( 'Previous', 'Date Picker', 'gpersiandate' ),
+
+			'dayNames'        => array_values( $days ),
+			'dayNamesShort'   => array_values( $days ),
+			'dayNamesMin'     => array_values( gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', TRUE ) ),
+			'monthNames'      => array_values( gPersianDateStrings::month( NULL, TRUE, 'Jalali', FALSE ) ),
+			'monthNamesShort' => array_values( gPersianDateStrings::month( NULL, TRUE, 'Jalali', TRUE ) ),
+
+			'isRTL'      => $wp_locale->is_rtl(),
+			// 'dateFormat' => is_null( $format ) ? 'yy-mm-dd' : $format,
+			'dateFormat' => self::getFormat( $format ),
+			'firstDay'   => absint( get_option( 'start_of_week' ) ), // 6
+
+			// 'shadowField'       => TRUE,
+			// 'shadowConvertBack' => TRUE,
+
+			// 'showMonthAfterYear' => FALSE,
+			// 'yearSuffix'         => '',
+		];
 	}
 
 	// converts the PHP date format into jQuery UI's format
