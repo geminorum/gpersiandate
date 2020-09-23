@@ -29,7 +29,8 @@ class gPersianDatePicker extends gPersianDateBase
 			'monthNamesShort' => array_values( gPersianDateStrings::month( NULL, TRUE, 'Jalali', TRUE ) ),
 
 			'isRTL'      => $wp_locale->is_rtl(),
-			'dateFormat' => is_null( $format ) ? 'yy/mm/dd' : $format,
+			// 'dateFormat' => is_null( $format ) ? 'yy-mm-dd' : $format,
+			'dateFormat' => self::getFormat( $format ),
 			'firstDay'   => absint( get_option( 'start_of_week' ) ), // 6
 
 			// 'showMonthAfterYear' => FALSE,
@@ -66,5 +67,36 @@ class gPersianDatePicker extends gPersianDateBase
 		wp_style_add_data( self::WP_SCRIPT_HANDLE, 'rtl', 'replace' );
 
 		return self::WP_SCRIPT_HANDLE;
+	}
+
+	// converts the PHP date format into jQuery UI's format
+	public static function getFormat( $format = NULL )
+	{
+		if ( is_null( $format ) )
+			$format = get_option( 'date_format' );
+
+		return str_replace( [
+			'd',
+			'j',
+			'l',
+			'z', // Day.
+			'F',
+			'M',
+			'n',
+			'm', // Month.
+			'Y',
+			'y', // Year.
+		], [
+			'dd',
+			'd',
+			'DD',
+			'o',
+			'MM',
+			'M',
+			'm',
+			'mm',
+			'yy',
+			'y',
+		], $format );
 	}
 }
