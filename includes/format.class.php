@@ -76,6 +76,18 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		], TRUE );
 	}
 
+	public static function checkTranslate( $format )
+	{
+		return ! in_array( $format, [
+			'Y-m-d',
+			'H',
+			'G',
+			'i',
+			'g',
+			's',
+		], TRUE );
+	}
+
 	public static function sanitize( $format = '', $context = 'date', $locale = NULL )
 	{
 		if ( '' == $format && isset( self::$_saved[$context] ) )

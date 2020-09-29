@@ -3,7 +3,7 @@
 class gPersianDateDate extends gPersianDateModuleCore
 {
 
-	public static function to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = TRUE, $calendar = 'Jalali' )
+	public static function to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
 	{
 		if ( FALSE === $time )
 			return FALSE;
@@ -20,6 +20,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 		else
 			$string = gPersianDateDateTime::to( $time, $format, $timezone, $calendar );
 
+		if ( is_null( $translate ) )
+			$translate = gPersianDateFormat::checkTranslate( $format );
+
 		if ( $translate )
 			return gPersianDateTranslate::numbers( $string, $locale );
 
@@ -27,7 +30,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 	}
 
 	// not translating!
-	public static function _to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = TRUE, $calendar = 'Jalali' )
+	public static function _to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
 	{
 		return self::to( $format, $time, $timezone, $locale, FALSE, $calendar );
 	}
@@ -37,7 +40,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return self::to( $format, $time, GPERSIANDATE_TIMEZONE, NULL, $translate, $calendar );
 	}
 
-	public static function toHijri( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = 'ar', $translate = TRUE )
+	public static function toHijri( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = 'ar', $translate = NULL )
 	{
 		return self::to( $format, $time, $timezone, $locale, $translate, 'Hijri' );
 	}
