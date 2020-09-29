@@ -57,7 +57,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			DATE_RFC2822, // eq `r`
 			'Y-m-d\TH:i:s+00:00', // eq `DATE_W3C` @SEE: http://jochenhebbrecht.be/site/node/761
 			'Y-m-d\TH:i:sP',
-		] );
+		], TRUE );
 	}
 
 	public static function checkTimeOnly( $format )
@@ -68,7 +68,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			'g:i',
 			'H:i:s',
 			'G:i:s',
-		] );
+		], TRUE );
 	}
 
 	public static function sanitize( $format = '', $context = 'date', $locale = NULL )
