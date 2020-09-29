@@ -63,6 +63,11 @@ class gPersianDateFormat extends gPersianDateModuleCore
 	public static function checkTimeOnly( $format )
 	{
 		return in_array( $format, [
+			'H',
+			'G',
+			'i',
+			'g',
+			's',
 			'H:i',
 			'G:i',
 			'g:i',
