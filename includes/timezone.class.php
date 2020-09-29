@@ -3,9 +3,11 @@
 class gPersianDateTimeZone extends gPersianDateModuleCore
 {
 
-	// @SEE: `wp_timezone_string()` @since WP 5.3
 	public static function current()
 	{
+		if ( function_exists( 'wp_timezone_string' ) )
+			return wp_timezone_string(); // @since WP 5.3
+
 		if ( $timezone = get_option( 'timezone_string' ) )
 			return $timezone;
 
@@ -36,7 +38,22 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 		}
 	}
 
+	// @SOURCE: `wp_timezone_string()`
 	public static function fromOffset( $offset )
+	{
+		$offset  = (float) $offset;
+		$hours   = (int) $offset;
+		$minutes = ( $offset - $hours );
+
+		$sign     = ( $offset < 0 ) ? '-' : '+';
+		$abs_hour = abs( $hours );
+		$abs_mins = abs( $minutes * 60 );
+
+		return sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
+	}
+
+	// FIXME: DROP THIS
+	public static function fromOffset_OLD( $offset )
 	{
 		$timezones = [
 			'-12'  => 'Pacific/Kwajalein',
