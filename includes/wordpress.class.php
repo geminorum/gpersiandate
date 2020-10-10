@@ -74,6 +74,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 	// applies only on prior to WP 5.3.0
 	public function date_i18n( $date, $format, $timestamp, $gmt )
 	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $date;
+
 		if ( gPersianDateFormat::checkISO( $format ) )
 			return $date;
 
@@ -89,6 +92,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_the_date( $the_date, $d, $post )
 	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $the_date;
+
 		$time   = self::postDate( $post );
 		$format = gPersianDateFormat::sanitize( $d, 'date' );
 
@@ -97,6 +103,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_the_time( $the_time, $d, $post )
 	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $the_time;
+
 		$time   = self::postDate( $post );
 		$format = gPersianDateFormat::sanitize( $d, 'time' );
 
@@ -105,6 +114,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_the_modified_date( $the_time, $d, $post = NULL )
 	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $the_time;
+
 		$time   = self::postModifiedDate( $post );
 		$format = gPersianDateFormat::sanitize( $d, 'date' );
 
@@ -113,6 +125,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_the_modified_time( $the_time, $d, $post = NULL )
 	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $the_time;
+
 		$time   = self::postModifiedDate( $post );
 		$format = gPersianDateFormat::sanitize( $d, 'time' );
 
@@ -122,6 +137,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_comment_date( $date, $d, $comment )
 	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $date;
+
 		$time   = self::commentDate( $comment );
 		$format = gPersianDateFormat::sanitize( $d, 'date' );
 
@@ -130,6 +148,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	public function get_comment_time( $date, $d, $gmt, $translate, $comment )
 	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $date;
+
 		if ( $translate ) {
 			$time   = self::commentDate( $comment, $gmt );
 			$format = gPersianDateFormat::sanitize( $d, 'time' );

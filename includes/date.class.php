@@ -11,6 +11,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 		if ( is_null( $time ) )
 			$time = current_time( 'mysql' );
 
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return mysql2date( $format, $time, FALSE );
+
 		if ( gPersianDateFormat::checkISO( $format ) )
 			return mysql2date( $format, $time, FALSE );
 
