@@ -60,8 +60,6 @@ if ( version_compare( GPERSIANDATE_MIN_PHP, phpversion(), '>=' ) ) {
 			'wordpress',
 			'adminbar',
 			'shortcodes',
-			'buddypress',
-			'bbpress',
 			'date',
 			'calendar',
 			'plugins',

@@ -58,8 +58,6 @@ class gPersianDateCore extends gPersianDateBase
 			}
 		}
 
-		add_action( 'bp_include', [ $this, 'bp_include' ] );
-		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] );
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 20 );
 
 		// do_action_ref_array( 'gpersiandate_after_setup_actions', [ &$this ] );
@@ -72,28 +70,6 @@ class gPersianDateCore extends gPersianDateBase
 		defined( 'GPERSIANDATE_FIXNONPERSIAN' ) or define( 'GPERSIANDATE_FIXNONPERSIAN', TRUE );
 
 		load_plugin_textdomain( 'gpersiandate', FALSE, 'gpersiandate/languages' );
-	}
-
-	public function bp_include()
-	{
-		if ( class_exists( 'gPersianDateBuddyPress' ) ) {
-			try {
-				$this->buddypress = new gPersianDateBuddyPress();
-			} catch ( \Exception $e ) {
-				// do nothing!
-			}
-		}
-	}
-
-	public function bbp_includes()
-	{
-		if ( class_exists( 'gPersianDateBBPress' ) ) {
-			try {
-				$this->bbpress = new gPersianDateBBPress();
-			} catch ( \Exception $e ) {
-				// do nothing!
-			}
-		}
 	}
 
 	public function options()
