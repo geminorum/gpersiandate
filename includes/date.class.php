@@ -131,7 +131,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 			return $fallback;
 
 		// FIXME: needs sanity checks
-		$parts = explode( '/', apply_filters( 'string_format_i18n_back', $input ) );
+		$parts = explode( '/', str_replace( [ '-', '\\' ], '/', apply_filters( 'string_format_i18n_back', $input ) ) );
 
 		return self::make( 0, 0, 0, $parts[1], $parts[2], $parts[0], $calendar, $timezone );
 	}
