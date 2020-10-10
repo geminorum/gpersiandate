@@ -124,4 +124,20 @@ class gPersianDateUtilities extends gPersianDateBase
 
 		return $autop ? wpautop( $text ) : $text;
 	}
+
+	// @REF: https://en.wikipedia.org/wiki/ISO_639
+	// @REF: http://stackoverflow.com/a/16838443
+	// @REF: `bp_core_register_common_scripts()`
+	// @REF: https://make.wordpress.org/polyglots/handbook/translating/packaging-localized-wordpress/working-with-the-translation-repository/#repository-file-structure
+	public static function getISO639( $locale = NULL )
+	{
+		if ( is_null( $locale ) )
+			$locale = get_locale();
+
+		if ( ! $locale )
+			return 'en';
+
+		$ISO639 = str_replace( '_', '-', strtolower( $locale ) );
+		return substr( $ISO639, 0, strpos( $ISO639, '-' ) );
+	}
 }
