@@ -5,18 +5,18 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 	public static function to( $time, $format, $timezone = NULL, $calendar = NULL )
 	{
-		$result = '';
-
-		$timezone = self::sanitizeTimeZone( $timezone );
+		$result   = '';
 		$calendar = self::sanitizeCalendar( $calendar );
 
 		if ( is_numeric( $time ) ) {
 
+			$timezone = self::sanitizeTimeZone( $timezone );
 			$datetime = new \DateTime( NULL, new \DateTimeZone( $timezone ) );
 			$datetime->setTimestamp( $time );
 
 		} else if ( is_string( $time ) ) {
 
+			$timezone = self::sanitizeTimeZone( $timezone );
 			$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
 
 		} else if ( is_a( $time, 'DateTime' ) ) {
