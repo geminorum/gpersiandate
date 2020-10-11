@@ -313,6 +313,26 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return self::dayOfYearJalali( $month, $day );
 	}
 
+	public static function makeObject( $hour, $minute, $second, $month, $day, $year, $calendar = 'Jalali', $timezone = NULL )
+	{
+		$calendar = self::sanitizeCalendar( $calendar );
+		$timezone = self::sanitizeTimeZone( $timezone );
+
+		if ( 'Gregorian' == $calendar )
+			$date = [ $year, $month, $day ];
+
+		else if ( 'Hijri' == $calendar )
+			$date = self::fromHijri( $year, $month, $day );
+
+		else
+			$date = self::fromJalali( $year, $month, $day );
+
+		$time = $date[0].'-'.sprintf( '%02d', $date[1] ).'-'.sprintf( '%02d', $date[2] ).' ';
+		$time.= sprintf( '%02d', $hour ).':'.sprintf( '%02d', $minute ).':'.sprintf( '%02d', $second );
+
+		 return date_create( $time, new \DateTimeZone( $timezone ) );
+	}
+
 	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar = 'Jalali', $timezone = NULL )
 	{
 		$calendar = self::sanitizeCalendar( $calendar );
