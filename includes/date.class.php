@@ -287,7 +287,8 @@ class gPersianDateDate extends gPersianDateModuleCore
 			: self::MYSQL_EMPTY;
 	}
 
-	public static function makeObjectFromInput( $input, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
+	// FIXME: DROP THIS
+	public static function makeObjectFromInput_OLD( $input, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
 	{
 		if ( empty( $input ) )
 			return $fallback;
@@ -298,6 +299,30 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return self::makeObject( 0, 0, 0, $parts[1], $parts[2], $parts[0], $calendar, $timezone );
 	}
 
+	// '1393-4-12 13:34:26'
+	// '1393/4/12 13:34:26'
+	public static function makeObjectFromInput( $input, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
+	{
+		if ( empty( $input ) )
+			return $fallback;
+
+		$string   = apply_filters( 'string_format_i18n_back', $input );
+		$currents = self::getFromObject( NULL, $timezone, NULL, FALSE, $calendar );
+
+		preg_match_all( '/\d+/', $string, $matches );
+
+		$parts = self::atts( [
+			0 => $currents['year'],
+			1 => $currents['mon'],
+			2 => $currents['mday'],
+			3 => $currents['hours'],
+			4 => $currents['minutes'],
+			5 => $currents['seconds'],
+		], $matches[0] );
+
+		return self::makeObject( $parts[3], $parts[4], $parts[5], $parts[1], $parts[2], $parts[0], $calendar, $timezone );
+	}
+
 	public static function makeFromInput( $input, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
 	{
 		self::_dev_dep( 'gPersianDateDate::makeObjectFromInput()' );
@@ -305,10 +330,21 @@ class gPersianDateDate extends gPersianDateModuleCore
 		if ( empty( $input ) )
 			return $fallback;
 
-		// FIXME: needs sanity checks
-		$parts = explode( '/', str_replace( [ '-', '\\' ], '/', apply_filters( 'string_format_i18n_back', $input ) ) );
+		$string   = apply_filters( 'string_format_i18n_back', $input );
+		$currents = self::getFromObject( NULL, $timezone, NULL, FALSE, $calendar );
 
-		return self::make( 0, 0, 0, $parts[1], $parts[2], $parts[0], $calendar, $timezone );
+		preg_match_all( '/\d+/', $string, $matches );
+
+		$parts = self::atts( [
+			0 => $currents['year'],
+			1 => $currents['mon'],
+			2 => $currents['mday'],
+			3 => $currents['hours'],
+			4 => $currents['minutes'],
+			5 => $currents['seconds'],
+		], $matches[0] );
+
+		return self::make( $parts[3], $parts[4], $parts[5], $parts[1], $parts[2], $parts[0], $calendar, $timezone );
 	}
 
 	public static function makeMySQLFromInput( $input, $format = NULL, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
