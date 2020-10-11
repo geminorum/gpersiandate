@@ -197,10 +197,10 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 		if ( gPersianDateText::has( $items, '{TODAY_DATE_HIJRI}' ) ) {
 
-			if ( ! isset( $this->today_date ) )
-				$this->today_date = gPersianDateDate::toHijri( $format );
+			if ( ! isset( $this->today_hijri ) )
+				$this->today_hijri = gPersianDateDate::toHijri( $format );
 
-			$items = preg_replace( '%{TODAY_DATE_HIJRI}%', $this->today_date, $items );
+			$items = preg_replace( '%{TODAY_DATE_HIJRI}%', $this->today_hijri, $items );
 		}
 
 		return $items;
