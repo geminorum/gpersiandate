@@ -57,7 +57,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		$string = self::to( 's|i|G|j|w|n|Y|z|l|F', $time, $timezone, $locale, FALSE, $calendar );
 
 		if ( $translate )
-			return gPersianDateTranslate::numbers( $string, $locale );
+			$string = gPersianDateTranslate::numbers( $string, $locale );
 
 		$array = explode( '|', $string );
 
