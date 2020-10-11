@@ -19,7 +19,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 			$timezone = self::sanitizeTimeZone( $timezone );
 			$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
 
-		} else if ( is_a( $time, 'DateTime' ) ) {
+		} else if ( is_a( $time, 'DateTime' ) || is_a( $time, 'DateTimeImmutable' ) ) {
 
 			$datetime = $time;
 		}
