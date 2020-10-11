@@ -7,13 +7,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 	{
 		if ( is_null( $datetime ) ) {
 
-			$timestamp = time();
-
-			if ( ! $timezone_string )
-				$timezone_string = gPersianDateTimeZone::current();
-
-			$datetime = date_create( '@'.$timestamp );
-			$datetime->setTimezone( new \DateTimeZone( $timezone_string ) );
+			$datetime = self::toObject( NULL, $timezone_string );
 
 		} else if ( ! is_a( $datetime, 'DateTime' )
 			&& ! is_a( $datetime, 'DateTimeImmutable' ) ) {
@@ -49,8 +43,19 @@ class gPersianDateDate extends gPersianDateModuleCore
 	}
 
 	// @REF: `mysql2date()`
-	public static function toObject( $date, $timezone_string = GPERSIANDATE_TIMEZONE )
+	public static function toObject( $date = NULL, $timezone_string = GPERSIANDATE_TIMEZONE )
 	{
+		if ( ! $timezone_string )
+			$timezone_string = gPersianDateTimeZone::current();
+
+		if ( is_null( $date ) ) {
+
+			$datetime = date_create( '@'.time() );
+			$timezone = new \DateTimeZone( $timezone_string );
+
+			return $datetime->setTimezone( $timezone );
+		}
+
 		if ( empty( $date ) || '0000-00-00 00:00:00' === $date )
 			return FALSE;
 
@@ -58,6 +63,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 			$datetime = date_create( '@'.$date );
 			$timezone = new \DateTimeZone( $timezone_string );
+
 			return $datetime->setTimezone( $timezone );
 		}
 
