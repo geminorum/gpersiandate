@@ -18,7 +18,6 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		add_filter( 'get_the_modified_time', [ $this, 'get_the_modified_time' ], 10, 3 );
 
 		add_filter( 'get_comment_date', [ $this, 'get_comment_date' ], 10, 3 );
-		// NOTE: get_comment_time has a translate option, but we override b/c time_format
 		add_filter( 'get_comment_time', [ $this, 'get_comment_time' ], 10, 5 );
 
 		add_filter( 'wp_title', [ 'gPersianDateTranslate', 'legacy' ], 12 );
@@ -66,13 +65,42 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		$wp_widget_factory->widgets['WP_Widget_Calendar'] = new WP_Widget_Persian_Calendar();
 	}
 
-	public function wp_date( $date, $format, $timestamp, $gmt )
+	public function wp_date( $date, $format, $timestamp, $timezone )
 	{
-		return $this->date_i18n( $date, $format, $timestamp, $gmt );
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $date;
+
+		if ( gPersianDateFormat::checkISO( $format ) )
+			return $date;
+
+		$sanitized = gPersianDateFormat::sanitize( $format, 'wp_date' );
+
+		$datetime = date_create( '@'.$timestamp );
+		$datetime->setTimezone( $timezone );
+
+		return gPersianDateDate::fromObject( $sanitized, $datetime );
 	}
 
-	// applies only on prior to WP 5.3.0
+	// only applies on prior to WP 5.3.0
 	public function date_i18n( $date, $format, $timestamp, $gmt )
+	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $date;
+
+		if ( gPersianDateFormat::checkISO( $format ) )
+			return $date;
+
+		$sanitized = gPersianDateFormat::sanitize( $format, 'i18n' );
+
+		$localtime = gmdate( 'Y-m-d H:i:s', $timestamp );
+		$datetime  = date_create( $localtime, new \DateTimeZone( GPERSIANDATE_TIMEZONE ) );
+
+		// return gPersianDateDate::to( $sanitized, $datetime->getTimestamp() );
+		return gPersianDateDate::fromObject( $sanitized, $datetime );
+	}
+
+	// FIXME: DROP THIS
+	public function date_i18n_OLD( $date, $format, $timestamp, $gmt )
 	{
 		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
 			return $date;
@@ -90,7 +118,27 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		return gPersianDateDate::to( $sanitized, $timestamp );
 	}
 
-	public function get_the_date( $the_date, $d, $post )
+	public function get_the_date( $the_date, $format, $post )
+	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $the_date;
+
+		if ( empty( $format ) )
+			$format = get_option( 'date_format' );
+
+		if ( gPersianDateFormat::checkISO( $format ) )
+			return $the_date;
+
+		if ( FALSE === ( $datetime = self::getPostDatetime( $post ) ) )
+			return $the_date;
+
+		$sanitized = gPersianDateFormat::sanitize( $format, 'date' );
+
+		return gPersianDateDate::fromObject( $sanitized, $datetime );
+	}
+
+	// FIXME: DROP THIS
+	public function get_the_date_OLD( $the_date, $d, $post )
 	{
 		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
 			return $the_date;
@@ -101,7 +149,27 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		return gPersianDateDate::to( $format, $time );
 	}
 
-	public function get_the_time( $the_time, $d, $post )
+	public function get_the_time( $the_time, $format, $post )
+	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $the_time;
+
+		if ( empty( $format ) )
+			$format = get_option( 'time_format' );
+
+		if ( gPersianDateFormat::checkISO( $format ) )
+			return $the_time;
+
+		if ( FALSE === ( $datetime = self::getPostDatetime( $post ) ) )
+			return $the_time;
+
+		$sanitized = gPersianDateFormat::sanitize( $format, 'time' );
+
+		return gPersianDateDate::fromObject( $sanitized, $datetime );
+	}
+
+	// FIXME: DROP THIS
+	public function get_the_time_OLD( $the_time, $d, $post )
 	{
 		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
 			return $the_time;
@@ -112,7 +180,27 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		return gPersianDateDate::to( $format, $time );
 	}
 
-	public function get_the_modified_date( $the_time, $d, $post = NULL )
+	public function get_the_modified_date( $the_time, $format, $post )
+	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $the_time;
+
+		if ( empty( $format ) )
+			$format = get_option( 'date_format' );
+
+		if ( gPersianDateFormat::checkISO( $format ) )
+			return $the_time;
+
+		if ( FALSE === ( $datetime = self::getPostDatetime( $post, 'modified' ) ) )
+			return $the_time;
+
+		$sanitized = gPersianDateFormat::sanitize( $format, 'date' );
+
+		return gPersianDateDate::fromObject( $sanitized, $datetime );
+	}
+
+	// FIXME: DROP THIS
+	public function get_the_modified_date_OLD( $the_time, $d, $post = NULL )
 	{
 		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
 			return $the_time;
@@ -123,7 +211,27 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		return FALSE === $time ? $the_time : gPersianDateDate::to( $format, $time );
 	}
 
-	public function get_the_modified_time( $the_time, $d, $post = NULL )
+	public function get_the_modified_time( $the_time, $format, $post )
+	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $the_time;
+
+		if ( empty( $format ) )
+			$format = get_option( 'time_format' );
+
+		if ( gPersianDateFormat::checkISO( $format ) )
+			return $the_time;
+
+		if ( FALSE === ( $datetime = self::getPostDatetime( $post, 'modified' ) ) )
+			return $the_time;
+
+		$sanitized = gPersianDateFormat::sanitize( $format, 'time' );
+
+		return gPersianDateDate::fromObject( $sanitized, $datetime );
+	}
+
+	// FIXME: DROP THIS
+	public function get_the_modified_time_OLD( $the_time, $d, $post = NULL )
 	{
 		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
 			return $the_time;
@@ -135,7 +243,32 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		return FALSE === $time ? $the_time : gPersianDateDate::to( $format, $time );
 	}
 
-	public function get_comment_date( $date, $d, $comment )
+	public function get_comment_date( $date, $format, $comment )
+	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $date;
+
+		if ( empty( $format ) )
+			$format = get_option( 'date_format' );
+
+		if ( gPersianDateFormat::checkISO( $format ) )
+			return $date;
+
+		if ( empty( $comment->comment_date ) )
+			return $date;
+
+		$datetime = date_create( $comment->comment_date, new \DateTimeZone( GPERSIANDATE_TIMEZONE ) );
+
+		if ( FALSE === $datetime )
+			return $date;
+
+		$sanitized = gPersianDateFormat::sanitize( $format, 'date' );
+
+		return gPersianDateDate::fromObject( $sanitized, $datetime );
+	}
+
+	// FIXME: DROP THIS
+	public function get_comment_date_OLD( $date, $d, $comment )
 	{
 		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
 			return $date;
@@ -146,7 +279,34 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		return gPersianDateDate::to( $format, $time );
 	}
 
-	public function get_comment_time( $date, $d, $gmt, $translate, $comment )
+	public function get_comment_time( $date, $format, $gmt, $translate, $comment )
+	{
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $date;
+
+		if ( empty( $format ) )
+			$format = get_option( 'time_format' );
+
+		if ( gPersianDateFormat::checkISO( $format ) )
+			return $date;
+
+		$comment_date = $gmt ? $comment->comment_date_gmt : $comment->comment_date;
+
+		if ( empty( $comment_date ) )
+			return $date;
+
+		$datetime = date_create( $comment_date, new \DateTimeZone( GPERSIANDATE_TIMEZONE ) );
+
+		if ( FALSE === $datetime )
+			return $date;
+
+		$sanitized = gPersianDateFormat::sanitize( $format, 'time' );
+
+		return gPersianDateDate::fromObject( $sanitized, $datetime, GPERSIANDATE_TIMEZONE, NULL, $translate );
+	}
+
+	// FIXME: DROP THIS
+	public function get_comment_time_OLD( $date, $d, $gmt, $translate, $comment )
 	{
 		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
 			return $date;
@@ -190,7 +350,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		if ( gPersianDateText::has( $items, '{TODAY_DATE}' ) ) {
 
 			if ( ! isset( $this->today_date ) )
-				$this->today_date = gPersianDateDate::to( $format );
+				$this->today_date = gPersianDateDate::fromObject( $format );
 
 			$items = preg_replace( '%{TODAY_DATE}%', $this->today_date, $items );
 		}
@@ -198,7 +358,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		if ( gPersianDateText::has( $items, '{TODAY_DATE_HIJRI}' ) ) {
 
 			if ( ! isset( $this->today_hijri ) )
-				$this->today_hijri = gPersianDateDate::toHijri( $format );
+				$this->today_hijri = gPersianDateDate::fromObjectHijri( $format );
 
 			$items = preg_replace( '%{TODAY_DATE_HIJRI}%', $this->today_hijri, $items );
 		}
@@ -212,8 +372,11 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		echo $before.'<code>{TODAY_DATE_HIJRI}</code>'.$after;
 	}
 
+	// FIXME: DEPRECATED: use `gPersianDateWordPress::getPostDatetime()`
 	public static function postDate( $post = NULL, $gmt = FALSE, $timestamp = FALSE )
 	{
+		self::_dep( 'gPersianDateWordPress::getPostDatetime()' );
+
 		$the_post = get_post( $post );
 
 		$the_date = $gmt ? $the_post->post_date_gmt : $the_post->post_date;
@@ -224,8 +387,11 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		return mysql2date( 'U', $the_date, FALSE );
 	}
 
+	// FIXME: DEPRECATED: use `gPersianDateWordPress::getPostDatetime()`
 	public static function postModifiedDate( $post = NULL, $gmt = FALSE, $timestamp = FALSE )
 	{
+		self::_dep( 'gPersianDateWordPress::getPostDatetime()' );
+
 		if ( ! $the_post = get_post( $post ) )
 			return FALSE;
 
@@ -237,8 +403,42 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		return mysql2date( 'U', $the_date, FALSE );
 	}
 
+	// @SOURCE: `get_post_datetime()`
+	// for back comp with before WP 5.3
+	public static function getPostDatetime( $post = NULL, $field = 'date', $source = 'local' )
+	{
+		if ( ! $post = get_post( $post ) )
+			return FALSE;
+
+		$wp_timezone = new \DateTimeZone( GPERSIANDATE_TIMEZONE );
+
+		if ( 'gmt' === $source ) {
+
+			$time     = 'modified' === $field ? $post->post_modified_gmt : $post->post_date_gmt;
+			$timezone = new \DateTimeZone( 'UTC' );
+
+		} else {
+
+			$time     = 'modified' === $field ? $post->post_modified : $post->post_date;
+			$timezone = $wp_timezone;
+		}
+
+		if ( empty( $time ) || '0000-00-00 00:00:00' === $time )
+			return FALSE;
+
+		$datetime = date_create_immutable_from_format( 'Y-m-d H:i:s', $time, $timezone );
+
+		if ( FALSE === $datetime )
+			return FALSE;
+
+		return $datetime->setTimezone( $wp_timezone );
+	}
+
+	// FIXME: DEPRECATED
 	public static function commentDate( $comment, $gmt = FALSE, $timestamp = FALSE )
 	{
+		self::_dep();
+
 		$the_date = $gmt ? $comment->comment_date_gmt : $comment->comment_date;
 
 		if ( ! $timestamp )
@@ -351,20 +551,21 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 			if ( 0 == $row->year )
 				continue;
 
-			$date  = mktime( 0 ,0 , 0, zeroise( $row->month, 2 ), $row->day, $row->year );
-			$month = gPersianDateDate::_to( 'Ym', $date );
+			$date     = mktime( 0, 0, 0, zeroise( $row->month, 2 ), $row->day, $row->year );
+			$datetime = gPersianDateDate::toObject( $date );
+			$month    = gPersianDateDate::_fromObject( 'Ym', $datetime );
 
 			if ( $last != $month ) {
 
 				if ( $object )
 					$list[] = (object) [
-						'year'  => gPersianDateDate::_to( 'Y', $date ),
-						'month' => gPersianDateDate::_to( 'n', $date ),
-						'text'  => gPersianDateDate::to( 'M Y', $date ),
+						'year'  => gPersianDateDate::_fromObject( 'Y', $datetime ),
+						'month' => gPersianDateDate::_fromObject( 'n', $datetime ),
+						'text'  => gPersianDateDate::fromObject( 'M Y', $datetime ),
 					];
 
 				else
-					$list[$month] = gPersianDateDate::to( 'M Y', $date );
+					$list[$month] = gPersianDateDate::fromObject( 'M Y', $datetime );
 			}
 
 			$last = $month;

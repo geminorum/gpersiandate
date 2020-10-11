@@ -122,7 +122,7 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 			return NULL;
 
 		$format = gPersianDateFormat::sanitize( $args['format'], 'today' );
-		$html   = gPersianDateDate::to( $format );
+		$html   = gPersianDateDate::fromObject( $format );
 
 		return self::shortcodeWrap( $html, 'date-today', $args, FALSE );
 	}
@@ -142,7 +142,7 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 			return NULL;
 
 		$format = gPersianDateFormat::sanitize( $args['format'], 'today-hijri' );
-		$html   = gPersianDateDate::toHijri( $format );
+		$html   = gPersianDateDate::fromObjectHijri( $format );
 
 		return self::shortcodeWrap( $html, 'date-today-hijri', $args, FALSE );
 	}

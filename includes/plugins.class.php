@@ -42,6 +42,6 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 
 	public function gshop_stats_current_month( $month, $current, $force_iso )
 	{
-		return gPersianDateDate::to( 'Y_m', current_time( 'mysql' ) );
+		return gPersianDateDate::fromObject( 'Y_m' );
 	}
 }

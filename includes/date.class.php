@@ -3,7 +3,88 @@
 class gPersianDateDate extends gPersianDateModuleCore
 {
 
-	public static function to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
+	public static function fromObject( $format, $datetime = NULL, $timezone_string = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
+	{
+		if ( is_null( $datetime ) ) {
+
+			$timestamp = time();
+
+			if ( ! $timezone_string )
+				$timezone_string = gPersianDateTimeZone::current();
+
+			$datetime = date_create( '@'.$timestamp );
+			$datetime->setTimezone( new \DateTimeZone( $timezone_string ) );
+
+		} else if ( ! is_a( $datetime, 'DateTime' )
+			&& ! is_a( $datetime, 'DateTimeImmutable' ) ) {
+
+			return FALSE;
+		}
+
+		if ( defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) && GPERSIANDATE_DISABLE_CONVERSION )
+			return $datetime->format( $format );
+
+		if ( gPersianDateFormat::checkISO( $format ) )
+			return $datetime->format( $format );
+
+		if ( gPersianDateFormat::checkTimeOnly( $format ) )
+			$string = $datetime->format( $format );
+
+		else
+			$string = gPersianDateDateTime::to( $datetime, $format, $timezone_string, $calendar );
+
+		if ( is_null( $translate ) )
+			$translate = gPersianDateFormat::checkTranslate( $format );
+
+		if ( $translate )
+			return gPersianDateTranslate::numbers( $string, $locale );
+
+		return $string;
+	}
+
+	// not translating!
+	public static function _fromObject( $format, $datetime = NULL, $timezone_string = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
+	{
+		return self::fromObject( $format, $datetime, $timezone_string, $locale, FALSE, $calendar );
+	}
+
+	// @REF: `mysql2date()`
+	public static function toObject( $date, $timezone_string = GPERSIANDATE_TIMEZONE )
+	{
+		if ( empty( $date ) || '0000-00-00 00:00:00' === $date )
+			return FALSE;
+
+		if ( is_numeric( $date ) ) {
+
+			$datetime = date_create( '@'.$date );
+			$timezone = new \DateTimeZone( $timezone_string );
+			return $datetime->setTimezone( $timezone );
+		}
+
+		return date_create( $date, new \DateTimeZone( $timezone_string ) );
+	}
+
+	// FIXME: DEPRECATED
+	// for back comp only
+	public static function to( $format, $datetime = NULL, $timezone_string = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
+	{
+		self::_dev_dep( 'gPersianDateDate::fromObject()' );
+
+		if ( FALSE === $datetime )
+			return FALSE;
+
+		if ( ! is_null( $datetime )
+			&& ! is_a( $datetime, 'DateTime' )
+			&& ! is_a( $datetime, 'DateTimeImmutable' ) ) {
+
+			$datetime = self::toObject( $datetime, $timezone_string );
+		}
+
+		return self::fromObject( $format, $datetime, $timezone_string, $locale, $translate, $calendar );
+	}
+
+	// FIXME: DROP THIS
+	public static function to_OLD( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
 	{
 		if ( FALSE === $time )
 			return FALSE;
@@ -43,8 +124,15 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return self::to( $format, $time, GPERSIANDATE_TIMEZONE, NULL, $translate, $calendar );
 	}
 
+	public static function fromObjectHijri( $format, $datetime = NULL, $timezone_string = GPERSIANDATE_TIMEZONE, $locale = 'ar', $translate = NULL )
+	{
+		return self::fromObject( $format, $datetime, $timezone_string, $locale, $translate, 'Hijri' );
+	}
+
 	public static function toHijri( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = 'ar', $translate = NULL )
 	{
+		self::_dev_dep( 'gPersianDateDate::fromObjectHijri()' );
+
 		return self::to( $format, $time, $timezone, $locale, $translate, 'Hijri' );
 	}
 
