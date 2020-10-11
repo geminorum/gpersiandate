@@ -7,7 +7,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 	{
 		global $wpdb;
 
-		$current_date  = gPersianDateDate::getByCal( $current_time, ( isset( $atts['calendar'] ) ? $atts['calendar'] : NULL ) );
+		$current_date  = gPersianDateDate::getByCalfromObject( $current_time, ( isset( $atts['calendar'] ) ? $atts['calendar'] : NULL ) );
 		$current_year  = ''.$current_date['year'];
 		$current_month = ''.sprintf( '%02d', $current_date['mon'] );
 		$current_day   = ''.sprintf( '%02d', $current_date['mday'] );
@@ -124,7 +124,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 				$key = $post->month.'_'.$post->dom;
 
 				if ( ! isset( $data[$key] ) ) {
-					$post_date  = gPersianDateDate::getByCal( $post->post_date, $args['calendar'] );
+					$post_date  = gPersianDateDate::getByCalfromObject( $post->post_date, $args['calendar'] );
 					$data[$key] = [ 'posts' => [], 'mday' => $post_date['mday'] ];
 				}
 
@@ -214,7 +214,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 			if ( $previous ) {
 
-				$previous_date = gPersianDateDate::getByCal( $previous->post_date, $args['calendar'] );
+				$previous_date = gPersianDateDate::getByCalfromObject( $previous->post_date, $args['calendar'] );
 
 				$html.= '<td colspan="3" class="-next-prev -prev" data-month="'.$previous_date['mon'].'" data-year="'.$previous_date['year'].'">';
 				$html.= call_user_func_array( $args['nav_month_callback'], [ $previous_date, FALSE, $args ] ).'</td>';
@@ -228,7 +228,7 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 			if ( $next ) {
 
-				$next_date = gPersianDateDate::getByCal( $next->post_date, $args['calendar'] );
+				$next_date = gPersianDateDate::getByCalfromObject( $next->post_date, $args['calendar'] );
 
 				$html.= '<td colspan="3" class="-next-prev -next" data-month="'.$next_date['mon'].'" data-year="'.$next_date['year'].'">';
 				$html.= call_user_func_array( $args['nav_month_callback'], [ $next_date, TRUE, $args ] ).'</td>';
