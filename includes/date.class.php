@@ -48,13 +48,8 @@ class gPersianDateDate extends gPersianDateModuleCore
 		if ( ! $timezone_string )
 			$timezone_string = gPersianDateTimeZone::current();
 
-		if ( is_null( $date ) ) {
-
-			$datetime = date_create( '@'.time() );
-			$timezone = new \DateTimeZone( $timezone_string );
-
-			return $datetime->setTimezone( $timezone );
-		}
+		if ( is_null( $date ) )
+			return date_create( 'now', new \DateTimeZone( $timezone_string ) );
 
 		if ( empty( $date ) || '0000-00-00 00:00:00' === $date )
 			return FALSE;
@@ -79,8 +74,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		if ( FALSE === $datetime )
 			return FALSE;
 
-		if ( ! is_null( $datetime )
-			&& ! is_a( $datetime, 'DateTime' )
+		if ( ! is_a( $datetime, 'DateTime' )
 			&& ! is_a( $datetime, 'DateTimeImmutable' ) ) {
 
 			$datetime = self::toObject( $datetime, $timezone_string );
