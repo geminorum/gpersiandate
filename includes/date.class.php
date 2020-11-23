@@ -6,7 +6,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 	const MYSQL_FORMAT = 'Y-m-d H:i:s';
 	const MYSQL_EMPTY  = '0000-00-00 00:00:00';
 
-	public static function fromObject( $format, $datetime = NULL, $timezone_string = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
+	public static function fromObject( $format, $datetime = NULL, $timezone_string = NULL, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
 	{
 		if ( is_null( $datetime ) ) {
 
@@ -40,13 +40,13 @@ class gPersianDateDate extends gPersianDateModuleCore
 	}
 
 	// not translating!
-	public static function _fromObject( $format, $datetime = NULL, $timezone_string = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
+	public static function _fromObject( $format, $datetime = NULL, $timezone_string = NULL, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
 	{
 		return self::fromObject( $format, $datetime, $timezone_string, $locale, FALSE, $calendar );
 	}
 
 	// @REF: `mysql2date()`
-	public static function toObject( $date = NULL, $timezone_string = GPERSIANDATE_TIMEZONE )
+	public static function toObject( $date = NULL, $timezone_string = NULL )
 	{
 		if ( ! $timezone_string )
 			$timezone_string = gPersianDateTimeZone::current();
@@ -70,7 +70,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 	// FIXME: DEPRECATED
 	// for back comp only
-	public static function to( $format, $datetime = NULL, $timezone_string = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
+	public static function to( $format, $datetime = NULL, $timezone_string = NULL, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
 	{
 		self::_dev_dep( 'gPersianDateDate::fromObject()' );
 
@@ -87,7 +87,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 	}
 
 	// FIXME: DROP THIS
-	public static function to_OLD( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
+	public static function to_OLD( $format, $time = NULL, $timezone = NULL, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
 	{
 		if ( FALSE === $time )
 			return FALSE;
@@ -117,27 +117,27 @@ class gPersianDateDate extends gPersianDateModuleCore
 	}
 
 	// not translating!
-	public static function _to( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
+	public static function _to( $format, $time = NULL, $timezone = NULL, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
 	{
 		return self::to( $format, $time, $timezone, $locale, FALSE, $calendar );
 	}
 
 	public static function toByCalfromObject( $format, $datetime = NULL, $calendar = 'Jalali', $translate = FALSE )
 	{
-		return self::fromObject( $format, $datetime, GPERSIANDATE_TIMEZONE, NULL, $translate, $calendar );
+		return self::fromObject( $format, $datetime, NULL, NULL, $translate, $calendar );
 	}
 
 	public static function toByCal( $format, $time = NULL, $calendar = 'Jalali', $translate = FALSE )
 	{
-		return self::to( $format, $time, GPERSIANDATE_TIMEZONE, NULL, $translate, $calendar );
+		return self::to( $format, $time, NULL, NULL, $translate, $calendar );
 	}
 
-	public static function fromObjectHijri( $format, $datetime = NULL, $timezone_string = GPERSIANDATE_TIMEZONE, $locale = 'ar', $translate = NULL )
+	public static function fromObjectHijri( $format, $datetime = NULL, $timezone_string = NULL, $locale = 'ar', $translate = NULL )
 	{
 		return self::fromObject( $format, $datetime, $timezone_string, $locale, $translate, 'Hijri' );
 	}
 
-	public static function toHijri( $format, $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = 'ar', $translate = NULL )
+	public static function toHijri( $format, $time = NULL, $timezone = NULL, $locale = 'ar', $translate = NULL )
 	{
 		self::_dev_dep( 'gPersianDateDate::fromObjectHijri()' );
 
@@ -145,7 +145,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 	}
 
 	// @REF: http://php.net/manual/en/function.getdate.php
-	public static function getFromObject( $datetime = NULL, $timezone_string = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = FALSE, $calendar = 'Jalali' )
+	public static function getFromObject( $datetime = NULL, $timezone_string = NULL, $locale = NULL, $translate = FALSE, $calendar = 'Jalali' )
 	{
 		if ( FALSE === $datetime )
 			return [];
@@ -172,7 +172,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		];
 	}
 
-	public static function get( $time = NULL, $timezone = GPERSIANDATE_TIMEZONE, $locale = NULL, $translate = FALSE, $calendar = 'Jalali' )
+	public static function get( $time = NULL, $timezone = NULL, $locale = NULL, $translate = FALSE, $calendar = 'Jalali' )
 	{
 		self::_dev_dep( 'gPersianDateDate::getFromObject()' );
 
@@ -181,14 +181,14 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 	public static function getByCalfromObject( $datetime = NULL, $calendar = 'Jalali', $translate = FALSE )
 	{
-		return self::getFromObject( $datetime, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, $translate, $calendar );
+		return self::getFromObject( $datetime, NULL, GPERSIANDATE_LOCALE, $translate, $calendar );
 	}
 
 	public static function getByCal( $time = NULL, $calendar = 'Jalali', $translate = FALSE )
 	{
 		self::_dev_dep();
 
-		return self::get( $time, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, $translate, $calendar );
+		return self::get( $time, NULL, GPERSIANDATE_LOCALE, $translate, $calendar );
 	}
 
 	public static function getByPost( $post = NULL, $calendar = 'Jalali', $translate = FALSE )
@@ -196,22 +196,22 @@ class gPersianDateDate extends gPersianDateModuleCore
 		if ( FALSE === ( $datetime = gPersianDateWordPress::getPostDatetime( $post ) ) )
 			return FALSE;
 
-		return self::getFromObject( $datetime, GPERSIANDATE_TIMEZONE, GPERSIANDATE_LOCALE, $translate, $calendar );
+		return self::getFromObject( $datetime, NULL, GPERSIANDATE_LOCALE, $translate, $calendar );
 	}
 
-	public static function makeObject( $hour, $minute, $second, $month, $day, $year, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE )
+	public static function makeObject( $hour, $minute, $second, $month, $day, $year, $calendar = 'Jalali', $timezone = NULL )
 	{
 		return call_user_func_array( [ 'gPersianDateDateTime', 'makeObject' ], func_get_args() );
 	}
 
-	public static function make( $hour, $minute, $second, $month, $day, $year, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE )
+	public static function make( $hour, $minute, $second, $month, $day, $year, $calendar = 'Jalali', $timezone = NULL )
 	{
 		self::_dev_dep( 'gPersianDateDate::makeObject()' );
 
 		return call_user_func_array( [ 'gPersianDateDateTime', 'make' ], func_get_args() );
 	}
 
-	public static function makeMySQL( $hour, $minute, $second, $month, $day, $year, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE )
+	public static function makeMySQL( $hour, $minute, $second, $month, $day, $year, $calendar = 'Jalali', $timezone = NULL )
 	{
 		$datetime = call_user_func_array( [ 'gPersianDateDateTime', 'make' ], func_get_args() );
 
@@ -230,7 +230,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 			'minute'   => 0,
 			'second'   => 0,
 			'calendar' => 'Jalali',
-			'timezone' => GPERSIANDATE_TIMEZONE,
+			'timezone' => NULL,
 		], $array );
 
 		return self::makeObject(
@@ -257,7 +257,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 			'minute'   => 0,
 			'second'   => 0,
 			'calendar' => 'Jalali',
-			'timezone' => GPERSIANDATE_TIMEZONE,
+			'timezone' => NULL,
 		], $array );
 
 		return self::make(
@@ -288,7 +288,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 	}
 
 	// FIXME: DROP THIS
-	public static function makeObjectFromInput_OLD( $input, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
+	public static function makeObjectFromInput_OLD( $input, $calendar = 'Jalali', $timezone = NULL, $fallback = '' )
 	{
 		if ( empty( $input ) )
 			return $fallback;
@@ -301,7 +301,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 	// '1393-4-12 13:34:26'
 	// '1393/4/12 13:34:26'
-	public static function makeObjectFromInput( $input, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
+	public static function makeObjectFromInput( $input, $calendar = 'Jalali', $timezone = NULL, $fallback = '' )
 	{
 		if ( empty( $input ) )
 			return $fallback;
@@ -323,7 +323,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return self::makeObject( $parts[3], $parts[4], $parts[5], $parts[1], $parts[2], $parts[0], $calendar, $timezone );
 	}
 
-	public static function makeFromInput( $input, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
+	public static function makeFromInput( $input, $calendar = 'Jalali', $timezone = NULL, $fallback = '' )
 	{
 		self::_dev_dep( 'gPersianDateDate::makeObjectFromInput()' );
 
@@ -347,7 +347,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return self::make( $parts[3], $parts[4], $parts[5], $parts[1], $parts[2], $parts[0], $calendar, $timezone );
 	}
 
-	public static function makeMySQLFromInput( $input, $format = NULL, $calendar = 'Jalali', $timezone = GPERSIANDATE_TIMEZONE, $fallback = '' )
+	public static function makeMySQLFromInput( $input, $format = NULL, $calendar = 'Jalali', $timezone = NULL, $fallback = '' )
 	{
 		if ( empty( $input ) )
 			return $fallback;

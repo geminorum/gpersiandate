@@ -93,7 +93,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		$sanitized = gPersianDateFormat::sanitize( $format, 'i18n' );
 
 		$localtime = gmdate( 'Y-m-d H:i:s', $timestamp );
-		$datetime  = date_create( $localtime, new \DateTimeZone( GPERSIANDATE_TIMEZONE ) );
+		$datetime  = date_create( $localtime, new \DateTimeZone( gPersianDateTimeZone::current() ) );
 
 		// return gPersianDateDate::to( $sanitized, $datetime->getTimestamp() );
 		return gPersianDateDate::fromObject( $sanitized, $datetime );
@@ -257,7 +257,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		if ( empty( $comment->comment_date ) )
 			return $date;
 
-		$datetime = date_create( $comment->comment_date, new \DateTimeZone( GPERSIANDATE_TIMEZONE ) );
+		$datetime = date_create( $comment->comment_date, new \DateTimeZone( gPersianDateTimeZone::current() ) );
 
 		if ( FALSE === $datetime )
 			return $date;
@@ -295,14 +295,14 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		if ( empty( $comment_date ) )
 			return $date;
 
-		$datetime = date_create( $comment_date, new \DateTimeZone( GPERSIANDATE_TIMEZONE ) );
+		$datetime = date_create( $comment_date, new \DateTimeZone( gPersianDateTimeZone::current() ) );
 
 		if ( FALSE === $datetime )
 			return $date;
 
 		$sanitized = gPersianDateFormat::sanitize( $format, 'time' );
 
-		return gPersianDateDate::fromObject( $sanitized, $datetime, GPERSIANDATE_TIMEZONE, NULL, $translate );
+		return gPersianDateDate::fromObject( $sanitized, $datetime, NULL, NULL, $translate );
 	}
 
 	// FIXME: DROP THIS
@@ -410,7 +410,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		if ( ! $post = get_post( $post ) )
 			return FALSE;
 
-		$wp_timezone = new \DateTimeZone( GPERSIANDATE_TIMEZONE );
+		$wp_timezone = new \DateTimeZone( gPersianDateTimeZone::current() );
 
 		if ( 'gmt' === $source ) {
 

@@ -25,8 +25,8 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 				} else {
 
-					$key = gPersianDateDateTime::to( $time, 'Y-m', GPERSIANDATE_TIMEZONE, $calendar );
-					$val = gPersianDateDateTime::to( $time, 'F Y', GPERSIANDATE_TIMEZONE, $calendar );
+					$key = gPersianDateDateTime::to( $time, 'Y-m', NULL, $calendar );
+					$val = gPersianDateDateTime::to( $time, 'F Y', NULL, $calendar );
 				}
 
 				$months[$key] = $val;

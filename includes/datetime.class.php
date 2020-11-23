@@ -179,8 +179,8 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 	public static function sanitizeTimeZone( $timezone )
 	{
-		if ( is_null( $timezone ) && defined( 'GPERSIANDATE_TIMEZONE' ) )
-			return GPERSIANDATE_TIMEZONE;
+		if ( is_null( $timezone ) )
+			return defined( 'GPERSIANDATE_TIMEZONE' ) ? GPERSIANDATE_TIMEZONE : gPersianDateTimeZone::current();
 
 		if ( is_numeric( $timezone ) )
 			return gPersianDateTimeZone::fromOffset( $timezone );
