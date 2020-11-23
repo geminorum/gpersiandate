@@ -80,7 +80,7 @@ class gPersianDatePicker extends gPersianDateBase
 	public static function getFormat( $format = NULL )
 	{
 		if ( is_null( $format ) )
-			$format = get_option( 'date_format' );
+			$format = 'Y/m/d'; // get_option( 'date_format' );
 
 		return str_replace( [
 			'd',

@@ -47,7 +47,7 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 		add_filter( 'gmeta_meta', [ 'gPersianDateTranslate', 'numbers' ], 12 );
 		add_filter( 'gmeta_lead', [ 'gPersianDateTranslate', 'html' ], 12 );
-		add_filter( 'geditorial_kses', [ 'gPersianDateTranslate', 'html' ], 12 );
+		// add_filter( 'geditorial_kses', [ 'gPersianDateTranslate', 'html' ], 12 );
 
 		add_filter( 'list_pages', [ 'gPersianDateTranslate', 'numbers' ], 12 ); // page dropdown walker item title
 

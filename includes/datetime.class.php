@@ -357,7 +357,9 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 		} catch ( \Exception $e ) {
 
-			// echo $e->getMessage();
+			if ( self::isDev() )
+				self::_log( $e->getMessage() );
+
 			return FALSE;
 		}
 	}
@@ -370,7 +372,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 	// @SOURCE: https://gitlab.com/Iranium/Iranium/
 	// @REF: https://goo.gl/wZCU76
-	public function isLeapYearJalali( $year )
+	public static function isLeapYearJalali( $year )
 	{
 		$a = 0.025;
 		$b = 266;

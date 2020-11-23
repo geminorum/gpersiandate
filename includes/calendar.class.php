@@ -62,10 +62,10 @@ class gPersianDateCalendar extends gPersianDateModuleCore
 
 		list( $first_day, $last_day ) = gPersianDateDate::monthFirstAndLast( $args['this_year'], $args['this_month'], NULL, $args['calendar'] );
 
-		$post_type_clause = "AND post_type IN ( '".join( "', '", esc_sql( (array) $args['post_type'] ) )."' )";
+		$post_type_clause = "AND post_type IN ( '".implode( "', '", esc_sql( (array) $args['post_type'] ) )."' )";
 
 		$post_status_clause = is_admin()
-			? "AND post_status NOT IN ( '".join( "', '", esc_sql(
+			? "AND post_status NOT IN ( '".implode( "', '", esc_sql(
 				gPersianDateUtilities::getExcludeStatuses( $args['exclude_statuses'] ) ) )."' )"
 			: "AND post_status = 'publish'";
 

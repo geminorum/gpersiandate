@@ -70,7 +70,7 @@ class gPersianDateHTML extends gPersianDateBase
 
 	public static function joined( $items, $before = '', $after = '', $sep = '|' )
 	{
-		return count( $items ) ? ( $before.join( $sep, $items ).$after ) : '';
+		return count( $items ) ? ( $before.implode( $sep, $items ).$after ) : '';
 	}
 
 	public static function tag( $tag, $atts = array(), $content = FALSE, $sep = '' )

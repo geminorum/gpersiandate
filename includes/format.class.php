@@ -52,7 +52,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			'Y-m-d G:i:s',
 			'd-M-Y H:i',
 
-			DATE_W3C, // eq `c`
+			DATE_W3C, // eq `c`, eq `DATE_RFC3339`
 			DATE_ISO8601, // eq `c`
 			DATE_RFC2822, // eq `r`
 			'Y-m-d\TH:i:s+00:00', // eq `DATE_W3C` @SEE: http://jochenhebbrecht.be/site/node/761

@@ -50,8 +50,8 @@ class gPersianDateUtilities extends gPersianDateBase
 		return $wpdb->get_var( "
 			SELECT 1 as test
 			FROM {$wpdb->posts}
-			WHERE post_type IN ( '".join( "', '", esc_sql( (array) $post_types ) )."' )
-			AND post_status NOT IN ( '".join( "', '", esc_sql( self::getExcludeStatuses( $exclude_statuses ) ) )."' )
+			WHERE post_type IN ( '".implode( "', '", esc_sql( (array) $post_types ) )."' )
+			AND post_status NOT IN ( '".implode( "', '", esc_sql( self::getExcludeStatuses( $exclude_statuses ) ) )."' )
 			LIMIT 1
 		" );
 	}

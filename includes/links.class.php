@@ -239,13 +239,13 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 	public function day_link( $daylink, $year, $month, $day )
 	{
-		if ( $year != gmdate( 'Y', current_time( 'timestamp' ) ) )
+		if ( $year !== current_time( 'Y' ) )
 			return $daylink;
 
-		if ( $month != gmdate( 'm', current_time( 'timestamp' ) ) )
+		if ( $month !== current_time( 'm' ) )
 			return $daylink;
 
-		if ( $day != gmdate( 'j', current_time( 'timestamp' ) ) )
+		if ( $day !== current_time( 'j' ) )
 			return $daylink;
 
 		$date = gPersianDateDate::get( $year.'-'.$month.'-'.$day );
@@ -255,10 +255,10 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 	public function month_link( $monthlink, $year, $month )
 	{
-		if ( $year != gmdate( 'Y', current_time( 'timestamp' ) ) )
+		if ( $year !== current_time( 'Y' ) )
 			return $monthlink;
 
-		if ( $month != gmdate( 'm', current_time( 'timestamp' ) ) )
+		if ( $month !== current_time( 'm' ) )
 			return $monthlink;
 
 		$date = gPersianDateDate::get( $year.'-'.$month.'-01' );
@@ -268,7 +268,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 
 	public function year_link( $yearlink, $year )
 	{
-		if ( $year != gmdate( 'Y', current_time( 'timestamp' ) ) )
+		if ( $year !== current_time( 'Y' ) )
 			return $yearlink;
 
 		$date = gPersianDateDate::get( $year.'-01-01' );

@@ -404,7 +404,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 		$html = '';
 
 		$where = is_array( $args['post_type'] )
-			? "WHERE post_type IN ( '".join( "', '", esc_sql( $args['post_type'] ) )."' )"
+			? "WHERE post_type IN ( '".implode( "', '", esc_sql( $args['post_type'] ) )."' )"
 			: $wpdb->prepare( "WHERE post_type = %s", $args['post_type'] );
 
 		$author = $args['post_author']
