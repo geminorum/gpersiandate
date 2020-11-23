@@ -41,7 +41,7 @@ class gPersianDateSearch extends gPersianDateModuleCore
 		if ( ! gPersianDateText::has( $search, array_keys( $chars ) + $chars ) )
 			return $search;
 
-		return preg_replace_callback( "/(\([^\)\(]* LIKE '([^']*)'\))/",
+		return preg_replace_callback( "/(\([^\)\(]* LIKE '([^']*)' ?\))/",
 			[ __CLASS__, 'duplicateClause' ], $search );
 	}
 
