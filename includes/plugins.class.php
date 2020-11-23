@@ -9,6 +9,7 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 	{
 		add_action( 'bp_include', [ $this, 'bp_include' ] ); // BuddyPress
 		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] ); // bbPress
+		add_action( 'woocommerce_loaded', [ $this, 'woocommerce_loaded' ] ); // WooCommerce
 
 		// gShop
 		add_filter( 'gshop_stats_current_month', [ $this, 'gshop_stats_current_month' ], 10, 3 );
@@ -35,9 +36,86 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 		add_filter( 'bbp_number_format_i18n', [ $this, 'bbp_number_format_i18n' ], 12, 3 );
 	}
 
+	public function woocommerce_loaded()
+	{
+		// messes up the postcodes!
+		// add_filter( 'woocommerce_format_postcode', [ 'gPersianDateTranslate', 'numbers_back' ], 5 );
+		// add_filter( 'woocommerce_format_postcode', [ 'gPersianDateTranslate', 'numbers' ], 15 );
+
+		add_filter( 'formatted_woocommerce_price', [ 'gPersianDateTranslate', 'numbers' ] );
+		add_filter( 'woocommerce_order_item_quantity_html', [ 'gPersianDateTranslate', 'legacy' ] );
+		add_filter( 'woocommerce_checkout_cart_item_quantity', [ 'gPersianDateTranslate', 'numbers' ] );
+
+		add_filter( 'woocommerce_product_get_review_count', [ 'gPersianDateTranslate', 'numbers' ] );
+		add_filter( 'woocommerce_order_get_quantity', [ 'gPersianDateTranslate', 'numbers' ] );
+
+		add_filter( 'woocommerce_format_weight', [ 'gPersianDateTranslate', 'numbers' ] );
+		add_filter( 'woocommerce_format_dimensions', [ 'gPersianDateTranslate', 'numbers' ] );
+		// add_filter( 'woocommerce_format_localized_decimal', [ $this, 'wc_format_localized_decimal' ], 9, 2 );
+
+		add_filter( 'woocommerce_localisation_address_formats', [ $this, 'wc_localisation_address_formats' ] );
+		add_filter( 'woocommerce_formatted_address_replacements', [ $this, 'wc_formatted_address_replacements' ], 9 );
+		add_filter( 'woocommerce_formatted_address_force_country_display', '__return_true' );
+
+		add_filter( 'woocommerce_subcategory_count_html', [ 'gPersianDateTranslate', 'legacy' ] );
+
+		// add_filter( 'woocommerce_sale_price_html', [ 'gPersianDateTranslate', 'legacy' ] );
+		// add_filter( 'woocommerce_price_html', [ 'gPersianDateTranslate', 'legacy' ] );
+
+		// messes with other jquery-ui components
+		// add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts_woocommerce' ], 20 );
+
+		// add_filter( 'woocommerce_date_input_html_pattern', [ $this, 'woocommerce_date_input_html_pattern' ] );
+
+		// no need
+		// add_filter( 'woocommerce_currencies', [ $this, 'woocommerce_currencies' ] );
+		// add_filter( 'woocommerce_currency_symbol', [ $this, 'woocommerce_currency_symbol' ], 10, 2 );
+	}
+
 	public function bbp_number_format_i18n( $formatted, $number, $decimals )
 	{
 		return $number; // avoid double convertion
+	}
+
+	public function admin_enqueue_scripts_woocommerce()
+	{
+		if ( defined( 'GPERSIANDATE_DISABLE_DATEPICKER' ) && GPERSIANDATE_DISABLE_DATEPICKER )
+			return;
+
+		wp_deregister_style( 'jquery-ui-style' );
+		wp_register_style( 'jquery-ui-style', '' );
+	}
+
+	// DEFAULT: `[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])`
+	public function woocommerce_date_input_html_pattern( $pattern )
+	{
+		return ''; // $pattern;
+	}
+
+	public function woocommerce_currencies( $currencies )
+	{
+		return array_merge( $currencies, [ 'TOMAN' => _x( 'Toman', 'WooCommerce: Currencies', 'gpersiandate' ) ] );
+	}
+
+	public function woocommerce_currency_symbol( $currency_symbol, $currency )
+	{
+		return 'TOMAN' == $currency ? _x( 'Toman', 'WooCommerce: Currencies', 'gpersiandate' ) : $currency_symbol;
+	}
+
+	public function wc_localisation_address_formats( $formats )
+	{
+		$formats['IR'] = "{name}\n{company}\n {country}، {state}، {city}\n{address_1}\n{address_2}\n{postcode}";
+
+		return $formats;
+	}
+
+	public function wc_formatted_address_replacements( $replace )
+	{
+		$replace['{address_1}'] = gPersianDateTranslate::numbers( $replace['{address_1}'] );
+		$replace['{address_2}'] = gPersianDateTranslate::numbers( $replace['{address_2}'] );
+		$replace['{postcode}']  = gPersianDateTranslate::numbers( $replace['{postcode}'] );
+
+		return $replace;
 	}
 
 	public function gshop_stats_current_month( $month, $current, $force_iso )
