@@ -7,6 +7,14 @@ class gPersianDatePicker extends gPersianDateBase
 	const JQUERYUI_VERSION    = '1.9.1';
 	const WP_SCRIPT_HANDLE    = 'gpersiandate-datepicker';
 
+	public static function enqueueStyles()
+	{
+		wp_enqueue_style( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/css/all.datepicker.css', [], GPERSIANDATE_VERSION );
+		wp_style_add_data( self::WP_SCRIPT_HANDLE, 'rtl', 'replace' );
+
+		return self::WP_SCRIPT_HANDLE;
+	}
+
 	public static function enqueue( $format = NULL )
 	{
 		if ( wp_script_is( self::WP_SCRIPT_HANDLE ) )
@@ -39,10 +47,7 @@ class gPersianDatePicker extends gPersianDateBase
 		wp_enqueue_script( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/libs/persiandate/persiandate-datepicker'.$variant.'.js', [ 'jquery', 'gpersiandate-persiandate' ], self::JQUERYUI_VERSION );
 		wp_add_inline_script( self::WP_SCRIPT_HANDLE, $script );
 
-		wp_enqueue_style( self::WP_SCRIPT_HANDLE, GPERSIANDATE_URL.'assets/css/all.datepicker.css', [], GPERSIANDATE_VERSION );
-		wp_style_add_data( self::WP_SCRIPT_HANDLE, 'rtl', 'replace' );
-
-		return self::WP_SCRIPT_HANDLE;
+		return self::enqueueStyles();
 	}
 
 	public static function getDefaults( $format = NULL )
