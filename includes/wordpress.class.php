@@ -23,7 +23,8 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		add_filter( 'wp_title', [ 'gPersianDateTranslate', 'legacy' ], 12 );
 		add_filter( 'document_title_parts', [ 'gPersianDateTranslate', 'array_map_legacy' ], 12 );
 
-		add_filter( 'the_title', [ 'gPersianDateTranslate', 'legacy' ], 12 );
+		// add_filter( 'the_title', [ 'gPersianDateTranslate', 'legacy' ], 12 );
+		add_filter( 'the_title', [ 'gPersianDateTranslate', 'chars' ], 12 );
 		add_filter( 'the_content', [ $this, 'the_content' ], 12 );
 		add_filter( 'get_the_excerpt', [ 'gPersianDateTranslate', 'html' ], 12 );
 		add_filter( 'get_comment_excerpt', [ 'gPersianDateTranslate', 'html' ], 12 );
