@@ -202,6 +202,8 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 	public function restrict_manage_posts_start_end( $post_type, $which )
 	{
+		return; // FIXME: DISABLED for now!
+
 		// TODO: set maximum and minimum date based on stored posts
 		// list( $first, $last ) = gPersianDateWordPress::getPosttypeFirstAndLast( $post_type, $_GET );
 

@@ -17,6 +17,8 @@ class gPersianDatePicker extends gPersianDateModuleCore
 
 	public static function enqueue( $format = NULL )
 	{
+		return; // FIXME: DISABLED for now!
+
 		if ( wp_script_is( self::WP_SCRIPT_HANDLE ) )
 			return self::WP_SCRIPT_HANDLE;
 
