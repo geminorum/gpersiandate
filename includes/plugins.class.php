@@ -41,6 +41,8 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 
 	public function woocommerce_loaded()
 	{
+		add_filter( 'woocommerce_get_country_locale', [ $this, 'woocommerce_get_country_locale' ] );
+
 		// messes up the postcodes!
 		// add_filter( 'woocommerce_format_postcode', [ 'gPersianDateTranslate', 'numbers_back' ], 5 );
 		// add_filter( 'woocommerce_format_postcode', [ 'gPersianDateTranslate', 'numbers' ], 15 );
@@ -87,6 +89,32 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 
 		wp_deregister_style( 'jquery-ui-style' );
 		wp_register_style( 'jquery-ui-style', '' );
+	}
+
+	public function woocommerce_get_country_locale( $locales )
+	{
+		$customized = [
+			'postcode' => [
+				'priority' => 65,
+			],
+			'country' => [
+				'label' => _x( 'Country', 'Plugins: Woocommerce: Locales', 'gpersiandate' ),
+			],
+			'city' => [
+				'label' => _x( 'City', 'Plugins: Woocommerce: Locales', 'gpersiandate' ),
+			],
+			'state' => [
+				'label' => _x( 'Province', 'Plugins: Woocommerce: Locales', 'gpersiandate' ),
+			],
+		];
+
+		if ( array_key_exists( 'IR', $locales ) )
+			$locales['IR'] = array_merge( $locales['IR'], $customized );
+
+		else
+			$locales['IR'] = $customized;
+
+		return $locales;
 	}
 
 	// DEFAULT: `[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])`
