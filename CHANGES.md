@@ -1,3 +1,45 @@
+### 3.8.0
+* main/admin: disabling conversion on woo-commerce order edit page
+* main/adminbar: js clock revised
+* main/bbpress: avoid double convertion of numbers
+* main/calendar: bailing if no posttypes
+* main/calendar: core css class for the table
+* main/calendar: internal callback for building links
+* main/calendar: moving tfoot after tbody complying with html 5.1
+* main/date: :new: switch to object conversion
+* main/date: :warning: fixed early returning
+* main/date: accept objects on conversions
+* main/date: constant for disabling conversion
+* main/date: filter translate numbers by format
+* main/date: mini sanitizing string from inputs
+* main/date: proper parsing of the inputs
+* main/date: tidy up from/to object methods
+* main/datetime: accepting datetime immutable
+* main/datetime: alternative method for leap years
+* main/datetime: avoid sanitizing timezones when not needed
+* main/datetime: bailing if cannot make datetime object
+* main/datetime: late check for timezone constant
+* main/datetime: make datetime object method
+* main/format: account for single time part formats
+* main/format: using strict comparison on arrays
+* main/picker: :warning: date picker disabled for now!
+* main/picker: correct handling rtl styles
+* main/picker: default format from options
+* main/picker: defaults as separate method
+* main/picker: extend from module core
+* main/picker: separate method for enqueue styles
+* main/picker: set calendar as defaults
+* main/plugins: country locale for woocommerce
+* main/plugins: initial support for woocommerce numbers
+* main/plugins: moving bp/bb filters
+* main/search: account for extra space inside parentheses
+* main/shortcodes: :new: today in persian/hijri shortcodes
+* main/timezone: using core method for timezone string
+* main/utilities: correct handling rtl styles
+* main/utilities: get locale in iso 639
+* main/wordpress: :warning: fixed override today in hijri
+* main/wordpress: only translate chars on the title
+
 ### 3.7.1
 * main/admin: check for options before converting dates on media grid view
 * main/wordpress: early check for iso formats on i18n dates
