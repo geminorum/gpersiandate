@@ -1,6 +1,6 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-class gPersianDatePicker extends gPersianDateBase
+class gPersianDatePicker extends gPersianDateModuleCore
 {
 
 	const PERSIANDATE_VERSION = '0.7.1';
