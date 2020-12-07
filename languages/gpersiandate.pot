@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gPersianDate 3.6.2\n"
+"Project-Id-Version: gPersianDate 3.8.0\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
 "Last-Translator: NULL\n"
 "Language-Team: NULL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-01-15T04:59:01+03:30\n"
+"POT-Creation-Date: 2020-12-07T18:10:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: gpersiandate\n"
@@ -32,52 +32,54 @@ msgstr ""
 msgid "https://geminorum.ir/"
 msgstr ""
 
-#: includes/admin.class.php:60
+#: includes/admin.class.php:70
 msgid "Adminbar Clock"
 msgstr ""
 
-#: includes/admin.class.php:61
+#: includes/admin.class.php:71
 msgid "Month Restrictions"
 msgstr ""
 
-#: includes/admin.class.php:62
+#: includes/admin.class.php:72
 msgid "Date Restrictions"
 msgstr ""
 
-#: includes/admin.class.php:81
-#: includes/admin.class.php:94
-#: includes/admin.class.php:107
+#: includes/admin.class.php:91
+#: includes/admin.class.php:104
+#: includes/admin.class.php:117
 msgid "Disabled"
 msgstr ""
 
-#: includes/admin.class.php:82
-#: includes/admin.class.php:95
+#: includes/admin.class.php:92
+#: includes/admin.class.php:105
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin.class.php:108
+#: includes/admin.class.php:118
 msgid "Gregorian"
 msgstr ""
 
-#: includes/admin.class.php:109
+#: includes/admin.class.php:119
 msgid "Jalali"
 msgstr ""
 
-#: includes/admin.class.php:161
+#: includes/admin.class.php:171
 msgctxt "Admin: Months Dropdown"
 msgid "Filter by date"
 msgstr ""
 
-#: includes/admin.class.php:167
+#: includes/admin.class.php:177
 msgctxt "Admin: Months Dropdown"
 msgid "All dates"
 msgstr ""
 
-#: includes/admin.class.php:203
+#: includes/admin.class.php:215
+#: includes/admin.class.php:275
 msgid "From"
 msgstr ""
 
-#: includes/admin.class.php:216
+#: includes/admin.class.php:228
+#: includes/admin.class.php:293
 msgid "To"
 msgstr ""
 
@@ -177,50 +179,71 @@ msgid ", "
 msgstr ""
 
 #. translators: %1$s: month name, %2$s: year number
-#: includes/calendar.class.php:288
+#: includes/calendar.class.php:310
 msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/format.class.php:140
+#: includes/format.class.php:156
 msgctxt "gettext overrides"
 msgid "Caption"
 msgstr ""
 
 #. translators: %s: published time
-#: includes/format.class.php:142
+#: includes/format.class.php:158
 msgctxt "gettext overrides"
 msgid "Published: <b>%s</b>"
 msgstr ""
 
 #. translators: %s: dimensions string
-#: includes/format.class.php:144
+#: includes/format.class.php:160
 msgctxt "gettext overrides"
 msgid "Original dimensions <span>%s</span>"
 msgstr ""
 
-#: includes/picker.class.php:20
+#: includes/picker.class.php:112
 msgctxt "Date Picker"
 msgid "Done"
 msgstr ""
 
-#: includes/picker.class.php:21
+#: includes/picker.class.php:113
 msgctxt "Date Picker"
 msgid "Today"
 msgstr ""
 
-#: includes/picker.class.php:22
+#: includes/picker.class.php:114
 msgctxt "Date Picker"
 msgid "Next"
 msgstr ""
 
-#: includes/picker.class.php:23
+#: includes/picker.class.php:115
 msgctxt "Date Picker"
 msgid "Previous"
 msgstr ""
 
+#: includes/plugins.class.php:101
+msgctxt "Plugins: Woocommerce: Locales"
+msgid "Country"
+msgstr ""
+
+#: includes/plugins.class.php:104
+msgctxt "Plugins: Woocommerce: Locales"
+msgid "City"
+msgstr ""
+
+#: includes/plugins.class.php:107
+msgctxt "Plugins: Woocommerce: Locales"
+msgid "Province"
+msgstr ""
+
+#: includes/plugins.class.php:128
+#: includes/plugins.class.php:133
+msgctxt "WooCommerce: Currencies"
+msgid "Toman"
+msgstr ""
+
 #. translators: %s: title
-#: includes/shortcodes.class.php:112
+#: includes/shortcodes.class.php:156
 msgctxt "Shortcodes: Entry Published Title"
 msgid "Archive for %s"
 msgstr ""
@@ -561,13 +584,13 @@ msgid "Mehr"
 msgstr ""
 
 #: includes/strings.class.php:154
-msgctxt "Strings: Month: Jalali: Full: Aban"
-msgid "Aban"
+msgctxt "Strings: Month: Jalali: Full: Āban"
+msgid "Āban"
 msgstr ""
 
 #: includes/strings.class.php:155
-msgctxt "Strings: Month: Jalali: Full: Azar"
-msgid "Azar"
+msgctxt "Strings: Month: Jalali: Full: Āzar"
+msgid "Āzar"
 msgstr ""
 
 #: includes/strings.class.php:156

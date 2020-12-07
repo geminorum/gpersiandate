@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gPersianDate\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
-"POT-Creation-Date: 2020-01-15T04:59:01+03:30\n"
-"PO-Revision-Date: 2020-01-15 04:59+0330\n"
+"POT-Creation-Date: 2020-12-07T18:10:47+00:00\n"
+"PO-Revision-Date: 2020-12-07 21:41+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. Plugin Name of the plugin
 msgid "gPersianDate"
@@ -35,52 +35,52 @@ msgstr "ژمای‌نوروم"
 msgid "https://geminorum.ir/"
 msgstr ""
 
-#: includes/admin.class.php:60
+#: includes/admin.class.php:70
 msgid "Adminbar Clock"
 msgstr "ساعت منوی مدیریت"
 
-#: includes/admin.class.php:61
+#: includes/admin.class.php:71
 msgid "Month Restrictions"
 msgstr "محدویت بر اساس ماه"
 
-#: includes/admin.class.php:62
+#: includes/admin.class.php:72
 msgid "Date Restrictions"
 msgstr "محدودیت در بازه زمانی"
 
-#: includes/admin.class.php:81 includes/admin.class.php:94
-#: includes/admin.class.php:107
+#: includes/admin.class.php:91 includes/admin.class.php:104
+#: includes/admin.class.php:117
 msgid "Disabled"
 msgstr "غیرفعال"
 
-#: includes/admin.class.php:82 includes/admin.class.php:95
+#: includes/admin.class.php:92 includes/admin.class.php:105
 msgid "Enabled"
 msgstr "فعال"
 
-#: includes/admin.class.php:108
+#: includes/admin.class.php:118
 msgid "Gregorian"
 msgstr "میلادی"
 
-#: includes/admin.class.php:109
+#: includes/admin.class.php:119
 msgid "Jalali"
 msgstr "شمسی"
 
-#: includes/admin.class.php:161
+#: includes/admin.class.php:171
 msgctxt "Admin: Months Dropdown"
 msgid "Filter by date"
 msgstr "پالایه بر اساس تاریخ"
 
-#: includes/admin.class.php:167
+#: includes/admin.class.php:177
 msgctxt "Admin: Months Dropdown"
 msgid "All dates"
 msgstr "همه‌ی تاریخ‌ها"
 
 # @ gpersiandate
-#: includes/admin.class.php:203
+#: includes/admin.class.php:215 includes/admin.class.php:275
 msgid "From"
 msgstr "از تاریخ"
 
 # @ gpersiandate
-#: includes/admin.class.php:216
+#: includes/admin.class.php:228 includes/admin.class.php:293
 msgid "To"
 msgstr "تا تاریخ"
 
@@ -180,50 +180,70 @@ msgid ", "
 msgstr "، "
 
 #. translators: %1$s: month name, %2$s: year number
-#: includes/calendar.class.php:288
+#: includes/calendar.class.php:310
 msgctxt "Calendar: Build: Caption"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/format.class.php:140
+#: includes/format.class.php:156
 msgctxt "gettext overrides"
 msgid "Caption"
-msgstr "عنوان"
+msgstr "برنگاشت"
 
 #. translators: %s: published time
-#: includes/format.class.php:142
+#: includes/format.class.php:158
 msgctxt "gettext overrides"
 msgid "Published: <b>%s</b>"
 msgstr "انتشار: <b>%s</b>"
 
 #. translators: %s: dimensions string
-#: includes/format.class.php:144
+#: includes/format.class.php:160
 msgctxt "gettext overrides"
 msgid "Original dimensions <span>%s</span>"
 msgstr "ابعاد اصلی <span>%s</span>"
 
-#: includes/picker.class.php:20
+#: includes/picker.class.php:112
 msgctxt "Date Picker"
 msgid "Done"
 msgstr "بستن"
 
-#: includes/picker.class.php:21
+#: includes/picker.class.php:113
 msgctxt "Date Picker"
 msgid "Today"
 msgstr "امروز"
 
-#: includes/picker.class.php:22
+#: includes/picker.class.php:114
 msgctxt "Date Picker"
 msgid "Next"
 msgstr "بعدی"
 
-#: includes/picker.class.php:23
+#: includes/picker.class.php:115
 msgctxt "Date Picker"
 msgid "Previous"
 msgstr "قبلی"
 
+#: includes/plugins.class.php:101
+msgctxt "Plugins: Woocommerce: Locales"
+msgid "Country"
+msgstr "کشور"
+
+#: includes/plugins.class.php:104
+msgctxt "Plugins: Woocommerce: Locales"
+msgid "City"
+msgstr "شهر"
+
+#: includes/plugins.class.php:107
+msgctxt "Plugins: Woocommerce: Locales"
+msgid "Province"
+msgstr "استان"
+
+#: includes/plugins.class.php:128 includes/plugins.class.php:133
+msgctxt "WooCommerce: Currencies"
+msgid "Toman"
+msgstr "تومان"
+
 #. translators: %s: title
-#: includes/shortcodes.class.php:112
+#: includes/shortcodes.class.php:156
 msgctxt "Shortcodes: Entry Published Title"
 msgid "Archive for %s"
 msgstr "بایگانی %s"
@@ -564,13 +584,13 @@ msgid "Mehr"
 msgstr "مهر"
 
 #: includes/strings.class.php:154
-msgctxt "Strings: Month: Jalali: Full: Aban"
-msgid "Aban"
+msgctxt "Strings: Month: Jalali: Full: Āban"
+msgid "Āban"
 msgstr "آبان"
 
 #: includes/strings.class.php:155
-msgctxt "Strings: Month: Jalali: Full: Azar"
-msgid "Azar"
+msgctxt "Strings: Month: Jalali: Full: Āzar"
+msgid "Āzar"
 msgstr "آذر"
 
 #: includes/strings.class.php:156
@@ -974,6 +994,18 @@ msgstr "بایگانی فشرده ماهانه را نمایش می‌دهد."
 msgctxt "Blocks"
 msgid "compact"
 msgstr "فشرده"
+
+#~ msgctxt "WooCommerce: Decimal Point Char"
+#~ msgid "."
+#~ msgstr "٫"
+
+#~ msgctxt "Strings: Month: Jalali: Full: Aban"
+#~ msgid "Aban"
+#~ msgstr "آبان"
+
+#~ msgctxt "Strings: Month: Jalali: Full: Azar"
+#~ msgid "Azar"
+#~ msgstr "آذر"
 
 #~ msgctxt "Blocks: Clean"
 #~ msgid "clean"
