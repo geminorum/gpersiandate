@@ -11,9 +11,9 @@ Author URI: https://geminorum.ir/
 Network: false
 TextDomain: gpersiandate
 Domain Path: /languages
-Requires WP: 4.9
-Requires at least: 4.9
 Requires PHP: 5.6.20
+Requires WP: 5.0
+Requires at least: 5.0
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 */
 

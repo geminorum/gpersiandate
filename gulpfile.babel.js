@@ -7,7 +7,7 @@ const log = require('fancy-log');
 const del = require('del');
 
 const conf = require('./gulp.config.json');
-const pkg = require('./package.json');
+// const pkg = require('./package.json');
 
 function clean (done) {
   del.sync(conf.input.clean);
