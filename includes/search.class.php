@@ -8,6 +8,7 @@ class gPersianDateSearch extends gPersianDateModuleCore
 	protected function setup_actions()
 	{
 		add_filter( 'posts_search', [ $this, 'posts_search' ], 20, 2 );
+		add_filter( 'terms_clauses', [ $this, 'terms_clauses' ], 20, 3 );
 
 		add_filter( 'get_search_query', [ 'gPersianDateTranslate', 'chars' ] );
 	}
@@ -43,6 +44,25 @@ class gPersianDateSearch extends gPersianDateModuleCore
 
 		return preg_replace_callback( "/(\([^\)\(]* LIKE '([^']*)' ?\))/",
 			[ __CLASS__, 'duplicateClause' ], $search );
+	}
+
+	public function terms_clauses( $clauses, $taxonomies, $args )
+	{
+		if ( ! isset( $clauses['where'] ) )
+			return $clauses;
+
+		if ( ! gPersianDateText::has( $clauses['where'], 'LIKE' ) )
+			return $clauses;
+
+		$chars = self::chars();
+
+		if ( ! gPersianDateText::has( $clauses['where'], array_keys( $chars ) + $chars ) )
+			return $clauses;
+
+		$clauses['where'] = preg_replace_callback( "/(\([^\)\(]* LIKE '([^']*)' ?\))/",
+			[ __CLASS__, 'duplicateClause' ], $clauses['where'] );
+
+		return $clauses;
 	}
 
 	public static function duplicateClause( $matches )
