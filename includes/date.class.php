@@ -48,6 +48,10 @@ class gPersianDateDate extends gPersianDateModuleCore
 	// @REF: `mysql2date()`
 	public static function toObject( $date = NULL, $timezone_string = NULL )
 	{
+		// already is an object!
+		if ( is_a( $date, 'DateTime' ) || is_a( $date, 'DateTimeImmutable' ) )
+			return $date;
+
 		if ( ! $timezone_string )
 			$timezone_string = gPersianDateTimeZone::current();
 
