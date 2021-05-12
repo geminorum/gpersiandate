@@ -51,7 +51,7 @@
     "gulp-sass": "^4.1.0",
     "gulp-sass-unicode": "^1.0.5",
     "gulp-sass-variables": "^1.2.0",
-    "postcss": "^8.1.14",
+    "postcss": "^8.2.10",
     "rtlcss": "^2.6.2",
     "semistandard": "^16.0.0",
     "stylelint": "^13.8.0",
