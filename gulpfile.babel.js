@@ -18,7 +18,7 @@ function devSass () {
   return src(conf.input.sass)
     .pipe($.plumber())
     .pipe($.sassVariables(conf.theme.variables))
-    .pipe($.sass(conf.sass).on('error', $.sass.logError))
+    .pipe($.dartSass(conf.sass).on('error', $.dartSass.logError))
     .pipe($.sassUnicode())
     .pipe($.postcss([
       cssnano(conf.cssnano.dev),
@@ -45,7 +45,7 @@ function devWatch () {
 function buildSass () {
   return src(conf.input.sass)
     .pipe($.sassVariables(conf.theme.variables))
-    .pipe($.sass(conf.sass).on('error', $.sass.logError))
+    .pipe($.dartSass(conf.sass).on('error', $.dartSass.logError))
     .pipe($.sassUnicode())
     .pipe($.postcss([
       cssnano(conf.cssnano.build),
@@ -57,8 +57,9 @@ function buildSass () {
 function buildSassRTL () {
   return src(conf.input.sass)
     .pipe($.sassVariables(conf.theme.variables))
-    .pipe($.sass(conf.sass).on('error', $.sass.logError))
+    .pipe($.dartSass(conf.sass).on('error', $.dartSass.logError))
     .pipe($.sassUnicode())
+    // .pipe($.postcss([rtlcss()])) // divided to avoid cssnano messing with rtl directives
     .pipe($.postcss([
       rtlcss(),
       cssnano(conf.cssnano.build),

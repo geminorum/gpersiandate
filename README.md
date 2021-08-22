@@ -35,5 +35,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Please log issues at [here](https://github.com/geminorum/gpersiandate/issues).
 
-[![it's a geminorum project](http://img.shields.io/badge/it's_a-geminorum_project-lightgrey.svg?style=flat-square)](https://geminorum.ir/)
+[![it's a geminorum project](https://img.shields.io/badge/it's_a-geminorum_project-lightgrey.svg?style=flat-square)](https://geminorum.ir/)
 [![Analytics](https://ga-beacon.appspot.com/UA-865830-4/gpersiandate/readme?pixel)](https://github.com/geminorum/gpersiandate)
