@@ -290,6 +290,9 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( ! gPersianDateText::has( $structure, [ '%year%', '%monthnum%', '%day%' ], 'AND' ) )
 			return $permalink;
 
+		if ( ! $postdate = gPersianDateWordPress::getPostDatetime( $post ) )
+			return $permalink;
+
 		$category = $author = '';
 
 		if ( gPersianDateText::has( $structure, '%category%' ) ) {
@@ -315,7 +318,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( gPersianDateText::has( $structure, '%author%' ) )
 			$author = get_userdata( $post->post_author )->user_nicename;
 
-		$date = explode( '-', gPersianDateDate::_to( 'Y-m-d-H-i-s', $post->post_date ) );
+		$date = explode( '-', gPersianDateDate::_fromObject( 'Y-m-d-H-i-s', $postdate ) );
 
 		$rewritereplace = [
 			$date[0],
