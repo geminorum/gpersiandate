@@ -41,7 +41,11 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 
 	public function woocommerce_loaded()
 	{
-		add_filter( 'woocommerce_get_country_locale', [ $this, 'woocommerce_get_country_locale' ] );
+		add_filter( 'woocommerce_date_format', [ $this, 'woocommerce_date_format' ], 9, 1 );
+		add_filter( 'woocommerce_time_format', [ $this, 'woocommerce_time_format' ], 9, 1 );
+
+		add_filter( 'woocommerce_get_country_locale', [ $this, 'woocommerce_get_country_locale' ], 12, 1 );
+		add_filter( 'woocommerce_validate_postcode', [ $this, 'woocommerce_validate_postcode' ], 12, 3 );
 
 		// messes up the postcodes!
 		// add_filter( 'woocommerce_format_postcode', [ 'gPersianDateTranslate', 'numbers_back' ], 5 );
@@ -50,6 +54,7 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 		add_filter( 'formatted_woocommerce_price', [ 'gPersianDateTranslate', 'numbers' ] );
 		add_filter( 'woocommerce_order_item_quantity_html', [ 'gPersianDateTranslate', 'legacy' ] );
 		add_filter( 'woocommerce_checkout_cart_item_quantity', [ 'gPersianDateTranslate', 'numbers' ] );
+		add_filter( 'wc_add_to_cart_message_html', [ 'gPersianDateTranslate', 'legacy' ] );
 
 		add_filter( 'woocommerce_product_get_review_count', [ 'gPersianDateTranslate', 'numbers' ] );
 		add_filter( 'woocommerce_order_get_quantity', [ 'gPersianDateTranslate', 'numbers' ] );
@@ -58,11 +63,14 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 		add_filter( 'woocommerce_format_dimensions', [ 'gPersianDateTranslate', 'numbers' ] );
 		// add_filter( 'woocommerce_format_localized_decimal', [ $this, 'wc_format_localized_decimal' ], 9, 2 );
 
+		add_filter( 'woocommerce_attribute', [ 'gPersianDateTranslate', 'legacy' ], 20 );
+
 		add_filter( 'woocommerce_localisation_address_formats', [ $this, 'wc_localisation_address_formats' ] );
 		add_filter( 'woocommerce_formatted_address_replacements', [ $this, 'wc_formatted_address_replacements' ], 9 );
 		add_filter( 'woocommerce_formatted_address_force_country_display', '__return_true' );
 
 		add_filter( 'woocommerce_subcategory_count_html', [ 'gPersianDateTranslate', 'legacy' ] );
+		add_filter( 'woocommerce_layered_nav_count', [ 'gPersianDateTranslate', 'legacy' ] );
 
 		// add_filter( 'woocommerce_sale_price_html', [ 'gPersianDateTranslate', 'legacy' ] );
 		// add_filter( 'woocommerce_price_html', [ 'gPersianDateTranslate', 'legacy' ] );
@@ -91,6 +99,18 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 		wp_register_style( 'jquery-ui-style', '' );
 	}
 
+	// DEFAULT: `F j, Y`
+	public function woocommerce_date_format( $date_format )
+	{
+		return gPersianDateFormat::sanitize( $date_format, 'woocommerce-date', NULL );
+	}
+
+	// DEFAULT: `g:i a`
+	public function woocommerce_time_format( $time_format )
+	{
+		return gPersianDateFormat::sanitize( $time_format, 'woocommerce-time', NULL );
+	}
+
 	public function woocommerce_get_country_locale( $locales )
 	{
 		$customized = [
@@ -115,6 +135,16 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 			$locales['IR'] = $customized;
 
 		return $locales;
+	}
+
+	// @REF: https://github.com/VahidN/DNTPersianUtils.Core/blob/master/src/DNTPersianUtils.Core/Validators/IranCodesUtils.cs#L13
+	// @REF: https://www.dotnettips.info/newsarchive/details/14187
+	public function woocommerce_validate_postcode( $valid, $postcode, $country )
+	{
+		if ( 'IR' == $country )
+			return (bool) preg_match( '/(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}/', trim( str_ireplace( [ '-', ' ' ], '', gPersianDateTranslate::numbers_back( $postcode ) ) ) );
+
+		return $valid;
 	}
 
 	// DEFAULT: `[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])`
