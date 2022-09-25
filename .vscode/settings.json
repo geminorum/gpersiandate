@@ -1,0 +1,25 @@
+{
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.configFile": "./.stylelintrc.json",
+  "stylelint.packageManager": "yarn",
+  "stylelint.snippet": [
+    "css",
+    "less",
+    "postcss",
+    "scss"
+  ],
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss"
+  ],
+  "git.ignoreLimitWarning": true,
+  "php.validate.enable": true,
+  "php.suggest.basic": true,
+  "php-docblocker.alignParams": true,
+  "php-docblocker.alignReturn": true,
+  "php-docblocker.useShortNames": true
+}
