@@ -105,10 +105,10 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		return $format;
 	}
 
-	public function gettext_with_context( $translations, $text, $context, $domain )
+	public function gettext_with_context( $translation, $text, $context, $domain )
 	{
 		if ( 'default' != $domain )
-			return $translations;
+			return $translation;
 
 		static $strings;
 
@@ -125,13 +125,13 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		if ( isset( $strings[$context][$text] ) )
 			return $strings[$context][$text];
 
-		return $translations;
+		return $translation;
 	}
 
-	public function gettext( $translations, $text, $domain )
+	public function gettext( $translation, $text, $domain )
 	{
 		if ( 'default' != $domain )
-			return $translations;
+			return $translation;
 
 		static $strings;
 
@@ -163,7 +163,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		if ( isset( $strings[$text] ) )
 			return $strings[$text];
 
-		return $translations;
+		return $translation;
 	}
 
 	// @SEE: http://codex.wordpress.org/Formatting_Date_and_Time

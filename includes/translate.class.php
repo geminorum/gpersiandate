@@ -199,8 +199,8 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		return $string;
 	}
 
-	// before: translate_chars()
-	// http://www.ltg.ed.ac.uk/~richard/utf-8.cgi
+	// @OLD: `translate_chars()`
+	// @SEE: http://www.ltg.ed.ac.uk/~richard/utf-8.cgi
 	public static function chars( $string, $fix = NULL )
 	{
 		if ( is_null( $fix ) )

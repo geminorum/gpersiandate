@@ -529,8 +529,11 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 			ORDER BY post_date DESC
 		", $post_type );
 
-		$key = md5( $query );
+		$key   = md5( $query );
 		$cache = wp_cache_get( 'wp_get_archives' , 'general' );
+
+		if ( ! $cache )
+			$cache = [];
 
 		if ( ! isset( $cache[$key] ) ) {
 			$months = $wpdb->get_results( $query );
