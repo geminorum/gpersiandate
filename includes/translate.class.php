@@ -11,6 +11,8 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 		// our filters!
 		add_filter( 'number_format_i18n_back', [ __CLASS__, 'number_format_i18n_back' ] );
+		add_filter( 'number_format_ordinal', [ __CLASS__, 'number_format_ordinal' ], 10, 3 );
+		add_filter( 'number_format_words', [ __CLASS__, 'number_format_words' ], 10, 3 );
 		add_filter( 'string_format_i18n', [ __CLASS__, 'legacy' ] ); // 'format_i18n'
 		add_filter( 'string_format_i18n_back', [ __CLASS__, 'string_format_i18n_back' ] );
 		add_filter( 'array_format_i18n', [ __CLASS__, 'array_map_numbers' ] );
@@ -54,6 +56,42 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 	public static function number_format_i18n_back( $formatted, $local = NULL )
 	{
 		return self::numbers_back( $formatted, $local, TRUE );
+	}
+
+	public static function number_format_ordinal( $ordinal, $number = NULL, $locale = NULL )
+	{
+		if ( is_null( $number ) )
+			return $ordinal;
+
+		switch ( self::sanitizeLocale( $locale ) ) {
+
+			case 'en_US':
+				return $ordinal; // TODO: support full ordinal in english
+
+			case 'fa_IR':
+				$numbers = new gPersianNumbersFA();
+				return $numbers->number_to_ordinal( $number );
+		}
+
+		return $ordinal;
+	}
+
+	public static function number_format_words( $words, $number = NULL, $locale = NULL )
+	{
+		if ( is_null( $number ) )
+			return $words;
+
+		switch ( self::sanitizeLocale( $locale ) ) {
+
+			case 'en_US':
+				return gPersianNumbersEN::numberToWords( $number );
+
+			case 'fa_IR':
+				$numbers = new gPersianNumbersFA();
+				return $numbers->number_to_words( $number );
+		}
+
+		return $words;
 	}
 
 	public static function string_format_i18n_back( $formatted, $local = NULL )

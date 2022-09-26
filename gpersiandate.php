@@ -65,6 +65,9 @@ if ( version_compare( GPERSIANDATE_MIN_PHP, phpversion(), '>=' ) ) {
 			'plugins',
 			'form',
 
+			'misc/numbers.en',
+			'misc/numbers.fa',
+
 			'widgets/archives',
 			'widgets/calendar',
 
