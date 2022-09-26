@@ -32,23 +32,21 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		add_filter( 'comments_number', [ 'gPersianDateTranslate', 'numbers' ], 12 );
 		add_filter( 'human_time_diff', [ 'gPersianDateTranslate', 'numbers' ], 12 );
 
-		add_filter( 'single_post_title', [ 'gPersianDateTranslate', 'legacy' ], 12 );
-		add_filter( 'single_cat_title', [ 'gPersianDateTranslate', 'legacy' ], 12 );
-		add_filter( 'single_tag_title', [ 'gPersianDateTranslate', 'legacy' ], 12 );
-		// add_filter( 'single_month_title', [ 'gPersianDateTranslate', 'legacy' ], 12 ); // no need
-		add_filter( 'nav_menu_attr_title', [ 'gPersianDateTranslate', 'legacy' ], 12 );
+		foreach ( [
+			'single_post_title',
+			'single_cat_title',
+			'single_tag_title',
+			'single_term_title',
+			'nav_menu_attr_title',
+		] as $filter )
+			add_filter( $filter, [ 'gPersianDateTranslate', 'numbers' ], 8 );
 
 		add_filter( 'nav_menu_description', [ 'gPersianDateTranslate', 'html' ], 12 );
 		add_filter( 'wp_get_attachment_caption', [ 'gPersianDateTranslate', 'html' ], 12 );
 		add_filter( 'wp_link_pages_link', [ 'gPersianDateTranslate', 'html' ], 12 );
 
-		// add_filter( 'pre_insert_term', [ $this, 'pre_insert_term' ], 10, 2 );
-		add_filter( 'pre_term_name', [ 'gPersianDateTranslate', 'numbers' ] );
+		add_filter( 'pre_term_name', [ 'gPersianDateTranslate', 'chars' ] );
 		add_filter( 'pre_term_description', [ 'gPersianDateTranslate', 'html' ] );
-
-		add_filter( 'gmeta_meta', [ 'gPersianDateTranslate', 'numbers' ], 12 );
-		add_filter( 'gmeta_lead', [ 'gPersianDateTranslate', 'html' ], 12 );
-		// add_filter( 'geditorial_kses', [ 'gPersianDateTranslate', 'html' ], 12 );
 
 		add_filter( 'list_pages', [ 'gPersianDateTranslate', 'numbers' ], 12 ); // page dropdown walker item title
 
@@ -331,14 +329,6 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 			return gPersianDateTranslate::html( $content );
 
 		return $content;
-	}
-
-	public function pre_insert_term( $term, $taxonomy )
-	{
-		if ( ! is_int( $term ) )
-			return gPersianDateTranslate::numbers( $term );
-
-		return $term;
 	}
 
 	// Menu Navigation Date handler
