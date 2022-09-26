@@ -97,13 +97,13 @@ class gPersianDateArchives extends gPersianDateModuleCore
 						if ( 0 == $result->year )
 							continue;
 
-						$the_date = mktime( 0 ,0 , 0, $result->month, $result->day, $result->year );
-						$the_persian_month = gPersianDateDate::_to( 'Ym', $the_date );
+						$datetime          = gPersianDateDate::toObject( mktime( 0, 0, 0, $result->month, $result->day, $result->year ) );
+						$the_persian_month = gPersianDateDate::_fromObject( 'Ym', $datetime );
 
 						if ( $last_persian_month != $the_persian_month ) {
 
-							$the_year  = gPersianDateDate::_to( 'Y', $the_date );
-							$the_month = gPersianDateDate::_to( 'm', $the_date );
+							$the_year  = gPersianDateDate::_fromObject( 'Y', $datetime );
+							$the_month = gPersianDateDate::_fromObject( 'm', $datetime );
 
 							$url = get_month_link( $the_year, $the_month );
 
@@ -169,12 +169,12 @@ class gPersianDateArchives extends gPersianDateModuleCore
 						if ( 0 == $result->year )
 							continue;
 
-						$the_date = mktime( 0 ,0 , 0, zeroise( $result->month, 2 ), $result->dayofmonth, $result->year );
-						$the_persian_year = gPersianDateDate::_to( 'Y', $the_date );
+						$datetime         = gPersianDateDate::toObject( mktime( 0, 0, 0, $result->month, $result->dayofmonth, $result->year ) );
+						$the_persian_year = gPersianDateDate::_fromObject( 'Y', $datetime );
 
 						if ( $last_persian_year != $the_persian_year ) {
 
-							$the_year = gPersianDateDate::_to( 'Y', $the_date );
+							$the_year = gPersianDateDate::_fromObject( 'Y', $datetime );
 							$url      = get_year_link( $the_year );
 							/* translators: %s: yearly */
 							$text     = sprintf( _x( '<span>%s</span>', 'wp_get_archives yearly', 'gpersiandate' ), gPersianDateTranslate::numbers( $the_year ) );
@@ -240,10 +240,10 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 					foreach ( (array) $results as $result ) {
 
-						$the_date  = mktime( 0 ,0 , 0, zeroise( $result->month, 2 ), $result->dayofmonth, $result->year );
-						$the_year  = gPersianDateDate::_to( 'Y', $the_date );
-						$the_month = gPersianDateDate::_to( 'm', $the_date );
-						$the_day   = gPersianDateDate::_to( 'd', $the_date );
+						$datetime  = gPersianDateDate::toObject( mktime( 0, 0, 0, $result->month, $result->dayofmonth, $result->year ) );
+						$the_year  = gPersianDateDate::_fromObject( 'Y', $datetime );
+						$the_month = gPersianDateDate::_fromObject( 'm', $datetime );
+						$the_day   = gPersianDateDate::_fromObject( 'd', $datetime );
 
 						$url = get_day_link( $the_year, $the_month, $the_day );
 
@@ -396,7 +396,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'string_empty'   => _x( 'Archives are empty.', 'Archives: Compact', 'gpersiandate' ), // FALSE to disable
 		], $atts );
 
-		list( $first, $last ) = gPersianDateWordPress::getPosttypeFirstAndLast( $args['post_type'], [], $args['post_author'], FALSE );
+		list( $first, $last ) = gPersianDateWordPress::getPosttypeFirstAndLastObject( $args['post_type'], [], $args['post_author'], FALSE );
 
 		if ( ! $first )
 			return $args['string_empty'] ? '<span class="-empty">'.$args['string_empty'].'</span>' : FALSE;
@@ -411,8 +411,8 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			? $wpdb->prepare( "AND post_author = %d", $args['post_author'] )
 			: '';
 
-		$year = gPersianDateDate::_to( 'Y', $first );
-		$now  = gPersianDateDate::_to( 'Y', $last );
+		$year = gPersianDateDate::_fromObject( 'Y', $first );
+		$now  = gPersianDateDate::_fromObject( 'Y', $last );
 
 		while ( $now >= $year ) {
 

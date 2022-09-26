@@ -438,6 +438,16 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 		return mysql2date( 'U', $the_date, FALSE );
 	}
 
+	public static function getPosttypeFirstAndLastObject( $post_types = 'post', $args = [], $user_id = 0, $protected = TRUE )
+	{
+		list( $first, $last ) = self::getPosttypeFirstAndLast( $post_types, $args, $user_id, $protected );
+
+		return [
+			$first ? gPersianDateDate::toObject( $first ) : $first,
+			$last ? gPersianDateDate::toObject( $last ) : $last,
+		];
+	}
+
 	public static function getPosttypeFirstAndLast( $post_types = 'post', $args = [], $user_id = 0, $protected = TRUE )
 	{
 		global $wpdb;
