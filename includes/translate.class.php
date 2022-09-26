@@ -135,8 +135,19 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		return preg_replace_callback( $pattern, [ __CLASS__, 'html_callback' ], $text );
 	}
 
+	public static function sanitizeLocale( $locale = NULL )
+	{
+		if ( ! is_null( $locale ) )
+			return $locale; // TODO: do the actual sanitization!
+
+		if ( defined( 'GPERSIANDATE_LOCALE' ) )
+			return constant( 'GPERSIANDATE_LOCALE' );
+
+		return determine_locale();
+	}
+
 	// before: translate_numbers()
-	public static function numbers( $string, $local = NULL, $fix = NULL )
+	public static function numbers( $string, $locale = NULL, $fix = NULL )
 	{
 		if ( ! is_numeric( $string ) && ! is_string( $string ) )
 			return $string;
@@ -144,12 +155,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		if ( is_null( $string ) )
 			return NULL;
 
-		if ( is_null( $local ) )
-			$local = defined( 'GPERSIANDATE_LOCALE' )
-				? constant( 'GPERSIANDATE_LOCALE' )
-				: get_user_locale();
-
-		switch ( $local ) {
+		switch ( self::sanitizeLocale( $locale ) ) {
 
 			case 'en_US':
 
@@ -248,17 +254,12 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		return $format;
 	}
 
-	public static function numbers_back( $text, $local = NULL, $intval = FALSE )
+	public static function numbers_back( $text, $locale = NULL, $intval = FALSE )
 	{
 		if ( is_null( $text ) )
 			return NULL;
 
-		if ( is_null( $local ) )
-			$local = defined( 'GPERSIANDATE_LOCALE' )
-				? constant( 'GPERSIANDATE_LOCALE' )
-				: get_user_locale();
-
-		switch ( $local ) {
+		switch ( self::sanitizeLocale( $locale ) ) {
 			// case 'en_US':
 
 			case 'fa_IR':
