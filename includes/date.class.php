@@ -6,6 +6,12 @@ class gPersianDateDate extends gPersianDateModuleCore
 	const MYSQL_FORMAT = 'Y-m-d H:i:s';
 	const MYSQL_EMPTY  = '0000-00-00 00:00:00';
 
+	// @REF: https://stackoverflow.com/a/2524710
+	public static function isTimestamp( $string )
+	{
+		return is_numeric( $string ) && (int) $string == $string;
+	}
+
 	public static function fromObject( $format, $datetime = NULL, $timezone_string = NULL, $locale = NULL, $translate = NULL, $calendar = 'Jalali' )
 	{
 		if ( is_null( $datetime ) ) {
@@ -61,7 +67,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		if ( empty( $date ) || self::MYSQL_EMPTY === $date )
 			return FALSE;
 
-		if ( is_numeric( $date ) ) {
+		if ( self::isTimestamp( $date ) ) {
 
 			$datetime = date_create( '@'.$date );
 			$timezone = new \DateTimeZone( $timezone_string );

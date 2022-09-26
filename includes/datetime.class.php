@@ -8,7 +8,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		$result   = '';
 		$calendar = self::sanitizeCalendar( $calendar );
 
-		if ( is_numeric( $time ) ) {
+		if ( is_numeric( $time ) && (int) $time == $time ) {
 
 			$timezone = self::sanitizeTimeZone( $timezone );
 			$datetime = new \DateTime( NULL, new \DateTimeZone( $timezone ) );
@@ -182,7 +182,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		if ( is_null( $timezone ) )
 			return defined( 'GPERSIANDATE_TIMEZONE' ) ? GPERSIANDATE_TIMEZONE : gPersianDateTimeZone::current();
 
-		if ( is_numeric( $timezone ) )
+		if ( is_numeric( $timezone ) && (int) $timezone == $timezone )
 			return gPersianDateTimeZone::fromOffset( $timezone );
 
 		if ( is_string( $timezone ) )
