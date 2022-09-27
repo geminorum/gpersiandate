@@ -56,7 +56,9 @@
     "semistandard": "^16.0.1",
     "stylelint": "^14.12.1"
   },
-  "optionalDependencies": {},
+  "optionalDependencies": {
+    "timeago": "^1.6.7"
+  },
   "browserslist": [
     "extends @wordpress/browserslist-config"
   ],

@@ -6,7 +6,7 @@ class gPersianDateTimeAgo extends gPersianDateBase
 	// @REF: http://timeago.yarp.com/
 	// @REF: https://github.com/rmm5t/jquery-timeago
 
-	const TIMEAGO_VERSION  = '1.6.5';
+	const TIMEAGO_VERSION  = '1.6.7';
 	const WP_SCRIPT_HANDLE = 'gpersiandate-timeago';
 
 	public static function enqueue()
