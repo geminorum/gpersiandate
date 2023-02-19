@@ -3,11 +3,11 @@
 class gPersianDateArchives extends gPersianDateModuleCore
 {
 
-	// FIXME: REWRITE THIS
+	// TODO: REWRITE THIS
 	// @SOURCE: `wp_get_archives()`
 	public static function get( $r = '' )
 	{
-		global $wpdb, $wp_locale;
+		global $wpdb;
 
 		$defaults = [
 			'type'            => 'monthly',
@@ -325,14 +325,14 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 		} else if ( ( 'postbypost' == $args['type'] ) || ( 'alpha' == $args['type'] ) ) {
 
-			$orderby = ('alpha' == $type) ? 'post_title ASC ' : 'post_date DESC ';
+			$orderby = 'alpha' == $args['type'] ? 'post_title ASC ' : 'post_date DESC ';
 
 			$query = "
 				SELECT *
 				FROM {$wpdb->posts}
 				{$join}
 				{$where}
-				ORDER BY ".$args['order'].' '.$args['limit'];
+				ORDER BY {$orderby} ".$args['order'].' '.$args['limit'];
 
 			$key = md5( $query );
 			$key = "wp_get_archives:$key:$last_changed";
@@ -542,6 +542,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 				$post = get_post();
 
 				// we need this to compare it with the previous post date
+				// TODO: get all at once then split
 				$year   = get_the_time( 'Y', $post );
 				$month  = get_the_time( 'm', $post );
 				$daynum = get_the_time( 'd', $post );
@@ -595,6 +596,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 					] );
 
 				} else {
+
 					$day = '';
 				}
 
@@ -604,7 +606,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 					echo $day;
 
-					echo( '<dd>' );
+					echo '<dd>';
 						get_template_part( 'row', $args['row_context'] );
 					echo '</dd>';
 

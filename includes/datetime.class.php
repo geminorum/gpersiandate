@@ -11,7 +11,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		if ( is_numeric( $time ) && (int) $time == $time ) {
 
 			$timezone = self::sanitizeTimeZone( $timezone );
-			$datetime = new \DateTime( NULL, new \DateTimeZone( $timezone ) );
+			$datetime = new \DateTime( 'now', new \DateTimeZone( $timezone ) );
 			$datetime->setTimestamp( $time );
 
 		} else if ( is_string( $time ) ) {
