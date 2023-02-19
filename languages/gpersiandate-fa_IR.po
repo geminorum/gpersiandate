@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gPersianDate\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gpersiandate/issues\n"
-"POT-Creation-Date: 2020-12-07T18:10:47+00:00\n"
-"PO-Revision-Date: 2020-12-07 21:41+0330\n"
+"POT-Creation-Date: 2023-02-19T11:51:02+00:00\n"
+"PO-Revision-Date: 2023-02-19 15:21+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #. Plugin Name of the plugin
 msgid "gPersianDate"
@@ -151,13 +151,13 @@ msgctxt "Archives: Clean"
 msgid "Post comment count"
 msgstr "دیدگاه‌های نوشته"
 
-#: includes/archives.class.php:618
+#: includes/archives.class.php:620
 msgctxt "Archives: Clean: Untitled Post"
 msgid "[Untitled]"
 msgstr "[بدون عنوان]"
 
 #. translators: %s: comments count
-#: includes/archives.class.php:629
+#: includes/archives.class.php:631
 msgctxt "Archives: Clean: Comment Count"
 msgid "(%s)"
 msgstr ""
@@ -222,22 +222,22 @@ msgctxt "Date Picker"
 msgid "Previous"
 msgstr "قبلی"
 
-#: includes/plugins.class.php:101
+#: includes/plugins.class.php:121
 msgctxt "Plugins: Woocommerce: Locales"
 msgid "Country"
 msgstr "کشور"
 
-#: includes/plugins.class.php:104
+#: includes/plugins.class.php:124
 msgctxt "Plugins: Woocommerce: Locales"
 msgid "City"
 msgstr "شهر"
 
-#: includes/plugins.class.php:107
+#: includes/plugins.class.php:127
 msgctxt "Plugins: Woocommerce: Locales"
 msgid "Province"
 msgstr "استان"
 
-#: includes/plugins.class.php:128 includes/plugins.class.php:133
+#: includes/plugins.class.php:158 includes/plugins.class.php:163
 msgctxt "WooCommerce: Currencies"
 msgid "Toman"
 msgstr "تومان"
@@ -953,44 +953,42 @@ msgctxt "Time Ago"
 msgid "%d years"
 msgstr "%d سال"
 
-#: assets/blocks/clean/build/index.js:105
+#: assets/blocks/clean/build/index.js:1
 msgctxt "Blocks: Clean"
 msgid "Clean Archives"
 msgstr "بایگانی پاکیزه"
 
-#: assets/blocks/clean/build/index.js:106
+#: assets/blocks/clean/build/index.js:1
 msgctxt "Blocks: Clean"
 msgid "Displays a clean monthly archive."
 msgstr "بایگانی پاکیزه ماهانه را نمایش می‌دهد."
 
-#: assets/blocks/clean/build/index.js:107
+#: assets/blocks/clean/build/index.js:1
 msgctxt "Blocks"
 msgid "clean"
 msgstr "پاکیزه"
 
-#: assets/blocks/clean/build/index.js:107
-#: assets/blocks/compact/build/index.js:107
+#: assets/blocks/clean/build/index.js:1 assets/blocks/compact/build/index.js:1
 msgctxt "Blocks"
 msgid "monthly"
 msgstr "ماهانه"
 
-#: assets/blocks/clean/build/index.js:107
-#: assets/blocks/compact/build/index.js:107
+#: assets/blocks/clean/build/index.js:1 assets/blocks/compact/build/index.js:1
 msgctxt "Blocks"
 msgid "archive"
 msgstr "بایگانی"
 
-#: assets/blocks/compact/build/index.js:105
+#: assets/blocks/compact/build/index.js:1
 msgctxt "Blocks: Compact"
 msgid "Compact Archives"
 msgstr "بایگانی فشرده"
 
-#: assets/blocks/compact/build/index.js:106
+#: assets/blocks/compact/build/index.js:1
 msgctxt "Blocks: Compact"
 msgid "Displays a compact monthly archive."
 msgstr "بایگانی فشرده ماهانه را نمایش می‌دهد."
 
-#: assets/blocks/compact/build/index.js:107
+#: assets/blocks/compact/build/index.js:1
 msgctxt "Blocks"
 msgid "compact"
 msgstr "فشرده"

@@ -7,9 +7,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-07T18:10:47+00:00\n"
+"POT-Creation-Date: 2023-02-19T11:51:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: gpersiandate\n"
 
 #. Plugin Name of the plugin
@@ -150,13 +150,13 @@ msgctxt "Archives: Clean"
 msgid "Post comment count"
 msgstr ""
 
-#: includes/archives.class.php:618
+#: includes/archives.class.php:620
 msgctxt "Archives: Clean: Untitled Post"
 msgid "[Untitled]"
 msgstr ""
 
 #. translators: %s: comments count
-#: includes/archives.class.php:629
+#: includes/archives.class.php:631
 msgctxt "Archives: Clean: Comment Count"
 msgid "(%s)"
 msgstr ""
@@ -221,23 +221,23 @@ msgctxt "Date Picker"
 msgid "Previous"
 msgstr ""
 
-#: includes/plugins.class.php:101
+#: includes/plugins.class.php:121
 msgctxt "Plugins: Woocommerce: Locales"
 msgid "Country"
 msgstr ""
 
-#: includes/plugins.class.php:104
+#: includes/plugins.class.php:124
 msgctxt "Plugins: Woocommerce: Locales"
 msgid "City"
 msgstr ""
 
-#: includes/plugins.class.php:107
+#: includes/plugins.class.php:127
 msgctxt "Plugins: Woocommerce: Locales"
 msgid "Province"
 msgstr ""
 
-#: includes/plugins.class.php:128
-#: includes/plugins.class.php:133
+#: includes/plugins.class.php:158
+#: includes/plugins.class.php:163
 msgctxt "WooCommerce: Currencies"
 msgid "Toman"
 msgstr ""
@@ -953,44 +953,44 @@ msgctxt "Time Ago"
 msgid "%d years"
 msgstr ""
 
-#: assets/blocks/clean/build/index.js:105
+#: assets/blocks/clean/build/index.js:1
 msgctxt "Blocks: Clean"
 msgid "Clean Archives"
 msgstr ""
 
-#: assets/blocks/clean/build/index.js:106
+#: assets/blocks/clean/build/index.js:1
 msgctxt "Blocks: Clean"
 msgid "Displays a clean monthly archive."
 msgstr ""
 
-#: assets/blocks/clean/build/index.js:107
+#: assets/blocks/clean/build/index.js:1
 msgctxt "Blocks"
 msgid "clean"
 msgstr ""
 
-#: assets/blocks/clean/build/index.js:107
-#: assets/blocks/compact/build/index.js:107
+#: assets/blocks/clean/build/index.js:1
+#: assets/blocks/compact/build/index.js:1
 msgctxt "Blocks"
 msgid "monthly"
 msgstr ""
 
-#: assets/blocks/clean/build/index.js:107
-#: assets/blocks/compact/build/index.js:107
+#: assets/blocks/clean/build/index.js:1
+#: assets/blocks/compact/build/index.js:1
 msgctxt "Blocks"
 msgid "archive"
 msgstr ""
 
-#: assets/blocks/compact/build/index.js:105
+#: assets/blocks/compact/build/index.js:1
 msgctxt "Blocks: Compact"
 msgid "Compact Archives"
 msgstr ""
 
-#: assets/blocks/compact/build/index.js:106
+#: assets/blocks/compact/build/index.js:1
 msgctxt "Blocks: Compact"
 msgid "Displays a compact monthly archive."
 msgstr ""
 
-#: assets/blocks/compact/build/index.js:107
+#: assets/blocks/compact/build/index.js:1
 msgctxt "Blocks"
 msgid "compact"
 msgstr ""
