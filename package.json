@@ -35,11 +35,11 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@wordpress/browserslist-config": "^5.1.0",
-    "@wordpress/stylelint-config": "^21.1.0",
-    "autoprefixer": "^10.4.12",
-    "browserslist": "^4.21.4",
-    "cssnano": "^5.1.13",
+    "@wordpress/browserslist-config": "^5.10.0",
+    "@wordpress/stylelint-config": "^21.10.0",
+    "autoprefixer": "^10.4.13",
+    "browserslist": "^4.21.5",
+    "cssnano": "^5.1.15",
     "del": "^7.0.0",
     "fancy-log": "^2.0.0",
     "gulp": "^4.0.2",
@@ -50,11 +50,11 @@
     "gulp-rename": "^2.0.0",
     "gulp-sass-unicode": "^1.0.5",
     "gulp-sass-variables": "^1.2.0",
-    "postcss": "^8.4.16",
-    "postcss-inline-svg": "^5.0.0",
+    "postcss": "^8.4.21",
+    "postcss-inline-svg": "^6.0.0",
     "rtlcss": "^4.0.0",
     "semistandard": "^16.0.1",
-    "stylelint": "^14.12.1"
+    "stylelint": "^15.1.0"
   },
   "optionalDependencies": {
     "timeago": "^1.6.7"
