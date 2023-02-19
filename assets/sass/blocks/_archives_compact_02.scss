@@ -5,6 +5,9 @@
 // gPersianDate Compact Archives Markup
 
 ////////////////////////////////////////////////////////////////////////////////
+@use "sass:math"; // @REF: https://sass-lang.com/d/slash-div
+
+////////////////////////////////////////////////////////////////////////////////
 
 $theme-grid-gutter:        20px !default;
 $padding-small-vertical:   5px !default;
@@ -13,7 +16,7 @@ $padding-small-horizontal: 10px !default;
 ////////////////////////////////////////////////////////////////////////////////
 table.date-archives-compact {
   width: auto;
-  margin: ($theme-grid-gutter/2) auto;
+  margin: (math.div($theme-grid-gutter, 2)) auto;
 
   // @REF: https://css-tricks.com/table-borders-inside/
   border-collapse: collapse;
@@ -28,7 +31,7 @@ table.date-archives-compact {
   }
 
   td {
-    padding: ($padding-small-horizontal/2) $padding-small-vertical;
+    padding: (math.div($padding-small-horizontal, 2)) $padding-small-vertical;
   }
 
   .-empty {

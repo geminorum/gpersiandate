@@ -1,0 +1,10 @@
+/* Parent Input Alignment */
+body.wp-admin {
+	&:not(.rtl) .ui-datepicker {
+		margin-left: -1px;
+	}
+
+	&.rtl .ui-datepicker {
+		margin-right: -1px;
+	}
+}
