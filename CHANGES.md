@@ -1,3 +1,17 @@
+### 3.8.1
+* block/clean: wp scripts updated
+* block/compact: wp scripts updated
+* main/archives: move to date objects
+* main/date: better checks for timestamps
+* main/links: getting partials from date object on permalinks
+* main/plugin: more woocommerce hooks
+* main/search: support for term queries
+* main/translate: filter for formatting ordinal/words numbers
+* main/translate: sanitize locale method
+* main/wordpress: translate hooks revised
+* module/date: check if date already is an object
+* module/translate: avoid formatting non-numbers
+
 ### 3.8.0
 * main/admin: disabling conversion on woo-commerce order edit page
 * main/adminbar: js clock revised
