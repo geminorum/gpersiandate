@@ -282,6 +282,12 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return intval( ( $next - $now ) / ( 60 * 60 * 24 ) );
 	}
 
+	// FIXME
+	public static function daysTillBirthdayHijri( $month, $day, $form = 'now' )
+	{
+		return 0;
+	}
+
 	public static function daysTillBirthdayJalali( $month, $day, $form = 'now' )
 	{
 		list( $this_year, $this_month, $this_day ) = self::todayJalali( $form );
@@ -307,7 +313,13 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return $day_of_year + $day;
 	}
 
-	// FIXME
+	// @REF: https://schoolsofweb.com/how-to-findcalculate-the-day-numbercurrent-of-the-year-in-php/
+	public static function dayOfYearGregorian( $month, $day )
+	{
+		$date = \DateTime::createFromFormat( 'd/m/Y', sprintf( '%s/%s/%s', $day, $month, '2020' ) );
+		return $date->format( 'z' ) + 1;
+	}
+
 	public static function dayOfYearHijri( $month, $day )
 	{
 		return self::dayOfYearJalali( $month, $day );
@@ -404,19 +416,6 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 	public static function isLeapYearHijri( $year )
 	{
 		return FALSE;
-	}
-
-	public static function check( $month, $day, $year, $calendar = 'Jalali' )
-	{
-		$calendar = self::sanitizeCalendar( $calendar );
-
-		if ( 'Gregorian' == $calendar )
-			return checkdate( $month, $day, $year );
-
-		else if ( 'Hijri' == $calendar )
-			return self::checkHijri( $month, $day, $year );
-
-		return self::checkJalali( $month, $day, $year );
 	}
 
 	public static function checkJalali( $month, $day, $year )

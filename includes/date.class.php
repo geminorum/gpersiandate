@@ -412,4 +412,95 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 		return $datetime->format( 'w' );
 	}
+
+	public static function dayOfYear( $month, $day, $calendar = NULL )
+	{
+		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
+
+		if ( 'Gregorian' == $calendar )
+			return gPersianDateDateTime::dayOfYearGregorian( $month, $day );
+
+		else if ( 'Hijri' == $calendar )
+			return gPersianDateDateTime::dayOfYearHijri( $month, $day );
+
+		return gPersianDateDateTime::dayOfYearJalali( $month, $day );
+	}
+
+	public static function isLeapYear( $year, $calendar = NULL )
+	{
+		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
+
+		if ( 'Gregorian' == $calendar )
+			return gPersianDateDateTime::isLeapYearGregorian( $year );
+
+		else if ( 'Hijri' == $calendar )
+			return gPersianDateDateTime::isLeapYearHijri( $year );
+
+		return gPersianDateDateTime::isLeapYearJalali( $year );
+	}
+
+	public static function check( $month, $day, $year, $calendar = NULL )
+	{
+		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
+
+		if ( 'Gregorian' == $calendar )
+			return checkdate( $month, $day, $year );
+
+		else if ( 'Hijri' == $calendar )
+			return gPersianDateDateTime::checkHijri( $month, $day, $year );
+
+		return gPersianDateDateTime::checkJalali( $month, $day, $year );
+	}
+
+	// @REF: https://schoolsofweb.com/how-to-compare-two-dates-in-php/
+	public static function compare( $first, $second, $calendar = NULL, $timezone = NULL )
+	{
+		$first_date  = self::getObject( $first, $calendar, $timezone, FALSE );
+		$second_date = self::getObject( $second, $calendar, $timezone, FALSE );
+		$date_diff   = $first_date->diff( $second_date )->format( '%R%a' );
+
+		return 0 === $date_diff;
+	}
+
+	// tries to parse and make an object
+	public static function getObject( $date, $calendar = NULL, $timezone = NULL )
+	{
+		if ( ! $date )
+			return FALSE;
+
+		if ( is_a( $date, 'DateTime' ) || is_a( $date, 'DateTimeImmutable' ) )
+			return $date;
+
+		if ( is_string( $date ) )
+			return self::makeObjectFromInput( $date, $calendar, $timezone, FALSE );
+
+		if ( ! is_array( $date ) )
+			return FALSE;
+
+		// NOTE: diffrent from `makeObjectFromArray()`
+		$parts = self::atts( [
+			'year'     => 0,
+			'month'    => 0,
+			'day'      => 0,
+			'hour'     => 0,
+			'minute'   => 0,
+			'second'   => 0,
+			'calendar' => $calendar,
+			'timezone' => $timezone,
+		], $date );
+
+		if ( empty( $parts['month'] ) || empty( $parts['day'] ) || empty( $parts['year'] ) )
+			return FALSE;
+
+		return self::makeObject(
+			$parts['hour'],
+			$parts['minute'],
+			$parts['second'],
+			$parts['month'],
+			$parts['day'],
+			$parts['year'],
+			$parts['calendar'],
+			$parts['timezone']
+		);
+	}
 }
