@@ -31,10 +31,10 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 			return $datetime->format( $format );
 
 		else if ( 'Hijri' == $calendar )
-			$convertor = [ 'self', 'toHijri' ];
+			$convertor = [ __CLASS__, 'toHijri' ];
 
 		else
-			$convertor = [ 'self', 'toJalali' ];
+			$convertor = [ __CLASS__, 'toJalali' ];
 
 		$year  = $datetime->format( 'Y' );
 		$month = $datetime->format( 'n' );
@@ -325,6 +325,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return self::dayOfYearJalali( $month, $day );
 	}
 
+	// @SEE: `DateTime::createFromFormat('d/m/Y', '12/02/1973', $tz)`
 	public static function makeObject( $hour, $minute, $second, $month, $day, $year, $calendar = 'Jalali', $timezone = NULL )
 	{
 		$calendar = self::sanitizeCalendar( $calendar );
@@ -342,7 +343,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		$time = $date[0].'-'.sprintf( '%02d', $date[1] ).'-'.sprintf( '%02d', $date[2] ).' ';
 		$time.= sprintf( '%02d', $hour ).':'.sprintf( '%02d', $minute ).':'.sprintf( '%02d', $second );
 
-		 return date_create( $time, new \DateTimeZone( $timezone ) );
+		return date_create( $time, new \DateTimeZone( $timezone ) );
 	}
 
 	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar = 'Jalali', $timezone = NULL )

@@ -1,5 +1,6 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
+#[\AllowDynamicProperties] // TODO: implement the magic methods `__get()` and `__set()`
 class gPersianDateCore extends gPersianDateBase
 {
 

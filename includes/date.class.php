@@ -154,6 +154,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return self::to( $format, $time, $timezone, $locale, $translate, 'Hijri' );
 	}
 
+	// @SEE: `date_parse()`
 	// @REF: http://php.net/manual/en/function.getdate.php
 	public static function getFromObject( $datetime = NULL, $timezone_string = NULL, $locale = NULL, $translate = FALSE, $calendar = 'Jalali' )
 	{
@@ -325,9 +326,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 			0 => $currents['year'],
 			1 => $currents['mon'],
 			2 => $currents['mday'],
-			3 => $currents['hours'],
-			4 => $currents['minutes'],
-			5 => $currents['seconds'],
+			3 => 0, // $currents['hours'],
+			4 => 0, // $currents['minutes'],
+			5 => 0, // $currents['seconds'],
 		], $matches[0] );
 
 		return self::makeObject( $parts[3], $parts[4], $parts[5], $parts[1], $parts[2], $parts[0], $calendar, $timezone );
@@ -349,9 +350,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 			0 => $currents['year'],
 			1 => $currents['mon'],
 			2 => $currents['mday'],
-			3 => $currents['hours'],
-			4 => $currents['minutes'],
-			5 => $currents['seconds'],
+			3 => 0, // $currents['hours'],
+			4 => 0, // $currents['minutes'],
+			5 => 0, // $currents['seconds'],
 		], $matches[0] );
 
 		return self::make( $parts[3], $parts[4], $parts[5], $parts[1], $parts[2], $parts[0], $calendar, $timezone );
@@ -396,7 +397,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 		return intval( gPersianDateDateTime::daysInMonthJalali( $month, $year ) );
 	}
 
-	// timezone must be UTC, since all dates stored in wp are local
+	// NOTE: timezone must be UTC, since all dates stored in wp are local
 	public static function dayOfWeek( $month, $day, $year, $calendar = 'Jalali', $timezone = 'UTC' )
 	{
 		$datetime = self::makeObjectFromArray( [
