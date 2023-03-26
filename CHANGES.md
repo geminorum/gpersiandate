@@ -1,3 +1,7 @@
+### 3.8.2
+* main/misc: :new: main
+* main/translate: date format filters
+
 ### 3.8.1
 * block/clean: wp scripts updated
 * block/compact: wp scripts updated
