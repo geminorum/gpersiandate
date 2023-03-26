@@ -21,9 +21,40 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 		add_filter( 'maybe_format_i18n', [ __CLASS__, 'numbers' ], 10, 2 );
 
+		add_filter( 'date_format_i18n', [ __CLASS__, 'date_format_i18n' ], 10, 5 );
+		add_filter( 'date_format_i18n_back', [ __CLASS__, 'date_format_i18n_back' ], 10, 3 );
+		add_filter( 'date_format_i18n_object', [ __CLASS__, 'date_format_i18n_object' ], 10, 3 );
+
 		// FIXME: make optional
 		add_filter( 'wp_insert_attachment_data', [ __CLASS__, 'attachment_data' ], 12, 2 );
 		add_filter( 'image_add_caption_text', [ __CLASS__, 'html' ], 9 );
+	}
+
+	public static function date_format_i18n( $formatted, $format = NULL, $calendar = NULL, $timezone = NULL, $translate = NULL )
+	{
+		if ( ! $datetime = gPersianDateDate::getObject( $formatted, $calendar, $timezone ) )
+			return $formatted;
+
+		return gPersianDateDate::fromObject(
+			gPersianDateFormat::sanitize( $format ?: '' ),
+			$datetime,
+			$timezone,
+			NULL,
+			$translate
+		);
+	}
+
+	public static function date_format_i18n_back( $formatted, $format = NULL, $calendar = NULL, $timezone = NULL )
+	{
+		if ( ! $datetime = gPersianDateDate::getObject( $formatted, $calendar, $timezone ) )
+			return $formatted;
+
+		return $datetime->format( gPersianDateFormat::sanitize( $format ?: '' ) );
+	}
+
+	public static function date_format_i18n_object( $formatted, $calendar = NULL, $timezone = NULL )
+	{
+		return gPersianDateDate::getObject( $formatted, $calendar, $timezone );
 	}
 
 	public static function attachment_data( $data, $postarr )
