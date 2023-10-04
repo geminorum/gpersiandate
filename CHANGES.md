@@ -1,3 +1,6 @@
+### 3.8.3
+* module/data: check flipped day/year
+
 ### 3.8.2
 * main/misc: :new: main
 * main/translate: date format filters
