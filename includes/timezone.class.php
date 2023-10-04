@@ -38,7 +38,13 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 		}
 	}
 
-	// @SOURCE: `wp_timezone_string()`
+	/**
+	 * Retrieves the timezone from offset as a string.
+	 * @source `wp_timezone_string()`
+	 *
+	 * @param  float $offset
+	 * @return string $timezone_string
+	 */
 	public static function fromOffset( $offset )
 	{
 		$offset  = (float) $offset;
@@ -171,6 +177,28 @@ class gPersianDateTimeZone extends gPersianDateModuleCore
 
 			wp_cache_set( 'site_timezone', $timezone );
 		}
+
+		return $timezone;
+	}
+
+	/**
+	 * If you want to show both timezone_string & gmt_offset
+	 * Preview: `Asia/Dhaka [+06:00]` or `+06:00`
+	 * @source https://developer.wordpress.org/reference/functions/wp_timezone_string/
+	 *
+	 * @return string $timezone
+	 */
+	public static function customString()
+	{
+		$string    = get_option( 'timezone_string' );
+		$offset    = (float) get_option( 'gmt_offset' );
+		$hours     = (int) $offset;
+		$minutes   = ( $offset - $hours );
+		$sign      = ( $offset < 0 ) ? '-' : '+';
+		$abs_hour  = abs( $hours );
+		$abs_mins  = abs( $minutes * 60 );
+		$tz_offset = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
+		$timezone  = $string ? ( $string.' ['.$tz_offset.']' ) : $tz_offset;
 
 		return $timezone;
 	}

@@ -204,6 +204,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		$formats['timedate'] = is_rtl() ? 'j F Y — H:i' : 'H:i — j F Y';
 		$formats['monthday'] = is_rtl() ? 'j/n' : 'n/j';
 		$formats['default']  = 'Y/m/d';
+		$formats['age']      = 'Y/m/d';
 
 		return $formats;
 	}

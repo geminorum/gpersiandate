@@ -191,6 +191,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return date_default_timezone_get();
 	}
 
+	// FIXME: check casings!
 	public static function sanitizeCalendar( $calendar )
 	{
 		if ( ! $calendar )
