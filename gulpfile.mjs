@@ -13,13 +13,20 @@ import livereload from 'gulp-livereload';
 import sassUnicode from 'gulp-sass-unicode';
 import sassVariables from 'gulp-sass-variables'; // https://github.com/osaton/gulp-sass-variables
 import { deleteSync } from 'del';
-import { readFile } from 'fs/promises';
+// import { readFile } from 'fs/promises';
+
+// @REF: https://www.stefanjudis.com/snippets/how-to-import-json-files-in-es-modules-node-js/
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 const { src, dest, watch, series, parallel, task } = gulp;
 
 // @REF: https://www.stefanjudis.com/snippets/how-to-import-json-files-in-es-modules-node-js/
-const conf = JSON.parse(await readFile(new URL('./gulp.config.json', import.meta.url))); // eslint-disable-line
+// const conf = JSON.parse(await readFile(new URL('./gulp.config.json', import.meta.url))); // eslint-disable-line
 // const pkg = JSON.parse(await readFile(new URL('./package.json', import.meta.url))); // eslint-disable-line
+
+const conf = require('./gulp.config.json');
+// const pkg = require('./package.json');
 
 function clean (done) {
   deleteSync(conf.input.clean);

@@ -31,7 +31,11 @@ assets/css/* linguist-generated=true
 
 /gulp.config.json export-ignore
 /gulpfile.js export-ignore
+/gulpfile.mjs export-ignore
 
 /bower.json export-ignore
 /package.json export-ignore
 /yarn.lock export-ignore
+
+/.vscode export-ignore
+/assets/sass export-ignore
