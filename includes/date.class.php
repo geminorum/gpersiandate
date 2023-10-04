@@ -331,6 +331,18 @@ class gPersianDateDate extends gPersianDateModuleCore
 			5 => 0, // $currents['seconds'],
 		], $matches[0] );
 
+		if ( 'Jalali' === gPersianDateDateTime::sanitizeCalendar( $calendar ) ) {
+
+			// check flipped day/year
+			if ( 4 === strlen( strval( $parts[2] ) )
+				|| ( $parts[2] > 31 && $parts[0] < 31 ) )
+				self::swap( $parts[0], $parts[2] );
+
+			// prepend century
+			if ( $parts[0] < 99 )
+				$parts[0] = intval( sprintf( '13%s', $parts[0] ) );
+		}
+
 		return self::makeObject( $parts[3], $parts[4], $parts[5], $parts[1], $parts[2], $parts[0], $calendar, $timezone );
 	}
 
