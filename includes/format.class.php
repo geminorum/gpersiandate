@@ -16,7 +16,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 
 		if ( is_admin() ) {
 
-			// DEPRECATED: Now we provide ou own localizations!
+			// DEPRECATED: Now we provide our own localizations!
 			// add_filter( 'gettext', [ $this, 'gettext' ], 10, 3 );
 			// add_filter( 'gettext_with_context', [ $this, 'gettext_with_context' ], 10, 4 );
 
@@ -28,9 +28,16 @@ class gPersianDateFormat extends gPersianDateModuleCore
 		add_filter( 'custom_date_formats', [ $this, 'custom_date_formats' ] );
 	}
 
-	// @SEE: http://php.net/manual/en/function.date.php
-	// @SEE: date_i18n()
-	// @REF: https://core.trac.wordpress.org/ticket/20973
+	/**
+	 * Checks the given format before conversion.
+	 *
+	 * @see `date_i18n()`
+	 * @see http://php.net/manual/en/function.date.php
+	 * @ref https://core.trac.wordpress.org/ticket/20973
+	 *
+	 * @param  string $format
+	 * @return bool   $passed
+	 */
 	public static function checkISO( $format )
 	{
 		return in_array( $format, [
@@ -53,8 +60,8 @@ class gPersianDateFormat extends gPersianDateModuleCore
 			'd-M-Y H:i',
 
 			DATE_W3C, // eq `c`, eq `DATE_RFC3339`
-			DATE_ISO8601, // eq `c`
 			DATE_RFC2822, // eq `r`
+			'Y-m-d\TH:i:sO', // eq `c` / `DATE_ISO8601`
 			'Y-m-d\TH:i:s+00:00', // eq `DATE_W3C` @SEE: http://jochenhebbrecht.be/site/node/761
 			'Y-m-d\TH:i:sP',
 		], TRUE );
@@ -80,6 +87,7 @@ class gPersianDateFormat extends gPersianDateModuleCore
 	{
 		return ! in_array( $format, [
 			'Y-m-d',
+			'Ymd',
 			'H',
 			'G',
 			'i',
@@ -198,13 +206,15 @@ class gPersianDateFormat extends gPersianDateModuleCore
 	// @SEE: [Arabic Date Separator U-060D](https://github.com/rastikerdar/vazir-font/issues/81)
 	public function custom_date_formats( $formats )
 	{
-		$formats['fulltime'] = 'l، j M Y - G:i';
-		$formats['datetime'] = 'j F Y @ G:i';
-		$formats['dateonly'] = 'l، j M Y';
-		$formats['timedate'] = is_rtl() ? 'j F Y — H:i' : 'H:i — j F Y';
-		$formats['monthday'] = is_rtl() ? 'j/n' : 'n/j';
-		$formats['default']  = 'Y/m/d';
+		$rtl = is_rtl();
+
 		$formats['age']      = 'Y/m/d';
+		$formats['dateonly'] = 'l، j M Y';
+		$formats['datetime'] = 'j F Y @ G:i';
+		$formats['default']  = 'Y/m/d';
+		$formats['fulltime'] = 'l، j M Y - G:i';
+		$formats['monthday'] = $rtl ? 'j/n' : 'n/j';
+		$formats['timedate'] = $rtl ? 'j F Y — H:i' : 'H:i — j F Y';
 
 		return $formats;
 	}

@@ -198,6 +198,9 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 	public static function legacy( $text )
 	{
+		if ( empty( $text ) || is_array( $text ) )
+			return $text;
+
 		//$pattern = '/(?:&#\d{2,4};)|((?:\&nbsp\;)*\d+(?:\&nbsp\;)*\d*\.*(?:\&nbsp\;)*\d*(?:\&nbsp\;)*\d*)|(?:[a-z](?:[\x00-\x3B\x3D-\x7F]|<\s*[^>]+>)*)|<\s*[^>]+>/i';
 		$pattern = '/(?:&#\d{2,4};)|(\d+[\.\d]*)|(?:[a-z](?:[\x00-\x3B\x3D-\x7F]|<\s*[^>]+>)*)|<\s*[^>]+>/iu';
 

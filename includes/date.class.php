@@ -295,7 +295,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 		return $datetime
 			? $datetime->format( $format )
-			: self::MYSQL_EMPTY;
+			: $fallback; // self::MYSQL_EMPTY;
 	}
 
 	// FIXME: DROP THIS
@@ -305,7 +305,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 			return $fallback;
 
 		// FIXME: needs sanity checks
-		$parts = explode( '/', str_replace( [ '-', '\\' ], '/', apply_filters( 'string_format_i18n_back', $input ) ) );
+		$parts = explode( '/', str_replace( [ '-', '\\', '|' ], '/', apply_filters( 'string_format_i18n_back', $input ) ) );
 
 		return self::makeObject( 0, 0, 0, $parts[1], $parts[2], $parts[0], $calendar, $timezone );
 	}
@@ -377,9 +377,9 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 		$datetime = self::makeObjectFromInput( $input, $calendar, $timezone, $fallback );
 
-		return $datetime
+		return is_a( $datetime, 'DateTimeInterface' )
 			? $datetime->format( $format ?: self::MYSQL_FORMAT )
-			: self::MYSQL_EMPTY;
+			: $fallback; // self::MYSQL_EMPTY;
 	}
 
 	// timezone must be UTC, since all dates stored in wp are local

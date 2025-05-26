@@ -31,7 +31,8 @@ class gPersianDateUtilities extends gPersianDateBase
 
 		$sub = md5( $query );
 
-		$cache = wp_cache_get( $key, $group );
+		if ( ! $cache = wp_cache_get( $key, $group ) )
+			$cache = [];
 
 		if ( isset( $cache[$sub] ) )
 			return $cache[$sub];
