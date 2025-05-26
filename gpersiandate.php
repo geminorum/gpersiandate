@@ -12,14 +12,15 @@ Author URI: https://geminorum.ir/
 Network: false
 TextDomain: gpersiandate
 Domain Path: /languages
-Requires PHP: 5.6.20
+Requires PHP: 7.2.24
 Requires WP: 5.0
 Requires at least: 5.0
+RepoGitHub: geminorum/gpersiandate
 GitHub Plugin URI: https://github.com/geminorum/gpersiandate
 */
 
 define( 'GPERSIANDATE_VERSION', '3.8.3' );
-define( 'GPERSIANDATE_MIN_PHP', '5.6.20' );
+define( 'GPERSIANDATE_MIN_PHP', '7.2.24' );
 define( 'GPERSIANDATE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GPERSIANDATE_URL', plugin_dir_url( __FILE__ ) );
 define( 'GPERSIANDATE_FILE', basename( GPERSIANDATE_DIR ).'/'.basename( __FILE__ ) );
