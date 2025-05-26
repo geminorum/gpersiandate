@@ -319,6 +319,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 
 		$string   = apply_filters( 'string_format_i18n_back', $input );
 		$currents = self::getFromObject( NULL, $timezone, NULL, FALSE, $calendar );
+		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
 
 		preg_match_all( '/\d+/', $string, $matches );
 
@@ -331,7 +332,27 @@ class gPersianDateDate extends gPersianDateModuleCore
 			5 => 0, // $currents['seconds'],
 		], $matches[0] );
 
-		if ( 'Jalali' === gPersianDateDateTime::sanitizeCalendar( $calendar ) ) {
+		// check month in 1-12
+		if ( $parts[1] < 1 || $parts[1] > 12 )
+			return $fallback;
+
+		// check day in 1-31
+		if ( $parts[2] < 1 || $parts[2] > 31 )
+			return $fallback;
+
+		// check hours in 0-23
+		if ( $parts[3] < 0 || $parts[3] > 23 )
+			return $fallback;
+
+		// check minutes in 0-59
+		if ( $parts[4] < 0 || $parts[4] > 59 )
+			return $fallback;
+
+		// check seconds in 0-59
+		if ( $parts[5] < 0 || $parts[5] > 59 )
+			return $fallback;
+
+		if ( 'Jalali' === $calendar ) {
 
 			// check flipped day/year
 			if ( 4 === strlen( strval( $parts[2] ) )
@@ -339,8 +360,12 @@ class gPersianDateDate extends gPersianDateModuleCore
 				self::swap( $parts[0], $parts[2] );
 
 			// prepend century
-			if ( $parts[0] < 99 )
+			if ( $parts[0] < 99 && $parts[0] > 9 )
 				$parts[0] = intval( sprintf( '13%s', $parts[0] ) );
+
+			// no need to convert
+			else if ( $parts[0] > 1500 )
+				$calendar = 'Gregorian';
 		}
 
 		return self::makeObject( $parts[3], $parts[4], $parts[5], $parts[1], $parts[2], $parts[0], $calendar, $timezone );
