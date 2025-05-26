@@ -26,13 +26,11 @@ class gPersianDateAdmin extends gPersianDateModuleCore
 
 	public function current_screen( $screen )
 	{
-		if ( 'post' == $screen->base ) {
+		if ( 'woocommerce_page_wc-orders' === $screen->base ) {
 
 			// disables conversion on woo-commerce order edit page
-			if ( 'shop_order' == $screen->post_type ) {
-				defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) or define( 'GPERSIANDATE_DISABLE_CONVERSION', 'woocommerce' );
-				defined( 'GPERSIANDATE_DISABLE_DATEPICKER' ) or define( 'GPERSIANDATE_DISABLE_DATEPICKER', 'woocommerce' );
-			}
+			defined( 'GPERSIANDATE_DISABLE_CONVERSION' ) or define( 'GPERSIANDATE_DISABLE_CONVERSION', 'woocommerce' );
+			defined( 'GPERSIANDATE_DISABLE_DATEPICKER' ) or define( 'GPERSIANDATE_DISABLE_DATEPICKER', 'woocommerce' );
 
 		} else if ( 'edit' == $screen->base ) {
 
