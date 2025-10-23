@@ -30,31 +30,31 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		add_filter( 'image_add_caption_text', [ __CLASS__, 'html' ], 9 );
 	}
 
-	public static function date_format_i18n( $formatted, $format = NULL, $calendar = NULL, $timezone = NULL, $translate = NULL )
+	public static function date_format_i18n( $formatted, $format = NULL, $calendar_type = NULL, $timezone_string = NULL, $translate = NULL )
 	{
-		if ( ! $datetime = gPersianDateDate::getObject( $formatted, $calendar, $timezone ) )
+		if ( ! $datetime = gPersianDateDate::getObject( $formatted, $calendar_type, $timezone_string ) )
 			return $formatted;
 
 		return gPersianDateDate::fromObject(
 			gPersianDateFormat::sanitize( $format ?: '' ),
 			$datetime,
-			$timezone,
+			$timezone_string,
 			NULL,
 			$translate
 		);
 	}
 
-	public static function date_format_i18n_back( $formatted, $format = NULL, $calendar = NULL, $timezone = NULL )
+	public static function date_format_i18n_back( $formatted, $format = NULL, $calendar_type = NULL, $timezone_string = NULL )
 	{
-		if ( ! $datetime = gPersianDateDate::getObject( $formatted, $calendar, $timezone ) )
+		if ( ! $datetime = gPersianDateDate::getObject( $formatted, $calendar_type, $timezone_string ) )
 			return $formatted;
 
 		return $datetime->format( gPersianDateFormat::sanitize( $format ?: '' ) );
 	}
 
-	public static function date_format_i18n_object( $formatted, $calendar = NULL, $timezone = NULL )
+	public static function date_format_i18n_object( $formatted, $calendar_type = NULL, $timezone_string = NULL )
 	{
-		return gPersianDateDate::getObject( $formatted, $calendar, $timezone );
+		return gPersianDateDate::getObject( $formatted, $calendar_type, $timezone_string );
 	}
 
 	public static function attachment_data( $data, $postarr )
