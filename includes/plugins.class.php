@@ -9,7 +9,7 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 	{
 		add_action( 'bp_include', [ $this, 'bp_include' ] ); // BuddyPress
 		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] ); // bbPress
-		add_action( 'woocommerce_loaded', [ $this, 'woocommerce_loaded' ] ); // WooCommerce
+		// add_action( 'woocommerce_loaded', [ $this, 'woocommerce_loaded' ] ); // WooCommerce
 
 		// gShop
 		add_filter( 'gshop_stats_current_month', [ $this, 'gshop_stats_current_month' ], 10, 3 );
