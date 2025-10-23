@@ -4,13 +4,13 @@ class gPersianDateStrings extends gPersianDateModuleCore
 {
 
 	// @REF: [Month Dropdown in PHP](http://paulferrett.com/2012/month-dropdown-in-php/)
-	public static function lastMonths( $limit = 12, $calendar = NULL )
+	public static function lastMonths( $limit = 12, $calendar_type = NULL )
 	{
 		static $strings = [];
 
-		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
+		$calendar_type = gPersianDateDateTime::sanitizeCalendar( $calendar_type );
 
-		if ( ! isset( $strings[$calendar][$limit] ) ) {
+		if ( ! isset( $strings[$calendar_type][$limit] ) ) {
 
 			$months = [];
 
@@ -18,42 +18,42 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 				$time = strtotime( sprintf( '-%d months', $i ) );
 
-				if ( 'Gregorian' == $calendar ) {
+				if ( 'Gregorian' == $calendar_type ) {
 
 					$key = date( 'Y-m', $time );
 					$val = date( 'F Y', $time );
 
 				} else {
 
-					$key = gPersianDateDateTime::to( $time, 'Y-m', NULL, $calendar );
-					$val = gPersianDateDateTime::to( $time, 'F Y', NULL, $calendar );
+					$key = gPersianDateDateTime::to( $time, 'Y-m', NULL, $calendar_type );
+					$val = gPersianDateDateTime::to( $time, 'F Y', NULL, $calendar_type );
 				}
 
 				$months[$key] = $val;
 			}
 
-			$strings[$calendar][$limit] = $months;
+			$strings[$calendar_type][$limit] = $months;
 		}
 
-		return $strings[$calendar][$limit];
+		return $strings[$calendar_type][$limit];
 	}
 
 	// @SEE: http://www.wikiwand.com/en/Month
-	public static function month( $formatted = '01', $all = FALSE, $calendar = NULL, $abbrev = FALSE )
+	public static function month( $formatted = '01', $all = FALSE, $calendar_type = NULL, $abbrev = FALSE )
 	{
 		static $strings = [];
 
-		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
-		$full     = $abbrev ? 'abbrev' : 'full';
+		$calendar_type = gPersianDateDateTime::sanitizeCalendar( $calendar_type );
+		$full          = $abbrev ? 'abbrev' : 'full';
 
-		if ( ! isset( $strings[$calendar][$full] ) ) {
+		if ( ! isset( $strings[$calendar_type][$full] ) ) {
 
-			switch ( $calendar ) {
+			switch ( $calendar_type ) {
 
 				case 'Gregorian':
 
 					if ( $abbrev )
-						$strings[$calendar]['abbrev'] = [
+						$strings[$calendar_type]['abbrev'] = [
 							'01' => _x( 'Jan', 'Strings: Month: Gregorian: Abbreviation: January', 'gpersiandate' ), // 31 days
 							'02' => _x( 'Feb', 'Strings: Month: Gregorian: Abbreviation: February', 'gpersiandate' ), // 28 days, 29 in leap years
 							'03' => _x( 'Mar', 'Strings: Month: Gregorian: Abbreviation: March', 'gpersiandate' ), // 31 days
@@ -69,7 +69,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 						];
 
 					else
-						$strings[$calendar]['full'] = [
+						$strings[$calendar_type]['full'] = [
 							'01' => _x( 'January', 'Strings: Month: Gregorian: Full: January', 'gpersiandate' ), // 31 days
 							'02' => _x( 'February', 'Strings: Month: Gregorian: Full: February', 'gpersiandate' ), // 28 days, 29 in leap years
 							'03' => _x( 'March', 'Strings: Month: Gregorian: Full: March', 'gpersiandate' ), // 31 days
@@ -91,7 +91,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 					// 'محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'
 
 					if ( $abbrev )
-						$strings[$calendar]['abbrev'] = [
+						$strings[$calendar_type]['abbrev'] = [
 							'01' => _x( 'Muh', 'Strings: Month: Hijri: Abbreviation: Muharram', 'gpersiandate' ), // (Restricted/sacred) محرّم
 							'02' => _x( 'Saf', 'Strings: Month: Hijri: Abbreviation: Safar', 'gpersiandate' ), // (Empty/Yellow) صفر
 							'03' => _x( 'Rb1', 'Strings: Month: Hijri: Abbreviation: Rabi Al Awwal', 'gpersiandate' ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
@@ -107,7 +107,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 						];
 
 					else
-						$strings[$calendar]['full'] = [
+						$strings[$calendar_type]['full'] = [
 							'01' => _x( 'Muharram', 'Strings: Month: Hijri: Full: Muharram', 'gpersiandate' ), // (Restricted/sacred) محرّم
 							'02' => _x( 'Safar', 'Strings: Month: Hijri: Full: Safar', 'gpersiandate' ), // (Empty/Yellow) صفر
 							'03' => _x( 'Rabi Al Awwal', 'Strings: Month: Hijri: Full: Rabi Al Awwal', 'gpersiandate' ), // Rabī' al-Awwal/Rabi' I (First Spring) ربيع الأول
@@ -127,7 +127,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 				case 'Jalali':
 
 					if ( $abbrev )
-						$strings[$calendar]['abbrev'] = [
+						$strings[$calendar_type]['abbrev'] = [
 							'01' => _x( 'Far', 'Strings: Month: Jalali: Abbreviation: Farvardin', 'gpersiandate' ), // (31 days, فروردین)
 							'02' => _x( 'Ord', 'Strings: Month: Jalali: Abbreviation: Ordibehesht', 'gpersiandate' ), // (31 days, اردیبهشت)
 							'03' => _x( 'Kho', 'Strings: Month: Jalali: Abbreviation: Khordad', 'gpersiandate' ), // (31 days, خرداد)
@@ -143,7 +143,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 						];
 
 					else
-						$strings[$calendar]['full'] = [
+						$strings[$calendar_type]['full'] = [
 							'01' => _x( 'Farvardin', 'Strings: Month: Jalali: Full: Farvardin', 'gpersiandate' ), // (31 days, فروردین)
 							'02' => _x( 'Ordibehesht', 'Strings: Month: Jalali: Full: Ordibehesht', 'gpersiandate' ), // (31 days, اردیبهشت)
 							'03' => _x( 'Khordad', 'Strings: Month: Jalali: Full: Khordad', 'gpersiandate' ), // (31 days, خرداد)
@@ -161,17 +161,17 @@ class gPersianDateStrings extends gPersianDateModuleCore
 		}
 
 		if ( $all )
-			return $strings[$calendar][$full];
+			return $strings[$calendar_type][$full];
 
 		$key = zeroise( $formatted, 2 );
 
-		if ( isset( $strings[$calendar][$full][$key] ) )
-			return $strings[$calendar][$full][$key];
+		if ( isset( $strings[$calendar_type][$full][$key] ) )
+			return $strings[$calendar_type][$full][$key];
 
 		return $formatted;
 	}
 
-	public static function meridiemAntePost( $formatted, $all = FALSE, $calendar = NULL )
+	public static function meridiemAntePost( $formatted, $all = FALSE, $calendar_type = NULL )
 	{
 		static $strings = NULL;
 
@@ -197,27 +197,27 @@ class gPersianDateStrings extends gPersianDateModuleCore
 				],
 			];
 
-		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
+		$calendar_type = gPersianDateDateTime::sanitizeCalendar( $calendar_type );
 
 		if ( $all )
-			return $strings[$calendar];
+			return $strings[$calendar_type];
 
-		if ( isset( $strings[$calendar][$formatted] ) )
-			return $strings[$calendar][$formatted];
+		if ( isset( $strings[$calendar_type][$formatted] ) )
+			return $strings[$calendar_type][$formatted];
 
 		return $formatted;
 	}
 
-	public static function dayoftheweek( $formatted, $all = FALSE, $calendar = NULL, $initial = FALSE )
+	public static function dayoftheweek( $formatted, $all = FALSE, $calendar_type = NULL, $initial = FALSE )
 	{
 		static $strings = [];
 
-		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
+		$calendar_type = gPersianDateDateTime::sanitizeCalendar( $calendar_type );
 		$full     = $initial ? 'initial' : 'full';
 
-		if ( ! isset( $strings[$calendar][$full] ) ) {
+		if ( ! isset( $strings[$calendar_type][$full] ) ) {
 
-			switch ( $calendar ) {
+			switch ( $calendar_type ) {
 
 				case 'Gregorian':
 
@@ -301,19 +301,19 @@ class gPersianDateStrings extends gPersianDateModuleCore
 		}
 
 		if ( $all )
-			return $strings[$calendar][$full];
+			return $strings[$calendar_type][$full];
 
-		if ( isset( $strings[$calendar][$full][$formatted] ) )
-			return $strings[$calendar][$full][$formatted];
+		if ( isset( $strings[$calendar_type][$full][$formatted] ) )
+			return $strings[$calendar_type][$full][$formatted];
 
 		return $formatted;
 	}
 
 	// FIXME: DEPRECATED
 	// OLD: used in p2
-	// before: get_dayoftheweek()
-	public static function get_dayoftheweek( $dayoftheweek, $all = FALSE, $calendar = NULL )
+	// before: `get_dayoftheweek()`
+	public static function get_dayoftheweek( $dayoftheweek, $all = FALSE, $calendar_type = NULL )
 	{
-		return self::dayoftheweek( $dayoftheweek, $all, ( is_null( $calendar ) ? 'Gregorian' : $calendar ) );
+		return self::dayoftheweek( $dayoftheweek, $all, $calendar_type ?? 'Gregorian' );
 	}
 }

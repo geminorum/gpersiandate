@@ -3,21 +3,19 @@
 class gPersianDateDateTime extends gPersianDateModuleCore
 {
 
-	public static function to( $time, $format, $timezone = NULL, $calendar = NULL )
+	public static function to( $time, $format, $timezone_string = NULL, $calendar_type = NULL )
 	{
 		$result   = '';
-		$calendar = self::sanitizeCalendar( $calendar );
+		$calendar_type = self::sanitizeCalendar( $calendar_type );
 
 		if ( is_numeric( $time ) && (int) $time == $time ) {
 
-			$timezone = self::sanitizeTimeZone( $timezone );
-			$datetime = new \DateTime( 'now', new \DateTimeZone( $timezone ) );
+			$datetime = new \DateTime( 'now', new \DateTimeZone( self::sanitizeTimeZone( $timezone_string ) ) );
 			$datetime->setTimestamp( $time );
 
 		} else if ( is_string( $time ) ) {
 
-			$timezone = self::sanitizeTimeZone( $timezone );
-			$datetime = date_create( $time, new \DateTimeZone( $timezone ) );
+			$datetime = \date_create( $time, new \DateTimeZone( self::sanitizeTimeZone( $timezone_string ) ) );
 
 			if ( FALSE === $datetime )
 				return '';
@@ -27,10 +25,10 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 			$datetime = $time;
 		}
 
-		if ( 'Gregorian' == $calendar )
+		if ( 'Gregorian' === $calendar_type )
 			return $datetime->format( $format );
 
-		else if ( 'Hijri' == $calendar )
+		else if ( 'Hijri' === $calendar_type )
 			$convertor = [ __CLASS__, 'toHijri' ];
 
 		else
@@ -61,7 +59,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 				case 'M': // There is no short textual representation of months in persian so we use full textual representaions instead.
 				case 'F': // A full textual representation of a month (Farvardin through Esfand)
 
-					$result .= gPersianDateStrings::month( $jmonth, FALSE, $calendar );
+					$result .= gPersianDateStrings::month( $jmonth, FALSE, $calendar_type );
 
 				break;
 
@@ -88,7 +86,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 				case 'l': // A full textual representation of the day of the week (Sunday through Saturday)
 
 					$result .= gPersianDateStrings::dayoftheweek(
-						$datetime->format( 'w' ) % 7, FALSE, $calendar );
+						$datetime->format( 'w' ) % 7, FALSE, $calendar_type );
 
 				break;
 
@@ -106,7 +104,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 				case 't': // Number of days in the given month (29 through 31)
 
-					if ( 'Hijri' == $calendar )
+					if ( 'Hijri' == $calendar_type )
 						$result .= self::daysInMonthHijri( $jmonth, $jyear );
 
 					else
@@ -116,7 +114,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 				case 'z': // The day of the year starting from 0 (0 through 365)
 
-					if ( 'Hijri' == $calendar )
+					if ( 'Hijri' == $calendar_type )
 						$result .= self::dayOfYearHijri( $jmonth, $jday ) - 1;
 
 					else
@@ -126,7 +124,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 				case 'L': // Whether it's a leap year (1 if it is a leap year, 0 otherwise.)
 
-					if ( 'Hijri' == $calendar )
+					if ( 'Hijri' == $calendar_type )
 						$result .= self::isLeapYearJalali( $jyear ) ? '1' : '0';
 
 					else
@@ -154,7 +152,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 				case 'A': // Uppercase Ante meridiem and Post meridiem (AM or PM)
 
 					$result .= gPersianDateStrings::meridiemAntePost(
-						$datetime->format( $format[$i] ), FALSE, $calendar );
+						$datetime->format( $format[$i] ), FALSE, $calendar_type );
 
 				break;
 
@@ -177,6 +175,12 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return $result;
 	}
 
+	/**
+	 * Sanitizes given timezone data.
+	 *
+	 * @param mixed $timezone
+	 * @return string
+	 */
 	public static function sanitizeTimeZone( $timezone )
 	{
 		if ( is_a( $timezone, 'DateTimeZone' ) )
@@ -195,43 +199,40 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 	}
 
 	// FIXME: check casings!
-	public static function sanitizeCalendar( $calendar )
+	public static function sanitizeCalendar( $calendar_type )
 	{
-		if ( ! $calendar )
+		if ( ! $calendar_type )
 			return 'Jalali';
 
-		if ( in_array( $calendar, [ 'Jalali', 'jalali', 'Persian', 'persian' ] ) )
+		if ( in_array( $calendar_type, [ 'Jalali', 'jalali', 'Persian', 'persian' ] ) )
 			return 'Jalali';
 
-		if ( in_array( $calendar, [ 'Hijri', 'hijri', 'Islamic', 'islamic' ] ) )
+		if ( in_array( $calendar_type, [ 'Hijri', 'hijri', 'Islamic', 'islamic' ] ) )
 			return 'Hijri';
 
-		if ( in_array( $calendar, [ 'Gregorian', 'gregorian' ] ) )
+		if ( in_array( $calendar_type, [ 'Gregorian', 'gregorian' ] ) )
 			return 'Gregorian';
 
 		return 'Jalali';
 	}
 
-	public static function todayGregorian( $time = 'now', $timezone = NULL )
+	public static function todayGregorian( $time = 'now', $timezone_string = NULL )
 	{
-		$timezone = self::sanitizeTimeZone( $timezone );
-		$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
+		$datetime = new \DateTime( $time, new \DateTimeZone( self::sanitizeTimeZone( $timezone_string ) ) );
 
 		return explode( '-', $datetime->format( 'Y-n-j' ) );
 	}
 
-	public static function todayJalali( $time = 'now', $timezone = NULL )
+	public static function todayJalali( $time = 'now', $timezone_string = NULL )
 	{
-		$timezone = self::sanitizeTimeZone( $timezone );
-		$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
+		$datetime = new \DateTime( $time, new \DateTimeZone( self::sanitizeTimeZone( $timezone_string ) ) );
 
 		return call_user_func_array( [ __CLASS__, 'toJalali' ], explode( '-', $datetime->format( 'Y-n-j' ) ) );
 	}
 
-	public static function todayHijri( $time = 'now', $timezone = NULL )
+	public static function todayHijri( $time = 'now', $timezone_string = NULL )
 	{
-		$timezone = self::sanitizeTimeZone( $timezone );
-		$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
+		$datetime = new \DateTime( $time, new \DateTimeZone( self::sanitizeTimeZone( $timezone_string ) ) );
 
 		return call_user_func_array( [ __CLASS__, 'toHijri' ], explode( '-', $datetime->format( 'Y-n-j' ) ) );
 	}
@@ -330,15 +331,15 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 	}
 
 	// @SEE: `DateTime::createFromFormat('d/m/Y', '12/02/1973', $tz)`
-	public static function makeObject( $hour, $minute, $second, $month, $day, $year, $calendar = 'Jalali', $timezone = NULL )
+	public static function makeObject( $hour, $minute, $second, $month, $day, $year, $calendar_type = 'Jalali', $timezone_string = NULL )
 	{
-		$calendar = self::sanitizeCalendar( $calendar );
-		$timezone = self::sanitizeTimeZone( $timezone );
+		$calendar_type   = self::sanitizeCalendar( $calendar_type );
+		$timezone_string = self::sanitizeTimeZone( $timezone_string );
 
-		if ( 'Gregorian' == $calendar )
+		if ( 'Gregorian' === $calendar_type )
 			$date = [ $year, $month, $day ];
 
-		else if ( 'Hijri' == $calendar )
+		else if ( 'Hijri' === $calendar_type )
 			$date = self::fromHijri( $year, $month, $day );
 
 		else
@@ -347,18 +348,18 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		$time = $date[0].'-'.sprintf( '%02d', $date[1] ).'-'.sprintf( '%02d', $date[2] ).' ';
 		$time.= sprintf( '%02d', $hour ).':'.sprintf( '%02d', $minute ).':'.sprintf( '%02d', $second );
 
-		return date_create( $time, new \DateTimeZone( $timezone ) );
+		return date_create( $time, new \DateTimeZone( $timezone_string ) );
 	}
 
-	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar = 'Jalali', $timezone = NULL )
+	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar_type = 'Jalali', $timezone_string = NULL )
 	{
-		$calendar = self::sanitizeCalendar( $calendar );
-		$timezone = self::sanitizeTimeZone( $timezone );
+		$calendar_type   = self::sanitizeCalendar( $calendar_type );
+		$timezone_string = self::sanitizeTimeZone( $timezone_string );
 
-		if ( 'Gregorian' == $calendar )
+		if ( 'Gregorian' === $calendar_type )
 			list( $year, $month, $day ) = [ $jyear, $jmonth, $jday ];
 
-		else if ( 'Hijri' == $calendar )
+		else if ( 'Hijri' === $calendar_type )
 			list( $year, $month, $day ) = self::fromHijri( $jyear, $jmonth, $jday );
 
 		else
@@ -369,7 +370,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 		try {
 
-			$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
+			$datetime = new \DateTime( $time, new \DateTimeZone( $timezone_string ) );
 			return $datetime->format( 'U' );
 
 		} catch ( \Exception $e ) {
