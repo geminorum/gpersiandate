@@ -541,4 +541,27 @@ class gPersianDateDate extends gPersianDateModuleCore
 			$parts['timezone']
 		);
 	}
+
+	/**
+	 * Retrieves the date, by given calendar in localized format.
+	 * NOTE: usually called by other plugins!
+	 *
+	 * @param string $format
+	 * @param string $datetime_string
+	 * @param string $calendar_type
+	 * @param string $timezone_string
+	 * @param string $locale
+	 * @return false|string
+	 */
+	public static function formatByCalendar( $format, $datetime_string = NULL, $calendar_type = 'gregorian', $timezone_string = NULL, $locale = NULL )
+	{
+		return self::fromObject(
+			$format,
+			self::toObject( $datetime_string, $timezone_string ),
+			$timezone_string,
+			$locale,
+			NULL,
+			$calendar_type
+		);
+	}
 }
