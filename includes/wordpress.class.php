@@ -5,6 +5,9 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 	protected $ajax = TRUE;
 
+	private $_today_date;
+	private $_today_islamic;
+
 	protected function setup_actions()
 	{
 		if ( gPersianDateWP::isWPcompatible( '5.3.0' ) )
@@ -340,18 +343,18 @@ class gPersianDateWordPress extends gPersianDateModuleCore
 
 		if ( gPersianDateText::has( $items, '{TODAY_DATE}' ) ) {
 
-			if ( ! isset( $this->today_date ) )
-				$this->today_date = gPersianDateDate::fromObject( $format );
+			if ( ! isset( $this->_today_date ) )
+				$this->_today_date = gPersianDateDate::fromObject( $format );
 
-			$items = preg_replace( '%{TODAY_DATE}%', $this->today_date, $items );
+			$items = preg_replace( '%{TODAY_DATE}%', $this->_today_date, $items );
 		}
 
 		if ( gPersianDateText::has( $items, '{TODAY_DATE_HIJRI}' ) ) {
 
-			if ( ! isset( $this->today_hijri ) )
-				$this->today_hijri = gPersianDateDate::fromObjectHijri( $format );
+			if ( ! isset( $this->_today_islamic ) )
+				$this->_today_islamic = gPersianDateDate::fromObjectIslamic( $format );
 
-			$items = preg_replace( '%{TODAY_DATE_HIJRI}%', $this->today_hijri, $items );
+			$items = preg_replace( '%{TODAY_DATE_HIJRI}%', $this->_today_islamic, $items );
 		}
 
 		return $items;

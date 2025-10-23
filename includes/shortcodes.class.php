@@ -15,8 +15,8 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 			'date-archives-compact' => 'shortcode_archives_compact',
 			'date-today'            => 'shortcode_today',
 			'date-today-persian'    => 'shortcode_today',
-			'date-today-hijri'      => 'shortcode_today_hijri',
-			'date-today-islamic'    => 'shortcode_today_hijri',
+			'date-today-hijri'      => 'shortcode_today_islamic',
+			'date-today-islamic'    => 'shortcode_today_islamic',
 			'entry-link-published'  => 'shortcode_entry_published',
 		] );
 
@@ -129,6 +129,11 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 
 	public function shortcode_today_hijri( $atts = [], $content = NULL, $tag = '' )
 	{
+		self::shortcode_today_islamic( $atts, $content, $tag );
+	}
+
+	public function shortcode_today_islamic( $atts = [], $content = NULL, $tag = '' )
+	{
 		$args = shortcode_atts( [
 			'format'  => get_option( 'date_format' ), // 'j F Y',
 			'class'   => '',
@@ -141,10 +146,10 @@ class gPersianDateShortCodes extends gPersianDateModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$format = gPersianDateFormat::sanitize( $args['format'], 'today-hijri' );
-		$html   = gPersianDateDate::fromObjectHijri( $format );
+		$format = gPersianDateFormat::sanitize( $args['format'], 'today-islamic' );
+		$html   = gPersianDateDate::fromObjectIslamic( $format );
 
-		return self::shortcodeWrap( $html, 'date-today-hijri', $args, FALSE );
+		return self::shortcodeWrap( $html, 'date-today-islamic', $args, FALSE );
 	}
 
 	// @REF: http://justintadlock.com/?p=2507

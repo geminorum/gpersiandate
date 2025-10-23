@@ -25,14 +25,14 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 			$datetime = $time;
 		}
 
-		if ( 'Gregorian' === $calendar_type )
+		if ( 'gregorian' === $calendar_type )
 			return $datetime->format( $format );
 
-		else if ( 'Hijri' === $calendar_type )
-			$convertor = [ __CLASS__, 'toHijri' ];
+		else if ( 'islamic' === $calendar_type )
+			$convertor = [ __CLASS__, 'toIslamic' ];
 
 		else
-			$convertor = [ __CLASS__, 'toJalali' ];
+			$convertor = [ __CLASS__, 'toPersian' ];
 
 		$year  = $datetime->format( 'Y' );
 		$month = $datetime->format( 'n' );
@@ -104,31 +104,31 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 				case 't': // Number of days in the given month (29 through 31)
 
-					if ( 'Hijri' == $calendar_type )
-						$result .= self::daysInMonthHijri( $jmonth, $jyear );
+					if ( 'islamic' === $calendar_type )
+						$result .= self::daysInMonthIslamic( $jmonth, $jyear );
 
 					else
-						$result .= self::daysInMonthJalali( $jmonth, $jyear );
+						$result .= self::daysInMonthPersian( $jmonth, $jyear );
 
 				break;
 
 				case 'z': // The day of the year starting from 0 (0 through 365)
 
-					if ( 'Hijri' == $calendar_type )
-						$result .= self::dayOfYearHijri( $jmonth, $jday ) - 1;
+					if ( 'islamic' === $calendar_type )
+						$result .= self::dayOfYearIslamic( $jmonth, $jday ) - 1;
 
 					else
-						$result .= self::dayOfYearJalali( $jmonth, $jday ) - 1;
+						$result .= self::dayOfYearPersian( $jmonth, $jday ) - 1;
 
 				break;
 
 				case 'L': // Whether it's a leap year (1 if it is a leap year, 0 otherwise.)
 
-					if ( 'Hijri' == $calendar_type )
-						$result .= self::isLeapYearJalali( $jyear ) ? '1' : '0';
+					if ( 'islamic' === $calendar_type )
+						$result .= self::isLeapYearIslamic( $jyear ) ? '1' : '0';
 
 					else
-						$result .= self::isLeapYearHijri( $jyear ) ? '1' : '0';
+						$result .= self::isLeapYearPersian( $jyear ) ? '1' : '0';
 
 				break;
 
@@ -139,7 +139,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 					$days = $z - $firstSaturday; // Number of days after the first Saturday of the year
 
 					if ( $days < 0 ) {
-						$z += self::checkJalali( 12, 30, $jyear - 1 ) ? 366 : 365;
+						$z += self::checkPersian( 12, 30, $jyear - 1 ) ? 366 : 365;
 						$firstSaturday = ( $z - $datetime->format( 'w' ) + 7 ) % 7;
 						$days = $z - $firstSaturday;
 					}
@@ -202,18 +202,18 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 	public static function sanitizeCalendar( $calendar_type )
 	{
 		if ( ! $calendar_type )
-			return 'Jalali';
+			return 'persian';
 
 		if ( in_array( $calendar_type, [ 'Jalali', 'jalali', 'Persian', 'persian' ] ) )
-			return 'Jalali';
+			return 'persian';
 
-		if ( in_array( $calendar_type, [ 'Hijri', 'hijri', 'Islamic', 'islamic' ] ) )
-			return 'Hijri';
+		if ( in_array( $calendar_type, [ 'Hijri', 'hijri', 'Islamic', 'islamic', 'islamic-civil' ] ) )
+			return 'islamic';
 
 		if ( in_array( $calendar_type, [ 'Gregorian', 'gregorian' ] ) )
-			return 'Gregorian';
+			return 'gregorian';
 
-		return 'Jalali';
+		return 'persian';
 	}
 
 	public static function todayGregorian( $time = 'now', $timezone_string = NULL )
@@ -225,16 +225,28 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 	public static function todayJalali( $time = 'now', $timezone_string = NULL )
 	{
+		self::_dev_dep( 'gPersianDateDateTime::todayPersian()' );
+		return self::todayPersian( $time, $timezone_string );
+	}
+
+	public static function todayPersian( $time = 'now', $timezone_string = NULL )
+	{
 		$datetime = new \DateTime( $time, new \DateTimeZone( self::sanitizeTimeZone( $timezone_string ) ) );
 
-		return call_user_func_array( [ __CLASS__, 'toJalali' ], explode( '-', $datetime->format( 'Y-n-j' ) ) );
+		return call_user_func_array( [ __CLASS__, 'toPersian' ], explode( '-', $datetime->format( 'Y-n-j' ) ) );
 	}
 
 	public static function todayHijri( $time = 'now', $timezone_string = NULL )
 	{
+		self::_dev_dep( 'gPersianDateDateTime::todayIslamic()' );
+		return self::todayIslamic( $time, $timezone_string );
+	}
+
+	public static function todayIslamic( $time = 'now', $timezone_string = NULL )
+	{
 		$datetime = new \DateTime( $time, new \DateTimeZone( self::sanitizeTimeZone( $timezone_string ) ) );
 
-		return call_user_func_array( [ __CLASS__, 'toHijri' ], explode( '-', $datetime->format( 'Y-n-j' ) ) );
+		return call_user_func_array( [ __CLASS__, 'toIslamic' ], explode( '-', $datetime->format( 'Y-n-j' ) ) );
 	}
 
 	// @SOURCE: https://davidwalsh.name/php-function-calculating-days-in-a-month
@@ -256,19 +268,31 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return self::$g_days_in_month[$month-1];
 	}
 
-	// @REF: `cal_days_in_month()`
 	public static function daysInMonthJalali( $month, $year )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::daysInMonthPersian()' );
+		return self::daysInMonthPersian( $month, $year );
+	}
+
+	// @REF: `cal_days_in_month()`
+	public static function daysInMonthPersian( $month, $year )
 	{
 		if ( $month < 12 )
 			return self::$j_days_in_month[$month-1];
 
-		return self::isLeapYearJalali( $year ) ? 30 : 29;
+		return self::isLeapYearPersian( $year ) ? 30 : 29;
+	}
+
+	public static function daysInMonthHijri( $month, $year )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::daysInMonthIslamic()' );
+		return self::daysInMonthIslamic( $month, $year );
 	}
 
 	// FIXME
-	public static function daysInMonthHijri( $month, $year )
+	public static function daysInMonthIslamic( $month, $year )
 	{
-		return self::daysInMonthJalali( $month, $year );
+		return self::daysInMonthPersian( $month, $year );
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.cal-days-in-month.php#102855
@@ -287,19 +311,31 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return intval( ( $next - $now ) / ( 60 * 60 * 24 ) );
 	}
 
-	// FIXME
 	public static function daysTillBirthdayHijri( $month, $day, $form = 'now' )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::daysTillBirthdayIslamic()' );
+		return self::daysTillBirthdayIslamic( $month, $day, $form );
+	}
+
+	// FIXME
+	public static function daysTillBirthdayIslamic( $month, $day, $form = 'now' )
 	{
 		return 0;
 	}
 
 	public static function daysTillBirthdayJalali( $month, $day, $form = 'now' )
 	{
-		list( $this_year, $this_month, $this_day ) = self::todayJalali( $form );
+		self::_dev_dep( 'gPersianDateDateTime::daysTillBirthdayPersian()' );
+		return self::daysTillBirthdayPersian( $month, $day, $form );
+	}
 
-		$days = self::isLeapYearJalali( $this_year ) ? 366 : 365;
-		$next = self::makeJalali( 0, 0, 0, $month, $day, $this_year + 1 );
-		$now  = self::makeJalali( 0, 0, 0, $this_month, $this_day, $this_year );
+	public static function daysTillBirthdayPersian( $month, $day, $form = 'now' )
+	{
+		list( $this_year, $this_month, $this_day ) = self::todayPersian( $form );
+
+		$days = self::isLeapYearPersian( $this_year ) ? 366 : 365;
+		$next = self::makePersian( 0, 0, 0, $month, $day, $this_year + 1 );
+		$now  = self::makePersian( 0, 0, 0, $this_month, $this_day, $this_year );
 
 		if ( $next < $now )
 			$next = $next + ( 60 * 60 * 24 * $days );
@@ -307,8 +343,14 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return intval( ( $next - $now ) / ( 60 * 60 * 24 ) );
 	}
 
-	// The day of the year: 1 through 366
 	public static function dayOfYearJalali( $month, $day )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::dayOfYearPersian()' );
+		return self::dayOfYearPersian( $month, $day );
+	}
+
+	// The day of the year: 1 through 366
+	public static function dayOfYearPersian( $month, $day )
 	{
 		$day_of_year = 0;
 
@@ -327,23 +369,30 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 	public static function dayOfYearHijri( $month, $day )
 	{
-		return self::dayOfYearJalali( $month, $day );
+		self::_dev_dep( 'gPersianDateDateTime::dayOfYearIslamic()' );
+		return self::dayOfYearIslamic( $month, $day );
+	}
+
+	// FIXME
+	public static function dayOfYearIslamic( $month, $day )
+	{
+		return self::dayOfYearPersian( $month, $day );
 	}
 
 	// @SEE: `DateTime::createFromFormat('d/m/Y', '12/02/1973', $tz)`
-	public static function makeObject( $hour, $minute, $second, $month, $day, $year, $calendar_type = 'Jalali', $timezone_string = NULL )
+	public static function makeObject( $hour, $minute, $second, $month, $day, $year, $calendar_type = 'persian', $timezone_string = NULL )
 	{
 		$calendar_type   = self::sanitizeCalendar( $calendar_type );
 		$timezone_string = self::sanitizeTimeZone( $timezone_string );
 
-		if ( 'Gregorian' === $calendar_type )
+		if ( 'gregorian' === $calendar_type )
 			$date = [ $year, $month, $day ];
 
-		else if ( 'Hijri' === $calendar_type )
-			$date = self::fromHijri( $year, $month, $day );
+		else if ( 'islamic' === $calendar_type )
+			$date = self::fromIslamic( $year, $month, $day );
 
 		else
-			$date = self::fromJalali( $year, $month, $day );
+			$date = self::fromPersian( $year, $month, $day );
 
 		$time = $date[0].'-'.sprintf( '%02d', $date[1] ).'-'.sprintf( '%02d', $date[2] ).' ';
 		$time.= sprintf( '%02d', $hour ).':'.sprintf( '%02d', $minute ).':'.sprintf( '%02d', $second );
@@ -351,19 +400,19 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return date_create( $time, new \DateTimeZone( $timezone_string ) );
 	}
 
-	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar_type = 'Jalali', $timezone_string = NULL )
+	public static function make( $hour, $minute, $second, $jmonth, $jday, $jyear, $calendar_type = 'persian', $timezone_string = NULL )
 	{
 		$calendar_type   = self::sanitizeCalendar( $calendar_type );
 		$timezone_string = self::sanitizeTimeZone( $timezone_string );
 
-		if ( 'Gregorian' === $calendar_type )
+		if ( 'gregorian' === $calendar_type )
 			list( $year, $month, $day ) = [ $jyear, $jmonth, $jday ];
 
-		else if ( 'Hijri' === $calendar_type )
-			list( $year, $month, $day ) = self::fromHijri( $jyear, $jmonth, $jday );
+		else if ( 'islamic' === $calendar_type )
+			list( $year, $month, $day ) = self::fromIslamic( $jyear, $jmonth, $jday );
 
 		else
-			list( $year, $month, $day ) = self::fromJalali( $jyear, $jmonth, $jday );
+			list( $year, $month, $day ) = self::fromPersian( $jyear, $jmonth, $jday );
 
 		$time  = $year.'-'.sprintf( '%02d', $month ).'-'.sprintf( '%02d', $day ).' ';
 		$time .= sprintf( '%02d', $hour ).':'.sprintf( '%02d', $minute ).':'.sprintf( '%02d', $second );
@@ -388,9 +437,15 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return ( ( ( $year % 4 ) == 0 ) && ( ( ( $year % 100 ) != 0 ) || ( ( $year % 400 ) == 0 ) ) );
 	}
 
+	public static function isLeapYearJalali( $year )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::isLeapYearPersian()' );
+		return self::isLeapYearPersian( $year );
+	}
+
 	// @SOURCE: https://gitlab.com/Iranium/Iranium/
 	// @REF: https://goo.gl/wZCU76
-	public static function isLeapYearJalali( $year )
+	public static function isLeapYearPersian( $year )
 	{
 		$a = 0.025;
 		$b = 266;
@@ -409,7 +464,7 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 	public static function isLeapYearJalali_OLD( $year )
 	{
-		return self::checkJalali( 12, 30, $year );
+		return self::checkPersian( 12, 30, $year );
 	}
 
 	// @REF: https://jdf.scr.ir/tarikh/?t=tahvile_sal#jn3
@@ -418,13 +473,25 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return ( ( ( $year % 33 ) % 4 ) - 1 ) == ( (int) ( ( $year % 33 ) * 0.05 ) );
 	}
 
-	// FIXME
 	public static function isLeapYearHijri( $year )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::isLeapYearIslamic()' );
+		return self::isLeapYearIslamic( $year );
+	}
+
+	// FIXME
+	public static function isLeapYearIslamic( $year )
 	{
 		return FALSE;
 	}
 
 	public static function checkJalali( $month, $day, $year )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::checkPersian()' );
+		return self::checkPersian( $month, $day, $year );
+	}
+
+	public static function checkPersian( $month, $day, $year )
 	{
 		if ( $year < 0 || $year > 32767 )
 			return FALSE;
@@ -438,8 +505,14 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 		return TRUE;
 	}
 
-	// FIXME
 	public static function checkHijri( $month, $day, $year )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::checkIslamic()' );
+		return self::checkIslamic( $month, $day, $year );
+	}
+
+	// FIXME
+	public static function checkIslamic( $month, $day, $year )
 	{
 		return TRUE;
 	}
@@ -447,9 +520,15 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 	private static $g_days_in_month = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 	private static $j_days_in_month = [ 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29 ];
 
+	public static function toJalali( $g_y, $g_m, $g_d )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::toPersian()' );
+		return self::toPersian( $g_y, $g_m, $g_d );
+	}
+
 	// Gregorian to Jalali Conversion
 	// Copyright (C) 2000  Roozbeh Pournader and Mohammad Toossi
-	public static function toJalali( $g_y, $g_m, $g_d )
+	public static function toPersian( $g_y, $g_m, $g_d )
 	{
 		$gy = $g_y-1600;
 		$gm = $g_m-1;
@@ -491,12 +570,18 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 	// Back Comp
 	public static function toGregorian( $j_y, $j_m, $j_d )
 	{
-		return self::fromJalali( $j_y, $j_m, $j_d );
+		return self::fromPersian( $j_y, $j_m, $j_d );
+	}
+
+	public static function fromJalali( $j_y, $j_m, $j_d )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::fromPersian()' );
+		return self::fromPersian( $j_y, $j_m, $j_d );
 	}
 
 	// Jalali to Gregorian Conversion
 	// Copyright (C) 2000  Roozbeh Pournader and Mohammad Toossi
-	public static function fromJalali( $j_y, $j_m, $j_d )
+	public static function fromPersian( $j_y, $j_m, $j_d )
 	{
 		$jy = $j_y - 979;
 		$jm = $j_m - 1;
@@ -647,6 +732,12 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 	public static function toHijri( $year, $month, $day )
 	{
+		self::_dev_dep( 'gPersianDateDateTime::toIslamic()' );
+		return self::toIslamic( $year, $month, $day );
+	}
+
+	public static function toIslamic( $year, $month, $day )
+	{
 		if ( $year > 1582 or ( $year==1581 and $month > 9 and $day > 14 ) ){
 			$int1=(int)(($month-14)/12);
 			$jd=(int)((1461*($year+4800+$int1))/4)+(int)((367*($month-2-(12*($int1))))/12)-(int)((3*((int)(($year+4900+$int1)/100)))/4)+$day-32075;
@@ -667,6 +758,12 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 	}
 
 	public static function fromHijri( $year, $month, $day )
+	{
+		self::_dev_dep( 'gPersianDateDateTime::fromIslamic()' );
+		return fromIslamic( $year, $month, $day );
+	}
+
+	public static function fromIslamic( $year, $month, $day )
 	{
 		$jd=(int)(((11*$year)+3)/30)+(354*$year)+(30*$month)-(int)(($month-1)/2)+$day+1948440-385;
 

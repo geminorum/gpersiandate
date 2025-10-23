@@ -18,7 +18,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 				$time = strtotime( sprintf( '-%d months', $i ) );
 
-				if ( 'Gregorian' == $calendar_type ) {
+				if ( 'gregorian' == $calendar_type ) {
 
 					$key = date( 'Y-m', $time );
 					$val = date( 'F Y', $time );
@@ -50,7 +50,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 			switch ( $calendar_type ) {
 
-				case 'Gregorian':
+				case 'gregorian':
 
 					if ( $abbrev )
 						$strings[$calendar_type]['abbrev'] = [
@@ -84,8 +84,9 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							'12' => _x( 'December', 'Strings: Month: Gregorian: Full: December', 'gpersiandate' ), // 31 days
 						];
 
-				break;
-				case 'Hijri':
+					break;
+
+				case 'islamic':
 
 					// 'محرم', 'صفر ', 'ربیع‌الاول', 'ربیع‌الثانی', 'جمادی‌الاول', 'جمادی‌الثانی', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذیقعده', 'ذیحجه'
 					// 'محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'
@@ -122,9 +123,10 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							'12' => _x( 'Dhul Hijjah', 'Strings: Month: Hijri: Full: Dhul Hijjah', 'gpersiandate' ), // Dhu al-Hijjah (The Possessor of Hajj) ذو الحجة
 						];
 
-				break;
+					break;
+
 				default:
-				case 'Jalali':
+				case 'persian':
 
 					if ( $abbrev )
 						$strings[$calendar_type]['abbrev'] = [
@@ -177,19 +179,19 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 		if ( is_null( $strings ) )
 			$strings = [
-				'Gregorian' => [
+				'gregorian' => [
 					'am' => _x( 'am', 'Ante meridiem: Gregorian - Lowercase', 'gpersiandate' ),
 					'pm' => _x( 'pm', 'Post meridiem: Gregorian - Lowercase', 'gpersiandate' ),
 					'AM' => _x( 'AM', 'Ante meridiem: Gregorian - Uppercase', 'gpersiandate' ),
 					'PM' => _x( 'PM', 'Post meridiem: Gregorian - Uppercase', 'gpersiandate' ),
 				],
-				'Hijri' => [
+				'islamic' => [
 					'am' => _x( 'am', 'Ante meridiem: Hijri - Lowercase', 'gpersiandate' ),
 					'pm' => _x( 'pm', 'Post meridiem: Hijri - Lowercase', 'gpersiandate' ),
 					'AM' => _x( 'AM', 'Ante meridiem: Hijri - Uppercase', 'gpersiandate' ),
 					'PM' => _x( 'PM', 'Post meridiem: Hijri - Uppercase', 'gpersiandate' ),
 				],
-				'Jalali' => [
+				'persian' => [
 					'am' => _x( 'am', 'Ante meridiem: Jalali - Lowercase', 'gpersiandate' ),
 					'pm' => _x( 'pm', 'Post meridiem: Jalali - Lowercase', 'gpersiandate' ),
 					'AM' => _x( 'AM', 'Ante meridiem: Jalali - Uppercase', 'gpersiandate' ),
@@ -219,12 +221,12 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 			switch ( $calendar_type ) {
 
-				case 'Gregorian':
+				case 'gregorian':
 
 					// 0 (for Sunday) through 6 (for Saturday)
 
 					if ( $initial )
-						$strings['Gregorian']['initial'] = [
+						$strings[$calendar_type]['initial'] = [
 							_x( 'S', 'Day of the Week Initial: Gregorian - Sunday', 'gpersiandate' ),
 							_x( 'M', 'Day of the Week Initial: Gregorian - Monday', 'gpersiandate' ),
 							_x( 'T', 'Day of the Week Initial: Gregorian - Tuesday', 'gpersiandate' ),
@@ -235,7 +237,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 						];
 
 					else
-						$strings['Gregorian']['full'] = [
+						$strings[$calendar_type]['full'] = [
 							_x( 'Sunday', 'Day of the Week: Gregorian', 'gpersiandate' ),
 							_x( 'Monday', 'Day of the Week: Gregorian', 'gpersiandate' ),
 							_x( 'Tuesday', 'Day of the Week: Gregorian', 'gpersiandate' ),
@@ -245,14 +247,15 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							_x( 'Saturday', 'Day of the Week: Gregorian', 'gpersiandate' ),
 						];
 
-				break;
-				case 'Hijri':
+					break;
+
+				case 'islamic':
 
 					// @SEE: https://en.wikipedia.org/wiki/Islamic_calendar
 					// 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'
 
 					if ( $initial )
-						$strings['Hijri']['initial'] = [
+						$strings[$calendar_type]['initial'] = [
 							_x( 'Ah', 'Day of the Week Initial: Hijri - al-Ahad', 'gpersiandate' ),
 							_x( 'It', 'Day of the Week Initial: Hijri - al-Ithnayn', 'gpersiandate' ),
 							_x( 'Th', 'Day of the Week Initial: Hijri - ath-Thulatha', 'gpersiandate' ),
@@ -263,7 +266,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 						];
 
 					else
-						$strings['Hijri']['full'] = [
+						$strings[$calendar_type]['full'] = [
 							_x( 'al-Aḥad', 'Day of the Week: Hijri', 'gpersiandate' ),
 							_x( 'al-Ithnayn', 'Day of the Week: Hijri', 'gpersiandate' ),
 							_x( 'ath-Thulāthāʼ', 'Day of the Week: Hijri', 'gpersiandate' ),
@@ -273,11 +276,13 @@ class gPersianDateStrings extends gPersianDateModuleCore
 							_x( 'as-Sabt', 'Day of the Week: Hijri', 'gpersiandate' ),
 						];
 
+					break;
+
 				default:
-				case 'Jalali':
+				case 'persian':
 
 					if ( $initial )
-						$strings['Jalali']['initial'] = [
+						$strings['persian']['initial'] = [
 							_x( 'Ye', 'Day of the Week Initial: Jalali - Yek-Shanbeh', 'gpersiandate' ),
 							_x( 'Do', 'Day of the Week Initial: Jalali - Do-Shanbeh', 'gpersiandate' ),
 							_x( 'Se', 'Day of the Week Initial: Jalali - Seh-Shanbeh', 'gpersiandate' ),
@@ -288,7 +293,7 @@ class gPersianDateStrings extends gPersianDateModuleCore
 						];
 
 					else
-						$strings['Jalali']['full'] = [
+						$strings['persian']['full'] = [
 							_x( 'Yek-Shanbeh', 'Day of the Week: Jalali', 'gpersiandate' ),
 							_x( 'Do-Shanbeh', 'Day of the Week: Jalali', 'gpersiandate' ),
 							_x( 'Seh-Shanbeh', 'Day of the Week: Jalali', 'gpersiandate' ),
@@ -314,6 +319,6 @@ class gPersianDateStrings extends gPersianDateModuleCore
 	// before: `get_dayoftheweek()`
 	public static function get_dayoftheweek( $dayoftheweek, $all = FALSE, $calendar_type = NULL )
 	{
-		return self::dayoftheweek( $dayoftheweek, $all, $calendar_type ?? 'Gregorian' );
+		return self::dayoftheweek( $dayoftheweek, $all, $calendar_type ?? 'gregorian' );
 	}
 }

@@ -109,12 +109,12 @@ class gPersianDateMisc extends gPersianDateModuleCore
 	{
 		$calendar = gPersianDateDateTime::sanitizeCalendar( $calendar );
 
-		if ( 'Gregorian' == $calendar )
+		if ( 'gregorian' == $calendar )
 			return gPersianDateDateTime::daysTillBirthdayGregorian( $month, $day, $form );
 
-		else if ( 'Hijri' == $calendar )
-			return gPersianDateDateTime::daysTillBirthdayHijri( $month, $day, $form );
+		else if ( 'islamic' == $calendar )
+			return gPersianDateDateTime::daysTillBirthdayIslamic( $month, $day, $form );
 
-		return gPersianDateDateTime::daysTillBirthdayJalali( $month, $day, $form );
+		return gPersianDateDateTime::daysTillBirthdayPersian( $month, $day, $form );
 	}
 }
