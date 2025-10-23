@@ -56,8 +56,8 @@ class gPersianDateDateTime extends gPersianDateModuleCore
 
 				break;
 
-				case 'M': // There is no short textual representation of months in persian so we use full textual representaions instead.
-				case 'F': // A full textual representation of a month (Farvardin through Esfand)
+				case 'M': // There is no short textual representation of months in Persian so we use full textual representations instead.
+				case 'F': // A full textual representation of a month (`Farvardin` through `Esfand`)
 
 					$result .= gPersianDateStrings::month( $jmonth, FALSE, $calendar_type );
 

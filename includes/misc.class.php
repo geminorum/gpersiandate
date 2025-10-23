@@ -2,8 +2,6 @@
 
 class gPersianDateMisc extends gPersianDateModuleCore
 {
-
-
 	// @source `bp_core_time_diff()`
 	public static function parseMySQL( $date_string )
 	{
@@ -32,23 +30,23 @@ class gPersianDateMisc extends gPersianDateModuleCore
 	}
 
 	/**
-	 * Paeses date-strings in W3C date/time formats
+	 * Parses date-strings in `W3C` date/time formats.
 	 *
 	 * @source `parse_w3cdtf()`
 	 *
-	 * @param  string $date_string
-	 * @return int $timestamp
+	 * @param string $date_string
+	 * @return int
 	 */
 	public static function parseW3C( $date_string )
 	{
-		# regex to match W3C date/time formats
+		# Regex to match `W3C` date/time formats
 		$pattern = "/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(:(\d{2}))?(?:([-+])(\d{2}):?(\d{2})|(Z))?/";
 
 		if ( preg_match( $pattern, $date_string, $match ) ) {
 
 			list( $year, $month, $day, $hours, $minutes, $seconds ) = [ $match[1], $match[2], $match[3], $match[4], $match[5], $match[7] ];
 
-			# calc epoch for current date assuming GMT
+			# Calculates epoch for current date assuming GMT
 			$epoch = gmmktime( $hours, $minutes, $seconds, $month, $day, $year );
 
 			$offset = 0;
