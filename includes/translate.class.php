@@ -236,8 +236,17 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 	public static function sanitizeLocale( $locale = NULL )
 	{
-		if ( ! is_null( $locale ) )
-			return $locale; // TODO: do the actual sanitization!
+		if ( '' === $locale || 'en' === $locale )
+			return 'en_US';
+
+		if ( 'fa' === $locale )
+			return 'fa_IR';
+
+		// if ( 'ar' === $locale )
+		// 	return 'ar_'; // WTF?!
+
+		if ( $locale && ! is_null( $locale ) )
+			return $locale;
 
 		if ( defined( 'GPERSIANDATE_LOCALE' ) )
 			return constant( 'GPERSIANDATE_LOCALE' );
@@ -260,7 +269,6 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 				return self::chars( $string, FALSE );
 
-			break;
 			case 'ar':
 
 				$string = strtr( $string, [
@@ -280,7 +288,7 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 
 				return self::chars( $string, FALSE );
 
-			break;
+			case 'fa_AF':
 			case 'fa_IR':
 
 				$string = strtr( $string, [

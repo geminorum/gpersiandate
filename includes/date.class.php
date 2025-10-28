@@ -562,7 +562,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 	 * @param string $locale
 	 * @return false|string
 	 */
-	public static function formatByCalendar( $format, $datetime_string = NULL, $calendar_type = 'gregorian', $timezone_string = NULL, $locale = NULL )
+	public static function formatByCalendar( $format, $datetime_string = NULL, $calendar_type = 'persian', $timezone_string = NULL, $locale = NULL )
 	{
 		return self::fromObject(
 			$format,
