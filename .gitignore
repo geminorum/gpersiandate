@@ -1,15 +1,18 @@
 .build
 .idea
-.sass-cache
 .gulp
 .imdone
 .temp
+.todos
+.TODOs
+.test
 
 /assets/bin
 /assets/css/maps
+/assets/images/raw
 /assets/components
-/assets/views/cache
 /assets/packages/jquery
+/assets/views/cache/*.php
 /assets/vendor
 
 *.deps.json
@@ -22,4 +25,10 @@ npm-debug.log
 yarn-error.log
 
 environment.yml
+.env
 .ftpconfig
+
+*.WinMerge
+
+logs
+*.log

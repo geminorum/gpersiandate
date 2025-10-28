@@ -25,6 +25,7 @@
     "ready": "gulp build",
     "refresh": "gulp sass",
     "watch": "gulp watch",
+    "i18n:php": "wp i18n make-php ./languages",
     "i18n:pot": "wp i18n make-pot . --exclude='.temp,.github,.vscode,assets/components,assets/libs,assets/blocks/**/src,gulpfile.mjs' --file-comment='' --headers='{\"Last-Translator\":\"NULL\",\"Language-Team\":\"NULL\",\"Report-Msgid-Bugs-To\":\"https://github.com/geminorum/gpersiandate/issues\"}' --skip-plugins --skip-themes --skip-packages",
     "i18n:mo": "wp i18n make-mo ./languages --skip-plugins --skip-themes --skip-packages",
     "i18n:json": "wp i18n make-json languages --no-purge --skip-plugins --skip-themes --skip-packages",
@@ -35,26 +36,26 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@wordpress/browserslist-config": "^5.25.0",
-    "@wordpress/stylelint-config": "^21.25.0",
-    "autoprefixer": "^10.4.16",
-    "browserslist": "^4.22.1",
-    "cssnano": "^6.0.1",
-    "del": "^7.1.0",
+    "@wordpress/browserslist-config": "^6.33.0",
+    "@wordpress/stylelint-config": "^23.25.0",
+    "autoprefixer": "^10.4.21",
+    "browserslist": "^4.27.0",
+    "cssnano": "^7.1.1",
+    "del": "^8.0.1",
     "fancy-log": "^2.0.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "gulp-dart-sass": "^1.1.0",
     "gulp-livereload": "^4.0.2",
     "gulp-plumber": "^1.2.1",
-    "gulp-postcss": "^9.0.1",
-    "gulp-rename": "^2.0.0",
+    "gulp-postcss": "^10.0.0",
+    "gulp-rename": "^2.1.0",
     "gulp-sass-unicode": "^1.0.5",
     "gulp-sass-variables": "^1.2.0",
-    "postcss": "^8.4.31",
+    "postcss": "^8.5.6",
     "postcss-inline-svg": "^6.0.0",
-    "rtlcss": "^4.1.1",
+    "rtlcss": "^4.3.0",
     "semistandard": "^17.0.0",
-    "stylelint": "^15.10.3"
+    "stylelint": "^16.25.0"
   },
   "optionalDependencies": {
     "timeago": "^1.6.7"
@@ -74,5 +75,6 @@
     ]
   },
   "readme": "ERROR: No README data found!",
-  "private": true
+  "private": true,
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
