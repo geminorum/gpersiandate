@@ -1,3 +1,13 @@
+### 3.9.0
+* 🔧 migrate to `intl` compatible calendar type names
+* module/admin: support for new screen base of orders
+* module/date: check number ranges on make object
+* module/date: yet another callback for format by calendar
+* module/datetime: support for time zone object
+* module/plugin: disable wc enhancements
+* module/translate: by locale helper
+* 🆙 min php 7.2.24
+
 ### 3.8.3
 * module/date: check flipped day/year
 
