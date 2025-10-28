@@ -569,7 +569,7 @@ class gPersianDateDate extends gPersianDateModuleCore
 			self::toObject( $datetime_string, $timezone_string ),
 			$timezone_string,
 			$locale,
-			NULL,
+			gPersianDateTranslate::byLocale( $locale ),
 			$calendar_type
 		);
 	}

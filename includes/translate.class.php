@@ -207,6 +207,33 @@ class gPersianDateTranslate extends gPersianDateModuleCore
 		return preg_replace_callback( $pattern, [ __CLASS__, 'html_callback' ], $text );
 	}
 
+	/**
+	 * Should translate by given locale?
+	 *
+	 * @param string $locale
+	 * @return null|bool
+	 */
+	public static function byLocale( $locale )
+	{
+		if ( is_null( $locale ) )
+			return NULL; // determine by converter
+
+		switch ( self::sanitizeLocale( $locale ) ) {
+
+			case 'ar':
+			case 'fa':
+			case 'fa_AF':
+			case 'fa_IR':
+				return TRUE;
+
+			default:
+			case 'en_US':
+				return FALSE;
+		}
+
+		return NULL;
+	}
+
 	public static function sanitizeLocale( $locale = NULL )
 	{
 		if ( ! is_null( $locale ) )
