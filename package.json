@@ -3,7 +3,7 @@
   "productName": "gPersianDate",
   "version": "3.9.0",
   "description": "Persian Date for WordPress",
-  "license": "GPL-3+",
+  "license": "GPL-2.0-or-later",
   "homepage": "https://github.com/geminorum/gpersiandate",
   "author": {
     "name": "Nasser Rafie",
