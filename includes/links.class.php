@@ -126,8 +126,6 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( ! $conversion )
 			return $where;
 
-		$where = self::stripDateClauses( $where );
-
 		if ( $end['second'] > 59 ) {
 			$end['second'] = 0;
 			$end['minute']++;
@@ -153,6 +151,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 			$end['year']++;
 		}
 
+		$where      = self::stripDateClauses( $where );
 		$start_date = gPersianDateDate::makeMySQLFromArray( $start );
 		$end_date   = gPersianDateDate::makeMySQLFromArray( $end );
 
@@ -237,6 +236,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		return home_url( $link );
 	}
 
+	// NOTE: always make the link based on given year/month/day, unless false given and caller converts into current date.
 	public function day_link( $daylink, $year, $month, $day )
 	{
 		if ( $year !== current_time( 'Y' ) )
@@ -248,7 +248,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( $day !== current_time( 'j' ) )
 			return $daylink;
 
-		$date = gPersianDateDate::get( $year.'-'.$month.'-'.$day );
+		$date = gPersianDateDate::getFromObject( sprintf( '%s-%s-%s', $year, $month, $day ) );
 
 		return self::build( 'day', $date['year'], $date['mon'], $date['mday'] );
 	}
@@ -261,7 +261,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( $month !== current_time( 'm' ) )
 			return $monthlink;
 
-		$date = gPersianDateDate::get( $year.'-'.$month.'-01' );
+		$date = gPersianDateDate::getFromObject( sprintf( '%s-%s-01', $year, $month ) );
 
 		return self::build( 'month', $date['year'], $date['mon'] );
 	}
@@ -271,7 +271,7 @@ class gPersianDateLinks extends gPersianDateModuleCore
 		if ( $year !== current_time( 'Y' ) )
 			return $yearlink;
 
-		$date = gPersianDateDate::get( $year.'-01-01' );
+		$date = gPersianDateDate::getFromObject( sprintf( '%s-01-01', $year ) );
 
 		return self::build( 'year', $date['year'] );
 	}

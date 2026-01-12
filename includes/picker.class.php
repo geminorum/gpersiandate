@@ -56,7 +56,7 @@ class gPersianDatePicker extends gPersianDateModuleCore
 	{
 		global $wp_locale;
 
-		$days = gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', FALSE );
+		$days = gPersianDateStrings::dayoftheweek( NULL, TRUE, 'persian', FALSE );
 
 		return [
 			'closeText'   => _x( 'Done', 'Date Picker', 'gpersiandate' ),
@@ -66,9 +66,9 @@ class gPersianDatePicker extends gPersianDateModuleCore
 
 			'dayNames'        => array_values( $days ),
 			'dayNamesShort'   => array_values( $days ),
-			'dayNamesMin'     => array_values( gPersianDateStrings::dayoftheweek( NULL, TRUE, 'Jalali', TRUE ) ),
-			'monthNames'      => array_values( gPersianDateStrings::month( NULL, TRUE, 'Jalali', FALSE ) ),
-			'monthNamesShort' => array_values( gPersianDateStrings::month( NULL, TRUE, 'Jalali', TRUE ) ),
+			'dayNamesMin'     => array_values( gPersianDateStrings::dayoftheweek( NULL, TRUE, 'persian', TRUE ) ),
+			'monthNames'      => array_values( gPersianDateStrings::month( NULL, TRUE, 'persian', FALSE ) ),
+			'monthNamesShort' => array_values( gPersianDateStrings::month( NULL, TRUE, 'persian', TRUE ) ),
 
 			'isRTL'      => $wp_locale->is_rtl(),
 			// 'dateFormat' => is_null( $format ) ? 'yy-mm-dd' : $format,

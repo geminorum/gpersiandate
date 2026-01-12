@@ -5,7 +5,7 @@ class gPersianDateArchives extends gPersianDateModuleCore
 
 	// TODO: REWRITE THIS
 	// @SOURCE: `wp_get_archives()`
-	public static function get( $r = '' )
+	public static function get( $atts = '' )
 	{
 		global $wpdb;
 
@@ -21,7 +21,8 @@ class gPersianDateArchives extends gPersianDateModuleCore
 			'post_type'       => 'post',
 		];
 
-		$args = wp_parse_args( $r, $defaults );
+		$args = apply_filters( 'wp_get_archives_args', $atts ); // @since WP 7.0.0
+		$args = wp_parse_args( $args, $defaults );
 
 		$post_type_object = get_post_type_object( $args['post_type'] );
 
