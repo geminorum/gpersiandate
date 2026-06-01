@@ -283,24 +283,24 @@ class gPersianDateStrings extends gPersianDateModuleCore
 
 					if ( $initial )
 						$strings['persian']['initial'] = [
-							_x( 'Ye', 'Day of the Week Initial: Jalali - Yek-Shanbeh', 'gpersiandate' ),
-							_x( 'Do', 'Day of the Week Initial: Jalali - Do-Shanbeh', 'gpersiandate' ),
-							_x( 'Se', 'Day of the Week Initial: Jalali - Seh-Shanbeh', 'gpersiandate' ),
-							_x( 'Ch', 'Day of the Week Initial: Jalali - Chahar-Shanbeh', 'gpersiandate' ),
-							_x( 'Pa', 'Day of the Week Initial: Jalali - Panj-Shanbeh', 'gpersiandate' ),
-							_x( 'Ad', 'Day of the Week Initial: Jalali - Adineh', 'gpersiandate' ),
-							_x( 'Sh', 'Day of the Week Initial: Jalali - Shanbeh', 'gpersiandate' ),
+							_x( 'S', 'Day of the Week Initial: Persian - Sunday', 'gpersiandate' ),
+							_x( 'M', 'Day of the Week Initial: Persian - Monday', 'gpersiandate' ),
+							_x( 'T', 'Day of the Week Initial: Persian - Tuesday', 'gpersiandate' ),
+							_x( 'W', 'Day of the Week Initial: Persian - Wednesday', 'gpersiandate' ),
+							_x( 'T', 'Day of the Week Initial: Persian - Thursday', 'gpersiandate' ),
+							_x( 'F', 'Day of the Week Initial: Persian - Friday', 'gpersiandate' ),
+							_x( 'S', 'Day of the Week Initial: Persian - Saturday', 'gpersiandate' ),
 						];
 
 					else
 						$strings['persian']['full'] = [
-							_x( 'Yek-Shanbeh', 'Day of the Week: Jalali', 'gpersiandate' ),
-							_x( 'Do-Shanbeh', 'Day of the Week: Jalali', 'gpersiandate' ),
-							_x( 'Seh-Shanbeh', 'Day of the Week: Jalali', 'gpersiandate' ),
-							_x( 'Chahar-Shanbeh', 'Day of the Week: Jalali', 'gpersiandate' ),
-							_x( 'Panj-Shanbeh', 'Day of the Week: Jalali', 'gpersiandate' ),
-							_x( 'Adineh', 'Day of the Week: Jalali', 'gpersiandate' ),
-							_x( 'Shanbeh', 'Day of the Week: Jalali', 'gpersiandate' ),
+							_x( 'Sunday', 'Day of the Week: Persian', 'gpersiandate' ),
+							_x( 'Monday', 'Day of the Week: Persian', 'gpersiandate' ),
+							_x( 'Tuesday', 'Day of the Week: Persian', 'gpersiandate' ),
+							_x( 'Wednesday', 'Day of the Week: Persian', 'gpersiandate' ),
+							_x( 'Thursday', 'Day of the Week: Persian', 'gpersiandate' ),
+							_x( 'Friday', 'Day of the Week: Persian', 'gpersiandate' ),
+							_x( 'Saturday', 'Day of the Week: Persian', 'gpersiandate' ),
 						];
 			}
 		}
