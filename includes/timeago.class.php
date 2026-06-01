@@ -48,26 +48,36 @@ class gPersianDateTimeAgo extends gPersianDateBase
 
 				// $strings['numbers'] = array_map( [ 'gPersianDateTranslate', 'numbers' ), range( 0, 9 ) );
 				$strings['numbers'] = [
-					'0' => chr(0xDB).chr(0xB0),
-					'1' => chr(0xDB).chr(0xB1),
-					'2' => chr(0xDB).chr(0xB2),
-					'3' => chr(0xDB).chr(0xB3),
-					'4' => chr(0xDB).chr(0xB4),
-					'5' => chr(0xDB).chr(0xB5),
-					'6' => chr(0xDB).chr(0xB6),
-					'7' => chr(0xDB).chr(0xB7),
-					'8' => chr(0xDB).chr(0xB8),
-					'9' => chr(0xDB).chr(0xB9),
+					// '0' => chr(0xDB).chr(0xB0),
+					// '1' => chr(0xDB).chr(0xB1),
+					// '2' => chr(0xDB).chr(0xB2),
+					// '3' => chr(0xDB).chr(0xB3),
+					// '4' => chr(0xDB).chr(0xB4),
+					// '5' => chr(0xDB).chr(0xB5),
+					// '6' => chr(0xDB).chr(0xB6),
+					// '7' => chr(0xDB).chr(0xB7),
+					// '8' => chr(0xDB).chr(0xB8),
+					// '9' => chr(0xDB).chr(0xB9),
+					chr(0xDB).chr(0xB0),
+					chr(0xDB).chr(0xB1),
+					chr(0xDB).chr(0xB2),
+					chr(0xDB).chr(0xB3),
+					chr(0xDB).chr(0xB4),
+					chr(0xDB).chr(0xB5),
+					chr(0xDB).chr(0xB6),
+					chr(0xDB).chr(0xB7),
+					chr(0xDB).chr(0xB8),
+					chr(0xDB).chr(0xB9),
 				];
 			}
 
-			$encoded = wp_json_encode( $strings );
+			$encoded = wp_json_encode( $strings, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_UNESCAPED_SLASHES );
 
 			$script.= "jQuery.timeago.settings.strings={$encoded};";
 		}
 
-		// display original dates older than 24 hours
-		// cutoff: returns the original date if time distance is older than cutoff (miliseconds)
+		// Displays original dates older than 24 hours
+		// returns the original date if time distance is older than `cutoff` (milliseconds)
 		$script.= "jQuery.timeago.settings.cutoff=1000*60*60*24*7;";
 
 		$script.= "jQuery(document).ready(function($){

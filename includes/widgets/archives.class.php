@@ -2,7 +2,8 @@
 
 require_once( ABSPATH.WPINC.'/widgets/class-wp-widget-archives.php' );
 
-class WP_Widget_Persian_Archives extends WP_Widget_Archives {
+#[\AllowDynamicProperties]
+class WP_Widget_Persian_Archives extends \WP_Widget_Archives {
 
 	// almost exact copy of core 5.4-alpha-46786
 	public function widget( $args, $instance ) {
@@ -28,22 +29,18 @@ class WP_Widget_Persian_Archives extends WP_Widget_Archives {
 			<?php
 			/**
 			 * Filters the arguments for the Archives widget drop-down.
+			 * @see `wp_get_archives()`
 			 *
-			 * @since 2.8.0
-			 * @since 4.9.0 Added the `$instance` parameter.
-			 *
-			 * @see wp_get_archives()
-			 *
-			 * @param array $args     An array of Archives widget drop-down arguments.
-			 * @param array $instance Settings for the current Archives widget instance.
+			 * @param array $args
+			 * @param array $instance
 			 */
 			$dropdown_args = apply_filters(
 				'widget_archives_dropdown_args',
-				array(
+				[
 					'type'            => 'monthly',
 					'format'          => 'option',
 					'show_post_count' => $c,
-				),
+				],
 				$instance
 			);
 
@@ -65,16 +62,12 @@ class WP_Widget_Persian_Archives extends WP_Widget_Archives {
 					break;
 			}
 
-			$type_attr = current_theme_supports( 'html5', 'script' ) ? '' : ' type="text/javascript"';
-			?>
-
-			<option value=""><?php echo esc_attr( $label ); ?></option>
+			?><option value=""><?php echo esc_attr( $label ); ?></option>
 			<?php gPersianDateArchives::get( $dropdown_args ); ?>
 
 		</select>
 
-<script<?php echo $type_attr; ?>>
-/* <![CDATA[ */
+<script>
 (function() {
 	var dropdown = document.getElementById( "<?php echo esc_js( $dropdown_id ); ?>" );
 	function onSelectChange() {
@@ -84,36 +77,31 @@ class WP_Widget_Persian_Archives extends WP_Widget_Archives {
 	}
 	dropdown.onchange = onSelectChange;
 })();
-/* ]]> */
-</script>
+</script><?php
 
-		<?php } else { ?>
-		<ul>
-			<?php
+		} else {
+
+			echo '<ul>';
+
 			gPersianDateArchives::get(
 				/**
 				 * Filters the arguments for the Archives widget.
+				 * @see `wp_get_archives()`
 				 *
-				 * @since 2.8.0
-				 * @since 4.9.0 Added the `$instance` parameter.
-				 *
-				 * @see wp_get_archives()
-				 *
-				 * @param array $args     An array of Archives option arguments.
-				 * @param array $instance Array of settings for the current widget.
+				 * @param array $args.
+				 * @param array $instance
 				 */
 				apply_filters(
 					'widget_archives_args',
-					array(
+					[
 						'type'            => 'monthly',
 						'show_post_count' => $c,
-					),
+					],
 					$instance
 				)
 			);
-			?>
-		</ul>
-			<?php
+
+			echo '</ul>';
 		}
 
 		echo $args['after_widget'];

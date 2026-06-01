@@ -13,7 +13,8 @@ class gPersianDateAdminBar extends gPersianDateModuleCore
 	public function init()
 	{
 		if ( is_admin_bar_showing() && is_user_logged_in() )
-			add_action( 'wp_before_admin_bar_render', [ $this, 'wp_before_admin_bar_render' ], 999 );
+			// add_action( 'wp_before_admin_bar_render', [ $this, 'wp_before_admin_bar_render' ], 999 );
+			add_action( 'admin_bar_menu', [ $this, 'wp_before_admin_bar_render' ], -99999 );
 	}
 
 	// needs to be last

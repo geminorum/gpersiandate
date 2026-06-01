@@ -41,6 +41,8 @@ class gPersianDatePlugins extends gPersianDateModuleCore
 
 	public function woocommerce_loaded()
 	{
+		// add_filter( 'woocommerce_admin_order_date_format' )
+
 		add_filter( 'woocommerce_date_format', [ $this, 'woocommerce_date_format' ], 9, 1 );
 		add_filter( 'woocommerce_time_format', [ $this, 'woocommerce_time_format' ], 9, 1 );
 

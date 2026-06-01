@@ -11,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: geminorum
 Author URI: https://geminorum.ir/
 Network: false
-TextDomain: gpersiandate
+Text Domain: gpersiandate
 Domain Path: /languages
 Requires PHP: 7.2.24
 Requires WP: 5.0
@@ -25,8 +25,6 @@ define( 'GPERSIANDATE_MIN_PHP', '7.2.24' );
 define( 'GPERSIANDATE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GPERSIANDATE_URL', plugin_dir_url( __FILE__ ) );
 define( 'GPERSIANDATE_FILE', basename( GPERSIANDATE_DIR ).'/'.basename( __FILE__ ) );
-
-// defined( 'GPERSIANDATE_TEXTDOMAIN' ) or define( 'GPERSIANDATE_TEXTDOMAIN', 'gpersiandate' );
 
 if ( version_compare( GPERSIANDATE_MIN_PHP, phpversion(), '>=' ) ) {
 
